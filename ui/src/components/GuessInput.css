@@ -1,0 +1,12 @@
+.guess-box {
+    max-width: 220px;
+    display: inline;
+}
+
+.pitch-slider {
+  height: 200px;
+}
+
+.duration-slider {
+  width: 200px;
+}
