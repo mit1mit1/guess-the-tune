@@ -19,3 +19,20 @@ export enum AnswerStatus {
   CORRECT,
   INCORRECT,
 }
+
+export interface DurationObject {
+  "16n": 0;
+  "8n": 0;
+  "8n.": 0;
+  "4n": 0;
+  "4n.": 0;
+  "2n": 0;
+  "2n.": 0;
+  "1n": 0;
+  "1n.": 0;
+}
+
+export interface NoteStatus {
+  pitchStatus: AnswerStatus;
+  durationStatus: AnswerStatus;
+}

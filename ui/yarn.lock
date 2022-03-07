@@ -2119,6 +2119,11 @@
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.2.tgz#fc25ad9943bcac11cceb8168db4f275e0e72e756"
   integrity sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==
 
+"@types/vexflow@^1.2.37":
+  version "1.2.37"
+  resolved "https://registry.yarnpkg.com/@types/vexflow/-/vexflow-1.2.37.tgz#8c09fc8aba0b62966b7294c7eadd763cacb5aeb2"
+  integrity sha512-5W8MizL4+PtxGZI2nYtmdxFTRh/D+/YxjtO9eKOSD9hncy4Kny3MBRP0/sxBCSgDUd2KnZ2R6Fe4b6YrXalLuQ==
+
 "@types/ws@^8.2.2":
   version "8.5.2"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.2.tgz#77e0c2e360e9579da930ffcfa53c5975ea3bdd26"
@@ -8556,6 +8561,11 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vexflow@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/vexflow/-/vexflow-3.0.9.tgz#85bc89ae5224670d3837d0b34c521b9e69abc89c"
+  integrity sha512-JzDUC3SZvyRxvALv0UrlgCJSH7WzNSShNjXK0rTWqDJscCcytrTWLT3LYtsDvby8qbszdaD708xOe9D79FLTFA==
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"

@@ -1,4 +1,4 @@
-import { Note, AnswerStatus } from "src/types";
+import { Note, AnswerStatus, Duration } from "src/types";
 import React, { useState } from "react";
 import * as Tone from "tone";
 import Slider from "@mui/material/Slider";
@@ -15,15 +15,28 @@ interface GuessInputProps {
   answer: Note;
   setGuess: (guess: Note) => void;
   index: number;
+  guess: Note;
   answerNoteStatus: {
     pitchStatus: AnswerStatus;
     durationStatus: AnswerStatus;
   };
+  incorrectPitches: Array<string>;
+  incorrectDurations: Array<Duration>;
 }
 
-export const GuessInput = (props: GuessInputProps) => {
-  const [pitchGuess, setPitchGuess] = useState(3);
-  const [durationGuess, setDurationGuess] = useState(2);
+export const GuessInput = ({
+  answer,
+  setGuess,
+  index,
+  guess,
+  answerNoteStatus,
+  incorrectPitches,
+  incorrectDurations,
+}: GuessInputProps) => {
+  const [pitchGuess, setPitchGuess] = useState(pitchNames.indexOf(guess.pitch));
+  const [durationGuess, setDurationGuess] = useState(
+    durationNames.indexOf(guess.duration)
+  );
 
   const playGuess = () => {
     Tone.Transport.bpm.value = 172;
@@ -45,7 +58,7 @@ export const GuessInput = (props: GuessInputProps) => {
               },
             }}
             orientation="vertical"
-            defaultValue={3}
+            defaultValue={pitchNames.indexOf(guess.pitch)}
             aria-label="Pitch"
             step={1}
             min={0}
@@ -55,15 +68,22 @@ export const GuessInput = (props: GuessInputProps) => {
               const guess = typeof value === "number" ? value : value[0];
               setPitchGuess(guess);
               playGuess();
-              props.setGuess({
+              setGuess({
                 pitch: pitchNames[pitchGuess],
                 duration: durationNames[durationGuess],
               });
             }}
           />
-          {props.answerNoteStatus.pitchStatus === AnswerStatus.CORRECT
-            ? "Correct Pitch"
-            : ""}
+          {answerNoteStatus.pitchStatus === AnswerStatus.CORRECT ? (
+            <div>{"Correct Pitch: " + answer.pitch}</div>
+          ) : (
+            ""
+          )}
+          {incorrectPitches && incorrectPitches.length ? (
+            <div>{"Incorrect Pitches: " + incorrectPitches?.join()}</div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="duration-slider">
           <Slider
@@ -72,7 +92,7 @@ export const GuessInput = (props: GuessInputProps) => {
                 WebkitAppearance: "slider-vertical",
               },
             }}
-            defaultValue={2}
+            defaultValue={durationNames.indexOf(guess.duration)}
             aria-label="Pitch"
             step={1}
             min={0}
@@ -82,15 +102,20 @@ export const GuessInput = (props: GuessInputProps) => {
               const guess = typeof value === "number" ? value : value[0];
               setDurationGuess(guess);
               playGuess();
-              props.setGuess({
+              setGuess({
                 pitch: pitchNames[pitchGuess],
                 duration: durationNames[durationGuess],
               });
             }}
           />
-          {props.answerNoteStatus.durationStatus === AnswerStatus.CORRECT
-            ? "Correct Duration"
+          {answerNoteStatus.durationStatus === AnswerStatus.CORRECT
+            ? "Correct Duration: " + answer.duration
             : ""}
+          {incorrectDurations && incorrectDurations.length ? (
+            <div>{"Incorrect Durations: " + incorrectDurations?.join()}</div>
+          ) : (
+            ""
+          )}
         </div>
       </Stack>
     </div>

@@ -1,43 +1,17 @@
 import React, { useState } from "react";
 import "./App.css";
-import * as Tone from "tone";
 import Container from "@mui/material/Container";
 import { GuessInput } from "src/components/GuessInput";
-import { Note, Duration, AnswerStatus } from "src/types";
+import {
+  Note,
+  Duration,
+  AnswerStatus,
+  DurationObject,
+  NoteStatus,
+} from "src/types";
+import { durationToInt, playNotes, renderSheetMusic } from "./utils";
 
 const simpsonsBPM = 172;
-
-const playSimpsonsRiff = () => {
-  Tone.Transport.bpm.value = simpsonsBPM;
-  const synth = new Tone.Synth().toDestination();
-  Tone.Transport.cancel();
-  Tone.Transport.schedule((time) => {
-    synth.triggerAttackRelease("C4", "4n.");
-  }, "0:0:0");
-  Tone.Transport.schedule((time) => {
-    synth.triggerAttackRelease("E4", "4n");
-  }, "0:0:6");
-  Tone.Transport.schedule((time) => {
-    synth.triggerAttackRelease("F#4", "4n");
-  }, "0:0:10");
-  Tone.Transport.schedule((time) => {
-    synth.triggerAttackRelease("A4", "8n");
-  }, "0:0:14");
-  Tone.Transport.schedule((time) => {
-    synth.triggerAttackRelease("G4", "4n.");
-  }, "0:0:16");
-  Tone.Transport.schedule((time) => {
-    synth.triggerAttackRelease("E4", "4n");
-  }, "0:0:22");
-  Tone.Transport.schedule((time) => {
-    synth.triggerAttackRelease("C4", "4n");
-  }, "0:0:26");
-  Tone.Transport.schedule((time) => {
-    synth.triggerAttackRelease("A3", "8n");
-  }, "0:0:30");
-  Tone.Transport.position = 0;
-  Tone.Transport.start();
-};
 
 const simpsonsAnswer: Array<Note> = [
   { pitch: "C4", duration: "4n." },
@@ -50,134 +24,70 @@ const simpsonsAnswer: Array<Note> = [
   { pitch: "A3", duration: "8n" },
 ];
 
-interface DurationObject {
-  "16n": 0;
-  "8n": 0;
-  "8n.": 0;
-  "4n": 0;
-  "4n.": 0;
-  "2n": 0;
-  "2n.": 0;
-  "1n": 0;
-  "1n.": 0;
-}
-
-const durationToInt = (duration: Duration) => {
-  switch (duration) {
-    case "16n":
-      return 1;
-    case "8n":
-      return 2;
-    case "8n.":
-      return 3;
-    case "4n":
-      return 4;
-    case "4n.":
-      return 6;
-    case "2n":
-      return 8;
-    case "2n.":
-      return 12;
-    case "1n":
-      return 16;
-    case "1n.":
-      return 24;
-  }
-};
-
-const durationObjectToInt = (durationObject: DurationObject) => {
-  let result = 0;
-  result += 2 * durationObject["8n"];
-  result += 3 * durationObject["8n."];
-  result += 4 * durationObject["4n"];
-  result += 6 * durationObject["4n."];
-  result += 8 * durationObject["2n"];
-  result += 12 * durationObject["2n."];
-  result += 16 * durationObject["1n"];
-  result += 24 * durationObject["1n."];
-  return result;
-};
-
-const intToDurationObject = (countOf16s: number) => {
-  return {
-    "16n": countOf16s,
-  };
-};
-
-const playNotes = (guesses: Array<Note>) => {
-  Tone.Transport.bpm.value = simpsonsBPM;
-  Tone.Transport.cancel();
-  const synth = new Tone.Synth().toDestination();
-  let current16s = 0;
-  guesses.forEach((guessNote) => {
-    console.log(
-      "Playing guess",
-      guessNote.pitch,
-      guessNote.duration,
-      intToDurationObject(current16s)
-    );
-    Tone.Transport.schedule((time) => {
-      synth.triggerAttackRelease(guessNote.pitch, guessNote.duration);
-    }, "0:0:" + current16s);
-    current16s += durationToInt(guessNote.duration);
-  });
-  Tone.Transport.position = 0;
-  Tone.Transport.start();
+const playSimpsonsRiff = () => {
+  playNotes(simpsonsAnswer, simpsonsBPM);
 };
 
 const App = () => {
-  const initialGuesses: Array<Note> = [
-    { pitch: "C4", duration: "4n" },
-    { pitch: "C4", duration: "4n" },
-    { pitch: "C4", duration: "4n" },
-    { pitch: "C4", duration: "4n" },
-    { pitch: "C4", duration: "4n" },
-    { pitch: "C4", duration: "4n" },
-    { pitch: "C4", duration: "4n" },
-    { pitch: "C4", duration: "4n" },
-  ];
+  const initialGuesses: Array<Note> = simpsonsAnswer.map(() => ({
+    pitch: "C4",
+    duration: "4n",
+  }));
   const [guesses, setGuesses] = useState(initialGuesses);
-  const initialAnswerStatuses: Array<{
-    pitchStatus: AnswerStatus;
-    durationStatus: AnswerStatus;
-  }> = [
-    { pitchStatus: AnswerStatus.UNKNOWN, durationStatus: AnswerStatus.UNKNOWN },
-    { pitchStatus: AnswerStatus.UNKNOWN, durationStatus: AnswerStatus.UNKNOWN },
-    { pitchStatus: AnswerStatus.UNKNOWN, durationStatus: AnswerStatus.UNKNOWN },
-    { pitchStatus: AnswerStatus.UNKNOWN, durationStatus: AnswerStatus.UNKNOWN },
-    { pitchStatus: AnswerStatus.UNKNOWN, durationStatus: AnswerStatus.UNKNOWN },
-    { pitchStatus: AnswerStatus.UNKNOWN, durationStatus: AnswerStatus.UNKNOWN },
-    { pitchStatus: AnswerStatus.UNKNOWN, durationStatus: AnswerStatus.UNKNOWN },
-    { pitchStatus: AnswerStatus.UNKNOWN, durationStatus: AnswerStatus.UNKNOWN },
-  ];
+  const initialAnswerStatuses: Array<NoteStatus> = simpsonsAnswer.map(() => ({
+    pitchStatus: AnswerStatus.UNKNOWN,
+    durationStatus: AnswerStatus.UNKNOWN,
+  }));
   const [answerStatuses, setAnswerStatuses] = useState(initialAnswerStatuses);
+  const [incorrectPitchesArray, setIncorrectPitchesArray] = useState(
+    simpsonsAnswer.map(() => []) as Array<Array<string>>
+  );
+  const [incorrectDurationsArray, setIncorrectDurationsArray] = useState(
+    simpsonsAnswer.map(() => []) as Array<Array<Duration>>
+  );
 
-  const startChecking = () => {
+  const checkGuesses = () => {
     console.log("guesses are ", guesses);
     let anyIncorrect = false;
     const newStatuses = simpsonsAnswer.map((note, index) => {
-      if (
-        note.pitch !== guesses[index].pitch ||
-        note.duration !== guesses[index].duration
-      ) {
+      if (note.pitch !== guesses[index].pitch) {
         anyIncorrect = true;
+        const newIncorrectPitchesArray = [...incorrectPitchesArray];
+        newIncorrectPitchesArray[index].push(guesses[index].pitch);
+        setIncorrectPitchesArray(newIncorrectPitchesArray);
       }
-      return {
-        pitchStatus:
+      if (note.duration !== guesses[index].duration) {
+        anyIncorrect = true;
+        const newIncorrectDurationsArray = [...incorrectDurationsArray];
+        newIncorrectDurationsArray[index].push(guesses[index].duration);
+        setIncorrectDurationsArray(newIncorrectDurationsArray);
+      }
+      let newPitchStatus = answerStatuses[index].pitchStatus;
+      if (newPitchStatus != AnswerStatus.CORRECT) {
+        newPitchStatus =
           note.pitch === guesses[index].pitch
             ? AnswerStatus.CORRECT
-            : AnswerStatus.INCORRECT,
-        durationStatus:
+            : AnswerStatus.INCORRECT;
+      }
+      let newDurationStatus = answerStatuses[index].durationStatus;
+      if (answerStatuses[index].durationStatus != AnswerStatus.CORRECT) {
+        newDurationStatus =
           note.duration === guesses[index].duration
             ? AnswerStatus.CORRECT
-            : AnswerStatus.INCORRECT,
-      };
+            : AnswerStatus.INCORRECT;
+      }
+      return {
+        pitchStatus: newPitchStatus,
+        durationStatus: newDurationStatus,
+      } as NoteStatus;
     });
     setAnswerStatuses(newStatuses);
     if (anyIncorrect === false) {
       alert("All right!");
     }
-    playNotes(guesses);
+    playNotes(guesses, simpsonsBPM);
+
+    // renderSheetMusic(guesses);
   };
 
   const assignIndexedGuess = (index: number, note: Note) => {
@@ -189,23 +99,26 @@ const App = () => {
   return (
     <div className="App">
       <header>
-        <Container maxWidth="lg"><h1>Musicle!</h1></Container>
+        <Container maxWidth="lg">
+          <h1>Musicle!</h1>
+        </Container>
       </header>
 
       <main>
-        <Container maxWidth="lg">
-          <div>Try to guess the riff.</div>
-          {simpsonsAnswer.map((answer, index) => (
-            <GuessInput
-              answer={answer}
-              index={index}
-              answerNoteStatus={answerStatuses[index]}
-              setGuess={(note) => assignIndexedGuess(index, note)}
-            />
-          ))}
-          <button onClick={playSimpsonsRiff}>Play Riff</button>
-          <button onClick={startChecking}>Check Guesses</button>
-        </Container>
+        <div>Try to guess the riff.</div>
+        <div id="boo"></div>
+        {simpsonsAnswer.map((answer, index) => (
+          <GuessInput
+            answer={answer}
+            index={index}
+            answerNoteStatus={answerStatuses[index]}
+            guess={initialGuesses[index]}
+            setGuess={(note) => assignIndexedGuess(index, note)}
+            incorrectPitches={incorrectPitchesArray[index]}
+            incorrectDurations={incorrectDurationsArray[index]}
+          />
+        ))}
+        <button onClick={checkGuesses}>Check Guesses</button>
       </main>
     </div>
   );
