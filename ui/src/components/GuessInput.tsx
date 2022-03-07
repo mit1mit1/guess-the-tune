@@ -61,7 +61,7 @@ export const GuessInput = (props: GuessInputProps) => {
               });
             }}
           />
-          {props.answerNoteStatus.pitchStatus == AnswerStatus.CORRECT
+          {props.answerNoteStatus.pitchStatus === AnswerStatus.CORRECT
             ? "Correct Pitch"
             : ""}
         </div>
@@ -88,7 +88,7 @@ export const GuessInput = (props: GuessInputProps) => {
               });
             }}
           />
-          {props.answerNoteStatus.durationStatus == AnswerStatus.CORRECT
+          {props.answerNoteStatus.durationStatus === AnswerStatus.CORRECT
             ? "Correct Duration"
             : ""}
         </div>

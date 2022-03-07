@@ -10,14 +10,33 @@ const simpsonsBPM = 172;
 const playSimpsonsRiff = () => {
   Tone.Transport.bpm.value = simpsonsBPM;
   const synth = new Tone.Synth().toDestination();
-  synth.triggerAttackRelease("C4", "4n.");
-  synth.triggerAttackRelease("E4", "4n", "4n.");
-  synth.triggerAttackRelease("F#4", "4n", { "4n": 1, "4n.": 1 });
-  synth.triggerAttackRelease("A4", "8n", { "4n": 2, "4n.": 1 });
-  synth.triggerAttackRelease("G4", "4n.", { "4n": 2, "4n.": 1, "8n": 1 });
-  synth.triggerAttackRelease("E4", "4n", { "4n": 2, "4n.": 2, "8n": 1 });
-  synth.triggerAttackRelease("C4", "4n", { "4n": 3, "4n.": 2, "8n": 1 });
-  synth.triggerAttackRelease("A3", "8n", { "4n": 4, "4n.": 2, "8n": 1 });
+  Tone.Transport.cancel();
+  Tone.Transport.schedule((time) => {
+    synth.triggerAttackRelease("C4", "4n.");
+  }, "0:0:0");
+  Tone.Transport.schedule((time) => {
+    synth.triggerAttackRelease("E4", "4n");
+  }, "0:0:6");
+  Tone.Transport.schedule((time) => {
+    synth.triggerAttackRelease("F#4", "4n");
+  }, "0:0:10");
+  Tone.Transport.schedule((time) => {
+    synth.triggerAttackRelease("A4", "8n");
+  }, "0:0:14");
+  Tone.Transport.schedule((time) => {
+    synth.triggerAttackRelease("G4", "4n.");
+  }, "0:0:16");
+  Tone.Transport.schedule((time) => {
+    synth.triggerAttackRelease("E4", "4n");
+  }, "0:0:22");
+  Tone.Transport.schedule((time) => {
+    synth.triggerAttackRelease("C4", "4n");
+  }, "0:0:26");
+  Tone.Transport.schedule((time) => {
+    synth.triggerAttackRelease("A3", "8n");
+  }, "0:0:30");
+  Tone.Transport.position = 0;
+  Tone.Transport.start();
 };
 
 const simpsonsAnswer: Array<Note> = [
@@ -76,6 +95,7 @@ const durationObjectToInt = (durationObject: DurationObject) => {
   result += 12 * durationObject["2n."];
   result += 16 * durationObject["1n"];
   result += 24 * durationObject["1n."];
+  return result;
 };
 
 const intToDurationObject = (countOf16s: number) => {
@@ -86,6 +106,7 @@ const intToDurationObject = (countOf16s: number) => {
 
 const playNotes = (guesses: Array<Note>) => {
   Tone.Transport.bpm.value = simpsonsBPM;
+  Tone.Transport.cancel();
   const synth = new Tone.Synth().toDestination();
   let current16s = 0;
   guesses.forEach((guessNote) => {
@@ -95,13 +116,13 @@ const playNotes = (guesses: Array<Note>) => {
       guessNote.duration,
       intToDurationObject(current16s)
     );
-    synth.triggerAttackRelease(
-      guessNote.pitch,
-      guessNote.duration,
-      intToDurationObject(current16s)
-    );
+    Tone.Transport.schedule((time) => {
+      synth.triggerAttackRelease(guessNote.pitch, guessNote.duration);
+    }, "0:0:" + current16s);
     current16s += durationToInt(guessNote.duration);
   });
+  Tone.Transport.position = 0;
+  Tone.Transport.start();
 };
 
 const App = () => {
@@ -136,24 +157,24 @@ const App = () => {
     let anyIncorrect = false;
     const newStatuses = simpsonsAnswer.map((note, index) => {
       if (
-        note.pitch != guesses[index].pitch ||
-        note.duration != guesses[index].duration
+        note.pitch !== guesses[index].pitch ||
+        note.duration !== guesses[index].duration
       ) {
         anyIncorrect = true;
       }
       return {
         pitchStatus:
-          note.pitch == guesses[index].pitch
+          note.pitch === guesses[index].pitch
             ? AnswerStatus.CORRECT
             : AnswerStatus.INCORRECT,
         durationStatus:
-          note.duration == guesses[index].duration
+          note.duration === guesses[index].duration
             ? AnswerStatus.CORRECT
             : AnswerStatus.INCORRECT,
       };
     });
     setAnswerStatuses(newStatuses);
-    if (anyIncorrect == false) {
+    if (anyIncorrect === false) {
       alert("All right!");
     }
     playNotes(guesses);
@@ -167,8 +188,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <Container maxWidth="lg">
-        <main>
+      <header>
+        <Container maxWidth="lg"><h1>Musicle!</h1></Container>
+      </header>
+
+      <main>
+        <Container maxWidth="lg">
+          <div>Try to guess the riff.</div>
           {simpsonsAnswer.map((answer, index) => (
             <GuessInput
               answer={answer}
@@ -179,8 +205,8 @@ const App = () => {
           ))}
           <button onClick={playSimpsonsRiff}>Play Riff</button>
           <button onClick={startChecking}>Check Guesses</button>
-        </main>
-      </Container>
+        </Container>
+      </main>
     </div>
   );
 };
