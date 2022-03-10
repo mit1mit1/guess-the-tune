@@ -28,6 +28,23 @@ const playSimpsonsRiff = () => {
   playNotes(simpsonsAnswer, simpsonsBPM);
 };
 
+const getNewStatus = (oldStatus: AnswerStatus, oldAnswer: any, newAnswer: any) => {
+  if (oldStatus === AnswerStatus.CORRECT) {
+    console.log("Returning Correct")
+    return oldStatus;
+  }
+  return oldAnswer === newAnswer ? AnswerStatus.CORRECT : AnswerStatus.INCORRECT;
+}
+
+const pushIfNotIdentical = (oldArrayOfArrays: Array<Array<any>>, index: number, newItem: any) => {
+  const newArray = [...oldArrayOfArrays];
+  if (oldArrayOfArrays[index].indexOf(newItem) === -1) {
+    newArray[index].push(newItem);
+  }
+  console.log("returning ", newArray);
+  return newArray;
+}
+
 const App = () => {
   const initialGuesses: Array<Note> = simpsonsAnswer.map(() => ({
     pitch: "C4",
@@ -45,6 +62,8 @@ const App = () => {
   const [incorrectDurationsArray, setIncorrectDurationsArray] = useState(
     simpsonsAnswer.map(() => []) as Array<Array<Duration>>
   );
+  const [pitchesCorrectSomewhereNotGuessedYet, setPitchesCorrectSomewhereNotGuessedYet] = useState([] as Array<string>);
+  const [durationsCorrectSomewhereNotGuessedYet, setDurationsCorrectSomewhereNotGuessedYet] = useState([] as Array<Duration>);
 
   const checkGuesses = () => {
     console.log("guesses are ", guesses);
@@ -52,33 +71,15 @@ const App = () => {
     const newStatuses = simpsonsAnswer.map((note, index) => {
       if (note.pitch !== guesses[index].pitch) {
         anyIncorrect = true;
-        const newIncorrectPitchesArray = [...incorrectPitchesArray];
-        newIncorrectPitchesArray[index].push(guesses[index].pitch);
-        setIncorrectPitchesArray(newIncorrectPitchesArray);
+        setIncorrectPitchesArray(pushIfNotIdentical(incorrectPitchesArray, index, guesses[index].pitch));
       }
       if (note.duration !== guesses[index].duration) {
         anyIncorrect = true;
-        const newIncorrectDurationsArray = [...incorrectDurationsArray];
-        newIncorrectDurationsArray[index].push(guesses[index].duration);
-        setIncorrectDurationsArray(newIncorrectDurationsArray);
-      }
-      let newPitchStatus = answerStatuses[index].pitchStatus;
-      if (newPitchStatus != AnswerStatus.CORRECT) {
-        newPitchStatus =
-          note.pitch === guesses[index].pitch
-            ? AnswerStatus.CORRECT
-            : AnswerStatus.INCORRECT;
-      }
-      let newDurationStatus = answerStatuses[index].durationStatus;
-      if (answerStatuses[index].durationStatus != AnswerStatus.CORRECT) {
-        newDurationStatus =
-          note.duration === guesses[index].duration
-            ? AnswerStatus.CORRECT
-            : AnswerStatus.INCORRECT;
+        setIncorrectDurationsArray(pushIfNotIdentical(incorrectDurationsArray, index, guesses[index].duration));
       }
       return {
-        pitchStatus: newPitchStatus,
-        durationStatus: newDurationStatus,
+        pitchStatus: getNewStatus(answerStatuses[index].pitchStatus, note.pitch, guesses[index].pitch),
+        durationStatus: getNewStatus(answerStatuses[index].pitchStatus, note.pitch, guesses[index].pitch),
       } as NoteStatus;
     });
     setAnswerStatuses(newStatuses);
