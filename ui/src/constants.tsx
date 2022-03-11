@@ -1,6 +1,7 @@
-import { Duration } from "src/types";
-
 export const pitchNames = [
+  "E3",
+  "F3",
+  "F#3",
   "G3",
   "G#3",
   "A3",
@@ -18,8 +19,8 @@ export const pitchNames = [
   "A4",
   "A#4",
   "B4",
-  "C4",
-];
+  "C5",
+] as const;
 
 export const pitchMarks = pitchNames.map((name, index) => {
   return {
@@ -28,7 +29,7 @@ export const pitchMarks = pitchNames.map((name, index) => {
   };
 });
 
-export const durationNames: Array<Duration> = [
+export const durationNames = [
   "16n",
   "8n",
   "8n.",
@@ -38,7 +39,7 @@ export const durationNames: Array<Duration> = [
   "2n.",
   "1n",
   "1n.",
-];
+] as const;
 
 export const durationMarks = durationNames.map((name, index) => {
   return {

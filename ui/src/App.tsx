@@ -1,4 +1,4 @@
-import { useState } from "react";  
+import { useState } from "react";
 import "./App.css";
 import Container from "@mui/material/Container";
 import { GuessInput } from "src/components/GuessInput";
@@ -7,6 +7,7 @@ import {
   Duration,
   AnswerStatus,
   NoteStatus,
+  Pitch,
 } from "src/types";
 import { playNotes, renderSheetMusic } from "./utils";
 import { gameSongs } from 'src/songs';
@@ -20,7 +21,6 @@ const playChosenSong = () => {
 
 const getNewStatus = (oldStatus: AnswerStatus, oldAnswer: any, newAnswer: any) => {
   if (oldStatus === AnswerStatus.CORRECT) {
-    console.log("Returning Correct")
     return oldStatus;
   }
   return oldAnswer === newAnswer ? AnswerStatus.CORRECT : AnswerStatus.INCORRECT;
@@ -31,7 +31,6 @@ const pushIfNotIdentical = (oldArrayOfArrays: Array<Array<any>>, index: number, 
   if (oldArrayOfArrays[index].indexOf(newItem) === -1) {
     newArray[index].push(newItem);
   }
-  console.log("returning ", newArray);
   return newArray;
 }
 
@@ -47,17 +46,21 @@ const App = () => {
   }));
   const [answerStatuses, setAnswerStatuses] = useState(initialAnswerStatuses);
   const [incorrectPitchesArray, setIncorrectPitchesArray] = useState(
-    chosenSong.notes.map(() => []) as Array<Array<string>>
+    chosenSong.notes.map(() => []) as Array<Array<Pitch>>
   );
   const [incorrectDurationsArray, setIncorrectDurationsArray] = useState(
     chosenSong.notes.map(() => []) as Array<Array<Duration>>
   );
-  const [pitchesCorrectSomewhereNotGuessedYet, setPitchesCorrectSomewhereNotGuessedYet] = useState([] as Array<string>);
-  const [durationsCorrectSomewhereNotGuessedYet, setDurationsCorrectSomewhereNotGuessedYet] = useState([] as Array<Duration>);
+  const [pitchesGuessed, setPitchesGuessed] = useState(new Set<Pitch>([]));
+  const [durationsGuessed, setDurationsGuessed] = useState(new Set<Duration>([]));
+  const [pitchesCorrectSomewhereUnguessed, setPitchesCorrectSomewhereUnguessed] = useState(new Set<Pitch>([]));
+  const [durationsCorrectSomewhereUnguessed, setDurationsCorrectSomewhereUnguessed] = useState(new Set<Duration>([]));
 
   const checkGuesses = () => {
     let anyIncorrect = false;
     const newStatuses = chosenSong.notes.map((note, index) => {
+      setPitchesGuessed(pitchesGuessed.add(guesses[index].pitch));
+      setDurationsGuessed(durationsGuessed.add(guesses[index].duration));
       if (note.pitch !== guesses[index].pitch) {
         anyIncorrect = true;
         setIncorrectPitchesArray(pushIfNotIdentical(incorrectPitchesArray, index, guesses[index].pitch));
@@ -72,6 +75,21 @@ const App = () => {
       } as NoteStatus;
     });
     setAnswerStatuses(newStatuses);
+    const newPitchesCorrectSomewhereUnguessed = new Set<Pitch>([]);
+    const newDurationsCorrectSomewhereUnguessed = new Set<Duration>([]);
+    chosenSong.notes.forEach((note, index) => {
+      console.log('At ', index, 'which has status ', answerStatuses[index].pitchStatus);
+      if (answerStatuses[index].pitchStatus != AnswerStatus.CORRECT && pitchesGuessed.has(note.pitch)) {
+        newPitchesCorrectSomewhereUnguessed.add(note.pitch);
+      }
+      if (answerStatuses[index].durationStatus != AnswerStatus.CORRECT && durationsGuessed.has(note.duration)) {
+        newDurationsCorrectSomewhereUnguessed.add(note.duration);
+      }
+    });
+    console.log(newPitchesCorrectSomewhereUnguessed);
+    console.log('pitchesGuessed is ', pitchesGuessed);
+    setPitchesCorrectSomewhereUnguessed(newPitchesCorrectSomewhereUnguessed);
+    setDurationsCorrectSomewhereUnguessed(newDurationsCorrectSomewhereUnguessed);
     if (anyIncorrect === false) {
       alert("All right!");
     }
@@ -97,11 +115,13 @@ const App = () => {
       <main>
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
+        <div>Pitches in Unknown Position: {Array.from(pitchesCorrectSomewhereUnguessed).join(', ')}</div>
+        <div>Durations in Unknown Position: {Array.from(durationsCorrectSomewhereUnguessed).join(', ')}</div>
         <div id="boo"></div>
         {chosenSong.notes.map((answer, index) => (
           <GuessInput
             answer={answer}
-            index={index}
+            bpm={chosenSong.bpm}
             answerNoteStatus={answerStatuses[index]}
             guess={initialGuesses[index]}
             setGuess={(note) => assignIndexedGuess(index, note)}

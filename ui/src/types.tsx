@@ -1,18 +1,13 @@
+import { pitchNames, durationNames } from 'src/constants'
+
 export interface Note {
-  pitch: string;
+  pitch: Pitch;
   duration: Duration;
 }
 
-export type Duration =
-  | "16n"
-  | "8n"
-  | "8n."
-  | "4n"
-  | "4n."
-  | "2n"
-  | "2n."
-  | "1n"
-  | "1n.";
+export type Pitch = typeof pitchNames[number]
+
+export type Duration = typeof durationNames[number]
 
 export enum AnswerStatus {
   UNKNOWN,

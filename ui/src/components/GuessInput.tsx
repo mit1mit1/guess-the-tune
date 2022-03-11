@@ -14,7 +14,7 @@ import "./GuessInput.css";
 interface GuessInputProps {
   answer: Note;
   setGuess: (guess: Note) => void;
-  index: number;
+  bpm: number;
   guess: Note;
   answerNoteStatus: {
     pitchStatus: AnswerStatus;
@@ -27,7 +27,7 @@ interface GuessInputProps {
 export const GuessInput = ({
   answer,
   setGuess,
-  index,
+  bpm,
   guess,
   answerNoteStatus,
   incorrectPitches,
@@ -39,7 +39,7 @@ export const GuessInput = ({
   );
 
   const playGuess = () => {
-    Tone.Transport.bpm.value = 172;
+    Tone.Transport.bpm.value = bpm;
     const synth = new Tone.Synth().toDestination();
     synth.triggerAttackRelease(
       pitchNames[pitchGuess],
@@ -80,7 +80,7 @@ export const GuessInput = ({
             ""
           )}
           {answerNoteStatus.pitchStatus !== AnswerStatus.CORRECT && incorrectPitches && incorrectPitches.length ? (
-            <div>{"Incorrect Pitches: " + incorrectPitches?.join()}</div>
+            <div>{"Incorrect Pitches: " + incorrectPitches?.join(', ')}</div>
           ) : (
             ""
           )}
@@ -112,7 +112,7 @@ export const GuessInput = ({
             ? "Correct Duration: " + answer.duration
             : ""}
           {answerNoteStatus.durationStatus !== AnswerStatus.CORRECT && incorrectDurations && incorrectDurations.length ? (
-            <div>{"Incorrect Durations: " + incorrectDurations?.join()}</div>
+            <div>{"Incorrect Durations: " + incorrectDurations?.join(', ')}</div>
           ) : (
             ""
           )}
