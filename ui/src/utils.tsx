@@ -2,22 +2,22 @@ import { Duration, DurationObject, Note } from "src/types";
 import * as Tone from "tone";
 import Vex from "vexflow";
 
-export const playNotes = (guesses: Array<Note>, bpm: number) => {
+export const playNotes = (notes: Array<Note>, bpm: number) => {
   Tone.Transport.bpm.value = bpm;
   Tone.Transport.cancel();
   const synth = new Tone.Synth().toDestination();
   let current16s = 0;
-  guesses.forEach((guessNote) => {
+  notes.forEach((note) => {
     console.log(
       "Playing guess",
-      guessNote.pitch,
-      guessNote.duration,
+      note.pitch,
+      note.duration,
       intToDurationObject(current16s)
     );
     Tone.Transport.schedule(() => {
-      synth.triggerAttackRelease(guessNote.pitch, guessNote.duration);
+      synth.triggerAttackRelease(note.pitch, note.duration);
     }, "0:0:" + current16s);
-    current16s += durationToInt(guessNote.duration);
+    current16s += durationToInt(note.duration);
   });
   Tone.Transport.position = 0;
   Tone.Transport.start();

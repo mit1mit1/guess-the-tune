@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";  
 import "./App.css";
 import Container from "@mui/material/Container";
 import { GuessInput } from "src/components/GuessInput";
@@ -6,26 +6,16 @@ import {
   Note,
   Duration,
   AnswerStatus,
-  DurationObject,
   NoteStatus,
 } from "src/types";
-import { durationToInt, playNotes, renderSheetMusic } from "./utils";
+import { playNotes, renderSheetMusic } from "./utils";
+import { gameSongs } from 'src/songs';
 
-const simpsonsBPM = 172;
+const chosenSong = gameSongs[2]
 
-const simpsonsAnswer: Array<Note> = [
-  { pitch: "C4", duration: "4n." },
-  { pitch: "E4", duration: "4n" },
-  { pitch: "F#4", duration: "4n" },
-  { pitch: "A4", duration: "8n" },
-  { pitch: "G4", duration: "4n." },
-  { pitch: "E4", duration: "4n" },
-  { pitch: "C4", duration: "4n" },
-  { pitch: "A3", duration: "8n" },
-];
 
-const playSimpsonsRiff = () => {
-  playNotes(simpsonsAnswer, simpsonsBPM);
+const playChosenSong = () => {
+  playNotes(chosenSong.notes, chosenSong.bpm);
 };
 
 const getNewStatus = (oldStatus: AnswerStatus, oldAnswer: any, newAnswer: any) => {
@@ -46,29 +36,28 @@ const pushIfNotIdentical = (oldArrayOfArrays: Array<Array<any>>, index: number, 
 }
 
 const App = () => {
-  const initialGuesses: Array<Note> = simpsonsAnswer.map(() => ({
+  const initialGuesses: Array<Note> = chosenSong.notes.map(() => ({
     pitch: "C4",
     duration: "4n",
   }));
   const [guesses, setGuesses] = useState(initialGuesses);
-  const initialAnswerStatuses: Array<NoteStatus> = simpsonsAnswer.map(() => ({
+  const initialAnswerStatuses: Array<NoteStatus> = chosenSong.notes.map(() => ({
     pitchStatus: AnswerStatus.UNKNOWN,
     durationStatus: AnswerStatus.UNKNOWN,
   }));
   const [answerStatuses, setAnswerStatuses] = useState(initialAnswerStatuses);
   const [incorrectPitchesArray, setIncorrectPitchesArray] = useState(
-    simpsonsAnswer.map(() => []) as Array<Array<string>>
+    chosenSong.notes.map(() => []) as Array<Array<string>>
   );
   const [incorrectDurationsArray, setIncorrectDurationsArray] = useState(
-    simpsonsAnswer.map(() => []) as Array<Array<Duration>>
+    chosenSong.notes.map(() => []) as Array<Array<Duration>>
   );
   const [pitchesCorrectSomewhereNotGuessedYet, setPitchesCorrectSomewhereNotGuessedYet] = useState([] as Array<string>);
   const [durationsCorrectSomewhereNotGuessedYet, setDurationsCorrectSomewhereNotGuessedYet] = useState([] as Array<Duration>);
 
   const checkGuesses = () => {
-    console.log("guesses are ", guesses);
     let anyIncorrect = false;
-    const newStatuses = simpsonsAnswer.map((note, index) => {
+    const newStatuses = chosenSong.notes.map((note, index) => {
       if (note.pitch !== guesses[index].pitch) {
         anyIncorrect = true;
         setIncorrectPitchesArray(pushIfNotIdentical(incorrectPitchesArray, index, guesses[index].pitch));
@@ -86,7 +75,7 @@ const App = () => {
     if (anyIncorrect === false) {
       alert("All right!");
     }
-    playNotes(guesses, simpsonsBPM);
+    playNotes(guesses, chosenSong.bpm);
 
     // renderSheetMusic(guesses);
   };
@@ -107,8 +96,9 @@ const App = () => {
 
       <main>
         <div>Try to guess the riff.</div>
+        <div>{chosenSong.bpm}bpm</div>
         <div id="boo"></div>
-        {simpsonsAnswer.map((answer, index) => (
+        {chosenSong.notes.map((answer, index) => (
           <GuessInput
             answer={answer}
             index={index}
@@ -120,6 +110,7 @@ const App = () => {
           />
         ))}
         <button onClick={checkGuesses}>Check Guesses</button>
+        <button onClick={playChosenSong}>Spoil Answer</button>
       </main>
     </div>
   );

@@ -1,6 +1,8 @@
 import { Duration } from "src/types";
 
 export const pitchNames = [
+  "G3",
+  "G#3",
   "A3",
   "A#3",
   "B3",
@@ -14,6 +16,9 @@ export const pitchNames = [
   "G4",
   "G#4",
   "A4",
+  "A#4",
+  "B4",
+  "C4",
 ];
 
 export const pitchMarks = pitchNames.map((name, index) => {

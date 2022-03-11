@@ -36,3 +36,8 @@ export interface NoteStatus {
   pitchStatus: AnswerStatus;
   durationStatus: AnswerStatus;
 }
+
+export interface GameSong {
+  bpm: number;
+  notes: Array<Note>;
+}
