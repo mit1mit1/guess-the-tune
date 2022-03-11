@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Container from "@mui/material/Container";
 import { GuessInput } from "src/components/GuessInput";
+import { SVGScore } from "src/components/SVGScore";
 import {
   Note,
   Duration,
@@ -13,7 +14,6 @@ import { playNotes, renderSheetMusic } from "./utils";
 import { gameSongs } from 'src/songs';
 
 const chosenSong = gameSongs[1]
-
 
 const playChosenSong = () => {
   playNotes(chosenSong.notes, chosenSong.bpm);
@@ -113,6 +113,7 @@ const App = () => {
       </header>
 
       <main>
+        <SVGScore notes={guesses} />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
         <div>Pitches in Unknown Position: {Array.from(pitchesCorrectSomewhereUnguessed).join(', ')}</div>
