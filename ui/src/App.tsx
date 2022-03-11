@@ -12,7 +12,7 @@ import {
 import { playNotes, renderSheetMusic } from "./utils";
 import { gameSongs } from 'src/songs';
 
-const chosenSong = gameSongs[2]
+const chosenSong = gameSongs[1]
 
 
 const playChosenSong = () => {
@@ -79,10 +79,10 @@ const App = () => {
     const newDurationsCorrectSomewhereUnguessed = new Set<Duration>([]);
     chosenSong.notes.forEach((note, index) => {
       console.log('At ', index, 'which has status ', answerStatuses[index].pitchStatus);
-      if (answerStatuses[index].pitchStatus != AnswerStatus.CORRECT && pitchesGuessed.has(note.pitch)) {
+      if (answerStatuses[index].pitchStatus !== AnswerStatus.CORRECT && pitchesGuessed.has(note.pitch)) {
         newPitchesCorrectSomewhereUnguessed.add(note.pitch);
       }
-      if (answerStatuses[index].durationStatus != AnswerStatus.CORRECT && durationsGuessed.has(note.duration)) {
+      if (answerStatuses[index].durationStatus !== AnswerStatus.CORRECT && durationsGuessed.has(note.duration)) {
         newDurationsCorrectSomewhereUnguessed.add(note.duration);
       }
     });
