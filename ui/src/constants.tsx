@@ -20,6 +20,11 @@ export const pitchNames = [
   "A#4",
   "B4",
   "C5",
+  "C#5",
+  "D5",
+  "D#5",
+  "E5",
+  "F5",
 ] as const;
 
 export const pitchMarks = pitchNames.map((name, index) => {

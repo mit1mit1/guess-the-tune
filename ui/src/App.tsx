@@ -10,7 +10,7 @@ import {
   NoteStatus,
   Pitch,
 } from "src/types";
-import { playNotes, renderSheetMusic } from "./utils";
+import { playNotes, nextPitch, previousPitch } from "./utils";
 import { gameSongs } from 'src/songs';
 
 const chosenSong = gameSongs[1]
@@ -39,6 +39,7 @@ const App = () => {
     pitch: "C4",
     duration: "4n",
   }));
+  const [selectedNote, setSelectedNote] = useState(0);
   const [guesses, setGuesses] = useState(initialGuesses);
   const initialAnswerStatuses: Array<NoteStatus> = chosenSong.notes.map(() => ({
     pitchStatus: AnswerStatus.UNKNOWN,
@@ -71,14 +72,13 @@ const App = () => {
       }
       return {
         pitchStatus: getNewStatus(answerStatuses[index].pitchStatus, note.pitch, guesses[index].pitch),
-        durationStatus: getNewStatus(answerStatuses[index].pitchStatus, note.pitch, guesses[index].pitch),
+        durationStatus: getNewStatus(answerStatuses[index].durationStatus, note.duration, guesses[index].duration),
       } as NoteStatus;
     });
     setAnswerStatuses(newStatuses);
     const newPitchesCorrectSomewhereUnguessed = new Set<Pitch>([]);
     const newDurationsCorrectSomewhereUnguessed = new Set<Duration>([]);
     chosenSong.notes.forEach((note, index) => {
-      console.log('At ', index, 'which has status ', answerStatuses[index].pitchStatus);
       if (answerStatuses[index].pitchStatus !== AnswerStatus.CORRECT && pitchesGuessed.has(note.pitch)) {
         newPitchesCorrectSomewhereUnguessed.add(note.pitch);
       }
@@ -86,8 +86,6 @@ const App = () => {
         newDurationsCorrectSomewhereUnguessed.add(note.duration);
       }
     });
-    console.log(newPitchesCorrectSomewhereUnguessed);
-    console.log('pitchesGuessed is ', pitchesGuessed);
     setPitchesCorrectSomewhereUnguessed(newPitchesCorrectSomewhereUnguessed);
     setDurationsCorrectSomewhereUnguessed(newDurationsCorrectSomewhereUnguessed);
     if (anyIncorrect === false) {
@@ -103,7 +101,27 @@ const App = () => {
     newGuesses[index] = note;
     setGuesses(newGuesses);
   };
-
+  document.onkeydown  = (e) => {
+      e = e || window.event;
+      const key = e.key;
+      if (key === 'w' || key === 'ArrowUp') {
+        const newGuesses = guesses;
+        newGuesses[selectedNote].pitch = nextPitch(newGuesses[selectedNote].pitch);
+        setGuesses(newGuesses);
+        alert('increased pitch')
+      }
+      if (key === 'a' || key === 'ArrowLeft') {
+        alert('decrease guess duration')
+      }
+      if (key === 's' || key === 'ArrowDown') {
+        const newGuesses = guesses;
+        newGuesses[selectedNote].pitch = previousPitch(newGuesses[selectedNote].pitch);
+        setGuesses(newGuesses);
+      }
+      if (key === 'd' || key === 'ArrowRight') {
+        alert('increase guess duration')
+      }
+  };
   return (
     <div className="App">
       <header>
@@ -113,13 +131,14 @@ const App = () => {
       </header>
 
       <main>
-        <SVGScore notes={guesses} />
+        <div>Selected note: {selectedNote}</div>
+        <SVGScore notes={guesses} setSelectedNote={setSelectedNote} />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
         <div>Pitches in Unknown Position: {Array.from(pitchesCorrectSomewhereUnguessed).join(', ')}</div>
         <div>Durations in Unknown Position: {Array.from(durationsCorrectSomewhereUnguessed).join(', ')}</div>
         <div id="boo"></div>
-        {chosenSong.notes.map((answer, index) => (
+        {/* {chosenSong.notes.map((answer, index) => (
           <GuessInput
             answer={answer}
             bpm={chosenSong.bpm}
@@ -129,9 +148,8 @@ const App = () => {
             incorrectPitches={incorrectPitchesArray[index]}
             incorrectDurations={incorrectDurationsArray[index]}
           />
-        ))}
+        ))} */}
         <button onClick={checkGuesses}>Check Guesses</button>
-        <button onClick={playChosenSong}>Spoil Answer</button>
       </main>
     </div>
   );

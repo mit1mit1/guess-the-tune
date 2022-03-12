@@ -1,8 +1,25 @@
-import { Duration, DurationObject, Note } from "src/types";
+import { Duration, DurationObject, Note, Pitch } from "src/types";
 import * as Tone from "tone";
-import Vex from "vexflow";
+import { pitchNames } from "./constants";
+
+export const nextPitch = (pitch: Pitch) => {
+  const index = pitchNames.indexOf(pitch);
+  if (index >= 0 && index < pitchNames.length - 1) {
+    return pitchNames[index + 1]
+  }
+  return pitchNames[0];
+}
+
+export const previousPitch = (pitch: Pitch) => {
+  const index = pitchNames.indexOf(pitch);
+  if (index >= 1) {
+    return pitchNames[index - 1]
+  }
+  return pitchNames[pitchNames.length - 1];
+}
 
 export const playNotes = (notes: Array<Note>, bpm: number) => {
+  console.log("playing notes")
   Tone.Transport.bpm.value = bpm;
   Tone.Transport.cancel();
   const synth = new Tone.Synth().toDestination();
@@ -127,7 +144,7 @@ const finishGuessLine = (
       durationCount = durationCount + 2;
     }
   }
-  if (durationCount % 16 != 0) {
+  if (durationCount % 16 !== 0) {
     while (durationCount % 16 > 0) {
       if (guessLine.length > 0) {
         guessLine = guessLine.concat(", ");
@@ -150,58 +167,58 @@ const pushGuess = (guessLine: string, pitch: string, duration: Duration) => {
   return guessLine.concat(pitch + getDivisionSymbol(duration));
 };
 
-export const renderSheetMusic = (guesses: Array<Note>) => {
-  const VF = Vex.Flow;
-  const staff = document.getElementById("boo");
-  while (staff && staff.hasChildNodes()) {
-    staff.lastChild && staff.removeChild(staff.lastChild);
-  }
+// export const renderSheetMusic = (guesses: Array<Note>) => {
+//   const VF = Vex.Flow;
+//   const staff = document.getElementById("boo");
+//   while (staff && staff.hasChildNodes()) {
+//     staff.lastChild && staff.removeChild(staff.lastChild);
+//   }
 
-  const vf = new VF.Factory({
-    renderer: { elementId: "boo", width: 500, height: 400 },
-  });
+//   const vf = new VF.Factory({
+//     renderer: { elementId: "boo", width: 500, height: 400 },
+//   });
 
-  const score = vf.EasyScore();
-  const system = vf.System();
+//   const score = vf.EasyScore();
+//   const system = vf.System();
 
-  const guessLines: Array<string> = [];
+//   const guessLines: Array<string> = [];
 
-  let guessLine = "";
-  let durationCount = 0;
+//   let guessLine = "";
+//   let durationCount = 0;
 
-  guesses.forEach((guess, index) => {
-    if (durationCount + durationToInt(guess.duration) > 16) {
-      console.log(
-        "pushing since duration is ",
-        durationCount + durationToInt(guess.duration)
-      );
-      guessLines.push(finishGuessLine(durationCount, guessLine, guess.pitch));
-      guessLine = "";
-      durationCount = 0;
-      guess.duration = intToDuration(
-        durationToInt(guess.duration) - (16 - durationCount)
-      );
-    }
-    guessLine = pushGuess(guessLine, guess.pitch, guess.duration);
-    if (guessLine.length > 0) {
-      guessLine = guessLine.concat(", ");
-    }
-    guessLine = guessLine.concat(
-      guess.pitch + getDivisionSymbol(guess.duration)
-    );
-    durationCount += durationToInt(guess.duration);
-  });
-  guessLines.push(finishGuessLineWithRests(durationCount, guessLine));
+//   guesses.forEach((guess, index) => {
+//     if (durationCount + durationToInt(guess.duration) > 16) {
+//       console.log(
+//         "pushing since duration is ",
+//         durationCount + durationToInt(guess.duration)
+//       );
+//       guessLines.push(finishGuessLine(durationCount, guessLine, guess.pitch));
+//       guessLine = "";
+//       durationCount = 0;
+//       guess.duration = intToDuration(
+//         durationToInt(guess.duration) - (16 - durationCount)
+//       );
+//     }
+//     guessLine = pushGuess(guessLine, guess.pitch, guess.duration);
+//     if (guessLine.length > 0) {
+//       guessLine = guessLine.concat(", ");
+//     }
+//     guessLine = guessLine.concat(
+//       guess.pitch + getDivisionSymbol(guess.duration)
+//     );
+//     durationCount += durationToInt(guess.duration);
+//   });
+//   guessLines.push(finishGuessLineWithRests(durationCount, guessLine));
 
-  console.log(guessLines);
-  guessLines.forEach((guessLine) => {
-    system
-      .addStave({
-        voices: [score.voice(score.notes(guessLine, { stem: "up" }), {})],
-      })
-      .addClef("treble")
-      .addTimeSignature("4/4");
-  });
+//   console.log(guessLines);
+//   guessLines.forEach((guessLine) => {
+//     system
+//       .addStave({
+//         voices: [score.voice(score.notes(guessLine, { stem: "up" }), {})],
+//       })
+//       .addClef("treble")
+//       .addTimeSignature("4/4");
+//   });
 
-  vf.draw();
-};
+//   vf.draw();
+// };

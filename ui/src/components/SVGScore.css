@@ -1,3 +1,4 @@
 .svg-score {
     overflow: visible;
+    max-height: 170px;
 }
