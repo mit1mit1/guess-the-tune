@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Container from "@mui/material/Container";
 import { GuessInput } from "src/components/GuessInput";
@@ -15,9 +15,9 @@ import { gameSongs } from 'src/songs';
 
 const chosenSong = gameSongs[1]
 
-const playChosenSong = () => {
-  playNotes(chosenSong.notes, chosenSong.bpm);
-};
+// const playChosenSong = () => {
+//   playNotes(chosenSong.notes, chosenSong.bpm);
+// };
 
 const getNewStatus = (oldStatus: AnswerStatus, oldAnswer: any, newAnswer: any) => {
   if (oldStatus === AnswerStatus.CORRECT) {
@@ -101,40 +101,45 @@ const App = () => {
     newGuesses[index] = note;
     setGuesses(newGuesses);
   };
-  document.onkeydown  = (e) => {
-      e = e || window.event;
-      const key = e.key;
-      if (key === 'w') {
-        const newGuesses = guesses;
-        newGuesses[selectedNote].pitch = nextPitch(newGuesses[selectedNote].pitch);
-        setGuesses(newGuesses);
-      }
-      if (key === 'a') {
-        const newGuesses = guesses;
-        newGuesses[selectedNote].duration = previousDuration(newGuesses[selectedNote].duration);
-        setGuesses(newGuesses);
-      }
-      if (key === 's') {
-        const newGuesses = guesses;
-        newGuesses[selectedNote].pitch = previousPitch(newGuesses[selectedNote].pitch);
-        setGuesses(newGuesses);
-      }
-      if (key === 'd') {
-        const newGuesses = guesses;
-        newGuesses[selectedNote].duration = nextDuration(newGuesses[selectedNote].duration);
-        setGuesses(newGuesses);
-      }
-      if (key === 'ArrowRight') {
-        if (selectedNote < chosenSong.notes.length - 1) {
-          setSelectedNote(selectedNote + 1);
+    document.onkeydown  = (e) => {
+        e = e || window.event;
+        const key = e.key;
+        if (key === 'w') {
+          setGuesses((prevGuesses) => {
+            prevGuesses[selectedNote].pitch = nextPitch(prevGuesses[selectedNote].pitch);
+            return prevGuesses;
+          });
         }
-      }
-      if (key === 'ArrowLeft') {
-        if (selectedNote > 0) {
-          setSelectedNote(selectedNote - 1);
+        if (key === 'a') {
+          setGuesses((prevGuesses) => {
+            prevGuesses[selectedNote].duration = previousDuration(prevGuesses[selectedNote].duration);
+            return prevGuesses;
+          });
         }
-      }
-  };
+        if (key === 's') {
+          setGuesses((prevGuesses) => {
+            prevGuesses[selectedNote].pitch = previousPitch(prevGuesses[selectedNote].pitch);
+            return prevGuesses;
+          });
+        }
+        if (key === 'd') {
+          setGuesses((prevGuesses) => {
+            prevGuesses[selectedNote].duration = nextDuration(prevGuesses[selectedNote].duration);
+            return prevGuesses;
+          });
+        }
+        if (key === 'ArrowRight') {
+          if (selectedNote < chosenSong.notes.length - 1) {
+            setSelectedNote(selectedNote + 1);
+          }
+        }
+        if (key === 'ArrowLeft') {
+          if (selectedNote > 0) {
+            setSelectedNote(selectedNote - 1);
+          }
+        }
+    }
+
   return (
     <div className="App">
       <header>
@@ -151,6 +156,7 @@ const App = () => {
         <div>Correct Pitches in Unknown Position: {Array.from(pitchesCorrectSomewhereUnguessed).join(', ')}</div>
         <div>Correct Durations in Unknown Position: {Array.from(durationsCorrectSomewhereUnguessed).join(', ')}</div>
         <div id="boo"></div>
+        Note 1 Pitch: {guesses[0].pitch}
         {/* {chosenSong.notes.map((answer, index) => (
           <GuessInput
             answer={answer}
