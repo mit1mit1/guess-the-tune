@@ -10,7 +10,7 @@ import {
   NoteStatus,
   Pitch,
 } from "src/types";
-import { playNotes, nextPitch, previousPitch } from "./utils";
+import { playNotes, nextPitch, previousPitch, previousDuration, nextDuration } from "./utils";
 import { gameSongs } from 'src/songs';
 
 const chosenSong = gameSongs[1]
@@ -104,22 +104,35 @@ const App = () => {
   document.onkeydown  = (e) => {
       e = e || window.event;
       const key = e.key;
-      if (key === 'w' || key === 'ArrowUp') {
+      if (key === 'w') {
         const newGuesses = guesses;
         newGuesses[selectedNote].pitch = nextPitch(newGuesses[selectedNote].pitch);
         setGuesses(newGuesses);
-        alert('increased pitch')
       }
-      if (key === 'a' || key === 'ArrowLeft') {
-        alert('decrease guess duration')
+      if (key === 'a') {
+        const newGuesses = guesses;
+        newGuesses[selectedNote].duration = previousDuration(newGuesses[selectedNote].duration);
+        setGuesses(newGuesses);
       }
-      if (key === 's' || key === 'ArrowDown') {
+      if (key === 's') {
         const newGuesses = guesses;
         newGuesses[selectedNote].pitch = previousPitch(newGuesses[selectedNote].pitch);
         setGuesses(newGuesses);
       }
-      if (key === 'd' || key === 'ArrowRight') {
-        alert('increase guess duration')
+      if (key === 'd') {
+        const newGuesses = guesses;
+        newGuesses[selectedNote].duration = nextDuration(newGuesses[selectedNote].duration);
+        setGuesses(newGuesses);
+      }
+      if (key === 'ArrowRight') {
+        if (selectedNote < chosenSong.notes.length - 1) {
+          setSelectedNote(selectedNote + 1);
+        }
+      }
+      if (key === 'ArrowLeft') {
+        if (selectedNote > 0) {
+          setSelectedNote(selectedNote - 1);
+        }
       }
   };
   return (
@@ -131,12 +144,12 @@ const App = () => {
       </header>
 
       <main>
-        <div>Selected note: {selectedNote}</div>
+        <div>Selected note: {selectedNote + 1}</div>
         <SVGScore notes={guesses} setSelectedNote={setSelectedNote} />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
-        <div>Pitches in Unknown Position: {Array.from(pitchesCorrectSomewhereUnguessed).join(', ')}</div>
-        <div>Durations in Unknown Position: {Array.from(durationsCorrectSomewhereUnguessed).join(', ')}</div>
+        <div>Correct Pitches in Unknown Position: {Array.from(pitchesCorrectSomewhereUnguessed).join(', ')}</div>
+        <div>Correct Durations in Unknown Position: {Array.from(durationsCorrectSomewhereUnguessed).join(', ')}</div>
         <div id="boo"></div>
         {/* {chosenSong.notes.map((answer, index) => (
           <GuessInput

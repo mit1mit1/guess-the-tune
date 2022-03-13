@@ -1,6 +1,6 @@
 import { Duration, DurationObject, Note, Pitch } from "src/types";
 import * as Tone from "tone";
-import { pitchNames } from "./constants";
+import { durationNames, pitchNames } from "./constants";
 
 export const nextPitch = (pitch: Pitch) => {
   const index = pitchNames.indexOf(pitch);
@@ -18,6 +18,21 @@ export const previousPitch = (pitch: Pitch) => {
   return pitchNames[pitchNames.length - 1];
 }
 
+export const nextDuration = (duration: Duration) => {
+  const index = durationNames.indexOf(duration);
+  if (index >= 0 && index < durationNames.length - 1) {
+    return durationNames[index + 1]
+  }
+  return durationNames[0];
+}
+
+export const previousDuration = (duration: Duration) => {
+  const index = durationNames.indexOf(duration);
+  if (index >= 1) {
+    return durationNames[index - 1]
+  }
+  return durationNames[durationNames.length - 1];
+}
 export const playNotes = (notes: Array<Note>, bpm: number) => {
   console.log("playing notes")
   Tone.Transport.bpm.value = bpm;

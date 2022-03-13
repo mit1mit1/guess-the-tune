@@ -88,19 +88,19 @@ const addSixteenthLine = (duration: Duration) => {
 const addSharp = (pitch: Pitch) => {
   return pitch.includes('#');
 }
-
+const distanceBetweenNotes = 230;
 const NotePath = ({ note, index, SVGWidth, SVGHeight, setSelectedNote }: NotePathProps) => {
   return (
     <>
-      {drawLineUp(note.duration) && <path strokeWidth="4" stroke="black" d={`M${500 + index * 180 + 2} ${getHeight(note.pitch) - 200} V ${getHeight(note.pitch)}`} />}
-      <circle onClick={() => setSelectedNote(index)} cx={500 + index * 180 - 38} cy={getHeight(note.pitch)} r="40" stroke="black" stroke-width="3" fill={fillInCircle(note.duration) ? "black" : "white"} />
-      {addDot(note.duration) && <circle cx={500 + index * 180 + 19} cy={getHeight(note.pitch)} r="5" stroke="black" stroke-width="3" fill="black" />}
-      {addEigthLine(note.duration) && <path strokeWidth="16" stroke="black" d={`M${500 + index * 180 + 2} ${getHeight(note.pitch) - 200 + 8} H ${500 + index * 180 + 2 + 80}`} />}
-      {addSixteenthLine(note.duration) && <path strokeWidth="16" stroke="black" d={`M${500 + index * 180 + 2} ${getHeight(note.pitch) - 200 + 8 + 30} H ${500 + index * 180 + 2 + 80}`} />}
-      {addSharp(note.pitch) && <path strokeWidth="16" stroke="black" d={`M${500 + index * 180 + 20} ${getHeight(note.pitch) - 200 + 8 + 30} H ${500 + index * 180 + 2 + 80}`} />}
-      {addSharp(note.pitch) && <path strokeWidth="16" stroke="black" d={`M${500 + index * 180 + 20} ${getHeight(note.pitch) - 200 + 8 + 60} H ${500 + index * 180 + 2 + 80}`} />}
-      {addSharp(note.pitch) && <path strokeWidth="16" stroke="black" d={`M${500 + index * 180 + 20} ${getHeight(note.pitch) - 200 + 8 + 30} V ${getHeight(note.pitch) - 200 + 8 + 30}`} />}
-      {addSharp(note.pitch) && <path strokeWidth="16" stroke="black" d={`M${500 + index * 180 + 80} ${getHeight(note.pitch) - 200 + 8 + 60} V ${getHeight(note.pitch) - 200 + 8 + 30}`} />}
+      {drawLineUp(note.duration) && <path strokeWidth="4" stroke="black" d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(note.pitch) - 200} V ${getHeight(note.pitch)}`} />}
+      <circle onClick={() => setSelectedNote(index)} cx={500 + index * distanceBetweenNotes - 38} cy={getHeight(note.pitch)} r="40" stroke="black" stroke-width="3" fill={fillInCircle(note.duration) ? "black" : "white"} />
+      {addDot(note.duration) && <circle cx={500 + index * distanceBetweenNotes + 19} cy={getHeight(note.pitch)} r="5" stroke="black" stroke-width="3" fill="black" />}
+      {addEigthLine(note.duration) && <path strokeWidth="16" stroke="black" d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(note.pitch) - 200 + 8} H ${500 + index * distanceBetweenNotes + 2 + 80}`} />}
+      {addSixteenthLine(note.duration) && <path strokeWidth="16" stroke="black" d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(note.pitch) - 200 + 8 + 30} H ${500 + index * distanceBetweenNotes + 2 + 80}`} />}
+      {addSharp(note.pitch) && <path strokeWidth="12" stroke="black" d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(note.pitch) - 50 + 8 + 30} H ${500 + index * distanceBetweenNotes - 150}`} />}
+      {addSharp(note.pitch) && <path strokeWidth="12" stroke="black" d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(note.pitch) - 50 + 8 + 60} H ${500 + index * distanceBetweenNotes - 150 }`} />}
+      {addSharp(note.pitch) && <path strokeWidth="12" stroke="black" d={`M${500 + index * distanceBetweenNotes - 110} ${getHeight(note.pitch) - 50 + 8 + 10} V ${getHeight(note.pitch) - 50 + 8 + 80}`} />}
+      {addSharp(note.pitch) && <path strokeWidth="12" stroke="black" d={`M${500 + index * distanceBetweenNotes - 130} ${getHeight(note.pitch) - 50 + 8 + 10} V ${getHeight(note.pitch) - 50 + 8 + 80}`} />}
     </>
   )
 }
