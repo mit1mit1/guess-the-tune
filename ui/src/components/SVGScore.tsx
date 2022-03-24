@@ -95,68 +95,70 @@ const ExtraStaveLines = ({ pitch, index, startPitch, increasing }: ExtraStaveLin
 interface NoteSubpartProps {
   pitch: Pitch;
   color: string;
+  opacity?: number;
   index: number;
 }
 
-const Sharp = ({ pitch, color, index }: NoteSubpartProps) => {
+const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
   return (
     <>
-      <path strokeWidth="12" stroke={color} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 30} H ${500 + index * distanceBetweenNotes - 150}`} />
-      <path strokeWidth="12" stroke={color} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 60} H ${500 + index * distanceBetweenNotes - 150}`} />
-      <path strokeWidth="12" stroke={color} d={`M${500 + index * distanceBetweenNotes - 110} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
-      <path strokeWidth="12" stroke={color} d={`M${500 + index * distanceBetweenNotes - 130} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
+      <path strokeWidth="12" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 30} H ${500 + index * distanceBetweenNotes - 150}`} />
+      <path strokeWidth="12" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 60} H ${500 + index * distanceBetweenNotes - 150}`} />
+      <path strokeWidth="12" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes - 110} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
+      <path strokeWidth="12" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes - 130} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
     </>
   )
 }
 
 
-const MiniSharp = ({ pitch, color, index }: NoteSubpartProps) => {
+const MiniSharp = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
   return (
     <>
-      <path strokeWidth="5" stroke={color} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 30} H ${500 + index * distanceBetweenNotes - 150}`} />
-      <path strokeWidth="5" stroke={color} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 60} H ${500 + index * distanceBetweenNotes - 150}`} />
-      <path strokeWidth="5" stroke={color} d={`M${500 + index * distanceBetweenNotes - 110} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
-      <path strokeWidth="5" stroke={color} d={`M${500 + index * distanceBetweenNotes - 130} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
+      <path strokeWidth="5" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 30} H ${500 + index * distanceBetweenNotes - 150}`} />
+      <path strokeWidth="5" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 60} H ${500 + index * distanceBetweenNotes - 150}`} />
+      <path strokeWidth="5" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes - 110} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
+      <path strokeWidth="5" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes - 130} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
     </>
   )
 }
 
-const Dot = ({ pitch, color, index }: NoteSubpartProps) => {
-  return <circle cx={500 + index * distanceBetweenNotes + 19} cy={getHeight(pitch)} r="5" stroke={color} strokeWidth="3" fill={color} />
+const Dot = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
+  return <circle cx={500 + index * distanceBetweenNotes + 19} cy={getHeight(pitch)} r="5" stroke={color} opacity={opacity} strokeWidth="3" fill={color} />
 }
 
-const UpStroke = ({ pitch, color, index }: NoteSubpartProps) => {
-  return <path strokeWidth="4" stroke={color} d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(pitch) - 200} V ${getHeight(pitch)}`} />
+const UpStroke = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
+  return <path strokeWidth="4" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(pitch) - 200} V ${getHeight(pitch)}`} />
 }
 
-const EigthLine = ({ pitch, color, index }: NoteSubpartProps) => {
-  return <path strokeWidth="16" stroke={color} d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(pitch) - 200 + 8} H ${500 + index * distanceBetweenNotes + 2 + 80}`} />
+const EigthLine = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
+  return <path strokeWidth="16" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(pitch) - 200 + 8} H ${500 + index * distanceBetweenNotes + 2 + 80}`} />
 }
 
-const SixteenthLine = ({ pitch, color, index }: NoteSubpartProps) => {
-  return <path strokeWidth="16" stroke={color} d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(pitch) - 200 + 8 + 30} H ${500 + index * distanceBetweenNotes + 2 + 80}`} />
+const SixteenthLine = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
+  return <path strokeWidth="16" stroke={color} opacity={opacity} d={`M${500 + index * distanceBetweenNotes + 2} ${getHeight(pitch) - 200 + 8 + 30} H ${500 + index * distanceBetweenNotes + 2 + 80}`} />
 }
 
-const RootCircle = ({ note, index, setSelectedNote, color }: NotePathProps) => {
-  return <circle onClick={() => setSelectedNote(index)} cx={500 + index * distanceBetweenNotes - 38} cy={getHeight(note.pitch)} r="40" stroke={color} strokeWidth="3" fill={shouldFillInCircle(note.duration) ? color : "white"} />
+const RootCircle = ({ note, index, setSelectedNote, color, opacity = 1 }: NotePathProps) => {
+  return <circle onClick={() => setSelectedNote(index)} cx={500 + index * distanceBetweenNotes - 38} cy={getHeight(note.pitch)} r="36" stroke={color} opacity={opacity} strokeWidth="3" fill={shouldFillInCircle(note.duration) ? color : "white"} />
 }
 
 interface NotePathProps {
+  opacity?: number;
   note: Note;
   index: number;
   setSelectedNote: Dispatch<SetStateAction<number>>;
   color: string;
 }
 
-const NotePath = ({ note, index, setSelectedNote, color }: NotePathProps) => {
+const NotePath = ({ note, index, setSelectedNote, color, opacity = 1 }: NotePathProps) => {
   return (
     <>
-      {drawLineUp(note.duration) && <UpStroke pitch={note.pitch} index={index} color={color} />}
-      <RootCircle note={note} index={index} setSelectedNote={setSelectedNote} color={color} />
-      {shouldAddDot(note.duration) && <Dot pitch={note.pitch} index={index} color={color} />}
-      {shouldAddEigthLine(note.duration) && <EigthLine pitch={note.pitch} index={index} color={color} />}
-      {shouldAddSixteenthLine(note.duration) && <SixteenthLine pitch={note.pitch} index={index} color={color} />}
-      {shouldAddSharp(note.pitch) && <Sharp pitch={note.pitch} index={index} color={color} />}
+      {drawLineUp(note.duration) && <UpStroke pitch={note.pitch} index={index} color={color} opacity={opacity} />}
+      <RootCircle note={note} index={index} setSelectedNote={setSelectedNote} color={color} opacity={opacity} />
+      {shouldAddDot(note.duration) && <Dot pitch={note.pitch} index={index} color={color} opacity={opacity} />}
+      {shouldAddEigthLine(note.duration) && <EigthLine pitch={note.pitch} index={index} color={color} opacity={opacity} />}
+      {shouldAddSixteenthLine(note.duration) && <SixteenthLine pitch={note.pitch} index={index} color={color} opacity={opacity} />}
+      {shouldAddSharp(note.pitch) && <Sharp pitch={note.pitch} index={index} color={color} opacity={opacity} />}
       {/* <ExtraStaveLines pitch={note.pitch} startPitch="A5" increasing index={index} /> */}
       <ExtraStaveLines pitch={note.pitch} startPitch="C4" increasing={false} index={index} />
     </>
@@ -169,13 +171,22 @@ interface PitchGuessPathProps {
   positionIndex: number;
   setSelectedNote: Dispatch<SetStateAction<number>>;
   color: string;
+  opacity?: number
 }
 
-const PitchGuessPath = ({ pitch, positionIndex, setSelectedNote, color }: PitchGuessPathProps) => {
+const PitchGuessPath = ({ pitch, positionIndex, setSelectedNote, color, opacity = 1 }: PitchGuessPathProps) => {
   return (
     <>
-      {shouldAddSharp(pitch) && <MiniSharp pitch={pitch} index={positionIndex} color={color} />}
-      <circle onClick={() => setSelectedNote(positionIndex)} cx={500 + positionIndex * distanceBetweenNotes - 38} cy={getHeight(pitch)} r="25" stroke={color} strokeWidth="3" fill={color} opacity="0.5" />
+      {shouldAddSharp(pitch) && <MiniSharp pitch={pitch} index={positionIndex} color={color} opacity={opacity} />}
+      <circle
+        onClick={() => setSelectedNote(positionIndex)}
+        cx={500 + positionIndex * distanceBetweenNotes - 38}
+        cy={getHeight(pitch)}
+        r="25"
+        stroke={color}
+        strokeWidth="3"
+        fill={color}
+        opacity={opacity} />
     </>
   )
 }
@@ -221,16 +232,17 @@ export const SVGScore = ({ guessedNotes, incorrectPitches, incorrectDurations, s
       <TrebleStave />
       {guessedNotes.map((note, index) => {
         return <NotePath
-        setSelectedNote={setSelectedNote}
-        note={note}
-        index={index}
-        color="black"
-        key={`${index}-${note.pitch}-${note.duration}`}
+          setSelectedNote={setSelectedNote}
+          note={note}
+          index={index}
+          color="black"
+          key={`${index}-${note.pitch}-${note.duration}`}
         />
       })}
       {answerStatuses.map(({ pitchStatus, durationStatus }, index) => {
         if (pitchStatus === AnswerStatus.CORRECT && durationStatus === AnswerStatus.CORRECT) {
           return <NotePath
+            opacity={0.5}
             setSelectedNote={setSelectedNote}
             note={answerNotes[index]}
             index={index}
@@ -245,12 +257,21 @@ export const SVGScore = ({ guessedNotes, incorrectPitches, incorrectDurations, s
             positionIndex={index}
             color="green"
             key={`${index}-${guessedNotes[index].pitch}-correct`} />
+        } else if (durationStatus === AnswerStatus.CORRECT) {
+          // duration
         }
         console.log('pitch status at ' + index + ' is ' + pitchStatus)
-
+        return <></>
       })}
       {incorrectPitches.map((pitchArray, positionIndex) => {
-        return pitchArray.map((pitch) => <PitchGuessPath setSelectedNote={setSelectedNote} pitch={pitch} positionIndex={positionIndex} color="grey" key={`${positionIndex}-${pitch}`} />)
+        return pitchArray.map((pitch) =>
+          <PitchGuessPath
+          setSelectedNote={setSelectedNote}
+          pitch={pitch}
+          positionIndex={positionIndex}
+          color="grey"
+          key={`${positionIndex}-${pitch}`} 
+          opacity={0.5}/>)
       })}
     </svg>
   )
