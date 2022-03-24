@@ -5,6 +5,7 @@ import { durationNames, pitchNames } from "./constants";
 export const nextPitch = (pitch: Pitch) => {
   const index = pitchNames.indexOf(pitch);
   if (index >= 0 && index < pitchNames.length - 1) {
+    console.log('Getting pitch after ' + pitch + ' which is ' + pitchNames[index + 1]);
     return pitchNames[index + 1]
   }
   return pitchNames[0];

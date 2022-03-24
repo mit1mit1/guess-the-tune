@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Container from "@mui/material/Container";
-import { GuessInput } from "src/components/GuessInput";
 import { SVGScore } from "src/components/SVGScore";
 import {
   Note,
@@ -15,9 +14,9 @@ import { gameSongs } from 'src/songs';
 
 const chosenSong = gameSongs[1]
 
-// const playChosenSong = () => {
-//   playNotes(chosenSong.notes, chosenSong.bpm);
-// };
+const playChosenSong = () => {
+  playNotes(chosenSong.notes, chosenSong.bpm);
+};
 
 const getNewStatus = (oldStatus: AnswerStatus, oldAnswer: any, newAnswer: any) => {
   if (oldStatus === AnswerStatus.CORRECT) {
@@ -60,15 +59,15 @@ const App = () => {
   const checkGuesses = () => {
     let anyIncorrect = false;
     const newStatuses = chosenSong.notes.map((note, index) => {
-      setPitchesGuessed(pitchesGuessed.add(guesses[index].pitch));
-      setDurationsGuessed(durationsGuessed.add(guesses[index].duration));
+      setPitchesGuessed(new Set(pitchesGuessed.add(guesses[index].pitch)));
+      setDurationsGuessed(new Set(durationsGuessed.add(guesses[index].duration)));
       if (note.pitch !== guesses[index].pitch) {
         anyIncorrect = true;
-        setIncorrectPitchesArray(pushIfNotIdentical(incorrectPitchesArray, index, guesses[index].pitch));
+        setIncorrectPitchesArray([...pushIfNotIdentical(incorrectPitchesArray, index, guesses[index].pitch)]);
       }
       if (note.duration !== guesses[index].duration) {
         anyIncorrect = true;
-        setIncorrectDurationsArray(pushIfNotIdentical(incorrectDurationsArray, index, guesses[index].duration));
+        setIncorrectDurationsArray([...pushIfNotIdentical(incorrectDurationsArray, index, guesses[index].duration)]);
       }
       return {
         pitchStatus: getNewStatus(answerStatuses[index].pitchStatus, note.pitch, guesses[index].pitch),
@@ -86,59 +85,71 @@ const App = () => {
         newDurationsCorrectSomewhereUnguessed.add(note.duration);
       }
     });
-    setPitchesCorrectSomewhereUnguessed(newPitchesCorrectSomewhereUnguessed);
-    setDurationsCorrectSomewhereUnguessed(newDurationsCorrectSomewhereUnguessed);
+    setPitchesCorrectSomewhereUnguessed(new Set(newPitchesCorrectSomewhereUnguessed));
+    setDurationsCorrectSomewhereUnguessed(new Set(newDurationsCorrectSomewhereUnguessed));
     if (anyIncorrect === false) {
       alert("All right!");
     }
-    playNotes(guesses, chosenSong.bpm);
-
-    // renderSheetMusic(guesses);
+    playNotes([...guesses], chosenSong.bpm);
   };
 
-  const assignIndexedGuess = (index: number, note: Note) => {
-    let newGuesses = guesses;
-    newGuesses[index] = note;
-    setGuesses(newGuesses);
-  };
-    document.onkeydown  = (e) => {
-        e = e || window.event;
-        const key = e.key;
-        if (key === 'w') {
-          setGuesses((prevGuesses) => {
-            prevGuesses[selectedNote].pitch = nextPitch(prevGuesses[selectedNote].pitch);
-            return prevGuesses;
-          });
-        }
-        if (key === 'a') {
-          setGuesses((prevGuesses) => {
-            prevGuesses[selectedNote].duration = previousDuration(prevGuesses[selectedNote].duration);
-            return prevGuesses;
-          });
-        }
-        if (key === 's') {
-          setGuesses((prevGuesses) => {
-            prevGuesses[selectedNote].pitch = previousPitch(prevGuesses[selectedNote].pitch);
-            return prevGuesses;
-          });
-        }
-        if (key === 'd') {
-          setGuesses((prevGuesses) => {
-            prevGuesses[selectedNote].duration = nextDuration(prevGuesses[selectedNote].duration);
-            return prevGuesses;
-          });
-        }
-        if (key === 'ArrowRight') {
-          if (selectedNote < chosenSong.notes.length - 1) {
-            setSelectedNote(selectedNote + 1);
-          }
-        }
-        if (key === 'ArrowLeft') {
-          if (selectedNote > 0) {
-            setSelectedNote(selectedNote - 1);
-          }
-        }
+  const handleKeyup = (e: KeyboardEvent) => {
+    const key = e.key;
+    if (key === 'w') {
+      setGuesses((prevGuesses) => {
+        const newGuesses = [...prevGuesses];
+        const newPitch = nextPitch(prevGuesses[selectedNote].pitch)
+        const newNote = { ...newGuesses[selectedNote], 'pitch': newPitch };
+        newGuesses[selectedNote] = newNote;
+        return newGuesses;
+      });
     }
+    if (key === 'a') {
+      setGuesses((prevGuesses) => {
+        const newGuesses = [...prevGuesses];
+        const newDuration = previousDuration(prevGuesses[selectedNote].duration)
+        const newNote = { ...newGuesses[selectedNote], 'duration': newDuration };
+        newGuesses[selectedNote] = newNote;
+        return newGuesses;
+      });
+    }
+    if (key === 's') {
+      setGuesses((prevGuesses) => {
+        const newGuesses = [...prevGuesses];
+        const newPitch = previousPitch(prevGuesses[selectedNote].pitch)
+        const newNote = { ...newGuesses[selectedNote], 'pitch': newPitch };
+        newGuesses[selectedNote] = newNote;
+        return newGuesses;
+      });
+    }
+    if (key === 'd') {
+      setGuesses((prevGuesses) => {
+        const newGuesses = [...prevGuesses];
+        const newDuration = nextDuration(prevGuesses[selectedNote].duration)
+        const newNote = { ...newGuesses[selectedNote], 'duration': newDuration };
+        newGuesses[selectedNote] = newNote;
+        return newGuesses;
+      });
+    }
+    if (key === 'ArrowRight') {
+      console.log('increment note')
+      if (selectedNote < chosenSong.notes.length - 1) {
+        setSelectedNote(selectedNote => selectedNote + 1);
+      }
+    }
+    if (key === 'ArrowLeft') {
+      console.log('decrement note')
+      if (selectedNote > 0) {
+        setSelectedNote(selectedNote => selectedNote - 1);
+      }
+    }
+  }
+  useEffect(() => {
+    document.addEventListener("keyup", handleKeyup, true);
+    return () => {
+      document.removeEventListener("keyup", handleKeyup, true);
+    }
+  }, [selectedNote]);
 
   return (
     <div className="App">
@@ -150,24 +161,11 @@ const App = () => {
 
       <main>
         <div>Selected note: {selectedNote + 1}</div>
-        <SVGScore notes={guesses} setSelectedNote={setSelectedNote} />
+        <SVGScore guessedNotes={[...guesses]} incorrectPitches={incorrectPitchesArray} incorrectDurations={incorrectDurationsArray} setSelectedNote={setSelectedNote} />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
         <div>Correct Pitches in Unknown Position: {Array.from(pitchesCorrectSomewhereUnguessed).join(', ')}</div>
         <div>Correct Durations in Unknown Position: {Array.from(durationsCorrectSomewhereUnguessed).join(', ')}</div>
-        <div id="boo"></div>
-        Note 1 Pitch: {guesses[0].pitch}
-        {/* {chosenSong.notes.map((answer, index) => (
-          <GuessInput
-            answer={answer}
-            bpm={chosenSong.bpm}
-            answerNoteStatus={answerStatuses[index]}
-            guess={initialGuesses[index]}
-            setGuess={(note) => assignIndexedGuess(index, note)}
-            incorrectPitches={incorrectPitchesArray[index]}
-            incorrectDurations={incorrectDurationsArray[index]}
-          />
-        ))} */}
         <button onClick={checkGuesses}>Check Guesses</button>
       </main>
     </div>
