@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { pitchNames } from 'src/constants';
-import { Duration, Note, Pitch } from 'src/types';
+import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from 'src/types';
 import { getHeight } from 'src/utils';
 import "./SVGScore.css";
 
@@ -77,20 +77,9 @@ const ExtraStaveLines = ({ pitch, index, startPitch, increasing }: ExtraStaveLin
   const effectivePitch: Pitch = pitch.replace("#", "") as Pitch;
   const cScale = pitchNames.filter(pitch => !pitch.includes('#'));
   while (cScale.indexOf(effectivePitch) <= cScale.indexOf(trackPitch) && hitEnd === false) {
-    buffer.push(<StavePath index={index} trackPitch={trackPitch} />);
-    newIndex = cScale.indexOf(trackPitch) - 2;
-    if (newIndex < 0) {
-      hitEnd = true;
-    } else {
-      trackPitch = cScale[newIndex];
-    }
-  }
-  trackPitch = "F5";
-  hitEnd = false;
-  while (cScale.indexOf(effectivePitch) >= cScale.indexOf(trackPitch) && hitEnd === false) {
-    buffer.push(<StavePath index={index} trackPitch={trackPitch} />);
-    newIndex = cScale.indexOf(trackPitch) + 2;
-    if (newIndex >= cScale.length || newIndex < 0) {
+    buffer.push(<StavePath index={index} trackPitch={trackPitch} key={`stave-extra-${trackPitch}`} />);
+    newIndex = cScale.indexOf(trackPitch) + (increasing ? 1 : -1) * 2;
+    if (newIndex < 0 || newIndex >= cScale.length) {
       hitEnd = true;
     } else {
       trackPitch = cScale[newIndex];
@@ -116,6 +105,18 @@ const Sharp = ({ pitch, color, index }: NoteSubpartProps) => {
       <path strokeWidth="12" stroke={color} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 60} H ${500 + index * distanceBetweenNotes - 150}`} />
       <path strokeWidth="12" stroke={color} d={`M${500 + index * distanceBetweenNotes - 110} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
       <path strokeWidth="12" stroke={color} d={`M${500 + index * distanceBetweenNotes - 130} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
+    </>
+  )
+}
+
+
+const MiniSharp = ({ pitch, color, index }: NoteSubpartProps) => {
+  return (
+    <>
+      <path strokeWidth="5" stroke={color} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 30} H ${500 + index * distanceBetweenNotes - 150}`} />
+      <path strokeWidth="5" stroke={color} d={`M${500 + index * distanceBetweenNotes - 90} ${getHeight(pitch) - 50 + 8 + 60} H ${500 + index * distanceBetweenNotes - 150}`} />
+      <path strokeWidth="5" stroke={color} d={`M${500 + index * distanceBetweenNotes - 110} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
+      <path strokeWidth="5" stroke={color} d={`M${500 + index * distanceBetweenNotes - 130} ${getHeight(pitch) - 50 + 8 + 10} V ${getHeight(pitch) - 50 + 8 + 80}`} />
     </>
   )
 }
@@ -156,23 +157,24 @@ const NotePath = ({ note, index, setSelectedNote, color }: NotePathProps) => {
       {shouldAddEigthLine(note.duration) && <EigthLine pitch={note.pitch} index={index} color={color} />}
       {shouldAddSixteenthLine(note.duration) && <SixteenthLine pitch={note.pitch} index={index} color={color} />}
       {shouldAddSharp(note.pitch) && <Sharp pitch={note.pitch} index={index} color={color} />}
-      <ExtraStaveLines pitch={note.pitch} index={index} />
+      {/* <ExtraStaveLines pitch={note.pitch} startPitch="A5" increasing index={index} /> */}
+      <ExtraStaveLines pitch={note.pitch} startPitch="C4" increasing={false} index={index} />
     </>
   )
 }
 
 
-interface IncorrectPitchPathProps {
+interface PitchGuessPathProps {
   pitch: Pitch;
   positionIndex: number;
   setSelectedNote: Dispatch<SetStateAction<number>>;
   color: string;
 }
 
-const IncorrectPitchPath = ({ pitch, positionIndex, setSelectedNote, color }: IncorrectPitchPathProps) => {
+const PitchGuessPath = ({ pitch, positionIndex, setSelectedNote, color }: PitchGuessPathProps) => {
   return (
     <>
-      {shouldAddSharp(pitch) && <Sharp pitch={pitch} index={positionIndex} color={color} />}
+      {shouldAddSharp(pitch) && <MiniSharp pitch={pitch} index={positionIndex} color={color} />}
       <circle onClick={() => setSelectedNote(positionIndex)} cx={500 + positionIndex * distanceBetweenNotes - 38} cy={getHeight(pitch)} r="25" stroke={color} strokeWidth="3" fill={color} opacity="0.5" />
     </>
   )
@@ -205,9 +207,11 @@ interface SVGScoreProps {
   incorrectPitches: Array<Array<Pitch>>;
   incorrectDurations: Array<Array<Duration>>;
   setSelectedNote: Dispatch<SetStateAction<number>>;
+  answerStatuses: Array<NoteStatus>;
+  answerNotes: Array<Note>;
 }
 
-export const SVGScore = ({ guessedNotes, incorrectPitches, incorrectDurations, setSelectedNote }: SVGScoreProps) => {
+export const SVGScore = ({ guessedNotes, incorrectPitches, incorrectDurations, setSelectedNote, answerStatuses, answerNotes }: SVGScoreProps) => {
   return (
     <svg
       viewBox={`0 0 ${SVGWidth} ${SVGHeight}`}
@@ -224,8 +228,29 @@ export const SVGScore = ({ guessedNotes, incorrectPitches, incorrectDurations, s
         key={`${index}-${note.pitch}-${note.duration}`}
         />
       })}
+      {answerStatuses.map(({ pitchStatus, durationStatus }, index) => {
+        if (pitchStatus === AnswerStatus.CORRECT && durationStatus === AnswerStatus.CORRECT) {
+          return <NotePath
+            setSelectedNote={setSelectedNote}
+            note={answerNotes[index]}
+            index={index}
+            color="green"
+            key={`${index}-${answerNotes[index].pitch}-${answerNotes[index].duration}`}
+          />
+        } else if (pitchStatus === AnswerStatus.CORRECT) {
+
+          return <PitchGuessPath
+            setSelectedNote={setSelectedNote}
+            pitch={guessedNotes[index].pitch}
+            positionIndex={index}
+            color="green"
+            key={`${index}-${guessedNotes[index].pitch}-correct`} />
+        }
+        console.log('pitch status at ' + index + ' is ' + pitchStatus)
+
+      })}
       {incorrectPitches.map((pitchArray, positionIndex) => {
-        return pitchArray.map((pitch) => <IncorrectPitchPath setSelectedNote={setSelectedNote} pitch={pitch} positionIndex={positionIndex} color="grey" key={`${positionIndex}-${pitch}`} />)
+        return pitchArray.map((pitch) => <PitchGuessPath setSelectedNote={setSelectedNote} pitch={pitch} positionIndex={positionIndex} color="grey" key={`${positionIndex}-${pitch}`} />)
       })}
     </svg>
   )

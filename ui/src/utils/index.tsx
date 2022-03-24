@@ -6,7 +6,6 @@ export * from './score';
 export const nextPitch = (pitch: Pitch) => {
   const index = pitchNames.indexOf(pitch);
   if (index >= 0 && index < pitchNames.length - 1) {
-    console.log('Getting pitch after ' + pitch + ' which is ' + pitchNames[index + 1]);
     return pitchNames[index + 1]
   }
   return pitchNames[0];
@@ -36,7 +35,6 @@ export const previousDuration = (duration: Duration) => {
   return durationNames[durationNames.length - 1];
 }
 export const playNotes = (notes: Array<Note>, bpm: number) => {
-  console.log("playing notes")
   Tone.Transport.bpm.value = bpm;
   Tone.Transport.cancel();
   const synth = new Tone.Synth().toDestination();

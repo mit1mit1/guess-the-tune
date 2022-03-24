@@ -132,13 +132,11 @@ const App = () => {
       });
     }
     if (key === 'ArrowRight') {
-      console.log('increment note')
       if (selectedNote < chosenSong.notes.length - 1) {
         setSelectedNote(selectedNote => selectedNote + 1);
       }
     }
     if (key === 'ArrowLeft') {
-      console.log('decrement note')
       if (selectedNote > 0) {
         setSelectedNote(selectedNote => selectedNote - 1);
       }
@@ -149,7 +147,7 @@ const App = () => {
     return () => {
       document.removeEventListener("keyup", handleKeyup, true);
     }
-  }, [selectedNote]);
+  }, [selectedNote, handleKeyup]);
 
   return (
     <div className="App">
@@ -161,7 +159,7 @@ const App = () => {
 
       <main>
         <div>Selected note: {selectedNote + 1}</div>
-        <SVGScore guessedNotes={[...guesses]} incorrectPitches={incorrectPitchesArray} incorrectDurations={incorrectDurationsArray} setSelectedNote={setSelectedNote} />
+        <SVGScore guessedNotes={[...guesses]} answerStatuses={answerStatuses} answerNotes={chosenSong.notes} incorrectPitches={incorrectPitchesArray} incorrectDurations={incorrectDurationsArray} setSelectedNote={setSelectedNote} />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
         <div>Correct Pitches in Unknown Position: {Array.from(pitchesCorrectSomewhereUnguessed).join(', ')}</div>
