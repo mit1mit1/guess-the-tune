@@ -11,7 +11,7 @@ import {
 } from "src/types";
 import { playNotes, nextPitch, previousPitch, previousDuration, nextDuration } from "./utils";
 import { gameSongs } from 'src/songs';
-
+console.log('test change')
 const chosenSong = gameSongs[1]
 
 const playChosenSong = () => {
