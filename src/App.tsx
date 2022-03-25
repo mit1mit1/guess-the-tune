@@ -14,10 +14,6 @@ import { gameSongs } from 'src/songs';
 
 const chosenSong = gameSongs[1]
 
-const playChosenSong = () => {
-  playNotes(chosenSong.notes, chosenSong.bpm);
-};
-
 const getNewStatus = (oldStatus: AnswerStatus, oldAnswer: any, newAnswer: any) => {
   if (oldStatus === AnswerStatus.CORRECT) {
     return oldStatus;
