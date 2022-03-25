@@ -11,12 +11,8 @@ import {
 } from "src/types";
 import { playNotes, nextPitch, previousPitch, previousDuration, nextDuration } from "./utils";
 import { gameSongs } from 'src/songs';
-console.log('test change')
-const chosenSong = gameSongs[1]
 
-const playChosenSong = () => {
-  playNotes(chosenSong.notes, chosenSong.bpm);
-};
+const chosenSong = gameSongs[1]
 
 const getNewStatus = (oldStatus: AnswerStatus, oldAnswer: any, newAnswer: any) => {
   if (oldStatus === AnswerStatus.CORRECT) {
