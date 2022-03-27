@@ -72,9 +72,11 @@ const StavePath = ({
       key={`${index}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke="black"
-      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110} ${getHeight(
-        trackPitch
-      )} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40}`}
+      d={`M${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
+      } ${getHeight(trackPitch)} H ${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+      }`}
     />
   );
 };
@@ -133,42 +135,61 @@ interface NoteSubpartProps {
   index: number;
 }
 
-const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
+const SharpPath = ({
+  xStart,
+  yStart,
+  color,
+  opacity = 1,
+  strokeWidth,
+}: {
+  xStart: number;
+  yStart: number;
+  color: string;
+  opacity?: number;
+  strokeWidth: number;
+}) => {
   return (
     <>
       <path
-        strokeWidth="12"
+        strokeWidth={strokeWidth}
         stroke={color}
         opacity={opacity}
-        d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 90} ${
-          getHeight(pitch) - 50 + 8 + 30
-        } H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150}`}
+        d={`M${xStart + 60} ${yStart + 20} H ${xStart}`}
       />
       <path
-        strokeWidth="12"
+        strokeWidth={strokeWidth}
         stroke={color}
         opacity={opacity}
-        d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 90} ${
-          getHeight(pitch) - 50 + 8 + 60
-        } H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150}`}
+        d={`M${xStart + 60} ${yStart + 40} H ${xStart}`}
       />
       <path
-        strokeWidth="12"
+        strokeWidth={strokeWidth}
         stroke={color}
         opacity={opacity}
-        d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110} ${
-          getHeight(pitch) - 50 + 8 + 10
-        } V ${getHeight(pitch) - 50 + 8 + 80}`}
+        d={`M${xStart + 40} ${yStart} V ${yStart + 60}`}
       />
       <path
-        strokeWidth="12"
+        strokeWidth={strokeWidth}
         stroke={color}
         opacity={opacity}
-        d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 130} ${
-          getHeight(pitch) - 50 + 8 + 10
-        } V ${getHeight(pitch) - 50 + 8 + 80}`}
+        d={`M${xStart + 20} ${yStart} V ${yStart + 60}`}
       />
     </>
+  );
+};
+
+const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
+  const xStart =
+    clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150;
+  const yStart = getHeight(pitch) - 32;
+  return (
+    <SharpPath
+      xStart={xStart}
+      yStart={yStart}
+      color={color}
+      opacity={opacity}
+      strokeWidth={12}
+    />
   );
 };
 
@@ -177,37 +198,15 @@ const getMiniSharpXStart = (index: number) => {
 };
 
 const MiniSharp = ({ pitch, color, opacity, xStart }: MiniSharpProps) => {
+  const yStart = getHeight(pitch) - 32;
   return (
-    <>
-      <path
-        strokeWidth="5"
-        stroke={color}
-        opacity={opacity}
-        d={`M${xStart + 60} ${getHeight(pitch) - 50 + 8 + 30} H ${xStart}`}
-      />
-      <path
-        strokeWidth="5"
-        stroke={color}
-        opacity={opacity}
-        d={`M${xStart + 60} ${getHeight(pitch) - 50 + 8 + 60} H ${xStart}`}
-      />
-      <path
-        strokeWidth="5"
-        stroke={color}
-        opacity={opacity}
-        d={`M${xStart + 40} ${getHeight(pitch) - 50 + 8 + 10} V ${
-          getHeight(pitch) - 50 + 8 + 80
-        }`}
-      />
-      <path
-        strokeWidth="5"
-        stroke={color}
-        opacity={opacity}
-        d={`M${xStart + 20} ${getHeight(pitch) - 50 + 8 + 10} V ${
-          getHeight(pitch) - 50 + 8 + 80
-        }`}
-      />
-    </>
+    <SharpPath
+      xStart={xStart}
+      yStart={yStart}
+      color={color}
+      opacity={opacity}
+      strokeWidth={5}
+    />
   );
 };
 
@@ -231,9 +230,9 @@ const UpStroke = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
       strokeWidth="4"
       stroke={color}
       opacity={opacity}
-      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2} ${
-        getHeight(pitch) - 200
-      } V ${getHeight(pitch)}`}
+      d={`M${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2
+      } ${getHeight(pitch) - 200} V ${getHeight(pitch)}`}
     />
   );
 };
@@ -244,9 +243,15 @@ const EigthLine = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2} ${
-        getHeight(pitch) - 200 + 8
-      } H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2 + 80}`}
+      d={`M${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2
+      } ${getHeight(pitch) - 200 + 8} H ${
+        clefLength +
+        incorrectPitchLength +
+        index * distanceBetweenNotes +
+        2 +
+        80
+      }`}
     />
   );
 };
@@ -257,9 +262,15 @@ const SixteenthLine = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2} ${
-        getHeight(pitch) - 200 + 8 + 30
-      } H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2 + 80}`}
+      d={`M${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2
+      } ${getHeight(pitch) - 200 + 8 + 30} H ${
+        clefLength +
+        incorrectPitchLength +
+        index * distanceBetweenNotes +
+        2 +
+        80
+      }`}
     />
   );
 };
@@ -363,6 +374,10 @@ interface PitchGuessPathProps {
   opacity?: number;
 }
 
+const DurationGuessPath = () => {
+  return <></>
+}
+
 const PitchGuessPath = ({
   pitch,
   positionIndex,
@@ -382,7 +397,12 @@ const PitchGuessPath = ({
       )}
       <circle
         onClick={() => setSelectedNote(positionIndex)}
-        cx={clefLength + incorrectPitchLength + positionIndex * distanceBetweenNotes - 38}
+        cx={
+          clefLength +
+          incorrectPitchLength +
+          positionIndex * distanceBetweenNotes -
+          38
+        }
         cy={getHeight(pitch)}
         r={pitchGuessRadius}
         fill={color}
@@ -482,8 +502,15 @@ const NonIncorrectPaths = ({
             />
           );
         } else if (durationStatus === AnswerStatus.CORRECT) {
-          // duration
-        }
+          return (
+            <DurationGuessPath
+              setSelectedNote={setSelectedNote}
+              duration={answerNotes[index].duration}
+              positionIndex={index}
+              color="green"
+              key={`${index}-${answerNotes[index].duration}-correct`}
+            />
+          }
         return <></>;
       })}
     </>
@@ -520,13 +547,14 @@ const getWrongSpotPitchXCentre = (pitch: Pitch) => {
 };
 
 const WrongSpotPitchPath = ({ pitch }: { pitch: Pitch }) => {
+  const wrongSpotPitchColor = "yellow";
   return (
     <>
       {shouldAddSharp(pitch) && (
         <MiniSharp
           pitch={pitch}
           xStart={getWrongSpotPitchXCentre(pitch) - 50}
-          color="yellow"
+          color={wrongSpotPitchColor}
           opacity={1}
         />
       )}
@@ -534,7 +562,7 @@ const WrongSpotPitchPath = ({ pitch }: { pitch: Pitch }) => {
         cx={getWrongSpotPitchXCentre(pitch)}
         cy={getHeight(pitch)}
         r={pitchGuessRadius}
-        fill={"yellow"}
+        fill={wrongSpotPitchColor}
       />
     </>
   );
