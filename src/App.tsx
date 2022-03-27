@@ -14,10 +14,6 @@ import { gameSongs } from "src/songs";
 
 const chosenSong = gameSongs[1];
 
-const playChosenSong = () => {
-  playNotes(chosenSong.notes, chosenSong.bpm);
-};
-
 const getNewStatus = (
   oldStatus: AnswerStatus,
   oldAnswer: any,
@@ -65,10 +61,7 @@ const App = () => {
   const [durationsGuessed, setDurationsGuessed] = useState(
     new Set<Duration>([])
   );
-  const [
-    wrongSpotPitches,
-    setWrongSpotPitches,
-  ] = useState(new Set<Pitch>([]));
+  const [wrongSpotPitches, setWrongSpotPitches] = useState(new Set<Pitch>([]));
   const [
     durationsCorrectSomewhereUnguessed,
     setDurationsCorrectSomewhereUnguessed,
@@ -131,9 +124,7 @@ const App = () => {
         newDurationsCorrectSomewhereUnguessed.add(note.duration);
       }
     });
-    setWrongSpotPitches(
-      new Set(newWrongSpotPitches)
-    );
+    setWrongSpotPitches(new Set(newWrongSpotPitches));
     setDurationsCorrectSomewhereUnguessed(
       new Set(newDurationsCorrectSomewhereUnguessed)
     );
@@ -161,7 +152,10 @@ const App = () => {
           const newDuration = previousDuration(
             prevGuesses[selectedNote].duration
           );
-          const newNote = { ...newGuesses[selectedNote], duration: newDuration };
+          const newNote = {
+            ...newGuesses[selectedNote],
+            duration: newDuration,
+          };
           newGuesses[selectedNote] = newNote;
           return newGuesses;
         });
@@ -179,7 +173,10 @@ const App = () => {
         setGuesses((prevGuesses) => {
           const newGuesses = [...prevGuesses];
           const newDuration = nextDuration(prevGuesses[selectedNote].duration);
-          const newNote = { ...newGuesses[selectedNote], duration: newDuration };
+          const newNote = {
+            ...newGuesses[selectedNote],
+            duration: newDuration,
+          };
           newGuesses[selectedNote] = newNote;
           return newGuesses;
         });
