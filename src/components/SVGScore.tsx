@@ -354,7 +354,7 @@ interface NoteShapePathProps {
   duration: Duration;
   baseXPosition: number;
   baseYPosition: number;
-  handleClick: () => void;
+  handleClick?: () => void;
   color: string;
 }
 
@@ -461,8 +461,11 @@ interface DurationGuessPathProps {
 const DurationGuessPath = ({ setSelectedNote,
   duration,
   positionIndex,
-  color }: DurationGuessPathProps) => {
-  return <></>
+  color, opacity }: DurationGuessPathProps) => {
+  const baseXPosition = getBaseXPosition(positionIndex);
+  return (
+    <NoteShapePath duration={duration} baseXPosition={baseXPosition} baseYPosition={-50} color={color} opacity={opacity} />
+  )
 }
 
 interface PitchGuessPathProps {
@@ -603,6 +606,7 @@ const NonIncorrectPaths = ({
               duration={answerNotes[index].duration}
               positionIndex={index}
               color="green"
+              opacity={0.5}
               key={`${index}-${answerNotes[index].duration}-correct`}
             />
           )
