@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { pitchNames } from "src/constants";
 import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "src/types";
-import { getHeight } from "src/utils";
+import { getHeight as getBaseYPosition } from "src/utils";
 import "./SVGScore.css";
 
 const SVGWidth = 2940;
@@ -72,11 +72,9 @@ const StavePath = ({
       key={`${index}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke="black"
-      d={`M${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
-      } ${getHeight(trackPitch)} H ${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
-      }`}
+      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
+        } ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+        }`}
     />
   );
 };
@@ -181,7 +179,7 @@ const SharpPath = ({
 const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
   const xStart =
     clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150;
-  const yStart = getHeight(pitch) - 32;
+  const yStart = getBaseYPosition(pitch) - 32;
   return (
     <SharpPath
       xStart={xStart}
@@ -198,7 +196,7 @@ const getMiniSharpXStart = (index: number) => {
 };
 
 const MiniSharp = ({ pitch, color, opacity, xStart }: MiniSharpProps) => {
-  const yStart = getHeight(pitch) - 32;
+  const yStart = getBaseYPosition(pitch) - 32;
   return (
     <SharpPath
       xStart={xStart}
@@ -210,11 +208,22 @@ const MiniSharp = ({ pitch, color, opacity, xStart }: MiniSharpProps) => {
   );
 };
 
-const Dot = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
+const getDotXCentre = (baseXPosition: number) => {
+  return baseXPosition + 19;
+}
+
+interface DotProps {
+  color: string;
+  opacity?: number;
+  xCentre: number;
+  yCentre: number;
+}
+
+const Dot = ({ color, opacity, xCentre, yCentre }: DotProps) => {
   return (
     <circle
-      cx={clefLength + incorrectPitchLength + index * distanceBetweenNotes + 19}
-      cy={getHeight(pitch)}
+      cx={xCentre}
+      cy={yCentre}
       r="5"
       stroke={color}
       opacity={opacity}
@@ -224,77 +233,180 @@ const Dot = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
   );
 };
 
-const UpStroke = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
+const getUpStrokeXStart = (baseXPosition: number) => {
+  return baseXPosition + 2;
+}
+
+interface UpStrokeProps {
+  xStart: number;
+  yStart: number;
+  color: string;
+  opacity?: number;
+}
+
+const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
   return (
     <path
       strokeWidth="4"
       stroke={color}
       opacity={opacity}
-      d={`M${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2
-      } ${getHeight(pitch) - 200} V ${getHeight(pitch)}`}
+      d={`M${xStart} ${yStart} V ${yStart + 200}`}
     />
   );
 };
 
-const EigthLine = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
+const getEigthLineXStart = (baseXPosition: number) => {
+  return baseXPosition + 2;
+}
+
+const getEigthLineYStart = (baseYPosition: number) => {
+  return baseYPosition - 200 + 8;
+}
+
+interface EigthLineProps {
+  xStart: number;
+  yStart: number;
+  color: string;
+  opacity?: number;
+}
+
+const EigthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
   return (
     <path
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      d={`M${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2
-      } ${getHeight(pitch) - 200 + 8} H ${
-        clefLength +
-        incorrectPitchLength +
-        index * distanceBetweenNotes +
-        2 +
-        80
-      }`}
+      d={`M${xStart
+        } ${yStart} H ${xStart + 80
+        }`}
     />
   );
 };
 
-const SixteenthLine = ({ pitch, color, opacity, index }: NoteSubpartProps) => {
+const getSixteenthLineXStart = (baseXPosition: number) => {
+  return baseXPosition + 2;
+}
+
+const getSixteenthLineYStart = (baseYPosition: number) => {
+  return baseYPosition - 200 + 8 + 30;
+}
+
+interface SixteenthLineProps {
+  xStart: number;
+  yStart: number;
+  color: string;
+  opacity?: number;
+}
+
+const SixteenthLine = ({ xStart, yStart, color, opacity }: SixteenthLineProps) => {
   return (
     <path
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      d={`M${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 2
-      } ${getHeight(pitch) - 200 + 8 + 30} H ${
-        clefLength +
-        incorrectPitchLength +
-        index * distanceBetweenNotes +
-        2 +
-        80
-      }`}
+      d={`M${xStart} ${yStart} H ${xStart + 80
+        }`}
     />
   );
 };
+
+const getBaseXPosition = (index: number) => {
+  return clefLength + incorrectPitchLength + index * distanceBetweenNotes;
+}
+
+const getRootCircleCX = (baseXPosition: number) => {
+  return baseXPosition - 38;
+}
+
+interface RootCircleProps {
+  opacity?: number;
+  handleClick?: () => void;
+  strokeColor: string;
+  fillColor: string;
+  xCentre: number;
+  yCentre: number;
+}
 
 const RootCircle = ({
-  note,
-  index,
-  setSelectedNote,
-  color,
+  handleClick,
+  strokeColor,
+  fillColor,
   opacity = 1,
-}: NotePathProps) => {
+  xCentre,
+  yCentre,
+}: RootCircleProps) => {
   return (
     <circle
-      onClick={() => setSelectedNote(index)}
-      cx={clefLength + incorrectPitchLength + index * distanceBetweenNotes - 38}
-      cy={getHeight(note.pitch)}
+      onClick={handleClick}
+      cx={xCentre}
+      cy={yCentre}
       r="36"
-      stroke={color}
+      stroke={strokeColor}
       opacity={opacity}
       strokeWidth="3"
-      fill={shouldFillInCircle(note.duration) ? color : "white"}
+      fill={fillColor}
     />
   );
 };
+
+interface NoteShapePathProps {
+  opacity?: number;
+  duration: Duration;
+  baseXPosition: number;
+  baseYPosition: number;
+  handleClick: () => void;
+  color: string;
+}
+
+const NoteShapePath = ({
+  duration,
+  handleClick,
+  color,
+  opacity = 1,
+  baseXPosition,
+  baseYPosition,
+}: NoteShapePathProps) => {
+  return (
+    <>
+      {drawLineUp(duration) && (
+        <UpStroke
+          xStart={getUpStrokeXStart(baseXPosition)}
+          yStart={baseYPosition - 200}
+          color={color}
+          opacity={opacity}
+        />
+      )}
+      <RootCircle
+        xCentre={getRootCircleCX(baseXPosition)}
+        yCentre={baseYPosition}
+        handleClick={handleClick}
+        strokeColor={color}
+        fillColor={shouldFillInCircle(duration) ? color : "white"}
+        opacity={opacity}
+      />
+      {shouldAddDot(duration) && (
+        <Dot xCentre={getDotXCentre(baseXPosition)} yCentre={baseYPosition} color={color} opacity={opacity} />
+      )}
+      {shouldAddEigthLine(duration) && (
+        <EigthLine
+          yStart={getEigthLineYStart(baseYPosition)}
+          xStart={getEigthLineXStart(baseXPosition)}
+          color={color}
+          opacity={opacity}
+        />
+      )}
+      {shouldAddSixteenthLine(duration) && (
+        <SixteenthLine
+          yStart={getSixteenthLineYStart(baseYPosition)}
+          xStart={getSixteenthLineXStart(baseXPosition)}
+          color={color}
+          opacity={opacity}
+        />
+      )}
+    </>
+  );
+
+}
 
 interface NotePathProps {
   opacity?: number;
@@ -311,42 +423,13 @@ const NotePath = ({
   color,
   opacity = 1,
 }: NotePathProps) => {
+  const baseXPosition = getBaseXPosition(index);
+  const baseYPosition = getBaseYPosition(note.pitch);
+  const handleClick = () => setSelectedNote(index);
+
   return (
     <>
-      {drawLineUp(note.duration) && (
-        <UpStroke
-          pitch={note.pitch}
-          index={index}
-          color={color}
-          opacity={opacity}
-        />
-      )}
-      <RootCircle
-        note={note}
-        index={index}
-        setSelectedNote={setSelectedNote}
-        color={color}
-        opacity={opacity}
-      />
-      {shouldAddDot(note.duration) && (
-        <Dot pitch={note.pitch} index={index} color={color} opacity={opacity} />
-      )}
-      {shouldAddEigthLine(note.duration) && (
-        <EigthLine
-          pitch={note.pitch}
-          index={index}
-          color={color}
-          opacity={opacity}
-        />
-      )}
-      {shouldAddSixteenthLine(note.duration) && (
-        <SixteenthLine
-          pitch={note.pitch}
-          index={index}
-          color={color}
-          opacity={opacity}
-        />
-      )}
+      <NoteShapePath duration={note.duration} baseXPosition={baseXPosition} baseYPosition={baseYPosition} handleClick={handleClick} color={color} opacity={opacity} />
       {shouldAddSharp(note.pitch) && (
         <Sharp
           pitch={note.pitch}
@@ -366,16 +449,28 @@ const NotePath = ({
   );
 };
 
-interface PitchGuessPathProps {
-  pitch: Pitch;
+interface DurationGuessPathProps {
+  duration: Duration;
   positionIndex: number;
   setSelectedNote: Dispatch<SetStateAction<number>>;
   color: string;
   opacity?: number;
 }
 
-const DurationGuessPath = () => {
+
+const DurationGuessPath = ({ setSelectedNote,
+  duration,
+  positionIndex,
+  color }: DurationGuessPathProps) => {
   return <></>
+}
+
+interface PitchGuessPathProps {
+  pitch: Pitch;
+  positionIndex: number;
+  setSelectedNote: Dispatch<SetStateAction<number>>;
+  color: string;
+  opacity?: number;
 }
 
 const PitchGuessPath = ({
@@ -403,7 +498,7 @@ const PitchGuessPath = ({
           positionIndex * distanceBetweenNotes -
           38
         }
-        cy={getHeight(pitch)}
+        cy={getBaseYPosition(pitch)}
         r={pitchGuessRadius}
         fill={color}
         opacity={opacity}
@@ -423,7 +518,7 @@ export const StaveLine = ({ pitch }: { pitch: Pitch }) => {
     <path
       strokeWidth="1"
       stroke="black"
-      d={`M0 ${getHeight(pitch)} H ${SVGWidth - 1}`}
+      d={`M0 ${getBaseYPosition(pitch)} H ${SVGWidth - 1}`}
     />
   );
 };
@@ -510,7 +605,8 @@ const NonIncorrectPaths = ({
               color="green"
               key={`${index}-${answerNotes[index].duration}-correct`}
             />
-          }
+          )
+        }
         return <></>;
       })}
     </>
@@ -560,7 +656,7 @@ const WrongSpotPitchPath = ({ pitch }: { pitch: Pitch }) => {
       )}
       <circle
         cx={getWrongSpotPitchXCentre(pitch)}
-        cy={getHeight(pitch)}
+        cy={getBaseYPosition(pitch)}
         r={pitchGuessRadius}
         fill={wrongSpotPitchColor}
       />
