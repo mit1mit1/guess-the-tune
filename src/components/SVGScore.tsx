@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { pitchNames } from "src/constants";
+import { durationNames, pitchNames } from "src/constants";
 import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "src/types";
 import { getHeight as getBaseYPosition } from "src/utils";
 import "./SVGScore.css";
@@ -458,13 +458,24 @@ interface DurationGuessPathProps {
 }
 
 
-const DurationGuessPath = ({ setSelectedNote,
+const CorrectDurationGuessPath = ({ setSelectedNote,
   duration,
   positionIndex,
   color, opacity }: DurationGuessPathProps) => {
   const baseXPosition = getBaseXPosition(positionIndex);
   return (
     <NoteShapePath duration={duration} baseXPosition={baseXPosition} baseYPosition={-50} color={color} opacity={opacity} />
+  )
+}
+
+
+const IncorrectDurationGuessPath = ({ setSelectedNote,
+  duration,
+  positionIndex,
+  color, opacity }: DurationGuessPathProps) => {
+  const baseXPosition = getBaseXPosition(positionIndex);
+  return (
+    <NoteShapePath duration={duration} baseXPosition={baseXPosition - 50 + 100 * (durationNames.indexOf(duration) % 2)} baseYPosition={SVGHeight + 50 + (durationNames.indexOf(duration)) * 230 * 0.5} color={color} opacity={opacity} />
   )
 }
 
@@ -601,7 +612,7 @@ const NonIncorrectPaths = ({
           );
         } else if (durationStatus === AnswerStatus.CORRECT) {
           return (
-            <DurationGuessPath
+            <CorrectDurationGuessPath
               setSelectedNote={setSelectedNote}
               duration={answerNotes[index].duration}
               positionIndex={index}
@@ -612,6 +623,31 @@ const NonIncorrectPaths = ({
           )
         }
         return <></>;
+      })}
+    </>
+  );
+};
+
+const IncorrectDurationPaths = ({
+  incorrectDurations,
+  setSelectedNote,
+}: {
+  incorrectDurations: Array<Array<Duration>>;
+  setSelectedNote: Dispatch<SetStateAction<number>>;
+}) => {
+  return (
+    <>
+      {incorrectDurations.map((durationArray, positionIndex) => {
+        return durationArray.map((duration) => (
+          <IncorrectDurationGuessPath
+            setSelectedNote={setSelectedNote}
+            duration={duration}
+            positionIndex={positionIndex}
+            color="grey"
+            key={`${positionIndex}-${duration}`}
+            opacity={0.5}
+          />
+        ));
       })}
     </>
   );
@@ -701,7 +737,7 @@ export const SVGScore = ({
 }: SVGScoreProps) => {
   return (
     <svg
-      viewBox={`0 0 ${SVGWidth} ${SVGHeight}`}
+      viewBox={`0 0 ${SVGWidth} ${SVGHeight + 0.5 * 200 * durationNames.length}`}
       xmlns="<http://www.w3.org/2000/svg>"
       className="svg-score"
     >
@@ -718,6 +754,10 @@ export const SVGScore = ({
       />
       <IncorrectPitchPaths
         incorrectPitches={incorrectPitches}
+        setSelectedNote={setSelectedNote}
+      />
+      <IncorrectDurationPaths
+        incorrectDurations={incorrectDurations}
         setSelectedNote={setSelectedNote}
       />
     </svg>
