@@ -1,39 +1,39 @@
 import { Duration, DurationObject, Note, Pitch } from "src/types";
 import * as Tone from "tone";
 import { durationNames, pitchNames } from "src/constants";
-export * from './score';
+export * from "./score";
 
 export const nextPitch = (pitch: Pitch) => {
   const index = pitchNames.indexOf(pitch);
   if (index >= 0 && index < pitchNames.length - 1) {
-    return pitchNames[index + 1]
+    return pitchNames[index + 1];
   }
   return pitchNames[0];
-}
+};
 
 export const previousPitch = (pitch: Pitch) => {
   const index = pitchNames.indexOf(pitch);
   if (index >= 1) {
-    return pitchNames[index - 1]
+    return pitchNames[index - 1];
   }
   return pitchNames[pitchNames.length - 1];
-}
+};
 
 export const nextDuration = (duration: Duration) => {
   const index = durationNames.indexOf(duration);
   if (index >= 0 && index < durationNames.length - 1) {
-    return durationNames[index + 1]
+    return durationNames[index + 1];
   }
   return durationNames[0];
-}
+};
 
 export const previousDuration = (duration: Duration) => {
   const index = durationNames.indexOf(duration);
   if (index >= 1) {
-    return durationNames[index - 1]
+    return durationNames[index - 1];
   }
   return durationNames[durationNames.length - 1];
-}
+};
 export const playNotes = (notes: Array<Note>, bpm: number) => {
   Tone.Transport.bpm.value = bpm;
   Tone.Transport.cancel();

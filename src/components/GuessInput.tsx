@@ -79,8 +79,10 @@ export const GuessInput = ({
           ) : (
             ""
           )}
-          {answerNoteStatus.pitchStatus !== AnswerStatus.CORRECT && incorrectPitches && incorrectPitches.length ? (
-            <div>{"Incorrect Pitches: " + incorrectPitches?.join(', ')}</div>
+          {answerNoteStatus.pitchStatus !== AnswerStatus.CORRECT &&
+          incorrectPitches &&
+          incorrectPitches.length ? (
+            <div>{"Incorrect Pitches: " + incorrectPitches?.join(", ")}</div>
           ) : (
             ""
           )}
@@ -111,8 +113,12 @@ export const GuessInput = ({
           {answerNoteStatus.durationStatus === AnswerStatus.CORRECT
             ? "Correct Duration: " + answer.duration
             : ""}
-          {answerNoteStatus.durationStatus !== AnswerStatus.CORRECT && incorrectDurations && incorrectDurations.length ? (
-            <div>{"Incorrect Durations: " + incorrectDurations?.join(', ')}</div>
+          {answerNoteStatus.durationStatus !== AnswerStatus.CORRECT &&
+          incorrectDurations &&
+          incorrectDurations.length ? (
+            <div>
+              {"Incorrect Durations: " + incorrectDurations?.join(", ")}
+            </div>
           ) : (
             ""
           )}

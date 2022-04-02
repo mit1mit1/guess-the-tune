@@ -1,13 +1,13 @@
-import { pitchNames, durationNames } from 'src/constants'
+import { pitchNames, durationNames } from "src/constants";
 
 export interface Note {
   pitch: Pitch;
   duration: Duration;
 }
 
-export type Pitch = typeof pitchNames[number]
+export type Pitch = typeof pitchNames[number];
 
-export type Duration = typeof durationNames[number]
+export type Duration = typeof durationNames[number];
 
 export enum AnswerStatus {
   UNKNOWN,

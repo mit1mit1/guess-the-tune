@@ -8,24 +8,24 @@ const ButtonCounter = () => {
   const [numbers, setNumbers] = useState([1]);
   const handleKeyup = (e: KeyboardEvent) => {
     const key = e.key;
-    if (key === 'w') {
+    if (key === "w") {
       setNumbers((numbers) => {
-        const newNumbers = [...numbers]
+        const newNumbers = [...numbers];
         newNumbers[0]++;
         return newNumbers;
       });
     }
-  }
+  };
   useEffect(() => {
-    alert('assigning keyup listener');
+    alert("assigning keyup listener");
     document.addEventListener("keyup", handleKeyup, true);
     return () => {
-      alert('removing listener');
+      alert("removing listener");
       document.removeEventListener("keyup", handleKeyup, true);
-    }
+    };
   }, []);
-  return <div>{numbers[0]}</div>
-}
+  return <div>{numbers[0]}</div>;
+};
 
 ReactDOM.render(
   <React.StrictMode>

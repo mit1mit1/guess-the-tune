@@ -4,7 +4,7 @@ import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "src/types";
 import { getHeight as getBaseYPosition } from "src/utils";
 import "./SVGScore.css";
 
-const SVGWidth = 2940;
+const SVGWidth = 3540;
 const SVGHeight = 440;
 const pitchGuessRadius = 28;
 const clefLength = 400;
@@ -58,7 +58,7 @@ const shouldAddSharp = (pitch: Pitch) => {
   return pitch.includes("#");
 };
 
-const distanceBetweenNotes = 230;
+const distanceBetweenNotes = 280;
 
 const StavePath = ({
   index,
@@ -72,9 +72,9 @@ const StavePath = ({
       key={`${index}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke="black"
-      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
-        } ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
-        }`}
+      d={`M${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110} ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+      }`}
     />
   );
 };
@@ -210,7 +210,7 @@ const MiniSharp = ({ pitch, color, opacity, xStart }: MiniSharpProps) => {
 
 const getDotXCentre = (baseXPosition: number) => {
   return baseXPosition + 19;
-}
+};
 
 interface DotProps {
   color: string;
@@ -235,7 +235,7 @@ const Dot = ({ color, opacity, xCentre, yCentre }: DotProps) => {
 
 const getUpStrokeXStart = (baseXPosition: number) => {
   return baseXPosition + 2;
-}
+};
 
 interface UpStrokeProps {
   xStart: number;
@@ -257,11 +257,11 @@ const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
 
 const getEigthLineXStart = (baseXPosition: number) => {
   return baseXPosition + 2;
-}
+};
 
 const getEigthLineYStart = (baseYPosition: number) => {
   return baseYPosition - 200 + 8;
-}
+};
 
 interface EigthLineProps {
   xStart: number;
@@ -276,20 +276,18 @@ const EigthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      d={`M${xStart
-        } ${yStart} H ${xStart + 80
-        }`}
+      d={`M${xStart} ${yStart} H ${xStart + 80}`}
     />
   );
 };
 
 const getSixteenthLineXStart = (baseXPosition: number) => {
   return baseXPosition + 2;
-}
+};
 
 const getSixteenthLineYStart = (baseYPosition: number) => {
   return baseYPosition - 200 + 8 + 30;
-}
+};
 
 interface SixteenthLineProps {
   xStart: number;
@@ -298,25 +296,29 @@ interface SixteenthLineProps {
   opacity?: number;
 }
 
-const SixteenthLine = ({ xStart, yStart, color, opacity }: SixteenthLineProps) => {
+const SixteenthLine = ({
+  xStart,
+  yStart,
+  color,
+  opacity,
+}: SixteenthLineProps) => {
   return (
     <path
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      d={`M${xStart} ${yStart} H ${xStart + 80
-        }`}
+      d={`M${xStart} ${yStart} H ${xStart + 80}`}
     />
   );
 };
 
 const getBaseXPosition = (index: number) => {
   return clefLength + incorrectPitchLength + index * distanceBetweenNotes;
-}
+};
 
 const getRootCircleCX = (baseXPosition: number) => {
   return baseXPosition - 38;
-}
+};
 
 interface RootCircleProps {
   opacity?: number;
@@ -385,7 +387,12 @@ const NoteShapePath = ({
         opacity={opacity}
       />
       {shouldAddDot(duration) && (
-        <Dot xCentre={getDotXCentre(baseXPosition)} yCentre={baseYPosition} color={color} opacity={opacity} />
+        <Dot
+          xCentre={getDotXCentre(baseXPosition)}
+          yCentre={baseYPosition}
+          color={color}
+          opacity={opacity}
+        />
       )}
       {shouldAddEigthLine(duration) && (
         <EigthLine
@@ -405,8 +412,7 @@ const NoteShapePath = ({
       )}
     </>
   );
-
-}
+};
 
 interface NotePathProps {
   opacity?: number;
@@ -429,7 +435,14 @@ const NotePath = ({
 
   return (
     <>
-      <NoteShapePath duration={note.duration} baseXPosition={baseXPosition} baseYPosition={baseYPosition} handleClick={handleClick} color={color} opacity={opacity} />
+      <NoteShapePath
+        duration={note.duration}
+        baseXPosition={baseXPosition}
+        baseYPosition={baseYPosition}
+        handleClick={handleClick}
+        color={color}
+        opacity={opacity}
+      />
       {shouldAddSharp(note.pitch) && (
         <Sharp
           pitch={note.pitch}
@@ -457,27 +470,47 @@ interface DurationGuessPathProps {
   opacity?: number;
 }
 
-
-const CorrectDurationGuessPath = ({ setSelectedNote,
+const CorrectDurationGuessPath = ({
+  setSelectedNote,
   duration,
   positionIndex,
-  color, opacity }: DurationGuessPathProps) => {
+  color,
+  opacity,
+}: DurationGuessPathProps) => {
   const baseXPosition = getBaseXPosition(positionIndex);
   return (
-    <NoteShapePath duration={duration} baseXPosition={baseXPosition} baseYPosition={-50} color={color} opacity={opacity} />
-  )
-}
+    <NoteShapePath
+      duration={duration}
+      baseXPosition={baseXPosition}
+      baseYPosition={-50}
+      color={color}
+      opacity={opacity}
+    />
+  );
+};
 
-
-const IncorrectDurationGuessPath = ({ setSelectedNote,
+const IncorrectDurationGuessPath = ({
+  setSelectedNote,
   duration,
   positionIndex,
-  color, opacity }: DurationGuessPathProps) => {
+  color,
+  opacity,
+}: DurationGuessPathProps) => {
   const baseXPosition = getBaseXPosition(positionIndex);
   return (
-    <NoteShapePath duration={duration} baseXPosition={baseXPosition - 50 + 100 * (durationNames.indexOf(duration) % 2)} baseYPosition={SVGHeight + 50 + (durationNames.indexOf(duration)) * 230 * 0.5} color={color} opacity={opacity} />
-  )
-}
+    <NoteShapePath
+      duration={duration}
+      baseXPosition={
+        baseXPosition - 50 + 100 * (durationNames.indexOf(duration) % 2)
+      }
+      baseYPosition={
+        SVGHeight + 50 + durationNames.indexOf(duration) * 230 * 0.5
+      }
+      color={color}
+      opacity={opacity}
+    />
+  );
+};
 
 interface PitchGuessPathProps {
   pitch: Pitch;
@@ -620,7 +653,7 @@ const NonIncorrectPaths = ({
               opacity={0.5}
               key={`${index}-${answerNotes[index].duration}-correct`}
             />
-          )
+          );
         }
         return <></>;
       })}
@@ -737,7 +770,9 @@ export const SVGScore = ({
 }: SVGScoreProps) => {
   return (
     <svg
-      viewBox={`0 0 ${SVGWidth} ${SVGHeight + 0.5 * 200 * durationNames.length}`}
+      viewBox={`0 0 ${SVGWidth} ${
+        SVGHeight + 0.5 * 200 * durationNames.length
+      }`}
       xmlns="<http://www.w3.org/2000/svg>"
       className="svg-score"
     >
