@@ -73,7 +73,9 @@ const StavePath = ({
       strokeWidth="1"
       stroke="black"
       d={`M${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110} ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
+      } ${getBaseYPosition(trackPitch)} H ${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
       }`}
     />
   );
