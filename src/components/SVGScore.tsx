@@ -751,6 +751,37 @@ const WrongSpotPitchPaths = ({
   return <>{buffer}</>;
 };
 
+const getWrongSpotDurationXCentre = (duration: Duration) => {
+  return 50 + 50 * (durationNames.indexOf(duration) % 3) * 70;
+};
+
+const WrongSpotDurationPath = ({ duration }: { duration: Duration }) => {
+  const wrongSpotDurationColor = "yellow";
+  return (
+    <NoteShapePath
+      duration={duration}
+      baseXPosition={getWrongSpotDurationXCentre(duration)}
+      baseYPosition={
+        SVGHeight + 50 + durationNames.indexOf(duration) * 230 * 0.4
+      }
+      color={wrongSpotDurationColor}
+      opacity={0.5}
+    />
+  );
+};
+
+const WrongSpotDurationPaths = ({
+  wrongSpotDurations,
+}: {
+  wrongSpotDurations: Set<Duration>;
+}) => {
+  const buffer: Array<JSX.Element> = [];
+  wrongSpotDurations.forEach((duration) => {
+    buffer.push(<WrongSpotDurationPath duration={duration} />);
+  });
+  return <>{buffer}</>;
+};
+
 interface SVGScoreProps {
   guessedNotes: Array<Note>;
   incorrectPitches: Array<Array<Pitch>>;
@@ -759,6 +790,7 @@ interface SVGScoreProps {
   answerStatuses: Array<NoteStatus>;
   answerNotes: Array<Note>;
   wrongSpotPitches: Set<Pitch>;
+  wrongSpotDurations: Set<Duration>;
 }
 
 export const SVGScore = ({
@@ -769,6 +801,7 @@ export const SVGScore = ({
   answerStatuses,
   answerNotes,
   wrongSpotPitches,
+  wrongSpotDurations,
 }: SVGScoreProps) => {
   return (
     <svg
@@ -784,6 +817,7 @@ export const SVGScore = ({
         setSelectedNote={setSelectedNote}
       />
       <WrongSpotPitchPaths wrongSpotPitches={wrongSpotPitches} />
+      <WrongSpotDurationPaths wrongSpotDurations={wrongSpotDurations} />
       <NonIncorrectPaths
         answerStatuses={answerStatuses}
         answerNotes={answerNotes}

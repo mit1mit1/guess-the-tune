@@ -25,6 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:pre-push": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "pretlint:check": "prettier \"src/**/*.{ts,tsx}\" && eslint",
     "pretlint:write": "prettier --write \"src/**/*.{ts,tsx}\" && eslint --fix",

@@ -62,10 +62,9 @@ const App = () => {
     new Set<Duration>([])
   );
   const [wrongSpotPitches, setWrongSpotPitches] = useState(new Set<Pitch>([]));
-  const [
-    durationsCorrectSomewhereUnguessed,
-    setDurationsCorrectSomewhereUnguessed,
-  ] = useState(new Set<Duration>([]));
+  const [wrongSpotDurations, setWrongSpotDurations] = useState(
+    new Set<Duration>([])
+  );
 
   const checkGuesses = () => {
     let anyIncorrect = false;
@@ -109,7 +108,7 @@ const App = () => {
     });
     setAnswerStatuses(newStatuses);
     const newWrongSpotPitches = new Set<Pitch>([]);
-    const newDurationsCorrectSomewhereUnguessed = new Set<Duration>([]);
+    const newWrongSpotDurations = new Set<Duration>([]);
     chosenSong.notes.forEach((note, index) => {
       if (
         answerStatuses[index].pitchStatus !== AnswerStatus.CORRECT &&
@@ -121,13 +120,11 @@ const App = () => {
         answerStatuses[index].durationStatus !== AnswerStatus.CORRECT &&
         durationsGuessed.has(note.duration)
       ) {
-        newDurationsCorrectSomewhereUnguessed.add(note.duration);
+        newWrongSpotDurations.add(note.duration);
       }
     });
     setWrongSpotPitches(new Set(newWrongSpotPitches));
-    setDurationsCorrectSomewhereUnguessed(
-      new Set(newDurationsCorrectSomewhereUnguessed)
-    );
+    setWrongSpotDurations(new Set(newWrongSpotDurations));
     if (anyIncorrect === false) {
       alert("All right!");
     }
@@ -216,6 +213,7 @@ const App = () => {
           incorrectDurations={incorrectDurationsArray}
           setSelectedNote={setSelectedNote}
           wrongSpotPitches={wrongSpotPitches}
+          wrongSpotDurations={wrongSpotDurations}
         />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
@@ -225,7 +223,7 @@ const App = () => {
         </div>
         <div>
           Correct Durations in Unknown Position:{" "}
-          {Array.from(durationsCorrectSomewhereUnguessed).join(", ")}
+          {Array.from(wrongSpotDurations).join(", ")}
         </div>
         <button onClick={checkGuesses}>Check Guesses</button>
       </main>
