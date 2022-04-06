@@ -14,17 +14,17 @@ import { gameSongs } from "src/songs";
 
 const chosenSong = gameSongs[1];
 
-const getNewStatus = (
+const getNewAnswerStatus = <T extends Pitch | Duration>(
   oldStatus: AnswerStatus,
-  oldAnswer: any,
-  newAnswer: any
+  correctAnswer: T,
+  newAnswer: T
 ) => {
-  if (oldStatus === AnswerStatus.CORRECT) {
+  if (oldStatus === AnswerStatus.GUESSEDCORRECT) {
     return oldStatus;
   }
-  return oldAnswer === newAnswer
-    ? AnswerStatus.CORRECT
-    : AnswerStatus.INCORRECT;
+  return correctAnswer === newAnswer
+    ? AnswerStatus.GUESSEDCORRECT
+    : AnswerStatus.INCORRECTSOFAR;
 };
 
 const pushIfNotIdentical = (
@@ -94,12 +94,12 @@ const App = () => {
         ]);
       }
       return {
-        pitchStatus: getNewStatus(
+        pitchStatus: getNewAnswerStatus(
           answerStatuses[index].pitchStatus,
           note.pitch,
           guesses[index].pitch
         ),
-        durationStatus: getNewStatus(
+        durationStatus: getNewAnswerStatus(
           answerStatuses[index].durationStatus,
           note.duration,
           guesses[index].duration
@@ -111,13 +111,13 @@ const App = () => {
     const newWrongSpotDurations = new Set<Duration>([]);
     chosenSong.notes.forEach((note, index) => {
       if (
-        answerStatuses[index].pitchStatus !== AnswerStatus.CORRECT &&
+        answerStatuses[index].pitchStatus !== AnswerStatus.GUESSEDCORRECT &&
         pitchesGuessed.has(note.pitch)
       ) {
         newWrongSpotPitches.add(note.pitch);
       }
       if (
-        answerStatuses[index].durationStatus !== AnswerStatus.CORRECT &&
+        answerStatuses[index].durationStatus !== AnswerStatus.GUESSEDCORRECT &&
         durationsGuessed.has(note.duration)
       ) {
         newWrongSpotDurations.add(note.duration);

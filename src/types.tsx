@@ -11,8 +11,8 @@ export type Duration = typeof durationNames[number];
 
 export enum AnswerStatus {
   UNKNOWN,
-  CORRECT,
-  INCORRECT,
+  GUESSEDCORRECT,
+  INCORRECTSOFAR,
 }
 
 export interface DurationObject {

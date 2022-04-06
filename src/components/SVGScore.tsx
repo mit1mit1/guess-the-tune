@@ -622,8 +622,8 @@ const NonIncorrectPaths = ({
     <>
       {answerStatuses.map(({ pitchStatus, durationStatus }, index) => {
         if (
-          pitchStatus === AnswerStatus.CORRECT &&
-          durationStatus === AnswerStatus.CORRECT
+          pitchStatus === AnswerStatus.GUESSEDCORRECT &&
+          durationStatus === AnswerStatus.GUESSEDCORRECT
         ) {
           return (
             <NotePath
@@ -635,7 +635,7 @@ const NonIncorrectPaths = ({
               key={`${index}-${answerNotes[index].pitch}-${answerNotes[index].duration}`}
             />
           );
-        } else if (pitchStatus === AnswerStatus.CORRECT) {
+        } else if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
           return (
             <PitchGuessPath
               setSelectedNote={setSelectedNote}
@@ -645,7 +645,7 @@ const NonIncorrectPaths = ({
               key={`${index}-${answerNotes[index].pitch}-correct`}
             />
           );
-        } else if (durationStatus === AnswerStatus.CORRECT) {
+        } else if (durationStatus === AnswerStatus.GUESSEDCORRECT) {
           return (
             <CorrectDurationGuessPath
               setSelectedNote={setSelectedNote}
