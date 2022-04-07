@@ -10,17 +10,12 @@ const chosenSong = gameSongs[1];
 
 const App = () => {
   const {
-    selectedNote,
-    setSelectedNote,
+    selectedNoteIndex,
+    setSelectedNoteIndex,
     incrementGuessPitch,
     incrementGuessDuration,
     guesses,
     checkGuesses,
-    answerStatuses,
-    incorrectPitchesArray,
-    incorrectDurationsArray,
-    wrongSpotPitches,
-    wrongSpotDurations,
   } = useStore((state) => state);
 
   const handleCheckGuess = () => {
@@ -35,25 +30,25 @@ const App = () => {
     const handleKeyup = (e: KeyboardEvent) => {
       const key = e.key;
       if (key === "w") {
-        incrementGuessPitch(selectedNote, 1);
+        incrementGuessPitch(selectedNoteIndex, 1);
       }
       if (key === "a") {
-        incrementGuessDuration(selectedNote, -1);
+        incrementGuessDuration(selectedNoteIndex, -1);
       }
       if (key === "s") {
-        incrementGuessPitch(selectedNote, -1);
+        incrementGuessPitch(selectedNoteIndex, -1);
       }
       if (key === "d") {
-        incrementGuessPitch(selectedNote, -1);
+        incrementGuessPitch(selectedNoteIndex, -1);
       }
       if (key === "ArrowRight") {
-        if (selectedNote < chosenSong.notes.length - 1) {
-          setSelectedNote(selectedNote + 1);
+        if (selectedNoteIndex < chosenSong.notes.length - 1) {
+          setSelectedNoteIndex(selectedNoteIndex + 1);
         }
       }
       if (key === "ArrowLeft") {
-        if (selectedNote > 0) {
-          setSelectedNote(selectedNote - 1);
+        if (selectedNoteIndex > 0) {
+          setSelectedNoteIndex(selectedNoteIndex - 1);
         }
       }
     };
@@ -64,8 +59,8 @@ const App = () => {
   }, [
     incrementGuessDuration,
     incrementGuessPitch,
-    selectedNote,
-    setSelectedNote,
+    selectedNoteIndex,
+    setSelectedNoteIndex,
   ]);
 
   return (
@@ -77,25 +72,10 @@ const App = () => {
       </header>
 
       <main>
-        <div>Selected note: {selectedNote + 1}</div>
-        <SVGScore
-          answerStatuses={answerStatuses}
-          answerNotes={chosenSong.notes}
-          incorrectPitches={incorrectPitchesArray}
-          incorrectDurations={incorrectDurationsArray}
-          wrongSpotPitches={wrongSpotPitches}
-          wrongSpotDurations={wrongSpotDurations}
+        <SVGScore correctNotes={chosenSong.notes}
         />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
-        <div>
-          Correct Pitches in Unknown Position:{" "}
-          {Array.from(wrongSpotPitches).join(", ")}
-        </div>
-        <div>
-          Correct Durations in Unknown Position:{" "}
-          {Array.from(wrongSpotDurations).join(", ")}
-        </div>
         <button onClick={handleCheckGuess}>Check Guesses</button>
       </main>
     </div>

@@ -1,5 +1,5 @@
 import { durationNames, pitchNames } from "src/constants";
-import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "src/types";
+import { AnswerStatus, Duration, Note, Pitch } from "src/types";
 import { getHeight as getBaseYPosition } from "src/utils";
 import { useStore } from "src/guessStore";
 import "./SVGScore.css";
@@ -72,11 +72,9 @@ const StavePath = ({
       key={`${index}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke="black"
-      d={`M${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
-      } ${getBaseYPosition(trackPitch)} H ${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
-      }`}
+      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
+        } ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+        }`}
     />
   );
 };
@@ -426,8 +424,8 @@ interface NotePathProps {
 const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
   const baseXPosition = getBaseXPosition(index);
   const baseYPosition = getBaseYPosition(note.pitch);
-  const { setSelectedNote } = useStore((state) => state);
-  const handleClick = () => setSelectedNote(index);
+  const { setSelectedNoteIndex } = useStore((state) => state);
+  const handleClick = () => setSelectedNoteIndex(index);
 
   return (
     <>
@@ -518,7 +516,7 @@ const PitchGuessPath = ({
   color,
   opacity = 1,
 }: PitchGuessPathProps) => {
-  const { setSelectedNote } = useStore((state) => state);
+  const { setSelectedNoteIndex } = useStore((state) => state);
   return (
     <>
       {shouldAddSharp(pitch) && (
@@ -530,7 +528,7 @@ const PitchGuessPath = ({
         />
       )}
       <circle
-        onClick={() => setSelectedNote(positionIndex)}
+        onClick={() => setSelectedNoteIndex(positionIndex)}
         cx={
           clefLength +
           incorrectPitchLength +
@@ -592,13 +590,8 @@ const CurrentGuessPaths = ({ notes }: { notes: Array<Note> }) => {
   );
 };
 
-const NonIncorrectPaths = ({
-  answerStatuses,
-  answerNotes,
-}: {
-  answerStatuses: Array<NoteStatus>;
-  answerNotes: Array<Note>;
-}) => {
+const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
+  const { answerStatuses } = useStore((state) => state);
   return (
     <>
       {answerStatuses.map(({ pitchStatus, durationStatus }, index) => {
@@ -609,29 +602,29 @@ const NonIncorrectPaths = ({
           return (
             <NotePath
               opacity={0.5}
-              note={answerNotes[index]}
+              note={correctNotes[index]}
               index={index}
               color="green"
-              key={`${index}-${answerNotes[index].pitch}-${answerNotes[index].duration}`}
+              key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].duration}`}
             />
           );
         } else if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
           return (
             <PitchGuessPath
-              pitch={answerNotes[index].pitch}
+              pitch={correctNotes[index].pitch}
               positionIndex={index}
               color="green"
-              key={`${index}-${answerNotes[index].pitch}-correct`}
+              key={`${index}-${correctNotes[index].pitch}-correct`}
             />
           );
         } else if (durationStatus === AnswerStatus.GUESSEDCORRECT) {
           return (
             <CorrectDurationGuessPath
-              duration={answerNotes[index].duration}
+              duration={correctNotes[index].duration}
               positionIndex={index}
               color="green"
               opacity={0.5}
-              key={`${index}-${answerNotes[index].duration}-correct`}
+              key={`${index}-${correctNotes[index].duration}-correct`}
             />
           );
         }
@@ -641,14 +634,11 @@ const NonIncorrectPaths = ({
   );
 };
 
-const IncorrectDurationPaths = ({
-  incorrectDurations,
-}: {
-  incorrectDurations: Array<Array<Duration>>;
-}) => {
+const IncorrectDurationPaths = () => {
+  const { incorrectDurationsArrays } = useStore((state) => state);
   return (
     <>
-      {incorrectDurations.map((durationArray, positionIndex) => {
+      {incorrectDurationsArrays.map((durationArray, positionIndex) => {
         return durationArray.map((duration) => (
           <IncorrectDurationGuessPath
             duration={duration}
@@ -663,14 +653,11 @@ const IncorrectDurationPaths = ({
   );
 };
 
-const IncorrectPitchPaths = ({
-  incorrectPitches,
-}: {
-  incorrectPitches: Array<Array<Pitch>>;
-}) => {
+const IncorrectPitchPaths = () => {
+  const { incorrectPitchesArrays } = useStore((state) => state);
   return (
     <>
-      {incorrectPitches.map((pitchArray, positionIndex) => {
+      {incorrectPitchesArrays.map((pitchArray, positionIndex) => {
         return pitchArray.map((pitch) => (
           <PitchGuessPath
             pitch={pitch}
@@ -711,11 +698,8 @@ const WrongSpotPitchPath = ({ pitch }: { pitch: Pitch }) => {
   );
 };
 
-const WrongSpotPitchPaths = ({
-  wrongSpotPitches,
-}: {
-  wrongSpotPitches: Set<Pitch>;
-}) => {
+const WrongSpotPitchPaths = () => {
+  const { wrongSpotPitches } = useStore((state) => state);
   const buffer: Array<JSX.Element> = [];
   wrongSpotPitches.forEach((pitch) => {
     buffer.push(<WrongSpotPitchPath pitch={pitch} />);
@@ -742,11 +726,8 @@ const WrongSpotDurationPath = ({ duration }: { duration: Duration }) => {
   );
 };
 
-const WrongSpotDurationPaths = ({
-  wrongSpotDurations,
-}: {
-  wrongSpotDurations: Set<Duration>;
-}) => {
+const WrongSpotDurationPaths = () => {
+  const { wrongSpotDurations } = useStore((state) => state);
   const buffer: Array<JSX.Element> = [];
   wrongSpotDurations.forEach((duration) => {
     buffer.push(<WrongSpotDurationPath duration={duration} />);
@@ -754,42 +735,36 @@ const WrongSpotDurationPaths = ({
   return <>{buffer}</>;
 };
 
-interface SVGScoreProps {
-  incorrectPitches: Array<Array<Pitch>>;
-  incorrectDurations: Array<Array<Duration>>;
-  answerStatuses: Array<NoteStatus>;
-  answerNotes: Array<Note>;
-  wrongSpotPitches: Set<Pitch>;
-  wrongSpotDurations: Set<Duration>;
+const SelectedNoteHightlight = () => {
+  const { selectedNoteIndex } = useStore((state) => state);
+  return (<ellipse
+    cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex))}
+    cy={getBaseYPosition("B4")}
+    rx={100}
+    ry={SVGHeight}
+    fill="grey"
+    opacity={0.2}
+  />);
+
 }
 
-export const SVGScore = ({
-  incorrectPitches,
-  incorrectDurations,
-  answerStatuses,
-  answerNotes,
-  wrongSpotPitches,
-  wrongSpotDurations,
-}: SVGScoreProps) => {
+export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
   const { guesses } = useStore((state) => state);
   return (
     <svg
-      viewBox={`0 0 ${SVGWidth} ${
-        SVGHeight + 0.5 * 200 * durationNames.length
-      }`}
+      viewBox={`0 0 ${SVGWidth} ${SVGHeight + 0.5 * 200 * durationNames.length
+        }`}
       xmlns="<http://www.w3.org/2000/svg>"
       className="svg-score"
     >
       <TrebleStave />
       <CurrentGuessPaths notes={guesses} />
-      <WrongSpotPitchPaths wrongSpotPitches={wrongSpotPitches} />
-      <WrongSpotDurationPaths wrongSpotDurations={wrongSpotDurations} />
-      <NonIncorrectPaths
-        answerStatuses={answerStatuses}
-        answerNotes={answerNotes}
-      />
-      <IncorrectPitchPaths incorrectPitches={incorrectPitches} />
-      <IncorrectDurationPaths incorrectDurations={incorrectDurations} />
+      <SelectedNoteHightlight />
+      <WrongSpotPitchPaths />
+      <WrongSpotDurationPaths />
+      <NonIncorrectPaths correctNotes={correctNotes} />
+      <IncorrectPitchPaths />
+      <IncorrectDurationPaths />
     </svg>
   );
 };
