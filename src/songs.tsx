@@ -1,4 +1,4 @@
-import { GameSong, Note } from "src/types";
+import { GameSong } from "src/types";
 
 const simpsonsTheme: GameSong = {
   bpm: 172,

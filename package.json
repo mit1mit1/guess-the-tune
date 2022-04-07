@@ -27,8 +27,8 @@
     "test": "react-scripts test",
     "test:pre-push": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "pretlint:check": "prettier \"src/**/*.{ts,tsx}\" && eslint",
-    "pretlint:write": "prettier --write \"src/**/*.{ts,tsx}\" && eslint --fix",
+    "pretlint:check": "prettier \"src/**/*.{ts,tsx}\" && eslint \"src/**/*.{ts,tsx}\" --max-warnings=0",
+    "pretlint:write": "prettier --write \"src/**/*.{ts,tsx}\" && eslint --fix \"src/**/*.{ts,tsx}\" --max-warnings=0",
     "prepare": "husky install"
   },
   "eslintConfig": {
