@@ -19,10 +19,14 @@ export const previousPitch = (pitch: Pitch) => {
   return pitchNames[pitchNames.length - 1];
 };
 
-export const incrementDuration = (notes: Array<Note>, index: number, increment: number) => {
+export const incrementDuration = (
+  notes: Array<Note>,
+  index: number,
+  increment: number
+) => {
   let newDuration = notes[index].duration;
   const incrementFunc = increment > 0 ? nextDuration : previousDuration;
-  increment = Math.abs(increment)
+  increment = Math.abs(increment);
   while (increment !== 0) {
     newDuration = incrementFunc(newDuration);
     increment--;
@@ -32,12 +36,16 @@ export const incrementDuration = (notes: Array<Note>, index: number, increment: 
   const newNote = { ...newNotes[index], duration: newDuration };
   newNotes[index] = newNote;
   return newNotes;
-}
+};
 
-export const incrementPitch = (notes: Array<Note>, index: number, increment: number) => {
+export const incrementPitch = (
+  notes: Array<Note>,
+  index: number,
+  increment: number
+) => {
   let newPitch = notes[index].pitch;
   const incrementFunc = increment > 0 ? nextPitch : previousPitch;
-  increment = Math.abs(increment)
+  increment = Math.abs(increment);
   while (increment !== 0) {
     newPitch = incrementFunc(newPitch);
     increment--;
@@ -47,8 +55,7 @@ export const incrementPitch = (notes: Array<Note>, index: number, increment: num
   const newNote = { ...newNotes[index], pitch: newPitch };
   newNotes[index] = newNote;
   return newNotes;
-}
-
+};
 
 export const nextDuration = (duration: Duration) => {
   const index = durationNames.indexOf(duration);
@@ -65,6 +72,19 @@ export const previousDuration = (duration: Duration) => {
   }
   return durationNames[durationNames.length - 1];
 };
+
+export const pushIfNotIdentical = (
+  oldArrayOfArrays: Array<Array<any>>,
+  index: number,
+  newItem: any
+) => {
+  const newArray = [...oldArrayOfArrays];
+  if (oldArrayOfArrays[index].indexOf(newItem) === -1) {
+    newArray[index].push(newItem);
+  }
+  return newArray;
+};
+
 export const playNotes = (notes: Array<Note>, bpm: number) => {
   Tone.Transport.bpm.value = bpm;
   Tone.Transport.cancel();

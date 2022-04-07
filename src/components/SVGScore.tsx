@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
 import { durationNames, pitchNames } from "src/constants";
 import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "src/types";
 import { getHeight as getBaseYPosition } from "src/utils";
+import { useStore } from "src/guessStore";
 import "./SVGScore.css";
 
 const SVGWidth = 3540;
@@ -420,19 +420,13 @@ interface NotePathProps {
   opacity?: number;
   note: Note;
   index: number;
-  setSelectedNote: Dispatch<SetStateAction<number>>;
   color: string;
 }
 
-const NotePath = ({
-  note,
-  index,
-  setSelectedNote,
-  color,
-  opacity = 1,
-}: NotePathProps) => {
+const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
   const baseXPosition = getBaseXPosition(index);
   const baseYPosition = getBaseYPosition(note.pitch);
+  const { setSelectedNote } = useStore((state) => state);
   const handleClick = () => setSelectedNote(index);
 
   return (
@@ -467,13 +461,11 @@ const NotePath = ({
 interface DurationGuessPathProps {
   duration: Duration;
   positionIndex: number;
-  setSelectedNote: Dispatch<SetStateAction<number>>;
   color: string;
   opacity?: number;
 }
 
 const CorrectDurationGuessPath = ({
-  setSelectedNote,
   duration,
   positionIndex,
   color,
@@ -492,7 +484,6 @@ const CorrectDurationGuessPath = ({
 };
 
 const IncorrectDurationGuessPath = ({
-  setSelectedNote,
   duration,
   positionIndex,
   color,
@@ -517,7 +508,6 @@ const IncorrectDurationGuessPath = ({
 interface PitchGuessPathProps {
   pitch: Pitch;
   positionIndex: number;
-  setSelectedNote: Dispatch<SetStateAction<number>>;
   color: string;
   opacity?: number;
 }
@@ -525,10 +515,10 @@ interface PitchGuessPathProps {
 const PitchGuessPath = ({
   pitch,
   positionIndex,
-  setSelectedNote,
   color,
   opacity = 1,
 }: PitchGuessPathProps) => {
+  const { setSelectedNote } = useStore((state) => state);
   return (
     <>
       {shouldAddSharp(pitch) && (
@@ -585,19 +575,12 @@ const TrebleStave = () => {
   );
 };
 
-const CurrentGuessPaths = ({
-  notes,
-  setSelectedNote,
-}: {
-  notes: Array<Note>;
-  setSelectedNote: Dispatch<SetStateAction<number>>;
-}) => {
+const CurrentGuessPaths = ({ notes }: { notes: Array<Note> }) => {
   return (
     <>
       {notes.map((note, index) => {
         return (
           <NotePath
-            setSelectedNote={setSelectedNote}
             note={note}
             index={index}
             color="black"
@@ -612,11 +595,9 @@ const CurrentGuessPaths = ({
 const NonIncorrectPaths = ({
   answerStatuses,
   answerNotes,
-  setSelectedNote,
 }: {
   answerStatuses: Array<NoteStatus>;
   answerNotes: Array<Note>;
-  setSelectedNote: Dispatch<SetStateAction<number>>;
 }) => {
   return (
     <>
@@ -628,7 +609,6 @@ const NonIncorrectPaths = ({
           return (
             <NotePath
               opacity={0.5}
-              setSelectedNote={setSelectedNote}
               note={answerNotes[index]}
               index={index}
               color="green"
@@ -638,7 +618,6 @@ const NonIncorrectPaths = ({
         } else if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
           return (
             <PitchGuessPath
-              setSelectedNote={setSelectedNote}
               pitch={answerNotes[index].pitch}
               positionIndex={index}
               color="green"
@@ -648,7 +627,6 @@ const NonIncorrectPaths = ({
         } else if (durationStatus === AnswerStatus.GUESSEDCORRECT) {
           return (
             <CorrectDurationGuessPath
-              setSelectedNote={setSelectedNote}
               duration={answerNotes[index].duration}
               positionIndex={index}
               color="green"
@@ -665,17 +643,14 @@ const NonIncorrectPaths = ({
 
 const IncorrectDurationPaths = ({
   incorrectDurations,
-  setSelectedNote,
 }: {
   incorrectDurations: Array<Array<Duration>>;
-  setSelectedNote: Dispatch<SetStateAction<number>>;
 }) => {
   return (
     <>
       {incorrectDurations.map((durationArray, positionIndex) => {
         return durationArray.map((duration) => (
           <IncorrectDurationGuessPath
-            setSelectedNote={setSelectedNote}
             duration={duration}
             positionIndex={positionIndex}
             color="grey"
@@ -690,17 +665,14 @@ const IncorrectDurationPaths = ({
 
 const IncorrectPitchPaths = ({
   incorrectPitches,
-  setSelectedNote,
 }: {
   incorrectPitches: Array<Array<Pitch>>;
-  setSelectedNote: Dispatch<SetStateAction<number>>;
 }) => {
   return (
     <>
       {incorrectPitches.map((pitchArray, positionIndex) => {
         return pitchArray.map((pitch) => (
           <PitchGuessPath
-            setSelectedNote={setSelectedNote}
             pitch={pitch}
             positionIndex={positionIndex}
             color="grey"
@@ -783,10 +755,8 @@ const WrongSpotDurationPaths = ({
 };
 
 interface SVGScoreProps {
-  guessedNotes: Array<Note>;
   incorrectPitches: Array<Array<Pitch>>;
   incorrectDurations: Array<Array<Duration>>;
-  setSelectedNote: Dispatch<SetStateAction<number>>;
   answerStatuses: Array<NoteStatus>;
   answerNotes: Array<Note>;
   wrongSpotPitches: Set<Pitch>;
@@ -794,15 +764,14 @@ interface SVGScoreProps {
 }
 
 export const SVGScore = ({
-  guessedNotes,
   incorrectPitches,
   incorrectDurations,
-  setSelectedNote,
   answerStatuses,
   answerNotes,
   wrongSpotPitches,
   wrongSpotDurations,
 }: SVGScoreProps) => {
+  const { guesses } = useStore((state) => state);
   return (
     <svg
       viewBox={`0 0 ${SVGWidth} ${
@@ -812,25 +781,15 @@ export const SVGScore = ({
       className="svg-score"
     >
       <TrebleStave />
-      <CurrentGuessPaths
-        notes={guessedNotes}
-        setSelectedNote={setSelectedNote}
-      />
+      <CurrentGuessPaths notes={guesses} />
       <WrongSpotPitchPaths wrongSpotPitches={wrongSpotPitches} />
       <WrongSpotDurationPaths wrongSpotDurations={wrongSpotDurations} />
       <NonIncorrectPaths
         answerStatuses={answerStatuses}
         answerNotes={answerNotes}
-        setSelectedNote={setSelectedNote}
       />
-      <IncorrectPitchPaths
-        incorrectPitches={incorrectPitches}
-        setSelectedNote={setSelectedNote}
-      />
-      <IncorrectDurationPaths
-        incorrectDurations={incorrectDurations}
-        setSelectedNote={setSelectedNote}
-      />
+      <IncorrectPitchPaths incorrectPitches={incorrectPitches} />
+      <IncorrectDurationPaths incorrectDurations={incorrectDurations} />
     </svg>
   );
 };

@@ -10,12 +10,12 @@ export type Pitch = typeof pitchNames[number];
 export type Duration = typeof durationNames[number];
 
 export const isPitch = (item: any): item is Pitch => {
-  return pitchNames.includes(item)
-}
+  return pitchNames.includes(item);
+};
 
 export const isDuration = (item: any): item is Duration => {
-  return durationNames.includes(item)
-}
+  return durationNames.includes(item);
+};
 
 export enum AnswerStatus {
   UNKNOWN,
