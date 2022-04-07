@@ -1,4 +1,4 @@
-import { Duration, DurationObject, Note, Pitch } from "src/types";
+import { Duration, DurationObject, Note, Pitch, AnswerStatus } from "src/types";
 import * as Tone from "tone";
 import { durationNames, pitchNames } from "src/constants";
 export * from "./score";
@@ -18,6 +18,37 @@ export const previousPitch = (pitch: Pitch) => {
   }
   return pitchNames[pitchNames.length - 1];
 };
+
+export const incrementDuration = (notes: Array<Note>, index: number, increment: number) => {
+  let newDuration = notes[index].duration;
+  const incrementFunc = increment > 0 ? nextDuration : previousDuration;
+  increment = Math.abs(increment)
+  while (increment !== 0) {
+    newDuration = incrementFunc(newDuration);
+    increment--;
+  }
+
+  const newNotes = [...notes];
+  const newNote = { ...newNotes[index], duration: newDuration };
+  newNotes[index] = newNote;
+  return newNotes;
+}
+
+export const incrementPitch = (notes: Array<Note>, index: number, increment: number) => {
+  let newPitch = notes[index].pitch;
+  const incrementFunc = increment > 0 ? nextPitch : previousPitch;
+  increment = Math.abs(increment)
+  while (increment !== 0) {
+    newPitch = incrementFunc(newPitch);
+    increment--;
+  }
+
+  const newNotes = [...notes];
+  const newNote = { ...newNotes[index], pitch: newPitch };
+  newNotes[index] = newNote;
+  return newNotes;
+}
+
 
 export const nextDuration = (duration: Duration) => {
   const index = durationNames.indexOf(duration);
@@ -127,4 +158,25 @@ export const getDivisionSymbol = (duration: Duration) => {
     case "1n.":
       return "/w.";
   }
+};
+
+export const getNewAnswerStatus = <T extends Pitch | Duration>(
+  oldStatus: AnswerStatus,
+  correctAnswer: T,
+  newAnswer: T
+) => {
+  if (oldStatus === AnswerStatus.GUESSEDCORRECT) {
+    return oldStatus;
+  }
+  return correctAnswer === newAnswer
+    ? AnswerStatus.GUESSEDCORRECT
+    : AnswerStatus.INCORRECTSOFAR;
+};
+
+export const allCorrect = (guesses: Array<Note>, correctNotes: Array<Note>) => {
+  return guesses.every(
+    (guess, index) =>
+      guess.pitch === correctNotes[index].pitch &&
+      guess.duration === correctNotes[index].duration
+  );
 };

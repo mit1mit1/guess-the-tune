@@ -5,27 +5,15 @@ import { SVGScore } from "src/components/SVGScore";
 import { Note, Duration, AnswerStatus, NoteStatus, Pitch } from "src/types";
 import {
   playNotes,
-  nextPitch,
-  previousPitch,
-  previousDuration,
-  nextDuration,
+  incrementPitch,
+  incrementDuration,
+  getNewAnswerStatus,
+  allCorrect,
 } from "./utils";
 import { gameSongs } from "src/songs";
 
 const chosenSong = gameSongs[1];
 
-const getNewAnswerStatus = <T extends Pitch | Duration>(
-  oldStatus: AnswerStatus,
-  correctAnswer: T,
-  newAnswer: T
-) => {
-  if (oldStatus === AnswerStatus.GUESSEDCORRECT) {
-    return oldStatus;
-  }
-  return correctAnswer === newAnswer
-    ? AnswerStatus.GUESSEDCORRECT
-    : AnswerStatus.INCORRECTSOFAR;
-};
 
 const pushIfNotIdentical = (
   oldArrayOfArrays: Array<Array<any>>,
@@ -66,15 +54,23 @@ const App = () => {
     new Set<Duration>([])
   );
 
-  const checkGuesses = () => {
-    let anyIncorrect = false;
-    const newStatuses = chosenSong.notes.map((note, index) => {
+  const handleCheckGuess = () => {
+    checkGuessNotes(chosenSong.notes);
+    updateGuessedItems(chosenSong.notes);
+    updateIncorrectItems(chosenSong.notes);
+  };
+
+  const updateGuessedItems = (correctNotes: Array<Note>) => {
+    correctNotes.forEach((note, index) => {
       setPitchesGuessed(new Set(pitchesGuessed.add(guesses[index].pitch)));
       setDurationsGuessed(
         new Set(durationsGuessed.add(guesses[index].duration))
       );
+    });
+  };
+  const updateIncorrectItems = (correctNotes: Array<Note>) => {
+    correctNotes.forEach((note, index) => {
       if (note.pitch !== guesses[index].pitch) {
-        anyIncorrect = true;
         setIncorrectPitchesArray([
           ...pushIfNotIdentical(
             incorrectPitchesArray,
@@ -84,7 +80,6 @@ const App = () => {
         ]);
       }
       if (note.duration !== guesses[index].duration) {
-        anyIncorrect = true;
         setIncorrectDurationsArray([
           ...pushIfNotIdentical(
             incorrectDurationsArray,
@@ -93,6 +88,11 @@ const App = () => {
           ),
         ]);
       }
+    });
+  };
+
+  const checkGuessNotes = (correctNotes: Array<Note>) => {
+    const newStatuses = correctNotes.map((note, index) => {
       return {
         pitchStatus: getNewAnswerStatus(
           answerStatuses[index].pitchStatus,
@@ -109,7 +109,7 @@ const App = () => {
     setAnswerStatuses(newStatuses);
     const newWrongSpotPitches = new Set<Pitch>([]);
     const newWrongSpotDurations = new Set<Duration>([]);
-    chosenSong.notes.forEach((note, index) => {
+    correctNotes.forEach((note, index) => {
       if (
         answerStatuses[index].pitchStatus !== AnswerStatus.GUESSEDCORRECT &&
         pitchesGuessed.has(note.pitch)
@@ -125,7 +125,7 @@ const App = () => {
     });
     setWrongSpotPitches(new Set(newWrongSpotPitches));
     setWrongSpotDurations(new Set(newWrongSpotDurations));
-    if (anyIncorrect === false) {
+    if (allCorrect(guesses, correctNotes)) {
       alert("All right!");
     }
     playNotes([...guesses], chosenSong.bpm);
@@ -135,48 +135,16 @@ const App = () => {
     const handleKeyup = (e: KeyboardEvent) => {
       const key = e.key;
       if (key === "w") {
-        setGuesses((prevGuesses) => {
-          const newGuesses = [...prevGuesses];
-          const newPitch = nextPitch(prevGuesses[selectedNote].pitch);
-          const newNote = { ...newGuesses[selectedNote], pitch: newPitch };
-          newGuesses[selectedNote] = newNote;
-          return newGuesses;
-        });
+        setGuesses((prevGuesses) => incrementPitch(prevGuesses, selectedNote, 1));
       }
       if (key === "a") {
-        setGuesses((prevGuesses) => {
-          const newGuesses = [...prevGuesses];
-          const newDuration = previousDuration(
-            prevGuesses[selectedNote].duration
-          );
-          const newNote = {
-            ...newGuesses[selectedNote],
-            duration: newDuration,
-          };
-          newGuesses[selectedNote] = newNote;
-          return newGuesses;
-        });
+        setGuesses((prevGuesses) => incrementDuration(prevGuesses, selectedNote, -1));
       }
       if (key === "s") {
-        setGuesses((prevGuesses) => {
-          const newGuesses = [...prevGuesses];
-          const newPitch = previousPitch(prevGuesses[selectedNote].pitch);
-          const newNote = { ...newGuesses[selectedNote], pitch: newPitch };
-          newGuesses[selectedNote] = newNote;
-          return newGuesses;
-        });
+        setGuesses((prevGuesses) => incrementPitch(prevGuesses, selectedNote, -1));
       }
       if (key === "d") {
-        setGuesses((prevGuesses) => {
-          const newGuesses = [...prevGuesses];
-          const newDuration = nextDuration(prevGuesses[selectedNote].duration);
-          const newNote = {
-            ...newGuesses[selectedNote],
-            duration: newDuration,
-          };
-          newGuesses[selectedNote] = newNote;
-          return newGuesses;
-        });
+        setGuesses((prevGuesses) => incrementPitch(prevGuesses, selectedNote, -1));
       }
       if (key === "ArrowRight") {
         if (selectedNote < chosenSong.notes.length - 1) {
@@ -225,7 +193,7 @@ const App = () => {
           Correct Durations in Unknown Position:{" "}
           {Array.from(wrongSpotDurations).join(", ")}
         </div>
-        <button onClick={checkGuesses}>Check Guesses</button>
+        <button onClick={handleCheckGuess}>Check Guesses</button>
       </main>
     </div>
   );
