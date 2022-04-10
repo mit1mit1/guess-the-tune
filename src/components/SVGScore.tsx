@@ -72,9 +72,11 @@ const StavePath = ({
       key={`${index}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke="black"
-      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
-        } ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
-        }`}
+      d={`M${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
+      } ${getBaseYPosition(trackPitch)} H ${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+      }`}
     />
   );
 };
@@ -737,23 +739,25 @@ const WrongSpotDurationPaths = () => {
 
 const SelectedNoteHightlight = () => {
   const { selectedNoteIndex } = useStore((state) => state);
-  return (<ellipse
-    cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex))}
-    cy={getBaseYPosition("B4")}
-    rx={100}
-    ry={SVGHeight}
-    fill="grey"
-    opacity={0.2}
-  />);
-
-}
+  return (
+    <ellipse
+      cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex))}
+      cy={getBaseYPosition("B4")}
+      rx={100}
+      ry={SVGHeight}
+      fill="grey"
+      opacity={0.2}
+    />
+  );
+};
 
 export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
   const { guesses } = useStore((state) => state);
   return (
     <svg
-      viewBox={`0 0 ${SVGWidth} ${SVGHeight + 0.5 * 200 * durationNames.length
-        }`}
+      viewBox={`0 0 ${SVGWidth} ${
+        SVGHeight + 0.5 * 200 * durationNames.length
+      }`}
       xmlns="<http://www.w3.org/2000/svg>"
       className="svg-score"
     >

@@ -3,32 +3,20 @@ import * as Tone from "tone";
 import { durationNames, pitchNames } from "src/constants";
 export * from "./score";
 
-export const nextPitch = (pitch: Pitch) => {
-  const index = pitchNames.indexOf(pitch);
-  if (index >= 0 && index < pitchNames.length - 1) {
-    return pitchNames[index + 1];
-  }
-  return pitchNames[0];
-};
-
-export const previousPitch = (pitch: Pitch) => {
-  const index = pitchNames.indexOf(pitch);
-  if (index >= 1) {
-    return pitchNames[index - 1];
-  }
-  return pitchNames[pitchNames.length - 1];
-};
-
 export const incrementDuration = (
   notes: Array<Note>,
   index: number,
-  increment: number
+  increment: number,
+  availableDurations: Array<Duration> = [...durationNames]
 ) => {
   let newDuration = notes[index].duration;
-  const incrementFunc = increment > 0 ? nextDuration : previousDuration;
+  const incrementFunc =
+    increment > 0 ? nextElementInCycle : previousElementInCycle;
   increment = Math.abs(increment);
   while (increment !== 0) {
-    newDuration = incrementFunc(newDuration);
+    newDuration = incrementFunc(newDuration, availableDurations, [
+      ...durationNames,
+    ]);
     increment--;
   }
 
@@ -41,13 +29,15 @@ export const incrementDuration = (
 export const incrementPitch = (
   notes: Array<Note>,
   index: number,
-  increment: number
+  increment: number,
+  availablePitches: Array<Pitch> = [...pitchNames]
 ) => {
   let newPitch = notes[index].pitch;
-  const incrementFunc = increment > 0 ? nextPitch : previousPitch;
+  const incrementFunc =
+    increment > 0 ? nextElementInCycle : previousElementInCycle;
   increment = Math.abs(increment);
   while (increment !== 0) {
-    newPitch = incrementFunc(newPitch);
+    newPitch = incrementFunc(newPitch, availablePitches, [...pitchNames]);
     increment--;
   }
 
@@ -57,20 +47,60 @@ export const incrementPitch = (
   return newNotes;
 };
 
-export const nextDuration = (duration: Duration) => {
-  const index = durationNames.indexOf(duration);
-  if (index >= 0 && index < durationNames.length - 1) {
-    return durationNames[index + 1];
+const closestElement = <T extends any>(
+  element: T,
+  elementList: Array<T>,
+  elementListSuperset: Array<T>
+) => {
+  let searchIndex = elementListSuperset.indexOf(element);
+  if (searchIndex === -1) {
+    return elementList[0];
   }
-  return durationNames[0];
+  if (elementList.indexOf(elementListSuperset[searchIndex]) !== -1) {
+    return elementList[searchIndex];
+  }
+  let add = 1;
+  searchIndex += add;
+
+  while (
+    elementList.indexOf(elementListSuperset[searchIndex]) === -1 &&
+    searchIndex > 0 &&
+    searchIndex < elementListSuperset.length - 1
+  ) {
+    add = -(add + 1);
+    searchIndex += add;
+  }
+  return elementListSuperset[searchIndex];
 };
 
-export const previousDuration = (duration: Duration) => {
-  const index = durationNames.indexOf(duration);
-  if (index >= 1) {
-    return durationNames[index - 1];
+const nextElementInCycle = <T extends any>(
+  element: T,
+  elementList: Array<T>,
+  elementListSuperset?: Array<T>
+) => {
+  const index = elementList.indexOf(element);
+  if (index === -1 && elementListSuperset) {
+    return closestElement(element, elementList, elementListSuperset);
   }
-  return durationNames[durationNames.length - 1];
+  if (index >= 0 && index < elementList.length - 1) {
+    return elementList[index + 1];
+  }
+  return elementList[0];
+};
+
+const previousElementInCycle = <T extends any>(
+  element: T,
+  elementList: Array<T>,
+  elementListSuperset?: Array<T>
+) => {
+  const index = elementList.indexOf(element);
+  if (index === -1 && elementListSuperset) {
+    return closestElement(element, elementList, elementListSuperset);
+  }
+  if (index >= 1) {
+    return elementList[index - 1];
+  }
+  return elementList[elementList.length - 1];
 };
 
 export const pushIfNotIdentical = (

@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import "./App.css";
 import Container from "@mui/material/Container";
 import { SVGScore } from "src/components/SVGScore";
 import { playNotes, allCorrect } from "./utils";
 import { gameSongs } from "src/songs";
 import { useStore } from "src/guessStore";
+import "./App.css";
 
 const chosenSong = gameSongs[1];
 
@@ -72,8 +72,7 @@ const App = () => {
       </header>
 
       <main>
-        <SVGScore correctNotes={chosenSong.notes}
-        />
+        <SVGScore correctNotes={chosenSong.notes} />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
         <button onClick={handleCheckGuess}>Check Guesses</button>

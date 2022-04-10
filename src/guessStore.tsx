@@ -8,10 +8,13 @@ import {
   incrementPitch,
   pushIfNotIdentical,
 } from "./utils";
+import { durationNames, pitchNames } from "./constants";
 
 enableMapSet();
 
 const correctNotes = gameSongs[1].notes;
+const correctPitches = correctNotes.map((note) => note.pitch);
+const correctDurations = correctNotes.map((note) => note.duration);
 
 const initialGuesses: Array<Note> = correctNotes.map(() => ({
   pitch: "C4",
@@ -24,6 +27,8 @@ const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map(() => ({
 }));
 
 export interface GuessState {
+  availablePitches: Array<Pitch>;
+  availableDurations: Array<Duration>;
   selectedNoteIndex: number;
   incrementGuessPitch: (index: number, increment: number) => void;
   incrementGuessDuration: (index: number, increment: number) => void;
@@ -40,10 +45,14 @@ export interface GuessState {
 }
 
 export const useStore = create<GuessState>((set) => ({
+  availablePitches: [...pitchNames],
+  availableDurations: [...durationNames],
   answerStatuses: initialAnswerStatuses,
   durationsGuessed: new Set<Duration>([]),
   guesses: initialGuesses,
-  incorrectDurationsArrays: correctNotes.map(() => []) as Array<Array<Duration>>,
+  incorrectDurationsArrays: correctNotes.map(() => []) as Array<
+    Array<Duration>
+  >,
   incorrectPitchesArrays: correctNotes.map(() => []) as Array<Array<Pitch>>,
   pitchesGuessed: new Set<Pitch>([]),
   selectedNoteIndex: 0,
@@ -64,7 +73,8 @@ export const useStore = create<GuessState>((set) => ({
         const newGuesses = incrementDuration(
           draft.guesses,
           guessIndex,
-          increment
+          increment,
+          draft.availableDurations
         );
         return {
           ...draft,
@@ -77,7 +87,12 @@ export const useStore = create<GuessState>((set) => ({
   incrementGuessPitch: (guessIndex, increment) => {
     set(
       produce((draft: GuessState) => {
-        const newGuesses = incrementPitch(draft.guesses, guessIndex, increment);
+        const newGuesses = incrementPitch(
+          draft.guesses,
+          guessIndex,
+          increment,
+          draft.availablePitches
+        );
         return {
           ...draft,
           guesses: newGuesses,
@@ -106,6 +121,16 @@ export const useStore = create<GuessState>((set) => ({
               guess.duration
             );
           }
+          if (correctPitches.indexOf(guess.pitch) === -1) {
+            draft.availablePitches = draft.availablePitches.filter(
+              (pitch) => pitch !== guess.pitch
+            );
+          }
+          if (correctDurations.indexOf(guess.duration) === -1) {
+            draft.availableDurations.filter(
+              (duration) => duration !== guess.duration
+            );
+          }
         });
 
         const newStatuses = correctNotes.map((note, index) => {
@@ -127,14 +152,14 @@ export const useStore = create<GuessState>((set) => ({
         correctNotes.forEach((note, index) => {
           if (
             draft.answerStatuses[index].pitchStatus !==
-            AnswerStatus.GUESSEDCORRECT &&
+              AnswerStatus.GUESSEDCORRECT &&
             draft.pitchesGuessed.has(note.pitch)
           ) {
             draft.wrongSpotPitches.add(note.pitch);
           }
           if (
             draft.answerStatuses[index].durationStatus !==
-            AnswerStatus.GUESSEDCORRECT &&
+              AnswerStatus.GUESSEDCORRECT &&
             draft.durationsGuessed.has(note.duration)
           ) {
             draft.wrongSpotDurations.add(note.duration);
