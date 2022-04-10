@@ -53,8 +53,11 @@ const closestElement = <T extends any>(
   elementListSuperset: Array<T>
 ) => {
   let searchIndex = elementListSuperset.indexOf(element);
-  if (searchIndex === -1) {
+  if (searchIndex === -1 || searchIndex === 0) {
     return elementList[0];
+  }
+  if (searchIndex === elementListSuperset.length - 1) {
+    return elementList[elementList.length - 1]
   }
   if (elementList.indexOf(elementListSuperset[searchIndex]) !== -1) {
     return elementList[searchIndex];

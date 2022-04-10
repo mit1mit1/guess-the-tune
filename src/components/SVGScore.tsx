@@ -72,11 +72,9 @@ const StavePath = ({
       key={`${index}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke="black"
-      d={`M${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
-      } ${getBaseYPosition(trackPitch)} H ${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
-      }`}
+      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
+        } ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+        }`}
     />
   );
 };
@@ -150,29 +148,29 @@ const SharpPath = ({
 }) => {
   return (
     <>
-      <path
-        strokeWidth={strokeWidth}
+      <line
+        strokeWidth={strokeWidth * 2}
         stroke={color}
         opacity={opacity}
-        d={`M${xStart + 60} ${yStart + 20} H ${xStart}`}
+        x1={xStart + 60} y1={yStart + 25} x2={xStart} y2={yStart + 35}
+      />
+      <line
+        strokeWidth={strokeWidth * 2}
+        stroke={color}
+        opacity={opacity}
+        x1={xStart + 60} y1={yStart + 45} x2={xStart} y2={yStart + 55}
       />
       <path
         strokeWidth={strokeWidth}
         stroke={color}
         opacity={opacity}
-        d={`M${xStart + 60} ${yStart + 40} H ${xStart}`}
+        d={`M${xStart + 40} ${yStart} V ${yStart + 80}`}
       />
       <path
         strokeWidth={strokeWidth}
         stroke={color}
         opacity={opacity}
-        d={`M${xStart + 40} ${yStart} V ${yStart + 60}`}
-      />
-      <path
-        strokeWidth={strokeWidth}
-        stroke={color}
-        opacity={opacity}
-        d={`M${xStart + 20} ${yStart} V ${yStart + 60}`}
+        d={`M${xStart + 20} ${yStart} V ${yStart + 80}`}
       />
     </>
   );
@@ -181,14 +179,14 @@ const SharpPath = ({
 const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
   const xStart =
     clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150;
-  const yStart = getBaseYPosition(pitch) - 32;
+  const yStart = getBaseYPosition(pitch) - 50;
   return (
     <SharpPath
       xStart={xStart}
       yStart={yStart}
       color={color}
       opacity={opacity}
-      strokeWidth={12}
+      strokeWidth={6}
     />
   );
 };
@@ -205,7 +203,7 @@ const MiniSharp = ({ pitch, color, opacity, xStart }: MiniSharpProps) => {
       yStart={yStart}
       color={color}
       opacity={opacity}
-      strokeWidth={5}
+      strokeWidth={2}
     />
   );
 };
@@ -340,16 +338,19 @@ const RootCircle = ({
   yCentre,
 }: RootCircleProps) => {
   return (
-    <circle
-      onClick={handleClick}
-      cx={xCentre}
-      cy={yCentre}
-      r="36"
-      stroke={strokeColor}
-      opacity={opacity}
-      strokeWidth="3"
-      fill={fillColor}
-    />
+    <g transform={`rotate(-20, ${xCentre}, ${yCentre})`} >
+      <ellipse
+        onClick={handleClick}
+        cx={xCentre}
+        cy={yCentre}
+        rx="42"
+        ry="34"
+        stroke={strokeColor}
+        opacity={opacity}
+        strokeWidth="3"
+        fill={fillColor}
+      />
+    </g>
   );
 };
 
@@ -535,7 +536,7 @@ const PitchGuessPath = ({
           clefLength +
           incorrectPitchLength +
           positionIndex * distanceBetweenNotes -
-          38
+          38 + 30 * (shouldAddSharp(pitch) ? 0 : 1)
         }
         cy={getBaseYPosition(pitch)}
         r={pitchGuessRadius}
@@ -647,7 +648,7 @@ const IncorrectDurationPaths = () => {
             positionIndex={positionIndex}
             color="grey"
             key={`${positionIndex}-${duration}`}
-            opacity={0.5}
+            opacity={0.3}
           />
         ));
       })}
@@ -666,7 +667,7 @@ const IncorrectPitchPaths = () => {
             positionIndex={positionIndex}
             color="grey"
             key={`${positionIndex}-${pitch}`}
-            opacity={0.5}
+            opacity={0.3}
           />
         ));
       })}
@@ -755,9 +756,8 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
   const { guesses } = useStore((state) => state);
   return (
     <svg
-      viewBox={`0 0 ${SVGWidth} ${
-        SVGHeight + 0.5 * 200 * durationNames.length
-      }`}
+      viewBox={`0 0 ${SVGWidth} ${SVGHeight + 0.5 * 200 * durationNames.length
+        }`}
       xmlns="<http://www.w3.org/2000/svg>"
       className="svg-score"
     >
