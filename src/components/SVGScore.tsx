@@ -272,11 +272,11 @@ interface EigthLineProps {
 
 const EigthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
   return (
-    <path
+    <line
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      d={`M${xStart} ${yStart} H ${xStart + 80}`}
+      x1={xStart} y1={yStart} x2={xStart + 80} y2={yStart - 15}
     />
   );
 };
@@ -303,11 +303,11 @@ const SixteenthLine = ({
   opacity,
 }: SixteenthLineProps) => {
   return (
-    <path
+    <line
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      d={`M${xStart} ${yStart} H ${xStart + 80}`}
+      x1={xStart} y1={yStart} x2={xStart + 80} y2={yStart - 15}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import Container from "@mui/material/Container";
 import { SVGScore } from "src/components/SVGScore";
 import { playNotes, allCorrect } from "./utils";
@@ -18,13 +18,13 @@ const App = () => {
     checkGuesses,
   } = useStore((state) => state);
 
-  const handleCheckGuess = () => {
+  const handleCheckGuess = useCallback(() => {
     checkGuesses();
     if (allCorrect(guesses, chosenSong.notes)) {
       alert("All right!");
     }
     playNotes([...guesses], chosenSong.bpm);
-  };
+  }, [checkGuesses, guesses]);
 
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
@@ -51,17 +51,15 @@ const App = () => {
           setSelectedNoteIndex(selectedNoteIndex - 1);
         }
       }
+      if (key === "Enter") {
+        handleCheckGuess();
+      }
     };
     document.addEventListener("keyup", handleKeyup, true);
     return () => {
       document.removeEventListener("keyup", handleKeyup, true);
     };
-  }, [
-    incrementGuessDuration,
-    incrementGuessPitch,
-    selectedNoteIndex,
-    setSelectedNoteIndex,
-  ]);
+  }, [handleCheckGuess, incrementGuessDuration, incrementGuessPitch, selectedNoteIndex, setSelectedNoteIndex]);
 
   return (
     <div className="App">
