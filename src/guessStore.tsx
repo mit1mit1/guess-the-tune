@@ -16,7 +16,6 @@ const correctNotes = gameSongs[1].notes;
 const correctPitches = correctNotes.map((note) => note.pitch);
 const correctDurations = correctNotes.map((note) => note.duration);
 
-
 const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map(() => ({
   pitchStatus: AnswerStatus.UNKNOWN,
   durationStatus: AnswerStatus.UNKNOWN,
@@ -40,14 +39,27 @@ export interface GuessState {
   wrongSpotPitches: Set<Pitch>;
 }
 
-const minPitchIndex = Math.min(...correctPitches.map(pitch => pitchNames.indexOf(pitch)));
-const maxPitchIndex = Math.max(...correctPitches.map(pitch => pitchNames.indexOf(pitch)));
-const minDurationIndex = Math.min(...correctDurations.map(duration => durationNames.indexOf(duration)));
-const maxDurationIndex = Math.max(...correctDurations.map(duration => durationNames.indexOf(duration)));
-const initialAvailablePitches = pitchNames.slice(minPitchIndex, maxPitchIndex + 1)
-const initialAvailableDurations = durationNames.slice(minDurationIndex, maxDurationIndex + 1)
+const minPitchIndex = Math.min(
+  ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
+);
+const maxPitchIndex = Math.max(
+  ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
+);
+const minDurationIndex = Math.min(
+  ...correctDurations.map((duration) => durationNames.indexOf(duration))
+);
+const maxDurationIndex = Math.max(
+  ...correctDurations.map((duration) => durationNames.indexOf(duration))
+);
+const initialAvailablePitches = pitchNames.slice(
+  minPitchIndex,
+  maxPitchIndex + 1
+);
+const initialAvailableDurations = durationNames.slice(
+  minDurationIndex,
+  maxDurationIndex + 1
+);
 
-console.log('slicing from min to max ', minPitchIndex, maxPitchIndex, pitchNames.slice(minPitchIndex, maxPitchIndex))
 export const useStore = create<GuessState>((set) => ({
   availablePitches: initialAvailablePitches,
   availableDurations: durationNames.slice(minDurationIndex, maxDurationIndex),
@@ -159,14 +171,14 @@ export const useStore = create<GuessState>((set) => ({
         correctNotes.forEach((note, index) => {
           if (
             draft.answerStatuses[index].pitchStatus !==
-            AnswerStatus.GUESSEDCORRECT &&
+              AnswerStatus.GUESSEDCORRECT &&
             draft.pitchesGuessed.has(note.pitch)
           ) {
             draft.wrongSpotPitches.add(note.pitch);
           }
           if (
             draft.answerStatuses[index].durationStatus !==
-            AnswerStatus.GUESSEDCORRECT &&
+              AnswerStatus.GUESSEDCORRECT &&
             draft.durationsGuessed.has(note.duration)
           ) {
             draft.wrongSpotDurations.add(note.duration);

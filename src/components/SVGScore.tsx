@@ -179,7 +179,7 @@ const SharpPath = ({
 const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
   const xStart =
     clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150;
-  const yStart = getBaseYPosition(pitch) - 50;
+  const yStart = getBaseYPosition(pitch) - 40;
   return (
     <SharpPath
       xStart={xStart}

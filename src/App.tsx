@@ -5,6 +5,7 @@ import { playNotes, allCorrect } from "./utils";
 import { gameSongs } from "src/songs";
 import { useStore } from "src/guessStore";
 import "./App.css";
+import { DurationKeyboard } from "./components/DurationKeyboard";
 
 const chosenSong = gameSongs[1];
 
@@ -71,6 +72,7 @@ const App = () => {
 
       <main>
         <SVGScore correctNotes={chosenSong.notes} />
+        <DurationKeyboard />
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
         <button onClick={handleCheckGuess}>Check Guesses</button>
