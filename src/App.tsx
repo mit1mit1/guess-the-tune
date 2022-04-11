@@ -40,7 +40,7 @@ const App = () => {
         incrementGuessPitch(selectedNoteIndex, -1);
       }
       if (key === "d") {
-        incrementGuessDuration(selectedNoteIndex, -1);
+        incrementGuessDuration(selectedNoteIndex, 1);
       }
       if (key === "ArrowRight") {
         if (selectedNoteIndex < chosenSong.notes.length - 1) {

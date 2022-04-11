@@ -7,7 +7,7 @@ export const incrementDuration = (
   notes: Array<Note>,
   index: number,
   increment: number,
-  availableDurations: Array<Duration> = [...durationNames]
+  availableDurations: Array<Duration>
 ) => {
   let newDuration = notes[index].duration;
   const incrementFunc =
@@ -76,7 +76,7 @@ const closestElement = <T extends any>(
   return elementListSuperset[searchIndex];
 };
 
-const nextElementInCycle = <T extends any>(
+const  nextElementInCycle = <T extends any>(
   element: T,
   elementList: Array<T>,
   elementListSuperset?: Array<T>

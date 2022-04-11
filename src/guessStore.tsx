@@ -62,7 +62,7 @@ const initialAvailableDurations = durationNames.slice(
 
 export const useStore = create<GuessState>((set) => ({
   availablePitches: initialAvailablePitches,
-  availableDurations: durationNames.slice(minDurationIndex, maxDurationIndex),
+  availableDurations: initialAvailableDurations,
   answerStatuses: initialAnswerStatuses,
   durationsGuessed: new Set<Duration>([]),
   guesses: correctNotes.map(() => ({
