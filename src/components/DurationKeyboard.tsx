@@ -1,15 +1,30 @@
 import { Duration } from "src/types";
 import { durationNames } from "src/constants";
 import { useStore } from "src/guessStore";
+import { NoteShapePath } from "./NoteShapePath";
 
 interface DurationKeyProps {
   duration: Duration;
   status: "unknown" | "wrong-spot" | "unavailable";
 }
 
-const DurationKey = ({duration, status}: DurationKeyProps) => {
-  return <button>{duration} - {status}</button>
-}
+const DurationKey = ({ duration, status }: DurationKeyProps) => {
+  return (
+    <>
+      <svg>
+        <NoteShapePath
+          duration={duration}
+          baseXPosition={50}
+          baseYPosition={50}
+          color="black"
+        />
+      </svg>
+      <button>
+        {duration} - {status}
+      </button>
+    </>
+  );
+};
 
 export const DurationKeyboard = () => {
   const { availableDurations, wrongSpotDurations } = useStore((state) => state);
@@ -24,6 +39,6 @@ export const DurationKeyboard = () => {
     } else {
       buffer.push(<DurationKey duration={duration} status="unknown" />);
     }
-  })
-  return <>{buffer}</>
+  });
+  return <>{buffer}</>;
 };

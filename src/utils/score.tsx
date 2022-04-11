@@ -46,3 +46,7 @@ export const getHeight = (pitch: Pitch) => {
       return 50;
   }
 };
+
+export const getRootCircleCX = (baseXPosition: number) => {
+  return baseXPosition - 38;
+};
