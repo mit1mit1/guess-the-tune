@@ -1,7 +1,6 @@
 import { Duration } from "src/types";
 import { getRootCircleCX } from "src/utils";
 
-
 interface UpStrokeProps {
   xStart: number;
   yStart: number;
@@ -41,7 +40,10 @@ const EigthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      x1={xStart} y1={yStart} x2={xStart + 80} y2={yStart - 15}
+      x1={xStart}
+      y1={yStart}
+      x2={xStart + 80}
+      y2={yStart - 15}
     />
   );
 };
@@ -72,7 +74,10 @@ const SixteenthLine = ({
       strokeWidth="16"
       stroke={color}
       opacity={opacity}
-      x1={xStart} y1={yStart} x2={xStart + 80} y2={yStart - 15}
+      x1={xStart}
+      y1={yStart}
+      x2={xStart + 80}
+      y2={yStart - 15}
     />
   );
 };
@@ -152,6 +157,7 @@ const shouldAddSixteenthLine = (duration: Duration) => {
 
 interface RootCircleProps {
   opacity?: number;
+  fillOpacity?: number;
   handleClick?: () => void;
   strokeColor: string;
   fillColor: string;
@@ -163,12 +169,13 @@ const RootCircle = ({
   handleClick,
   strokeColor,
   fillColor,
+  fillOpacity = 1,
   opacity = 1,
   xCentre,
   yCentre,
 }: RootCircleProps) => {
   return (
-    <g transform={`rotate(-20, ${xCentre}, ${yCentre})`} >
+    <g transform={`rotate(-20, ${xCentre}, ${yCentre})`}>
       <ellipse
         onClick={handleClick}
         cx={xCentre}
@@ -177,6 +184,7 @@ const RootCircle = ({
         ry="34"
         stroke={strokeColor}
         opacity={opacity}
+        fillOpacity={fillOpacity}
         strokeWidth="3"
         fill={fillColor}
       />
@@ -216,7 +224,8 @@ export const NoteShapePath = ({
         yCentre={baseYPosition}
         handleClick={handleClick}
         strokeColor={color}
-        fillColor={shouldFillInCircle(duration) ? color : "white"}
+        fillColor={color}
+        fillOpacity={shouldFillInCircle(duration) ? opacity : opacity * 0.1}
         opacity={opacity}
       />
       {shouldAddDot(duration) && (

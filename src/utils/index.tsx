@@ -57,7 +57,7 @@ const closestElement = <T extends any>(
     return elementList[0];
   }
   if (searchIndex === elementListSuperset.length - 1) {
-    return elementList[elementList.length - 1]
+    return elementList[elementList.length - 1];
   }
   if (elementList.indexOf(elementListSuperset[searchIndex]) !== -1) {
     return elementList[searchIndex];
@@ -76,7 +76,7 @@ const closestElement = <T extends any>(
   return elementListSuperset[searchIndex];
 };
 
-const  nextElementInCycle = <T extends any>(
+const nextElementInCycle = <T extends any>(
   element: T,
   elementList: Array<T>,
   elementListSuperset?: Array<T>

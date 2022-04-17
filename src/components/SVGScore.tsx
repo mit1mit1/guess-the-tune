@@ -1,18 +1,21 @@
-import { durationNames, pitchNames } from "src/constants";
+import { BASE_COLOR, pitchNames } from "src/constants";
 import { AnswerStatus, Duration, Note, Pitch } from "src/types";
-import { getHeight as getBaseYPosition, getRootCircleCX } from "src/utils";
+import { getBaseYPosition, getRootCircleCX, shouldAddSharp } from "src/utils";
 import { useStore } from "src/guessStore";
 import "./SVGScore.css";
 import { NoteShapePath } from "./NoteShapePath";
+import { TrebleStave } from "./TrebleStave";
+import { SharpPath } from "./SharpPath";
+import { DurationlessPitchPath } from "./DurationlessPitchPath";
+import { durationlessPitchRadius } from "src/constants/svg";
 
 const SVGWidth = 3540;
 const SVGHeight = 440;
-const pitchGuessRadius = 28;
 const clefLength = 400;
 const incorrectPitchLength = 250;
 
-const shouldAddSharp = (pitch: Pitch) => {
-  return pitch.includes("#");
+const noteSharpOffset = (pitch: Pitch) => {
+  return 35 * (shouldAddSharp(pitch) ? -1 : 1);
 };
 
 const distanceBetweenNotes = 280;
@@ -28,10 +31,12 @@ const StavePath = ({
     <path
       key={`${index}-${trackPitch}-stave-line`}
       strokeWidth="1"
-      stroke="black"
-      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
-        } ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
-        }`}
+      stroke={BASE_COLOR}
+      d={`M${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
+      } ${getBaseYPosition(trackPitch)} H ${
+        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+      }`}
     />
   );
 };
@@ -76,13 +81,6 @@ const ExtraStaveLines = ({
   return <>{buffer}</>;
 };
 
-interface MiniSharpProps {
-  pitch: Pitch;
-  color: string;
-  opacity?: number;
-  xStart: number;
-}
-
 interface NoteSubpartProps {
   pitch: Pitch;
   color: string;
@@ -90,52 +88,13 @@ interface NoteSubpartProps {
   index: number;
 }
 
-const SharpPath = ({
-  xStart,
-  yStart,
-  color,
-  opacity = 1,
-  strokeWidth,
-}: {
-  xStart: number;
-  yStart: number;
-  color: string;
-  opacity?: number;
-  strokeWidth: number;
-}) => {
-  return (
-    <>
-      <line
-        strokeWidth={strokeWidth * 2}
-        stroke={color}
-        opacity={opacity}
-        x1={xStart + 60} y1={yStart + 25} x2={xStart} y2={yStart + 35}
-      />
-      <line
-        strokeWidth={strokeWidth * 2}
-        stroke={color}
-        opacity={opacity}
-        x1={xStart + 60} y1={yStart + 45} x2={xStart} y2={yStart + 55}
-      />
-      <path
-        strokeWidth={strokeWidth}
-        stroke={color}
-        opacity={opacity}
-        d={`M${xStart + 40} ${yStart} V ${yStart + 80}`}
-      />
-      <path
-        strokeWidth={strokeWidth}
-        stroke={color}
-        opacity={opacity}
-        d={`M${xStart + 20} ${yStart} V ${yStart + 80}`}
-      />
-    </>
-  );
-};
-
 const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
   const xStart =
-    clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150;
+    clefLength +
+    incorrectPitchLength +
+    index * distanceBetweenNotes -
+    150 +
+    noteSharpOffset(pitch);
   const yStart = getBaseYPosition(pitch) - 40;
   return (
     <SharpPath
@@ -148,23 +107,9 @@ const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
   );
 };
 
-const getMiniSharpXStart = (index: number) => {
-  return clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150;
-};
-
-const MiniSharp = ({ pitch, color, opacity, xStart }: MiniSharpProps) => {
-  const yStart = getBaseYPosition(pitch) - 32;
-  return (
-    <SharpPath
-      xStart={xStart}
-      yStart={yStart}
-      color={color}
-      opacity={opacity}
-      strokeWidth={2}
-    />
-  );
-};
-
+// const getMiniSharpXStart = (index: number) => {
+//   return clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150 + noteSharpOffset("A#3");
+// };
 
 const getBaseXPosition = (index: number) => {
   return clefLength + incorrectPitchLength + index * distanceBetweenNotes;
@@ -178,7 +123,7 @@ interface NotePathProps {
 }
 
 const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
-  const baseXPosition = getBaseXPosition(index);
+  const baseXPosition = getBaseXPosition(index) + noteSharpOffset(note.pitch);
   const baseYPosition = getBaseYPosition(note.pitch);
   const { setSelectedNoteIndex } = useStore((state) => state);
   const handleClick = () => setSelectedNoteIndex(index);
@@ -237,28 +182,6 @@ const CorrectDurationGuessPath = ({
   );
 };
 
-const IncorrectDurationGuessPath = ({
-  duration,
-  positionIndex,
-  color,
-  opacity,
-}: DurationGuessPathProps) => {
-  const baseXPosition = getBaseXPosition(positionIndex);
-  return (
-    <NoteShapePath
-      duration={duration}
-      baseXPosition={
-        baseXPosition - 50 + 100 * (durationNames.indexOf(duration) % 2)
-      }
-      baseYPosition={
-        SVGHeight + 50 + durationNames.indexOf(duration) * 230 * 0.5
-      }
-      color={color}
-      opacity={opacity}
-    />
-  );
-};
-
 interface PitchGuessPathProps {
   pitch: Pitch;
   positionIndex: number;
@@ -273,71 +196,53 @@ const PitchGuessPath = ({
   opacity = 1,
 }: PitchGuessPathProps) => {
   const { setSelectedNoteIndex } = useStore((state) => state);
+  const xStart =
+    clefLength +
+    incorrectPitchLength +
+    positionIndex * distanceBetweenNotes -
+    38 +
+    noteSharpOffset(pitch) -
+    durationlessPitchRadius;
   return (
-    <>
-      {shouldAddSharp(pitch) && (
-        <MiniSharp
-          pitch={pitch}
-          xStart={getMiniSharpXStart(positionIndex)}
-          color={color}
-          opacity={opacity}
-        />
-      )}
-      <circle
-        onClick={() => setSelectedNoteIndex(positionIndex)}
-        cx={
-          clefLength +
-          incorrectPitchLength +
-          positionIndex * distanceBetweenNotes -
-          38 + 30 * (shouldAddSharp(pitch) ? 0 : 1)
-        }
-        cy={getBaseYPosition(pitch)}
-        r={pitchGuessRadius}
-        fill={color}
-        opacity={opacity}
-      />
-    </>
-  );
-};
-
-export const TrebleClef = () => {
-  return (
-    <path d="M289.859 218.165c-12.238-12.083-28.92-18.736-46.975-18.736-.739 0-1.469.011-2.191.034-4.751-18.989-9.194-34.531-12.219-44.64a758.83 758.83 0 0 1-3.54-12.192c13.877-15.22 26.345-29.841 33.266-44.593 19.623-41.823 10.708-66.709 3.647-77.821C253.684 7.369 240.237 0 224.955 0c-13.893 0-25.356 5.533-33.149 16-15.284 20.528-15.407 58.521-.127 118.479-29.22 31.773-60.724 67.762-60.724 112.562 0 47.333 25.917 70.548 47.66 81.688 22.534 11.546 45.015 12.242 45.961 12.266l.379.005c3.073 0 6.112-.127 9.109-.378l.103 1.491c1.335 19.236 2.489 35.849.003 50.352-2.37 13.822-11.714 18.001-19.006 17.382-3.07-.261-10.21-1.744-10.21-9.848h-30c0 21.169 15.841 37.883 37.666 39.74 1.33.113 2.656.17 3.98.17a46.432 46.432 0 0 0 27.914-9.306c10.179-7.647 16.827-19.082 19.225-33.069 3.095-18.055 1.826-36.334.356-57.5l-.317-4.583c-.043-.64-.088-1.279-.135-1.919 6.901-2.901 13.235-6.612 18.807-11.07 17.339-13.872 26.504-33.742 26.504-57.463.001-18.043-6.781-34.676-19.095-46.834zM215.868 33.916c1.515-2.034 3.663-3.916 9.086-3.916 3.451 0 8.261 1.094 11.573 6.307 2.361 3.716 8.945 18.232-5.486 48.989-3.165 6.746-8.459 14.108-14.908 21.894-10.675-50.874-4.268-67.898-.265-73.274zM225.237 311c-1.764-.087-18.08-1.109-33.732-9.38-20.557-10.862-30.55-28.715-30.55-54.579 0-27.928 19.13-54.306 40.316-78.423a1018.638 1018.638 0 0 1 10.722 39.708c-12.94 9.11-19.038 23.895-19.038 38.007 0 11.36 4.616 21.066 12.997 27.331 6.43 4.806 14.077 6.893 21.186 7.503a682.259 682.259 0 0 1 4.186 29.57 77.704 77.704 0 0 1-6.087.263zm35.152-9.649c-3.197-25.015-7.776-49.574-12.6-71.639 18.327 2.149 31.166 16.328 31.166 35.288 0 17.468-7.698 29.136-18.566 36.351z" />
-  );
-};
-
-export const StaveLine = ({ pitch }: { pitch: Pitch }) => {
-  return (
-    <path
-      strokeWidth="1"
-      stroke="black"
-      d={`M0 ${getBaseYPosition(pitch)} H ${SVGWidth - 1}`}
+    <DurationlessPitchPath
+      pitch={pitch}
+      xStart={xStart}
+      handleClick={() => setSelectedNoteIndex(positionIndex)}
+      color={color}
+      opacity={opacity}
     />
   );
 };
 
-const TrebleStave = () => {
-  return (
-    <>
-      <TrebleClef />
-      <StaveLine pitch="E4" />
-      <StaveLine pitch="G4" />
-      <StaveLine pitch="B4" />
-      <StaveLine pitch="D5" />
-      <StaveLine pitch="F5" />
-    </>
+const CurrentGuessPaths = ({
+  notes,
+  correctNotes,
+}: {
+  notes: Array<Note>;
+  correctNotes: Array<Note>;
+}) => {
+  const { incorrectDurationsArrays, answerStatuses } = useStore(
+    (state) => state
   );
-};
-
-const CurrentGuessPaths = ({ notes }: { notes: Array<Note> }) => {
   return (
     <>
       {notes.map((note, index) => {
+        let color = BASE_COLOR;
+        if (incorrectDurationsArrays[index].includes(note.duration)) {
+          color = "grey";
+        }
+        if (
+          answerStatuses[index].durationStatus ===
+            AnswerStatus.GUESSEDCORRECT &&
+          note.duration === correctNotes[index].duration
+        ) {
+          color = "green";
+        }
         return (
           <NotePath
             note={note}
             index={index}
-            color="black"
+            color={color}
             key={`${index}-${note.pitch}-${note.duration}`}
           />
         );
@@ -390,25 +295,6 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
   );
 };
 
-const IncorrectDurationPaths = () => {
-  const { incorrectDurationsArrays } = useStore((state) => state);
-  return (
-    <>
-      {incorrectDurationsArrays.map((durationArray, positionIndex) => {
-        return durationArray.map((duration) => (
-          <IncorrectDurationGuessPath
-            duration={duration}
-            positionIndex={positionIndex}
-            color="grey"
-            key={`${positionIndex}-${duration}`}
-            opacity={0.3}
-          />
-        ));
-      })}
-    </>
-  );
-};
-
 const IncorrectPitchPaths = () => {
   const { incorrectPitchesArrays } = useStore((state) => state);
   return (
@@ -428,76 +314,13 @@ const IncorrectPitchPaths = () => {
   );
 };
 
-const getWrongSpotPitchXCentre = (pitch: Pitch) => {
-  return clefLength + 50 + (pitchNames.indexOf(pitch) % 4) * 50;
-};
-
-const WrongSpotPitchPath = ({ pitch }: { pitch: Pitch }) => {
-  const wrongSpotPitchColor = "yellow";
-  return (
-    <>
-      {shouldAddSharp(pitch) && (
-        <MiniSharp
-          pitch={pitch}
-          xStart={getWrongSpotPitchXCentre(pitch) - 50}
-          color={wrongSpotPitchColor}
-          opacity={1}
-        />
-      )}
-      <circle
-        cx={getWrongSpotPitchXCentre(pitch)}
-        cy={getBaseYPosition(pitch)}
-        r={pitchGuessRadius}
-        fill={wrongSpotPitchColor}
-      />
-    </>
-  );
-};
-
-const WrongSpotPitchPaths = () => {
-  const { wrongSpotPitches } = useStore((state) => state);
-  const buffer: Array<JSX.Element> = [];
-  wrongSpotPitches.forEach((pitch) => {
-    buffer.push(<WrongSpotPitchPath pitch={pitch} />);
-  });
-  return <>{buffer}</>;
-};
-
-const getWrongSpotDurationXCentre = (duration: Duration) => {
-  return 50 + 50 * (durationNames.indexOf(duration) % 3) * 70;
-};
-
-const WrongSpotDurationPath = ({ duration }: { duration: Duration }) => {
-  const wrongSpotDurationColor = "yellow";
-  return (
-    <NoteShapePath
-      duration={duration}
-      baseXPosition={getWrongSpotDurationXCentre(duration)}
-      baseYPosition={
-        SVGHeight + 50 + durationNames.indexOf(duration) * 230 * 0.4
-      }
-      color={wrongSpotDurationColor}
-      opacity={0.5}
-    />
-  );
-};
-
-const WrongSpotDurationPaths = () => {
-  const { wrongSpotDurations } = useStore((state) => state);
-  const buffer: Array<JSX.Element> = [];
-  wrongSpotDurations.forEach((duration) => {
-    buffer.push(<WrongSpotDurationPath duration={duration} />);
-  });
-  return <>{buffer}</>;
-};
-
-const SelectedNoteHightlight = () => {
+const SelectedNoteHighlight = () => {
   const { selectedNoteIndex } = useStore((state) => state);
   return (
     <ellipse
       cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex))}
       cy={getBaseYPosition("B4")}
-      rx={100}
+      rx={120}
       ry={SVGHeight}
       fill="grey"
       opacity={0.2}
@@ -509,19 +332,18 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
   const { guesses } = useStore((state) => state);
   return (
     <svg
-      viewBox={`0 0 ${SVGWidth} ${SVGHeight + 0.5 * 200 * durationNames.length
-        }`}
+      viewBox={`0 0 ${SVGWidth} ${SVGHeight}`}
       xmlns="<http://www.w3.org/2000/svg>"
       className="svg-score"
     >
-      <TrebleStave />
-      <CurrentGuessPaths notes={guesses} />
-      <SelectedNoteHightlight />
-      <WrongSpotPitchPaths />
-      <WrongSpotDurationPaths />
+      <TrebleStave SVGWidth={SVGWidth} />
+      <CurrentGuessPaths notes={guesses} correctNotes={correctNotes} />
+      <SelectedNoteHighlight />
+      {/* <WrongSpotPitchPaths /> */}
+      {/* <WrongSpotDurationPaths /> */}
       <NonIncorrectPaths correctNotes={correctNotes} />
       <IncorrectPitchPaths />
-      <IncorrectDurationPaths />
+      {/* <IncorrectDurationPaths /> */}
     </svg>
   );
 };

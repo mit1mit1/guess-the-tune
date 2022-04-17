@@ -1,27 +1,41 @@
 import { Duration } from "src/types";
-import { durationNames } from "src/constants";
+import { BASE_COLOR, durationNames, WRONG_SPOT_COLOR } from "src/constants";
 import { useStore } from "src/guessStore";
 import { NoteShapePath } from "./NoteShapePath";
+import "./DurationKey.css";
 
 interface DurationKeyProps {
   duration: Duration;
   status: "unknown" | "wrong-spot" | "unavailable";
 }
 
+const DurationKeySVGWidth = 220;
+const DurationKeySVGHeight = 220;
+
 const DurationKey = ({ duration, status }: DurationKeyProps) => {
+  if (status === "unavailable") {
+    return <></>;
+  }
+  let color = BASE_COLOR;
+  if (status === "wrong-spot") {
+    color = WRONG_SPOT_COLOR;
+  }
   return (
     <>
-      <svg>
-        <NoteShapePath
-          duration={duration}
-          baseXPosition={50}
-          baseYPosition={50}
-          color="black"
-        />
-      </svg>
-      <button>
-        {duration} - {status}
-      </button>
+      <div className="duration-key">
+        <svg
+          viewBox={`0 0 ${DurationKeySVGWidth} ${DurationKeySVGHeight}`}
+          xmlns="<http://www.w3.org/2000/svg>"
+          className="duration-key-svg"
+        >
+          <NoteShapePath
+            duration={duration}
+            baseXPosition={50}
+            baseYPosition={50}
+            color={color}
+          />
+        </svg>
+      </div>
     </>
   );
 };

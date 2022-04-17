@@ -1,6 +1,10 @@
 import { Pitch } from "src/types";
 
-export const getHeight = (pitch: Pitch) => {
+export const shouldAddSharp = (pitch: Pitch) => {
+  return pitch.includes("#");
+};
+
+export const getBaseYPosition = (pitch: Pitch) => {
   switch (pitch) {
     case "E3":
       return 612.5;

@@ -6,6 +6,8 @@ import { gameSongs } from "src/songs";
 import { useStore } from "src/guessStore";
 import "./App.css";
 import { DurationKeyboard } from "./components/DurationKeyboard";
+import { BACKGROUND_COLOR } from "./constants";
+import { PitchKeyboard } from "./components/PitchKeyboard";
 
 const chosenSong = gameSongs[1];
 
@@ -60,10 +62,16 @@ const App = () => {
     return () => {
       document.removeEventListener("keyup", handleKeyup, true);
     };
-  }, [handleCheckGuess, incrementGuessDuration, incrementGuessPitch, selectedNoteIndex, setSelectedNoteIndex]);
+  }, [
+    handleCheckGuess,
+    incrementGuessDuration,
+    incrementGuessPitch,
+    selectedNoteIndex,
+    setSelectedNoteIndex,
+  ]);
 
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundColor: BACKGROUND_COLOR }}>
       <header>
         <Container maxWidth="lg">
           <h1>Musicle!</h1>
@@ -72,7 +80,10 @@ const App = () => {
 
       <main>
         <SVGScore correctNotes={chosenSong.notes} />
-        <DurationKeyboard />
+        <Container>
+          <PitchKeyboard />
+          <DurationKeyboard />
+        </Container>
         <div>Try to guess the riff.</div>
         <div>{chosenSong.bpm}bpm</div>
         <button onClick={handleCheckGuess}>Check Guesses</button>
