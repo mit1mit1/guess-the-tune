@@ -1,5 +1,5 @@
 import { BASE_COLOR, pitchNames } from "src/constants";
-import { AnswerStatus, Duration, Note, Pitch } from "src/types";
+import { AnswerStatus, Note, Pitch } from "src/types";
 import { getBaseYPosition, getRootCircleCX, shouldAddSharp } from "src/utils";
 import { useStore } from "src/guessStore";
 import "./SVGScore.css";
@@ -157,31 +157,6 @@ const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
   );
 };
 
-interface DurationGuessPathProps {
-  duration: Duration;
-  positionIndex: number;
-  color: string;
-  opacity?: number;
-}
-
-const CorrectDurationGuessPath = ({
-  duration,
-  positionIndex,
-  color,
-  opacity,
-}: DurationGuessPathProps) => {
-  const baseXPosition = getBaseXPosition(positionIndex);
-  return (
-    <NoteShapePath
-      duration={duration}
-      baseXPosition={baseXPosition}
-      baseYPosition={-50}
-      color={color}
-      opacity={opacity}
-    />
-  );
-};
-
 interface PitchGuessPathProps {
   pitch: Pitch;
   positionIndex: number;
@@ -228,6 +203,7 @@ const CurrentGuessPaths = ({
     <>
       {notes.map((note, index) => {
         let color = BASE_COLOR;
+        let opacity = 1;
         if (incorrectDurationsArrays[index].includes(note.duration)) {
           color = "grey";
         }
@@ -236,6 +212,7 @@ const CurrentGuessPaths = ({
             AnswerStatus.GUESSEDCORRECT &&
           note.duration === correctNotes[index].duration
         ) {
+          opacity = 0.8;
           color = "green";
         }
         return (
@@ -243,6 +220,7 @@ const CurrentGuessPaths = ({
             note={note}
             index={index}
             color={color}
+            opacity={opacity}
             key={`${index}-${note.pitch}-${note.duration}`}
           />
         );
@@ -261,13 +239,21 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
           durationStatus === AnswerStatus.GUESSEDCORRECT
         ) {
           return (
-            <NotePath
-              opacity={0.5}
-              note={correctNotes[index]}
-              index={index}
-              color="green"
-              key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].duration}`}
-            />
+            <>
+              <PitchGuessPath
+                pitch={correctNotes[index].pitch}
+                positionIndex={index}
+                color="green"
+                key={`${index}-${correctNotes[index].pitch}-correct`}
+              />
+              <NotePath
+                opacity={0.5}
+                note={correctNotes[index]}
+                index={index}
+                color="green"
+                key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].duration}`}
+              />
+            </>
           );
         } else if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
           return (
@@ -278,17 +264,18 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
               key={`${index}-${correctNotes[index].pitch}-correct`}
             />
           );
-        } else if (durationStatus === AnswerStatus.GUESSEDCORRECT) {
-          return (
-            <CorrectDurationGuessPath
-              duration={correctNotes[index].duration}
-              positionIndex={index}
-              color="green"
-              opacity={0.5}
-              key={`${index}-${correctNotes[index].duration}-correct`}
-            />
-          );
         }
+        // else if (durationStatus === AnswerStatus.GUESSEDCORRECT) {
+        //   return (
+        //     <CorrectDurationGuessPath
+        //       duration={correctNotes[index].duration}
+        //       positionIndex={index}
+        //       color="green"
+        //       opacity={0.5}
+        //       key={`${index}-${correctNotes[index].duration}-correct`}
+        //     />
+        //   );
+        // }
         return <></>;
       })}
     </>
