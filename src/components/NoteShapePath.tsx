@@ -10,12 +10,23 @@ interface UpStrokeProps {
 
 const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
   return (
-    <path
-      strokeWidth="4"
-      stroke={color}
-      opacity={opacity}
-      d={`M${xStart} ${yStart} V ${yStart + 200}`}
-    />
+    <>
+      <ellipse
+        className="clickable-cover"
+        stroke=""
+        opacity={0}
+        cx={xStart}
+        cy={yStart + 100}
+        rx={15}
+        ry={100}
+      />
+      <path
+        strokeWidth="4"
+        stroke={color}
+        opacity={opacity}
+        d={`M${xStart} ${yStart} V ${yStart + 200}`}
+      />
+    </>
   );
 };
 
@@ -36,15 +47,26 @@ interface EigthLineProps {
 
 const EigthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
   return (
-    <line
-      strokeWidth="16"
-      stroke={color}
-      opacity={opacity}
-      x1={xStart}
-      y1={yStart}
-      x2={xStart + 80}
-      y2={yStart - 15}
-    />
+    <>
+      <ellipse
+        className="clickable-cover"
+        stroke=""
+        opacity={0}
+        cx={xStart + 40}
+        cy={yStart - 7.5}
+        rx={40}
+        ry={30}
+      />
+      <line
+        strokeWidth="16"
+        stroke={color}
+        opacity={opacity}
+        x1={xStart}
+        y1={yStart}
+        x2={xStart + 80}
+        y2={yStart - 15}
+      />
+    </>
   );
 };
 
@@ -70,15 +92,26 @@ const SixteenthLine = ({
   opacity,
 }: SixteenthLineProps) => {
   return (
-    <line
-      strokeWidth="16"
-      stroke={color}
-      opacity={opacity}
-      x1={xStart}
-      y1={yStart}
-      x2={xStart + 80}
-      y2={yStart - 15}
-    />
+    <>
+      <ellipse
+        className="clickable-cover"
+        stroke=""
+        opacity={0}
+        cx={xStart + 40}
+        cy={yStart - 7.5}
+        rx={40}
+        ry={30}
+      />
+      <line
+        strokeWidth="16"
+        stroke={color}
+        opacity={opacity}
+        x1={xStart}
+        y1={yStart}
+        x2={xStart + 80}
+        y2={yStart - 15}
+      />
+    </>
   );
 };
 
@@ -95,15 +128,26 @@ interface DotProps {
 
 const Dot = ({ color, opacity, xCentre, yCentre }: DotProps) => {
   return (
-    <circle
-      cx={xCentre}
-      cy={yCentre}
-      r="5"
-      stroke={color}
-      opacity={opacity}
-      strokeWidth="3"
-      fill={color}
-    />
+    <>
+      <ellipse
+        className="clickable-cover"
+        stroke=""
+        opacity={0}
+        cx={xCentre}
+        cy={yCentre}
+        rx={15}
+        ry={15}
+      />
+      <circle
+        cx={xCentre}
+        cy={yCentre}
+        r="5"
+        stroke={color}
+        opacity={opacity}
+        strokeWidth="3"
+        fill={color}
+      />
+    </>
   );
 };
 
@@ -158,7 +202,6 @@ const shouldAddSixteenthLine = (duration: Duration) => {
 interface RootCircleProps {
   opacity?: number;
   fillOpacity?: number;
-  handleClick?: () => void;
   strokeColor: string;
   fillColor: string;
   xCentre: number;
@@ -166,7 +209,6 @@ interface RootCircleProps {
 }
 
 const RootCircle = ({
-  handleClick,
   strokeColor,
   fillColor,
   fillOpacity = 1,
@@ -177,7 +219,6 @@ const RootCircle = ({
   return (
     <g transform={`rotate(-20, ${xCentre}, ${yCentre})`}>
       <ellipse
-        onClick={handleClick}
         cx={xCentre}
         cy={yCentre}
         rx="42"
@@ -210,7 +251,9 @@ export const NoteShapePath = ({
   baseYPosition,
 }: NoteShapePathProps) => {
   return (
-    <>
+    <g
+      className={handleClick ? "clickable-svg" : ""}
+      onClick={handleClick}>
       {drawLineUp(duration) && (
         <UpStroke
           xStart={getUpStrokeXStart(baseXPosition)}
@@ -222,7 +265,6 @@ export const NoteShapePath = ({
       <RootCircle
         xCentre={getRootCircleCX(baseXPosition)}
         yCentre={baseYPosition}
-        handleClick={handleClick}
         strokeColor={color}
         fillColor={color}
         fillOpacity={shouldFillInCircle(duration) ? opacity : opacity * 0.1}
@@ -252,6 +294,6 @@ export const NoteShapePath = ({
           opacity={opacity}
         />
       )}
-    </>
+    </g>
   );
 };

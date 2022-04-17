@@ -13,6 +13,7 @@ const DurationKeySVGWidth = 220;
 const DurationKeySVGHeight = 220;
 
 const DurationKey = ({ duration, status }: DurationKeyProps) => {
+  const { setSelectedGuessDuration } = useStore((state) => state);
   if (status === "unavailable") {
     return <></>;
   }
@@ -33,6 +34,7 @@ const DurationKey = ({ duration, status }: DurationKeyProps) => {
             baseXPosition={50}
             baseYPosition={50}
             color={color}
+            handleClick={() => setSelectedGuessDuration(duration)}
           />
         </svg>
       </div>
@@ -54,5 +56,6 @@ export const DurationKeyboard = () => {
       buffer.push(<DurationKey duration={duration} status="unknown" />);
     }
   });
-  return <>{buffer}</>;
+  return <>
+    <div>Available Durations</div>{buffer}</>;
 };

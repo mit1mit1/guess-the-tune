@@ -21,12 +21,15 @@ const getKeyboardOffset = (pitch: Pitch) => {
     case "A4":
     case "C5":
     case "E5":
+    case "G5":
+    case "B5":
       return 3.7 * multiplier;
     case "G#3":
     case "D#4":
     case "F#4":
     case "A#4":
     case "C#5":
+    case "G#5":
       return 1 * multiplier;
     case "F3":
     case "A3":
@@ -36,24 +39,32 @@ const getKeyboardOffset = (pitch: Pitch) => {
     case "B4":
     case "D5":
     case "F5":
+    case "A5":
       return 4.7 * multiplier;
     case "F#3":
     case "A#3":
     case "C#4":
     case "G#4":
     case "D#5":
+    case "F#5":
+    case "A#5":
       return 2.7 * multiplier;
   }
 };
 
 const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
+  const { setSelectedGuessPitch } = useStore((state) => state);
   let color = BASE_COLOR;
   if (status === "wrong-spot") {
     color = WRONG_SPOT_COLOR;
   }
   const offset = getKeyboardOffset(pitch);
   return (
-    <DurationlessPitchPath pitch={pitch} xStart={400 + offset} color={color} />
+    <DurationlessPitchPath
+      pitch={pitch}
+      xStart={400 + offset}
+      color={color}
+      handleClick={() => setSelectedGuessPitch(pitch)} />
   );
 };
 
@@ -62,6 +73,7 @@ export const PitchKeyboard = () => {
 
   return (
     <>
+      <div>Available Pitches</div>
       <svg
         viewBox={`0 0 ${960} ${640}`}
         xmlns="<http://www.w3.org/2000/svg>"

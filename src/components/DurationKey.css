@@ -1,7 +1,8 @@
 .duration-key {
-  height: 100px;
+  height: 10px;
   width: 50px;
   display: inline-block;
+  margin-top: 60px;
 }
 
 .duration-key-svg {

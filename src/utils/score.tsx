@@ -5,49 +5,60 @@ export const shouldAddSharp = (pitch: Pitch) => {
 };
 
 export const getBaseYPosition = (pitch: Pitch) => {
+  const C4Offset = 425;
+  const multiplier = 37.5;
   switch (pitch) {
     case "E3":
-      return 612.5;
+      return C4Offset + multiplier * 5;
     case "F3":
     case "F#3":
-      return 575;
+      return C4Offset + multiplier * 4;
     case "G3":
     case "G#3":
-      return 537.5;
+      return C4Offset + multiplier * 3;
     case "A3":
     case "A#3":
-      return 500;
+      return C4Offset + multiplier * 2;
     case "B3":
-      return 462.5;
+      return C4Offset + multiplier * 1;
     case "C4":
     case "C#4":
-      return 425;
+      return C4Offset;
     case "D4":
     case "D#4":
-      return 387.5;
+      return C4Offset + multiplier * -1;
     case "E4":
-      return 350;
+      return C4Offset + multiplier * -2;
     case "F4":
     case "F#4":
-      return 312.5;
+      return C4Offset + multiplier * -3;
     case "G4":
     case "G#4":
-      return 275;
+      return C4Offset + multiplier * -4;
     case "A4":
     case "A#4":
-      return 237.5;
+      return C4Offset + multiplier * -5;
     case "B4":
-      return 200;
+      return C4Offset + multiplier * -6;
     case "C5":
     case "C#5":
-      return 162.5;
+      return C4Offset + multiplier * -7;
     case "D5":
     case "D#5":
-      return 125;
+      return C4Offset + multiplier * -8;
     case "E5":
-      return 87.5;
+      return C4Offset + multiplier * -9;
     case "F5":
-      return 50;
+    case "F#5":
+      return C4Offset + multiplier * -10;
+    case "G5":
+    case "G#5":
+      return C4Offset + multiplier * -11;
+    case "A5":
+    case "A#5":
+      return C4Offset + multiplier * -12;
+    case "B5":
+      return C4Offset + multiplier * -13;
   }
 };
 

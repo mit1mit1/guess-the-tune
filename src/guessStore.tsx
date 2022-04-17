@@ -12,7 +12,9 @@ import { durationNames, pitchNames } from "./constants";
 
 enableMapSet();
 
-const correctNotes = gameSongs[1].notes;
+const paramSongIndex = parseInt(new URLSearchParams(window.location.search).get("chosenSongIndex") || '1');
+const songIndex = paramSongIndex >= 0 && paramSongIndex < gameSongs.length ? paramSongIndex : 0
+const correctNotes = gameSongs[songIndex].notes;
 const correctPitches = correctNotes.map((note) => note.pitch);
 const correctDurations = correctNotes.map((note) => note.duration);
 
@@ -28,6 +30,8 @@ export interface GuessState {
   incrementGuessPitch: (index: number, increment: number) => void;
   incrementGuessDuration: (index: number, increment: number) => void;
   setSelectedNoteIndex: (selectedNoteIndex: number) => void;
+  setSelectedGuessDuration: (duration: Duration) => void;
+  setSelectedGuessPitch: (pitch: Pitch) => void;
   guesses: Array<Note>;
   answerStatuses: Array<NoteStatus>;
   incorrectDurationsArrays: Array<Array<Duration>>;
@@ -37,6 +41,7 @@ export interface GuessState {
   pitchesGuessed: Set<Pitch>;
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
+  chosenSongIndex: number;
 }
 
 const minPitchIndex = Math.min(
@@ -60,10 +65,13 @@ const initialAvailableDurations = durationNames.slice(
   maxDurationIndex + 1
 );
 
+
 export const useStore = create<GuessState>((set) => ({
+  
   availablePitches: initialAvailablePitches,
   availableDurations: initialAvailableDurations,
   answerStatuses: initialAnswerStatuses,
+  chosenSongIndex: songIndex,
   durationsGuessed: new Set<Duration>([]),
   guesses: correctNotes.map(() => ({
     pitch: initialAvailablePitches[0],
@@ -120,6 +128,24 @@ export const useStore = create<GuessState>((set) => ({
     );
   },
 
+  setSelectedGuessDuration: (duration) => {
+    set(
+      produce((draft: GuessState) => {
+        draft.guesses[draft.selectedNoteIndex].duration = duration;
+        return draft;
+      })
+    );
+  },
+
+  setSelectedGuessPitch: (pitch) => {
+    set(
+      produce((draft: GuessState) => {
+        draft.guesses[draft.selectedNoteIndex].pitch = pitch;
+        return draft;
+      })
+    );
+  },
+
   checkGuesses: () => {
     set(
       produce((draft: GuessState) => {
@@ -167,6 +193,7 @@ export const useStore = create<GuessState>((set) => ({
           } as NoteStatus;
         });
         draft.answerStatuses = newStatuses;
+        console.log(draft.answerStatuses);
 
         correctNotes.forEach((note, index) => {
           if (

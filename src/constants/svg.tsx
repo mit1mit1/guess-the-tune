@@ -1,1 +1,1 @@
-export const durationlessPitchRadius = 20;
+export const durationlessPitchRadius = 25;

@@ -9,17 +9,19 @@ interface MiniSharpProps {
   color: string;
   opacity?: number;
   xStart: number;
+  handleClick?: () => void;
 }
 
-const MiniSharp = ({ pitch, color, opacity, xStart }: MiniSharpProps) => {
+const MiniSharp = ({ pitch, color, opacity, xStart, handleClick }: MiniSharpProps) => {
   const yStart = getBaseYPosition(pitch) - 32;
   return (
     <SharpPath
+      handleClick={handleClick}
       xStart={xStart}
       yStart={yStart}
       color={color}
       opacity={opacity}
-      strokeWidth={2}
+      strokeWidth={4}
     />
   );
 };
@@ -41,7 +43,8 @@ export const DurationlessPitchPath = ({
 }: DurationlessPitchPathProps) => {
   const yStart = getBaseYPosition(pitch) - durationlessPitchRadius;
   return (
-    <>
+    <g onClick={handleClick}
+      className={handleClick ? "clickable-svg" : ""}>
       {shouldAddSharp(pitch) && (
         <MiniSharp
           pitch={pitch}
@@ -51,12 +54,19 @@ export const DurationlessPitchPath = ({
         />
       )}
       <g
-        transform={`rotate(45 ${xStart + durationlessPitchRadius} ${
-          yStart + durationlessPitchRadius
-        })`}
+        transform={`rotate(45 ${xStart + durationlessPitchRadius} ${yStart + durationlessPitchRadius
+          })`}
       >
+        <ellipse
+          className="clickable-cover"
+          stroke=""
+          opacity={0}
+          cx={xStart + durationlessPitchRadius}
+          cy={yStart + durationlessPitchRadius}
+          rx={durationlessPitchRadius + 15}
+          ry={durationlessPitchRadius + 15}
+        />
         <rect
-          onClick={handleClick}
           x={xStart}
           y={yStart}
           width={durationlessPitchRadius * 2}
@@ -65,6 +75,6 @@ export const DurationlessPitchPath = ({
           opacity={opacity}
         />
       </g>
-    </>
+    </g>
   );
 };

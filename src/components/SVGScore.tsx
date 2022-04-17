@@ -337,8 +337,8 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
       className="svg-score"
     >
       <TrebleStave SVGWidth={SVGWidth} />
-      <CurrentGuessPaths notes={guesses} correctNotes={correctNotes} />
       <SelectedNoteHighlight />
+      <CurrentGuessPaths notes={guesses} correctNotes={correctNotes} />
       {/* <WrongSpotPitchPaths /> */}
       {/* <WrongSpotDurationPaths /> */}
       <NonIncorrectPaths correctNotes={correctNotes} />
