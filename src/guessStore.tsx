@@ -1,5 +1,5 @@
 import create from "zustand";
-import { gameSongs } from "./songs";
+import { gameSongs } from "./gameSongs";
 import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "./types";
 import produce, { enableMapSet } from "immer";
 import {
@@ -13,7 +13,7 @@ import { durationNames, pitchNames } from "./constants";
 enableMapSet();
 
 const paramSongIndex = parseInt(
-  new URLSearchParams(window.location.search).get("chosenSongIndex") || "1"
+  new URLSearchParams(window.location.search).get("chosenSongIndex") || "0"
 );
 const songIndex =
   paramSongIndex >= 0 && paramSongIndex < gameSongs.length ? paramSongIndex : 0;
@@ -46,7 +46,7 @@ export interface GuessState {
   wrongSpotPitches: Set<Pitch>;
   chosenSongIndex: number;
 }
-
+console.log(correctPitches, correctPitches.map((pitch) => pitchNames.indexOf(pitch)))
 const minPitchIndex = Math.min(
   ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
 );

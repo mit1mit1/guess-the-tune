@@ -6,7 +6,7 @@ import "./App.css";
 import { DurationKeyboard } from "./components/DurationKeyboard";
 import { BACKGROUND_COLOR } from "./constants";
 import { PitchKeyboard } from "./components/PitchKeyboard";
-import { gameSongs } from "./songs";
+import { gameSongs } from "./gameSongs";
 import { Note } from "./types";
 
 const App = ({playNotes} : {playNotes : (guessArray: Array<Note>, bpm: number) => void}) => {

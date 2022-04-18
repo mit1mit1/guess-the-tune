@@ -46,8 +46,23 @@ const hedwigsTheme: GameSong = {
   timeSignature: TimeSignature.FOURFOUR,
 };
 
+const thomasTheTankEngine: GameSong = {
+  bpm: 100,
+  notes: [
+    { pitch: "G4", duration: "8n" },
+    { pitch: "A4", duration: "8n" },
+    { pitch: "B4", duration: "8n" },
+    { pitch: "C5", duration: "4n" },
+    { pitch: "D5", duration: "8n" },
+    { pitch: "E5", duration: "4n" },
+    { pitch: "G#4", duration: "1n" },
+  ],
+  timeSignature: TimeSignature.FOURFOUR,
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
   hedwigsTheme,
+  thomasTheTankEngine,
 ];
