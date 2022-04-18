@@ -1,7 +1,6 @@
 .svg-score {
   overflow: visible;
-  max-width: 90%;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 .incorrect-guess-pitch {

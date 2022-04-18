@@ -17,6 +17,10 @@ export const isDuration = (item: any): item is Duration => {
   return durationNames.includes(item);
 };
 
+export enum TimeSignature {
+  FOURFOUR = "4/4",
+}
+
 export enum AnswerStatus {
   UNKNOWN,
   GUESSEDCORRECT,
@@ -43,4 +47,5 @@ export interface NoteStatus {
 export interface GameSong {
   bpm: number;
   notes: Array<Note>;
+  timeSignature: TimeSignature;
 }

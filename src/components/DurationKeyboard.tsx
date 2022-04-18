@@ -56,6 +56,10 @@ export const DurationKeyboard = () => {
       buffer.push(<DurationKey duration={duration} status="unknown" />);
     }
   });
-  return <>
-    <div>Available Durations</div>{buffer}</>;
+  return (
+    <>
+      <div>Available Durations</div>
+      {buffer}
+    </>
+  );
 };

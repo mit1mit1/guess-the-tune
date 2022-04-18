@@ -5,9 +5,7 @@
 }
 
 .pitch-keyboard-svg {
-  margin-right: 50px;
   overflow: visible;
-  height: 130px;
-  width: 200px;
   margin-top: 15px;
+  max-height: 150px;
 }

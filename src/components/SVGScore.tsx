@@ -1,4 +1,9 @@
-import { BASE_COLOR, pitchNames } from "src/constants";
+import {
+  BASE_COLOR,
+  INCORRECT_COLOR,
+  INCORRECT_PITCH_COLOR,
+  pitchNames,
+} from "src/constants";
 import { AnswerStatus, Note, Pitch } from "src/types";
 import { getBaseYPosition, getRootCircleCX, shouldAddSharp } from "src/utils";
 import { useStore } from "src/guessStore";
@@ -7,11 +12,11 @@ import { NoteShapePath } from "./NoteShapePath";
 import { TrebleStave } from "./TrebleStave";
 import { SharpPath } from "./SharpPath";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";
-import { durationlessPitchRadius } from "src/constants/svg";
+import { durationlessPitchRadius, sharpYOffset } from "src/constants/svg";
 
-const SVGWidth = 3540;
+const SVGWidth = 3140;
 const SVGHeight = 440;
-const clefLength = 400;
+const clefLength = 300;
 const incorrectPitchLength = 250;
 
 const noteSharpOffset = (pitch: Pitch) => {
@@ -95,7 +100,7 @@ const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
     index * distanceBetweenNotes -
     150 +
     noteSharpOffset(pitch);
-  const yStart = getBaseYPosition(pitch) - 40;
+  const yStart = getBaseYPosition(pitch) + sharpYOffset;
   return (
     <SharpPath
       xStart={xStart}
@@ -106,10 +111,6 @@ const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
     />
   );
 };
-
-// const getMiniSharpXStart = (index: number) => {
-//   return clefLength + incorrectPitchLength + index * distanceBetweenNotes - 150 + noteSharpOffset("A#3");
-// };
 
 const getBaseXPosition = (index: number) => {
   return clefLength + incorrectPitchLength + index * distanceBetweenNotes;
@@ -205,7 +206,7 @@ const CurrentGuessPaths = ({
         let color = BASE_COLOR;
         let opacity = 1;
         if (incorrectDurationsArrays[index].includes(note.duration)) {
-          color = "grey";
+          color = INCORRECT_COLOR;
         }
         if (
           answerStatuses[index].durationStatus ===
@@ -265,17 +266,6 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
             />
           );
         }
-        // else if (durationStatus === AnswerStatus.GUESSEDCORRECT) {
-        //   return (
-        //     <CorrectDurationGuessPath
-        //       duration={correctNotes[index].duration}
-        //       positionIndex={index}
-        //       color="green"
-        //       opacity={0.5}
-        //       key={`${index}-${correctNotes[index].duration}-correct`}
-        //     />
-        //   );
-        // }
         return <></>;
       })}
     </>
@@ -291,9 +281,9 @@ const IncorrectPitchPaths = () => {
           <PitchGuessPath
             pitch={pitch}
             positionIndex={positionIndex}
-            color="grey"
+            color={INCORRECT_PITCH_COLOR}
             key={`${positionIndex}-${pitch}`}
-            opacity={0.3}
+            opacity={1}
           />
         ));
       })}
@@ -309,7 +299,7 @@ const SelectedNoteHighlight = () => {
       cy={getBaseYPosition("B4")}
       rx={120}
       ry={SVGHeight}
-      fill="grey"
+      fill={INCORRECT_COLOR}
       opacity={0.2}
     />
   );
@@ -326,11 +316,8 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
       <TrebleStave SVGWidth={SVGWidth} />
       <SelectedNoteHighlight />
       <CurrentGuessPaths notes={guesses} correctNotes={correctNotes} />
-      {/* <WrongSpotPitchPaths /> */}
-      {/* <WrongSpotDurationPaths /> */}
       <NonIncorrectPaths correctNotes={correctNotes} />
       <IncorrectPitchPaths />
-      {/* <IncorrectDurationPaths /> */}
     </svg>
   );
 };

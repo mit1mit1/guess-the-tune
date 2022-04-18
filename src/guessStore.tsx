@@ -12,8 +12,11 @@ import { durationNames, pitchNames } from "./constants";
 
 enableMapSet();
 
-const paramSongIndex = parseInt(new URLSearchParams(window.location.search).get("chosenSongIndex") || '1');
-const songIndex = paramSongIndex >= 0 && paramSongIndex < gameSongs.length ? paramSongIndex : 0
+const paramSongIndex = parseInt(
+  new URLSearchParams(window.location.search).get("chosenSongIndex") || "1"
+);
+const songIndex =
+  paramSongIndex >= 0 && paramSongIndex < gameSongs.length ? paramSongIndex : 0;
 const correctNotes = gameSongs[songIndex].notes;
 const correctPitches = correctNotes.map((note) => note.pitch);
 const correctDurations = correctNotes.map((note) => note.duration);
@@ -65,9 +68,7 @@ const initialAvailableDurations = durationNames.slice(
   maxDurationIndex + 1
 );
 
-
 export const useStore = create<GuessState>((set) => ({
-  
   availablePitches: initialAvailablePitches,
   availableDurations: initialAvailableDurations,
   answerStatuses: initialAnswerStatuses,
@@ -88,10 +89,12 @@ export const useStore = create<GuessState>((set) => ({
 
   setSelectedNoteIndex: (selectedNoteIndex) =>
     set(
-      produce((draft) => ({
-        ...draft,
-        selectedNoteIndex,
-      }))
+      produce((draft: GuessState) => {
+        return {
+          ...draft,
+          selectedNoteIndex,
+        };
+      })
     ),
 
   incrementGuessDuration: (guessIndex, increment) => {
@@ -195,6 +198,8 @@ export const useStore = create<GuessState>((set) => ({
         draft.answerStatuses = newStatuses;
         console.log(draft.answerStatuses);
 
+        draft.wrongSpotPitches = new Set();
+        draft.wrongSpotDurations = new Set();
         correctNotes.forEach((note, index) => {
           if (
             draft.answerStatuses[index].pitchStatus !==

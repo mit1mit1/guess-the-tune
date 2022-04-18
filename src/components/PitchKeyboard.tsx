@@ -11,7 +11,7 @@ interface PitchKeyProps {
 }
 
 const getKeyboardOffset = (pitch: Pitch) => {
-  const multiplier = 90;
+  const multiplier = 115;
   switch (pitch) {
     case "E3":
     case "G3":
@@ -62,9 +62,10 @@ const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
   return (
     <DurationlessPitchPath
       pitch={pitch}
-      xStart={400 + offset}
+      xStart={300 + offset}
       color={color}
-      handleClick={() => setSelectedGuessPitch(pitch)} />
+      handleClick={() => setSelectedGuessPitch(pitch)}
+    />
   );
 };
 
@@ -75,7 +76,7 @@ export const PitchKeyboard = () => {
     <>
       <div>Available Pitches</div>
       <svg
-        viewBox={`0 0 ${960} ${640}`}
+        viewBox={`0 0 ${960} ${540}`}
         xmlns="<http://www.w3.org/2000/svg>"
         className="pitch-keyboard-svg"
       >

@@ -1,4 +1,4 @@
-import { GameSong } from "src/types";
+import { GameSong, TimeSignature } from "src/types";
 
 const simpsonsTheme: GameSong = {
   bpm: 172,
@@ -12,6 +12,7 @@ const simpsonsTheme: GameSong = {
     { pitch: "C5", duration: "4n" },
     { pitch: "A4", duration: "8n" },
   ],
+  timeSignature: TimeSignature.FOURFOUR,
 };
 
 const imperialMarch: GameSong = {
@@ -27,6 +28,7 @@ const imperialMarch: GameSong = {
     { pitch: "C5", duration: "16n" },
     { pitch: "A4", duration: "2n" },
   ],
+  timeSignature: TimeSignature.FOURFOUR,
 };
 
 const hedwigsTheme: GameSong = {
@@ -41,6 +43,7 @@ const hedwigsTheme: GameSong = {
     { pitch: "D5", duration: "4n." },
     { pitch: "B4", duration: "4n." },
   ],
+  timeSignature: TimeSignature.FOURFOUR,
 };
 
 export const gameSongs: Array<GameSong> = [

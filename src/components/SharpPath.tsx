@@ -1,10 +1,12 @@
+import { sharpHeight } from "src/constants/svg";
+
 export const SharpPath = ({
   xStart,
   yStart,
   color,
   opacity = 1,
   strokeWidth,
-  handleClick
+  handleClick,
 }: {
   xStart: number;
   yStart: number;
@@ -20,10 +22,10 @@ export const SharpPath = ({
         stroke={color}
         opacity={opacity}
         x1={xStart + 60}
-        y1={yStart + 25}
+        y1={yStart + (sharpHeight * 5) / 16}
         x2={xStart}
-        y2={yStart + 35}
-        className={handleClick? "clickable-svg" : ""}
+        y2={yStart + (sharpHeight * 7) / 16}
+        className={handleClick ? "clickable-svg" : ""}
         onClick={handleClick}
       />
       <line
@@ -31,26 +33,26 @@ export const SharpPath = ({
         stroke={color}
         opacity={opacity}
         x1={xStart + 60}
-        y1={yStart + 45}
+        y1={yStart + (sharpHeight * 9) / 16}
         x2={xStart}
-        y2={yStart + 55}
-        className={handleClick? "clickable-svg" : ""}
+        y2={yStart + (sharpHeight * 11) / 16}
+        className={handleClick ? "clickable-svg" : ""}
         onClick={handleClick}
       />
       <path
         strokeWidth={strokeWidth}
         stroke={color}
         opacity={opacity}
-        d={`M${xStart + 40} ${yStart} V ${yStart + 80}`}
-        className={handleClick? "clickable-svg" : ""}
+        d={`M${xStart + 40} ${yStart} V ${yStart + sharpHeight}`}
+        className={handleClick ? "clickable-svg" : ""}
         onClick={handleClick}
       />
       <path
         strokeWidth={strokeWidth}
         stroke={color}
         opacity={opacity}
-        d={`M${xStart + 20} ${yStart} V ${yStart + 80}`}
-        className={handleClick? "clickable-svg" : ""}
+        d={`M${xStart + 20} ${yStart} V ${yStart + sharpHeight}`}
+        className={handleClick ? "clickable-svg" : ""}
         onClick={handleClick}
       />
       <ellipse
@@ -58,9 +60,9 @@ export const SharpPath = ({
         stroke=""
         opacity={0}
         cx={xStart + 30}
-        cy={yStart + 40}
+        cy={yStart + sharpHeight / 2}
         rx={30}
-        ry={40}
+        ry={sharpHeight / 2}
       />
     </>
   );

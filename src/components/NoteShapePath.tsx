@@ -1,6 +1,8 @@
 import { Duration } from "src/types";
 import { getRootCircleCX } from "src/utils";
 
+const rootCircleXRadius = 42;
+
 interface UpStrokeProps {
   xStart: number;
   yStart: number;
@@ -15,9 +17,9 @@ const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
         className="clickable-cover"
         stroke=""
         opacity={0}
-        cx={xStart}
+        cx={xStart - rootCircleXRadius}
         cy={yStart + 100}
-        rx={15}
+        rx={15 + rootCircleXRadius}
         ry={100}
       />
       <path
@@ -221,7 +223,7 @@ const RootCircle = ({
       <ellipse
         cx={xCentre}
         cy={yCentre}
-        rx="42"
+        rx={rootCircleXRadius}
         ry="34"
         stroke={strokeColor}
         opacity={opacity}
@@ -251,9 +253,7 @@ export const NoteShapePath = ({
   baseYPosition,
 }: NoteShapePathProps) => {
   return (
-    <g
-      className={handleClick ? "clickable-svg" : ""}
-      onClick={handleClick}>
+    <g className={handleClick ? "clickable-svg" : ""} onClick={handleClick}>
       {drawLineUp(duration) && (
         <UpStroke
           xStart={getUpStrokeXStart(baseXPosition)}

@@ -4,8 +4,17 @@ html {
 }
 
 .App {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.App h1 {
   text-align: center;
-  padding: 50px;
+}
+
+.App div {
+  margin-bottom: 5px;
 }
 
 .App-logo {
