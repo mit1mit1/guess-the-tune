@@ -81,14 +81,14 @@ export const PitchKeyboard = () => {
         className="pitch-keyboard-svg"
       >
         <TrebleStave SVGWidth={960} />
-        {pitchNames.map((pitch) => {
+        {pitchNames.map((pitch, index) => {
           if (!availablePitches.includes(pitch)) {
-            return <></>;
+            return <g key={'pitch-key-' + index}></g>;
           }
           if (wrongSpotPitches.has(pitch)) {
-            return <PitchKey pitch={pitch} status="wrong-spot" />;
+            return <PitchKey key={'pitch-key-' + index} pitch={pitch} status="wrong-spot" />;
           }
-          return <PitchKey pitch={pitch} />;
+          return <PitchKey key={'pitch-key-' + index} pitch={pitch} />;
         })}
       </svg>
     </>

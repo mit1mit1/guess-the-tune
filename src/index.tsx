@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import axe from "@axe-core/react";
+import { playNotes } from "src/utils";
 
 if (process.env.NODE_ENV !== "production") {
   axe(React, ReactDOM, 1000);
@@ -11,7 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App playNotes={playNotes} />
   </React.StrictMode>,
   document.getElementById("root")
 );

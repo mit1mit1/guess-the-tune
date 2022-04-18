@@ -240,7 +240,7 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
           durationStatus === AnswerStatus.GUESSEDCORRECT
         ) {
           return (
-            <>
+            <g key={'non-incorrect-path-' + index}>
               <PitchGuessPath
                 pitch={correctNotes[index].pitch}
                 positionIndex={index}
@@ -254,7 +254,7 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
                 color="green"
                 key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].duration}`}
               />
-            </>
+            </g>
           );
         } else if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
           return (
@@ -266,7 +266,7 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
             />
           );
         }
-        return <></>;
+        return <g key={'non-incorrect-path-' + index}></g>;
       })}
     </>
   );

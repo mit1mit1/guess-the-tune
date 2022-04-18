@@ -1,14 +1,15 @@
 import { useCallback, useEffect } from "react";
 import { SVGScore } from "src/components/SVGScore";
-import { playNotes, allCorrect } from "./utils";
+import { allCorrect } from "./utils";
 import { useStore } from "src/guessStore";
 import "./App.css";
 import { DurationKeyboard } from "./components/DurationKeyboard";
 import { BACKGROUND_COLOR } from "./constants";
 import { PitchKeyboard } from "./components/PitchKeyboard";
 import { gameSongs } from "./songs";
+import { Note } from "./types";
 
-const App = () => {
+const App = ({playNotes} : {playNotes : (guessArray: Array<Note>, bpm: number) => void}) => {
   const {
     selectedNoteIndex,
     setSelectedNoteIndex,
@@ -26,10 +27,10 @@ const App = () => {
       alert("All right!");
     }
     playNotes([...guesses], chosenSong.bpm);
-  }, [checkGuesses, chosenSong.bpm, chosenSong.notes, guesses]);
+  }, [checkGuesses, chosenSong.bpm, chosenSong.notes, guesses, playNotes]);
   useEffect(() => {
     playNotes([guesses[selectedNoteIndex]], chosenSong.bpm);
-  }, [chosenSong.bpm, guesses, selectedNoteIndex]);
+  }, [chosenSong.bpm, guesses, playNotes, selectedNoteIndex]);
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
       const key = e.key;

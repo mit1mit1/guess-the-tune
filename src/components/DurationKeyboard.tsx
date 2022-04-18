@@ -47,13 +47,13 @@ export const DurationKeyboard = () => {
 
   const buffer: Array<JSX.Element> = [];
 
-  durationNames.forEach((duration) => {
+  durationNames.forEach((duration, index) => {
     if (!availableDurations.includes(duration)) {
-      buffer.push(<DurationKey duration={duration} status="unavailable" />);
+      buffer.push(<DurationKey key={'duration-key-' + index} duration={duration} status="unavailable" />);
     } else if (wrongSpotDurations.has(duration)) {
-      buffer.push(<DurationKey duration={duration} status="wrong-spot" />);
+      buffer.push(<DurationKey key={'duration-key-' + index} duration={duration} status="wrong-spot" />);
     } else {
-      buffer.push(<DurationKey duration={duration} status="unknown" />);
+      buffer.push(<DurationKey key={'duration-key-' + index} duration={duration} status="unknown" />);
     }
   });
   return (
