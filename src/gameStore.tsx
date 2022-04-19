@@ -26,10 +26,12 @@ const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map(() => ({
   durationStatus: AnswerStatus.UNKNOWN,
 }));
 
-export interface GuessState {
+export interface GameState {
   availablePitches: Array<Pitch>;
   availableDurations: Array<Duration>;
   selectedNoteIndex: number;
+  turn: number;
+  incrementTurn: () => void;
   incrementGuessPitch: (index: number, increment: number) => void;
   incrementGuessDuration: (index: number, increment: number) => void;
   setSelectedNoteIndex: (selectedNoteIndex: number) => void;
@@ -46,7 +48,6 @@ export interface GuessState {
   wrongSpotPitches: Set<Pitch>;
   chosenSongIndex: number;
 }
-console.log(correctPitches, correctPitches.map((pitch) => pitchNames.indexOf(pitch)))
 const minPitchIndex = Math.min(
   ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
 );
@@ -68,7 +69,7 @@ const initialAvailableDurations = durationNames.slice(
   maxDurationIndex + 1
 );
 
-export const useStore = create<GuessState>((set) => ({
+export const useStore = create<GameState>((set) => ({
   availablePitches: initialAvailablePitches,
   availableDurations: initialAvailableDurations,
   answerStatuses: initialAnswerStatuses,
@@ -84,12 +85,13 @@ export const useStore = create<GuessState>((set) => ({
   incorrectPitchesArrays: correctNotes.map(() => []) as Array<Array<Pitch>>,
   pitchesGuessed: new Set<Pitch>([]),
   selectedNoteIndex: 0,
+  turn: 1,
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
 
   setSelectedNoteIndex: (selectedNoteIndex) =>
     set(
-      produce((draft: GuessState) => {
+      produce((draft: GameState) => {
         return {
           ...draft,
           selectedNoteIndex,
@@ -97,9 +99,18 @@ export const useStore = create<GuessState>((set) => ({
       })
     ),
 
+  incrementTurn: () => {
+    set(
+      produce((draft) => ({
+        ...draft,
+        turn: draft.turn + 1,
+      }))
+    )
+  },
+
   incrementGuessDuration: (guessIndex, increment) => {
     set(
-      produce((draft: GuessState) => {
+      produce((draft: GameState) => {
         const newGuesses = incrementDuration(
           draft.guesses,
           guessIndex,
@@ -116,7 +127,7 @@ export const useStore = create<GuessState>((set) => ({
 
   incrementGuessPitch: (guessIndex, increment) => {
     set(
-      produce((draft: GuessState) => {
+      produce((draft: GameState) => {
         const newGuesses = incrementPitch(
           draft.guesses,
           guessIndex,
@@ -133,7 +144,7 @@ export const useStore = create<GuessState>((set) => ({
 
   setSelectedGuessDuration: (duration) => {
     set(
-      produce((draft: GuessState) => {
+      produce((draft: GameState) => {
         draft.guesses[draft.selectedNoteIndex].duration = duration;
         return draft;
       })
@@ -142,7 +153,7 @@ export const useStore = create<GuessState>((set) => ({
 
   setSelectedGuessPitch: (pitch) => {
     set(
-      produce((draft: GuessState) => {
+      produce((draft: GameState) => {
         draft.guesses[draft.selectedNoteIndex].pitch = pitch;
         return draft;
       })
@@ -151,7 +162,7 @@ export const useStore = create<GuessState>((set) => ({
 
   checkGuesses: () => {
     set(
-      produce((draft: GuessState) => {
+      produce((draft: GameState) => {
         draft.guesses.forEach((guess, index) => {
           draft.pitchesGuessed.add(guess.pitch);
           draft.durationsGuessed.add(guess.duration);
@@ -196,21 +207,20 @@ export const useStore = create<GuessState>((set) => ({
           } as NoteStatus;
         });
         draft.answerStatuses = newStatuses;
-        console.log(draft.answerStatuses);
 
         draft.wrongSpotPitches = new Set();
         draft.wrongSpotDurations = new Set();
         correctNotes.forEach((note, index) => {
           if (
             draft.answerStatuses[index].pitchStatus !==
-              AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
             draft.pitchesGuessed.has(note.pitch)
           ) {
             draft.wrongSpotPitches.add(note.pitch);
           }
           if (
             draft.answerStatuses[index].durationStatus !==
-              AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
             draft.durationsGuessed.has(note.duration)
           ) {
             draft.wrongSpotDurations.add(note.duration);

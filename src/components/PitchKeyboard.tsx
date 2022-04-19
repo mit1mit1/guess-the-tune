@@ -1,6 +1,6 @@
 import { Pitch } from "src/types";
 import { BASE_COLOR, pitchNames, WRONG_SPOT_COLOR } from "src/constants";
-import { useStore } from "src/guessStore";
+import { useStore } from "src/gameStore";
 import "./PitchKeyboard.css";
 import { TrebleStave } from "./TrebleStave";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { SVGScore } from "src/components/SVGScore";
 import { allCorrect } from "./utils";
-import { useStore } from "src/guessStore";
+import { useStore } from "src/gameStore";
 import "./App.css";
 import { DurationKeyboard } from "./components/DurationKeyboard";
 import { BACKGROUND_COLOR } from "./constants";
@@ -9,25 +9,28 @@ import { PitchKeyboard } from "./components/PitchKeyboard";
 import { gameSongs } from "./gameSongs";
 import { Note } from "./types";
 
-const App = ({playNotes} : {playNotes : (guessArray: Array<Note>, bpm: number) => void}) => {
+const App = ({ playNotes }: { playNotes: (guessArray: Array<Note>, bpm: number) => void }) => {
   const {
     selectedNoteIndex,
     setSelectedNoteIndex,
     incrementGuessPitch,
     incrementGuessDuration,
-    guesses,
+    incrementTurn,
     checkGuesses,
     chosenSongIndex,
+    guesses,
+    turn,
   } = useStore((state) => state);
   const chosenSong = gameSongs[chosenSongIndex];
 
   const handleCheckGuess = useCallback(() => {
+    incrementTurn();
     checkGuesses();
     if (allCorrect(guesses, chosenSong.notes)) {
-      alert("All right!");
+      alert("All right! Got it in " + turn + " turns :)");
     }
     playNotes([...guesses], chosenSong.bpm);
-  }, [checkGuesses, chosenSong.bpm, chosenSong.notes, guesses, playNotes]);
+  }, [checkGuesses, chosenSong.bpm, chosenSong.notes, guesses, incrementTurn, playNotes, turn]);
   useEffect(() => {
     playNotes([guesses[selectedNoteIndex]], chosenSong.bpm);
   }, [chosenSong.bpm, guesses, playNotes, selectedNoteIndex]);

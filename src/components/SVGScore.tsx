@@ -6,7 +6,7 @@ import {
 } from "src/constants";
 import { AnswerStatus, Note, Pitch } from "src/types";
 import { getBaseYPosition, getRootCircleCX, shouldAddSharp } from "src/utils";
-import { useStore } from "src/guessStore";
+import { useStore } from "src/gameStore";
 import "./SVGScore.css";
 import { NoteShapePath } from "./NoteShapePath";
 import { TrebleStave } from "./TrebleStave";

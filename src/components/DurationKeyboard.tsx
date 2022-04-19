@@ -1,6 +1,6 @@
 import { Duration } from "src/types";
 import { BASE_COLOR, durationNames, WRONG_SPOT_COLOR } from "src/constants";
-import { useStore } from "src/guessStore";
+import { useStore } from "src/gameStore";
 import { NoteShapePath } from "./NoteShapePath";
 import "./DurationKey.css";
 
