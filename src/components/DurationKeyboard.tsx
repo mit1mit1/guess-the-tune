@@ -1,18 +1,19 @@
 import { Duration } from "src/types";
 import { BASE_COLOR, durationNames, WRONG_SPOT_COLOR } from "src/constants";
 import { useStore } from "src/gameStore";
-import { NoteShapePath } from "./NoteShapePath";
 import "./DurationKey.css";
+import { NoteShapeGroup } from "src/components/NoteShapeGroup";
+import { arrayIncludes, setIncludes } from "src/utils";
 
 interface DurationKeyProps {
-  duration: Duration;
+  durationObject: Duration;
   status: "unknown" | "wrong-spot" | "unavailable";
 }
 
 const DurationKeySVGWidth = 220;
 const DurationKeySVGHeight = 220;
 
-const DurationKey = ({ duration, status }: DurationKeyProps) => {
+const DurationKey = ({ durationObject, status }: DurationKeyProps) => {
   const { setSelectedGuessDuration } = useStore((state) => state);
   if (status === "unavailable") {
     return <></>;
@@ -29,12 +30,12 @@ const DurationKey = ({ duration, status }: DurationKeyProps) => {
           xmlns="<http://www.w3.org/2000/svg>"
           className="duration-key-svg"
         >
-          <NoteShapePath
-            duration={duration}
+          <NoteShapeGroup
+            durationObject={durationObject}
             baseXPosition={50}
             baseYPosition={50}
             color={color}
-            handleClick={() => setSelectedGuessDuration(duration)}
+            handleClick={() => setSelectedGuessDuration(durationObject)}
           />
         </svg>
       </div>
@@ -44,16 +45,37 @@ const DurationKey = ({ duration, status }: DurationKeyProps) => {
 
 export const DurationKeyboard = () => {
   const { availableDurations, wrongSpotDurations } = useStore((state) => state);
-
+  console.log(availableDurations);
   const buffer: Array<JSX.Element> = [];
 
-  durationNames.forEach((duration, index) => {
-    if (!availableDurations.includes(duration)) {
-      buffer.push(<DurationKey key={'duration-key-' + index} duration={duration} status="unavailable" />);
-    } else if (wrongSpotDurations.has(duration)) {
-      buffer.push(<DurationKey key={'duration-key-' + index} duration={duration} status="wrong-spot" />);
+  durationNames.forEach((baseDuration, index) => {
+    const durationObject = { [baseDuration]: 1 };
+    console.log(durationObject);
+    if (!arrayIncludes(availableDurations, durationObject)) {
+      console.log("unavailable");
+      buffer.push(
+        <DurationKey
+          key={"duration-key-" + index}
+          durationObject={durationObject}
+          status="unavailable"
+        />
+      );
+    } else if (setIncludes(wrongSpotDurations, durationObject)) {
+      buffer.push(
+        <DurationKey
+          key={"duration-key-" + index}
+          durationObject={durationObject}
+          status="wrong-spot"
+        />
+      );
     } else {
-      buffer.push(<DurationKey key={'duration-key-' + index} duration={duration} status="unknown" />);
+      buffer.push(
+        <DurationKey
+          key={"duration-key-" + index}
+          durationObject={durationObject}
+          status="unknown"
+        />
+      );
     }
   });
   return (

@@ -9,7 +9,11 @@ import { PitchKeyboard } from "./components/PitchKeyboard";
 import { gameSongs } from "./gameSongs";
 import { Note } from "./types";
 
-const App = ({ playNotes }: { playNotes: (guessArray: Array<Note>, bpm: number) => void }) => {
+const App = ({
+  playNotes,
+}: {
+  playNotes: (guessArray: Array<Note>, bpm: number) => void;
+}) => {
   const {
     selectedNoteIndex,
     setSelectedNoteIndex,
@@ -30,7 +34,15 @@ const App = ({ playNotes }: { playNotes: (guessArray: Array<Note>, bpm: number) 
       alert("All right! Got it in " + turn + " turns :)");
     }
     playNotes([...guesses], chosenSong.bpm);
-  }, [checkGuesses, chosenSong.bpm, chosenSong.notes, guesses, incrementTurn, playNotes, turn]);
+  }, [
+    checkGuesses,
+    chosenSong.bpm,
+    chosenSong.notes,
+    guesses,
+    incrementTurn,
+    playNotes,
+    turn,
+  ]);
   useEffect(() => {
     playNotes([guesses[selectedNoteIndex]], chosenSong.bpm);
   }, [chosenSong.bpm, guesses, playNotes, selectedNoteIndex]);

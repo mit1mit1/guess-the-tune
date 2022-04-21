@@ -5,10 +5,15 @@ import App from "./App";
 import { Note } from "./types";
 
 expect.extend(toHaveNoViolations);
+
 test("renders app, title displays", async () => {
-  const view = render(<App playNotes={(noteArray: Array<Note>, bpm: number) => {
-    return
-  }} />);
+  const view = render(
+    <App
+      playNotes={(noteArray: Array<Note>, bpm: number) => {
+        return;
+      }}
+    />
+  );
   const title = screen.getByText(/Musicle!/i);
   expect(title).toBeInTheDocument();
 

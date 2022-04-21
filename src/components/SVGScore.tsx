@@ -8,11 +8,12 @@ import { AnswerStatus, Note, Pitch } from "src/types";
 import { getBaseYPosition, getRootCircleCX, shouldAddSharp } from "src/utils";
 import { useStore } from "src/gameStore";
 import "./SVGScore.css";
-import { NoteShapePath } from "./NoteShapePath";
 import { TrebleStave } from "./TrebleStave";
 import { SharpPath } from "./SharpPath";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";
 import { durationlessPitchRadius, sharpYOffset } from "src/constants/svg";
+import { NoteShapeGroup } from "src/components/NoteShapeGroup";
+import { areIdentical } from "src/utils/game";
 
 const SVGWidth = 3140;
 const SVGHeight = 440;
@@ -131,8 +132,8 @@ const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
 
   return (
     <>
-      <NoteShapePath
-        duration={note.duration}
+      <NoteShapeGroup
+        durationObject={note.durationObject}
         baseXPosition={baseXPosition}
         baseYPosition={baseYPosition}
         handleClick={handleClick}
@@ -205,13 +206,13 @@ const CurrentGuessPaths = ({
       {notes.map((note, index) => {
         let color = BASE_COLOR;
         let opacity = 1;
-        if (incorrectDurationsArrays[index].includes(note.duration)) {
+        if (incorrectDurationsArrays[index].includes(note.durationObject)) {
           color = INCORRECT_COLOR;
         }
         if (
           answerStatuses[index].durationStatus ===
             AnswerStatus.GUESSEDCORRECT &&
-          note.duration === correctNotes[index].duration
+          areIdentical(note.durationObject, correctNotes[index].durationObject)
         ) {
           opacity = 0.8;
           color = "green";
@@ -222,7 +223,7 @@ const CurrentGuessPaths = ({
             index={index}
             color={color}
             opacity={opacity}
-            key={`${index}-${note.pitch}-${note.duration}`}
+            key={`${index}-${note.pitch}-${note.durationObject}`}
           />
         );
       })}
@@ -240,7 +241,7 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
           durationStatus === AnswerStatus.GUESSEDCORRECT
         ) {
           return (
-            <g key={'non-incorrect-path-' + index}>
+            <g key={"non-incorrect-path-" + index}>
               <PitchGuessPath
                 pitch={correctNotes[index].pitch}
                 positionIndex={index}
@@ -252,7 +253,7 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
                 note={correctNotes[index]}
                 index={index}
                 color="green"
-                key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].duration}`}
+                key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].durationObject}`}
               />
             </g>
           );
@@ -266,7 +267,7 @@ const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
             />
           );
         }
-        return <g key={'non-incorrect-path-' + index}></g>;
+        return <g key={"non-incorrect-path-" + index}></g>;
       })}
     </>
   );

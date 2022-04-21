@@ -1,4 +1,4 @@
-import { Duration } from "src/types";
+import { BaseDuration } from "src/types";
 import { getRootCircleCX } from "src/utils";
 
 const rootCircleXRadius = 42;
@@ -157,7 +157,7 @@ const getUpStrokeXStart = (baseXPosition: number) => {
   return baseXPosition + 2;
 };
 
-const drawLineUp = (duration: Duration) => {
+const drawLineUp = (duration: BaseDuration) => {
   switch (duration) {
     case "1n":
     case "1n.":
@@ -167,7 +167,7 @@ const drawLineUp = (duration: Duration) => {
   }
 };
 
-const shouldFillInCircle = (duration: Duration) => {
+const shouldFillInCircle = (duration: BaseDuration) => {
   switch (duration) {
     case "2n":
     case "2n.":
@@ -179,11 +179,11 @@ const shouldFillInCircle = (duration: Duration) => {
   }
 };
 
-const shouldAddDot = (duration: Duration) => {
+const shouldAddDot = (duration: BaseDuration) => {
   return duration.includes(".");
 };
 
-const shouldAddEigthLine = (duration: Duration) => {
+const shouldAddEigthLine = (duration: BaseDuration) => {
   switch (duration) {
     case "16n":
     case "8n":
@@ -194,7 +194,7 @@ const shouldAddEigthLine = (duration: Duration) => {
   }
 };
 
-const shouldAddSixteenthLine = (duration: Duration) => {
+const shouldAddSixteenthLine = (duration: BaseDuration) => {
   if (duration === "16n") {
     return true;
   }
@@ -237,7 +237,7 @@ const RootCircle = ({
 
 interface NoteShapePathProps {
   opacity?: number;
-  duration: Duration;
+  duration: BaseDuration;
   baseXPosition: number;
   baseYPosition: number;
   handleClick?: () => void;

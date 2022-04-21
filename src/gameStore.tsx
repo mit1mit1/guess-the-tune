@@ -8,7 +8,8 @@ import {
   incrementPitch,
   pushIfNotIdentical,
 } from "./utils";
-import { durationNames, pitchNames } from "./constants";
+import { pitchNames } from "./constants";
+import { areIdentical, arrayIncludes, setIncludes } from "./utils/game";
 
 enableMapSet();
 
@@ -19,7 +20,7 @@ const songIndex =
   paramSongIndex >= 0 && paramSongIndex < gameSongs.length ? paramSongIndex : 0;
 const correctNotes = gameSongs[songIndex].notes;
 const correctPitches = correctNotes.map((note) => note.pitch);
-const correctDurations = correctNotes.map((note) => note.duration);
+const correctDurations = correctNotes.map((note) => note.durationObject);
 
 const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map(() => ({
   pitchStatus: AnswerStatus.UNKNOWN,
@@ -54,30 +55,30 @@ const minPitchIndex = Math.min(
 const maxPitchIndex = Math.max(
   ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
 );
-const minDurationIndex = Math.min(
-  ...correctDurations.map((duration) => durationNames.indexOf(duration))
-);
-const maxDurationIndex = Math.max(
-  ...correctDurations.map((duration) => durationNames.indexOf(duration))
-);
+// const minDurationIndex = Math.min(
+//   ...correctDurations.map((duration) => durationNames.indexOf(duration))
+// );
+// const maxDurationIndex = Math.max(
+//   ...correctDurations.map((duration) => durationNames.indexOf(duration))
+// );
 const initialAvailablePitches = pitchNames.slice(
   minPitchIndex,
   maxPitchIndex + 1
 );
-const initialAvailableDurations = durationNames.slice(
-  minDurationIndex,
-  maxDurationIndex + 1
-);
+// const initialAvailableDurations = durationNames.slice(
+//   minDurationIndex,
+//   maxDurationIndex + 1
+// );
 
 export const useStore = create<GameState>((set) => ({
   availablePitches: initialAvailablePitches,
-  availableDurations: initialAvailableDurations,
+  availableDurations: correctDurations,
   answerStatuses: initialAnswerStatuses,
   chosenSongIndex: songIndex,
   durationsGuessed: new Set<Duration>([]),
   guesses: correctNotes.map(() => ({
     pitch: initialAvailablePitches[0],
-    duration: initialAvailableDurations[0],
+    durationObject: correctDurations[0],
   })),
   incorrectDurationsArrays: correctNotes.map(() => []) as Array<
     Array<Duration>
@@ -105,7 +106,7 @@ export const useStore = create<GameState>((set) => ({
         ...draft,
         turn: draft.turn + 1,
       }))
-    )
+    );
   },
 
   incrementGuessDuration: (guessIndex, increment) => {
@@ -145,7 +146,7 @@ export const useStore = create<GameState>((set) => ({
   setSelectedGuessDuration: (duration) => {
     set(
       produce((draft: GameState) => {
-        draft.guesses[draft.selectedNoteIndex].duration = duration;
+        draft.guesses[draft.selectedNoteIndex].durationObject = duration;
         return draft;
       })
     );
@@ -165,7 +166,7 @@ export const useStore = create<GameState>((set) => ({
       produce((draft: GameState) => {
         draft.guesses.forEach((guess, index) => {
           draft.pitchesGuessed.add(guess.pitch);
-          draft.durationsGuessed.add(guess.duration);
+          draft.durationsGuessed.add(guess.durationObject);
           if (guess.pitch !== correctNotes[index].pitch) {
             draft.incorrectPitchesArrays = pushIfNotIdentical(
               draft.incorrectPitchesArrays,
@@ -173,11 +174,11 @@ export const useStore = create<GameState>((set) => ({
               guess.pitch
             );
           }
-          if (guess.duration !== correctNotes[index].duration) {
+          if (!areIdentical(guess.durationObject, correctNotes[index].durationObject)) {
             draft.incorrectDurationsArrays = pushIfNotIdentical(
               draft.incorrectDurationsArrays,
               index,
-              guess.duration
+              guess.durationObject
             );
           }
           if (correctPitches.indexOf(guess.pitch) === -1) {
@@ -185,9 +186,10 @@ export const useStore = create<GameState>((set) => ({
               (pitch) => pitch !== guess.pitch
             );
           }
-          if (correctDurations.indexOf(guess.duration) === -1) {
+          if (!arrayIncludes(correctDurations, guess.durationObject)) {
             draft.availableDurations.filter(
-              (duration) => duration !== guess.duration
+              (durationObject) =>
+                !areIdentical(durationObject, guess.durationObject)
             );
           }
         });
@@ -201,8 +203,8 @@ export const useStore = create<GameState>((set) => ({
             ),
             durationStatus: getNewAnswerStatus(
               draft.answerStatuses[index].durationStatus,
-              note.duration,
-              draft.guesses[index].duration
+              note.durationObject,
+              draft.guesses[index].durationObject
             ),
           } as NoteStatus;
         });
@@ -213,17 +215,17 @@ export const useStore = create<GameState>((set) => ({
         correctNotes.forEach((note, index) => {
           if (
             draft.answerStatuses[index].pitchStatus !==
-            AnswerStatus.GUESSEDCORRECT &&
+              AnswerStatus.GUESSEDCORRECT &&
             draft.pitchesGuessed.has(note.pitch)
           ) {
             draft.wrongSpotPitches.add(note.pitch);
           }
           if (
             draft.answerStatuses[index].durationStatus !==
-            AnswerStatus.GUESSEDCORRECT &&
-            draft.durationsGuessed.has(note.duration)
+              AnswerStatus.GUESSEDCORRECT &&
+            setIncludes(draft.durationsGuessed, note.durationObject)
           ) {
-            draft.wrongSpotDurations.add(note.duration);
+            draft.wrongSpotDurations.add(note.durationObject);
           }
         });
       })

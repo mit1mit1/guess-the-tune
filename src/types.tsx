@@ -2,18 +2,22 @@ import { pitchNames, durationNames } from "src/constants";
 
 export interface Note {
   pitch: Pitch;
-  duration: Duration;
+  durationObject: Duration;
 }
 
 export type Pitch = typeof pitchNames[number];
 
-export type Duration = typeof durationNames[number];
+export type BaseDuration = typeof durationNames[number];
+
+export type Duration = {
+  [key in typeof durationNames[number]]?: number;
+};
 
 export const isPitch = (item: any): item is Pitch => {
   return pitchNames.includes(item);
 };
 
-export const isDuration = (item: any): item is Duration => {
+export const isDuration = (item: any): item is BaseDuration => {
   return durationNames.includes(item);
 };
 
