@@ -45,14 +45,11 @@ const DurationKey = ({ durationObject, status }: DurationKeyProps) => {
 
 export const DurationKeyboard = () => {
   const { availableDurations, wrongSpotDurations } = useStore((state) => state);
-  console.log(availableDurations);
   const buffer: Array<JSX.Element> = [];
-
+  console.log(availableDurations)
   durationNames.forEach((baseDuration, index) => {
     const durationObject = { [baseDuration]: 1 };
-    console.log(durationObject);
     if (!arrayIncludes(availableDurations, durationObject)) {
-      console.log("unavailable");
       buffer.push(
         <DurationKey
           key={"duration-key-" + index}

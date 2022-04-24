@@ -9,12 +9,12 @@ import {
   pushIfNotIdentical,
 } from "./utils";
 import { pitchNames } from "./constants";
-import { areIdentical, arrayIncludes, setIncludes } from "./utils/game";
+import { areIdentical, arrayIncludes, getUniqueElements, setIncludes } from "./utils/game";
 
 enableMapSet();
 
 const paramSongIndex = parseInt(
-  new URLSearchParams(window.location.search).get("chosenSongIndex") || "0"
+  new URLSearchParams(window.location.search).get("chosenSongIndex") || "4"
 );
 const songIndex =
   paramSongIndex >= 0 && paramSongIndex < gameSongs.length ? paramSongIndex : 0;
@@ -72,7 +72,7 @@ const initialAvailablePitches = pitchNames.slice(
 
 export const useStore = create<GameState>((set) => ({
   availablePitches: initialAvailablePitches,
-  availableDurations: correctDurations,
+  availableDurations: getUniqueElements(correctDurations),
   answerStatuses: initialAnswerStatuses,
   chosenSongIndex: songIndex,
   durationsGuessed: new Set<Duration>([]),
