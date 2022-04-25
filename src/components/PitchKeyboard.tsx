@@ -71,9 +71,8 @@ const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
 
 export const PitchKeyboard = () => {
   const { availablePitches, wrongSpotPitches } = useStore((state) => state);
-
   return (
-    <>
+    <div className="pitch-keyboard">
       <div>Available Pitches</div>
       <svg
         viewBox={`0 0 ${960} ${540}`}
@@ -97,6 +96,6 @@ export const PitchKeyboard = () => {
           return <PitchKey key={"pitch-key-" + index} pitch={pitch} />;
         })}
       </svg>
-    </>
+    </div>
   );
 };

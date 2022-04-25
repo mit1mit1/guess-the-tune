@@ -5,6 +5,17 @@
   margin-top: 60px;
 }
 
+.duration-keys {
+  max-height: 150px;
+  min-height: 110px;
+}
+
 .duration-key-svg {
+  display: inline-block;
   overflow: visible;
+}
+
+.duration-keyboard {
+  display: inline-block;
+  margin-left: 40px;
 }

@@ -1,11 +1,10 @@
-.pitch-key {
-  height: 100px;
-  width: 50px;
-  display: inline-block;
-}
-
 .pitch-keyboard-svg {
   overflow: visible;
   margin-top: 15px;
   max-height: 150px;
+  min-height: 110px;
+}
+
+.pitch-keyboard {
+  display: inline-block;
 }

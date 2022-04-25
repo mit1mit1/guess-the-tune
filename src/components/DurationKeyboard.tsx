@@ -46,7 +46,6 @@ const DurationKey = ({ durationObject, status }: DurationKeyProps) => {
 export const DurationKeyboard = () => {
   const { availableDurations, wrongSpotDurations } = useStore((state) => state);
   const buffer: Array<JSX.Element> = [];
-  console.log(availableDurations)
   durationNames.forEach((baseDuration, index) => {
     const durationObject = { [baseDuration]: 1 };
     if (!arrayIncludes(availableDurations, durationObject)) {
@@ -76,9 +75,9 @@ export const DurationKeyboard = () => {
     }
   });
   return (
-    <>
+    <div className="duration-keyboard">
       <div>Available Durations</div>
-      {buffer}
-    </>
+      <div className="duration-keys">{buffer}</div>
+    </div>
   );
 };

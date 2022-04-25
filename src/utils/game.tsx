@@ -14,32 +14,42 @@ import { pitchNames } from "src/constants";
 //     return result;
 //   };
 
-const getIndex = (currentDurationObject: Duration, durationObjectArray: Duration[]) => {
-  console.log('getting index', durationObjectArray.findIndex((element) => areIdentical(currentDurationObject, element)))
-  return durationObjectArray.findIndex((element) => areIdentical(currentDurationObject, element));
-}
+const getIndex = (
+  currentDurationObject: Duration,
+  durationObjectArray: Duration[]
+) => {
+  return durationObjectArray.findIndex((element) =>
+    areIdentical(currentDurationObject, element)
+  );
+};
 
-const nextDuration = (currentDurationObject: Duration, durationObjectArray: Duration[]) => {
+const nextDuration = (
+  currentDurationObject: Duration,
+  durationObjectArray: Duration[]
+) => {
   const index = getIndex(currentDurationObject, durationObjectArray);
   if (index === -1) {
-    return durationObjectArray[durationObjectArray.length - 1]
+    return durationObjectArray[durationObjectArray.length - 1];
   }
   if (index >= 0 && index < durationObjectArray.length - 1) {
     return durationObjectArray[index + 1];
   }
   return durationObjectArray[0];
-}
+};
 
-const previousDuration = (currentDurationObject: Duration, durationObjectArray: Duration[]) => {
+const previousDuration = (
+  currentDurationObject: Duration,
+  durationObjectArray: Duration[]
+) => {
   const index = getIndex(currentDurationObject, durationObjectArray);
   if (index === -1) {
-    return durationObjectArray[0]
+    return durationObjectArray[0];
   }
   if (index > 0 && index <= durationObjectArray.length) {
     return durationObjectArray[index - 1];
   }
   return durationObjectArray[durationObjectArray.length - 1];
-}
+};
 
 export const incrementDuration = (
   notes: Array<Note>,
@@ -48,19 +58,18 @@ export const incrementDuration = (
   availableDurations: Array<Duration>
 ) => {
   let newDurationObject = notes[index].durationObject;
-  const incrementFunc =
-    increment > 0 ? nextDuration : previousDuration;
+  const incrementFunc = increment > 0 ? nextDuration : previousDuration;
   increment = Math.abs(increment);
   while (increment !== 0) {
-    newDurationObject = incrementFunc(
-      newDurationObject,
-      availableDurations,
-    );
+    newDurationObject = incrementFunc(newDurationObject, availableDurations);
     increment--;
   }
 
   const newNotes = [...notes];
-  const newNote: Note = { ...newNotes[index], durationObject: newDurationObject };
+  const newNote: Note = {
+    ...newNotes[index],
+    durationObject: newDurationObject,
+  };
   newNotes[index] = newNote;
   return newNotes;
 };
@@ -204,10 +213,10 @@ export const setIncludes = (
 
 export const getUniqueElements = (durationArray: Array<Duration>) => {
   const newArray: Array<Duration> = [];
-  durationArray.forEach(durationObject => {
+  durationArray.forEach((durationObject) => {
     if (getIndex(durationObject, newArray) === -1) {
       newArray.push(durationObject);
     }
   });
   return newArray;
-}
+};

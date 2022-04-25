@@ -194,16 +194,22 @@ const PitchGuessPath = ({
 const CurrentGuessPaths = ({
   notes,
   correctNotes,
+  startIndex,
+  endIndex,
 }: {
   notes: Array<Note>;
   correctNotes: Array<Note>;
+  startIndex: number;
+  endIndex: number;
 }) => {
   const { incorrectDurationsArrays, answerStatuses } = useStore(
     (state) => state
   );
+  const displayNotes = notes.slice(startIndex, endIndex);
+
   return (
     <>
-      {notes.map((note, index) => {
+      {displayNotes.map((note, index) => {
         let color = BASE_COLOR;
         let opacity = 1;
         if (incorrectDurationsArrays[index].includes(note.durationObject)) {
@@ -231,94 +237,138 @@ const CurrentGuessPaths = ({
   );
 };
 
-const NonIncorrectPaths = ({ correctNotes }: { correctNotes: Array<Note> }) => {
+const NonIncorrectPaths = ({
+  correctNotes,
+  startIndex,
+  endIndex,
+}: {
+  correctNotes: Array<Note>;
+  startIndex: number;
+  endIndex: number;
+}) => {
   const { answerStatuses } = useStore((state) => state);
   return (
     <>
-      {answerStatuses.map(({ pitchStatus, durationStatus }, index) => {
-        if (
-          pitchStatus === AnswerStatus.GUESSEDCORRECT &&
-          durationStatus === AnswerStatus.GUESSEDCORRECT
-        ) {
-          return (
-            <g key={"non-incorrect-path-" + index}>
+      {answerStatuses
+        .slice(startIndex, endIndex)
+        .map(({ pitchStatus, durationStatus }, index) => {
+          if (
+            pitchStatus === AnswerStatus.GUESSEDCORRECT &&
+            durationStatus === AnswerStatus.GUESSEDCORRECT
+          ) {
+            return (
+              <g key={"non-incorrect-path-" + index}>
+                <PitchGuessPath
+                  pitch={correctNotes[index].pitch}
+                  positionIndex={index}
+                  color="green"
+                  key={`${index}-${correctNotes[index].pitch}-correct`}
+                />
+                <NotePath
+                  opacity={0.5}
+                  note={correctNotes[index]}
+                  index={index}
+                  color="green"
+                  key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].durationObject}`}
+                />
+              </g>
+            );
+          } else if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
+            return (
               <PitchGuessPath
                 pitch={correctNotes[index].pitch}
                 positionIndex={index}
                 color="green"
                 key={`${index}-${correctNotes[index].pitch}-correct`}
               />
-              <NotePath
-                opacity={0.5}
-                note={correctNotes[index]}
-                index={index}
-                color="green"
-                key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].durationObject}`}
-              />
-            </g>
-          );
-        } else if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
-          return (
-            <PitchGuessPath
-              pitch={correctNotes[index].pitch}
-              positionIndex={index}
-              color="green"
-              key={`${index}-${correctNotes[index].pitch}-correct`}
-            />
-          );
-        }
-        return <g key={"non-incorrect-path-" + index}></g>;
-      })}
+            );
+          }
+          return <g key={"non-incorrect-path-" + index}></g>;
+        })}
     </>
   );
 };
 
-const IncorrectPitchPaths = () => {
+const IncorrectPitchPaths = ({
+  startIndex,
+  endIndex,
+}: {
+  startIndex: number;
+  endIndex: number;
+}) => {
   const { incorrectPitchesArrays } = useStore((state) => state);
   return (
     <>
-      {incorrectPitchesArrays.map((pitchArray, positionIndex) => {
-        return pitchArray.map((pitch) => (
-          <PitchGuessPath
-            pitch={pitch}
-            positionIndex={positionIndex}
-            color={INCORRECT_PITCH_COLOR}
-            key={`${positionIndex}-${pitch}`}
-            opacity={1}
-          />
-        ));
-      })}
+      {incorrectPitchesArrays
+        .slice(startIndex, endIndex)
+        .map((pitchArray, positionIndex) => {
+          return pitchArray.map((pitch) => (
+            <PitchGuessPath
+              pitch={pitch}
+              positionIndex={positionIndex}
+              color={INCORRECT_PITCH_COLOR}
+              key={`${positionIndex}-${pitch}`}
+              opacity={1}
+            />
+          ));
+        })}
     </>
   );
 };
 
-const SelectedNoteHighlight = () => {
+const SelectedNoteHighlight = ({
+  startIndex,
+  endIndex,
+}: {
+  startIndex: number;
+  endIndex: number;
+}) => {
   const { selectedNoteIndex } = useStore((state) => state);
-  return (
-    <ellipse
-      cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex))}
-      cy={getBaseYPosition("B4")}
-      rx={120}
-      ry={SVGHeight}
-      fill={INCORRECT_COLOR}
-      opacity={0.2}
-    />
-  );
+  if (selectedNoteIndex >= startIndex && selectedNoteIndex < endIndex) {
+    return (
+      <ellipse
+        cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex - startIndex))}
+        cy={getBaseYPosition("B4")}
+        rx={120}
+        ry={SVGHeight}
+        fill={INCORRECT_COLOR}
+        opacity={0.2}
+      />
+    );
+  }
+  return <></>;
 };
 
 export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
   const { guesses } = useStore((state) => state);
-  return (
-    <svg
-      viewBox={`0 0 ${SVGWidth} ${SVGHeight}`}
-      xmlns="<http://www.w3.org/2000/svg>"
-      className="svg-score"
-    >
-      <TrebleStave SVGWidth={SVGWidth} />
-      <SelectedNoteHighlight />
-      <CurrentGuessPaths notes={guesses} correctNotes={correctNotes} />
-      <NonIncorrectPaths correctNotes={correctNotes} />
-      <IncorrectPitchPaths />
-    </svg>
-  );
+  const songLength = correctNotes.length;
+  const buffer = [];
+  const notesPerLine = 5;
+  for (let i = 0; i < songLength; i = i + notesPerLine) {
+    const startIndex = i;
+    const endIndex = Math.min(i + notesPerLine, songLength);
+    buffer.push(
+      <svg
+        viewBox={`0 0 ${SVGWidth} ${SVGHeight}`}
+        xmlns="<http://www.w3.org/2000/svg>"
+        className="svg-score"
+      >
+        <TrebleStave SVGWidth={SVGWidth} />
+        <SelectedNoteHighlight startIndex={startIndex} endIndex={endIndex} />
+        <CurrentGuessPaths
+          notes={guesses}
+          correctNotes={correctNotes}
+          startIndex={startIndex}
+          endIndex={endIndex}
+        />
+        <NonIncorrectPaths
+          correctNotes={correctNotes}
+          startIndex={startIndex}
+          endIndex={endIndex}
+        />
+        <IncorrectPitchPaths startIndex={startIndex} endIndex={endIndex} />
+      </svg>
+    );
+  }
+  return <>{buffer}</>;
 };

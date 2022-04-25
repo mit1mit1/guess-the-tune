@@ -9,7 +9,12 @@ import {
   pushIfNotIdentical,
 } from "./utils";
 import { pitchNames } from "./constants";
-import { areIdentical, arrayIncludes, getUniqueElements, setIncludes } from "./utils/game";
+import {
+  areIdentical,
+  arrayIncludes,
+  getUniqueElements,
+  setIncludes,
+} from "./utils/game";
 
 enableMapSet();
 
@@ -174,7 +179,12 @@ export const useStore = create<GameState>((set) => ({
               guess.pitch
             );
           }
-          if (!areIdentical(guess.durationObject, correctNotes[index].durationObject)) {
+          if (
+            !areIdentical(
+              guess.durationObject,
+              correctNotes[index].durationObject
+            )
+          ) {
             draft.incorrectDurationsArrays = pushIfNotIdentical(
               draft.incorrectDurationsArrays,
               index,
