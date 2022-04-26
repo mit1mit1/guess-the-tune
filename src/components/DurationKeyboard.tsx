@@ -1,9 +1,9 @@
 import { Duration } from "src/types";
-import { BASE_COLOR, durationNames, WRONG_SPOT_COLOR } from "src/constants";
+import { BASE_COLOR, WRONG_SPOT_COLOR } from "src/constants";
 import { useStore } from "src/gameStore";
 import "./DurationKey.css";
 import { NoteShapeGroup } from "src/components/NoteShapeGroup";
-import { arrayIncludes, setIncludes } from "src/utils";
+import { setIncludes } from "src/utils";
 
 interface DurationKeyProps {
   durationObject: Duration;
@@ -46,17 +46,8 @@ const DurationKey = ({ durationObject, status }: DurationKeyProps) => {
 export const DurationKeyboard = () => {
   const { availableDurations, wrongSpotDurations } = useStore((state) => state);
   const buffer: Array<JSX.Element> = [];
-  durationNames.forEach((baseDuration, index) => {
-    const durationObject = { [baseDuration]: 1 };
-    if (!arrayIncludes(availableDurations, durationObject)) {
-      buffer.push(
-        <DurationKey
-          key={"duration-key-" + index}
-          durationObject={durationObject}
-          status="unavailable"
-        />
-      );
-    } else if (setIncludes(wrongSpotDurations, durationObject)) {
+  availableDurations.forEach((durationObject, index) => {
+    if (setIncludes(wrongSpotDurations, durationObject)) {
       buffer.push(
         <DurationKey
           key={"duration-key-" + index}

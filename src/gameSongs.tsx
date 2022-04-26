@@ -61,15 +61,15 @@ const thomasTheTankEngine: GameSong = {
 };
 
 const theMandalorian: GameSong = {
-  bpm: 166,
+  bpm: 83,
   notes: [
     { pitch: "E4", durationObject: { "16n": 1 } },
     { pitch: "E4", durationObject: { "16n": 1 } },
     { pitch: "E4", durationObject: { "8n": 1 } },
     { pitch: "E4", durationObject: { "16n": 1 } },
     { pitch: "E4", durationObject: { "16n": 1 } },
-    { pitch: "E4", durationObject: { "4n": 1 } },
-    { pitch: "A4", durationObject: { "16n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
     // TODO: Make duration work for combining two below notes
     { pitch: "G4", durationObject: { "4n": 1, "8n": 1 } },
     { pitch: "D4", durationObject: { "16n": 1 } },

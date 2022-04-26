@@ -12,6 +12,7 @@ import { pitchNames } from "./constants";
 import {
   areIdentical,
   arrayIncludes,
+  getNewDurationAnswerStatus,
   getUniqueElements,
   setIncludes,
 } from "./utils/game";
@@ -211,7 +212,7 @@ export const useStore = create<GameState>((set) => ({
               note.pitch,
               draft.guesses[index].pitch
             ),
-            durationStatus: getNewAnswerStatus(
+            durationStatus: getNewDurationAnswerStatus(
               draft.answerStatuses[index].durationStatus,
               note.durationObject,
               draft.guesses[index].durationObject

@@ -1,3 +1,4 @@
+import { maxNoteXLength } from "src/constants/svg";
 import { BaseDuration, Duration } from "src/types";
 import { NoteShapePath } from "./NoteShapePath";
 
@@ -13,8 +14,6 @@ interface NoteShapeGroupProps {
   handleClick?: () => void;
   color: string;
 }
-
-const noteSeparation = 50;
 
 export const NoteShapeGroup = ({
   durationObject,
@@ -41,7 +40,7 @@ export const NoteShapeGroup = ({
           handleClick={handleClick}
           color={color}
           opacity={opacity}
-          baseXPosition={baseXPosition + groupCounter * noteSeparation}
+          baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
           baseYPosition={baseYPosition}
         />
       );

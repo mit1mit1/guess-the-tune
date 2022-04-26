@@ -11,7 +11,7 @@ import "./SVGScore.css";
 import { TrebleStave } from "./TrebleStave";
 import { SharpPath } from "./SharpPath";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";
-import { durationlessPitchRadius, sharpYOffset } from "src/constants/svg";
+import { durationlessPitchRadius, maxNoteXLength, sharpYOffset } from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/NoteShapeGroup";
 import { areIdentical } from "src/utils/game";
 
@@ -24,7 +24,7 @@ const noteSharpOffset = (pitch: Pitch) => {
   return 35 * (shouldAddSharp(pitch) ? -1 : 1);
 };
 
-const distanceBetweenNotes = 280;
+const distanceBetweenNotes = 3 * maxNoteXLength;
 
 const StavePath = ({
   index,
@@ -49,14 +49,14 @@ const StavePath = ({
 
 interface ExtraStaveLinesProps {
   pitch: Pitch;
-  index: number;
+  displayIndex: number;
   startPitch: Pitch;
   increasing: Boolean;
 }
 
 const ExtraStaveLines = ({
   pitch,
-  index,
+  displayIndex,
   startPitch,
   increasing,
 }: ExtraStaveLinesProps) => {
@@ -72,7 +72,7 @@ const ExtraStaveLines = ({
   ) {
     buffer.push(
       <StavePath
-        index={index}
+        index={displayIndex}
         trackPitch={trackPitch}
         key={`stave-extra-${trackPitch}`}
       />
@@ -91,14 +91,15 @@ interface NoteSubpartProps {
   pitch: Pitch;
   color: string;
   opacity?: number;
-  index: number;
+  displayIndex: number;
+  handleClick: () => void;
 }
 
-const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
+const Sharp = ({ pitch, color, opacity = 1, displayIndex, handleClick }: NoteSubpartProps) => {
   const xStart =
     clefLength +
     incorrectPitchLength +
-    index * distanceBetweenNotes -
+    displayIndex * distanceBetweenNotes -
     150 +
     noteSharpOffset(pitch);
   const yStart = getBaseYPosition(pitch) + sharpYOffset;
@@ -109,6 +110,7 @@ const Sharp = ({ pitch, color, opacity = 1, index }: NoteSubpartProps) => {
       color={color}
       opacity={opacity}
       strokeWidth={6}
+      handleClick={handleClick}
     />
   );
 };
@@ -120,15 +122,16 @@ const getBaseXPosition = (index: number) => {
 interface NotePathProps {
   opacity?: number;
   note: Note;
-  index: number;
+  displayIndex: number;
+  trueIndex: number;
   color: string;
 }
 
-const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
-  const baseXPosition = getBaseXPosition(index) + noteSharpOffset(note.pitch);
+const NotePath = ({ note, displayIndex, trueIndex, color, opacity = 1 }: NotePathProps) => {
+  const baseXPosition = getBaseXPosition(displayIndex) + noteSharpOffset(note.pitch);
   const baseYPosition = getBaseYPosition(note.pitch);
   const { setSelectedNoteIndex } = useStore((state) => state);
-  const handleClick = () => setSelectedNoteIndex(index);
+  const handleClick = () => setSelectedNoteIndex(trueIndex);
 
   return (
     <>
@@ -143,7 +146,8 @@ const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
       {shouldAddSharp(note.pitch) && (
         <Sharp
           pitch={note.pitch}
-          index={index}
+          displayIndex={displayIndex}
+          handleClick={handleClick}
           color={color}
           opacity={opacity}
         />
@@ -153,7 +157,7 @@ const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
         pitch={note.pitch}
         startPitch="C4"
         increasing={false}
-        index={index}
+        displayIndex={displayIndex}
       />
     </>
   );
@@ -162,6 +166,7 @@ const NotePath = ({ note, index, color, opacity = 1 }: NotePathProps) => {
 interface PitchGuessPathProps {
   pitch: Pitch;
   positionIndex: number;
+  trueIndex: number;
   color: string;
   opacity?: number;
 }
@@ -169,6 +174,7 @@ interface PitchGuessPathProps {
 const PitchGuessPath = ({
   pitch,
   positionIndex,
+  trueIndex,
   color,
   opacity = 1,
 }: PitchGuessPathProps) => {
@@ -184,7 +190,7 @@ const PitchGuessPath = ({
     <DurationlessPitchPath
       pitch={pitch}
       xStart={xStart}
-      handleClick={() => setSelectedNoteIndex(positionIndex)}
+      handleClick={() => setSelectedNoteIndex(trueIndex)}
       color={color}
       opacity={opacity}
     />
@@ -209,16 +215,17 @@ const CurrentGuessPaths = ({
 
   return (
     <>
-      {displayNotes.map((note, index) => {
+      {displayNotes.map((note, displayIndex) => {
+        let trueIndex = displayIndex + startIndex;
         let color = BASE_COLOR;
         let opacity = 1;
-        if (incorrectDurationsArrays[index].includes(note.durationObject)) {
+        if (incorrectDurationsArrays[trueIndex].includes(note.durationObject)) {
           color = INCORRECT_COLOR;
         }
         if (
-          answerStatuses[index].durationStatus ===
+          answerStatuses[trueIndex].durationStatus ===
             AnswerStatus.GUESSEDCORRECT &&
-          areIdentical(note.durationObject, correctNotes[index].durationObject)
+          areIdentical(note.durationObject, correctNotes[trueIndex].durationObject)
         ) {
           opacity = 0.8;
           color = "green";
@@ -226,10 +233,11 @@ const CurrentGuessPaths = ({
         return (
           <NotePath
             note={note}
-            index={index}
+            displayIndex={displayIndex}
+            trueIndex={trueIndex}
             color={color}
             opacity={opacity}
-            key={`${index}-${note.pitch}-${note.durationObject}`}
+            key={`${trueIndex}-${note.pitch}-${note.durationObject}`}
           />
         );
       })}
@@ -251,39 +259,43 @@ const NonIncorrectPaths = ({
     <>
       {answerStatuses
         .slice(startIndex, endIndex)
-        .map(({ pitchStatus, durationStatus }, index) => {
+        .map(({ pitchStatus, durationStatus }, displayIndex) => {
+          let trueIndex = startIndex + displayIndex;
           if (
             pitchStatus === AnswerStatus.GUESSEDCORRECT &&
             durationStatus === AnswerStatus.GUESSEDCORRECT
           ) {
             return (
-              <g key={"non-incorrect-path-" + index}>
+              <g key={"non-incorrect-path-" + trueIndex}>
                 <PitchGuessPath
-                  pitch={correctNotes[index].pitch}
-                  positionIndex={index}
+                  pitch={correctNotes[trueIndex].pitch}
+                  positionIndex={displayIndex}
+                  trueIndex={trueIndex}
                   color="green"
-                  key={`${index}-${correctNotes[index].pitch}-correct`}
+                  key={`${trueIndex}-${correctNotes[trueIndex].pitch}-non-incorrect`}
                 />
                 <NotePath
                   opacity={0.5}
-                  note={correctNotes[index]}
-                  index={index}
+                  note={correctNotes[trueIndex]}
+                  displayIndex={displayIndex}
+                  trueIndex={trueIndex}
                   color="green"
-                  key={`${index}-${correctNotes[index].pitch}-${correctNotes[index].durationObject}`}
+                  key={`${trueIndex}-full-correct-guess`}
                 />
               </g>
             );
           } else if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
             return (
               <PitchGuessPath
-                pitch={correctNotes[index].pitch}
-                positionIndex={index}
+                pitch={correctNotes[trueIndex].pitch}
+                positionIndex={displayIndex}
+                trueIndex={trueIndex}
                 color="green"
-                key={`${index}-${correctNotes[index].pitch}-correct`}
+                key={`${trueIndex}-pitch-correct`}
               />
             );
           }
-          return <g key={"non-incorrect-path-" + index}></g>;
+          return <g key={"non-incorrect-path-" + trueIndex}></g>;
         })}
     </>
   );
@@ -302,10 +314,12 @@ const IncorrectPitchPaths = ({
       {incorrectPitchesArrays
         .slice(startIndex, endIndex)
         .map((pitchArray, positionIndex) => {
+          let trueIndex = startIndex + positionIndex;
           return pitchArray.map((pitch) => (
             <PitchGuessPath
               pitch={pitch}
               positionIndex={positionIndex}
+              trueIndex={trueIndex}
               color={INCORRECT_PITCH_COLOR}
               key={`${positionIndex}-${pitch}`}
               opacity={1}

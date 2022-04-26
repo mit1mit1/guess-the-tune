@@ -1,7 +1,6 @@
+import { eigthLineXLength, rootCircleXRadius } from "src/constants/svg";
 import { BaseDuration } from "src/types";
 import { getRootCircleCX } from "src/utils";
-
-const rootCircleXRadius = 42;
 
 interface UpStrokeProps {
   xStart: number;
@@ -47,7 +46,7 @@ interface EigthLineProps {
   opacity?: number;
 }
 
-const EigthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
+const EigthOrSixteenthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
   return (
     <>
       <ellipse
@@ -65,7 +64,7 @@ const EigthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
         opacity={opacity}
         x1={xStart}
         y1={yStart}
-        x2={xStart + 80}
+        x2={xStart + eigthLineXLength}
         y2={yStart - 15}
       />
     </>
@@ -78,43 +77,6 @@ const getSixteenthLineXStart = (baseXPosition: number) => {
 
 const getSixteenthLineYStart = (baseYPosition: number) => {
   return baseYPosition - 200 + 8 + 30;
-};
-
-interface SixteenthLineProps {
-  xStart: number;
-  yStart: number;
-  color: string;
-  opacity?: number;
-}
-
-const SixteenthLine = ({
-  xStart,
-  yStart,
-  color,
-  opacity,
-}: SixteenthLineProps) => {
-  return (
-    <>
-      <ellipse
-        className="clickable-cover"
-        stroke=""
-        opacity={0}
-        cx={xStart + 40}
-        cy={yStart - 7.5}
-        rx={40}
-        ry={30}
-      />
-      <line
-        strokeWidth="16"
-        stroke={color}
-        opacity={opacity}
-        x1={xStart}
-        y1={yStart}
-        x2={xStart + 80}
-        y2={yStart - 15}
-      />
-    </>
-  );
 };
 
 const getDotXCentre = (baseXPosition: number) => {
@@ -279,7 +241,7 @@ export const NoteShapePath = ({
         />
       )}
       {shouldAddEigthLine(duration) && (
-        <EigthLine
+        <EigthOrSixteenthLine
           yStart={getEigthLineYStart(baseYPosition)}
           xStart={getEigthLineXStart(baseXPosition)}
           color={color}
@@ -287,7 +249,7 @@ export const NoteShapePath = ({
         />
       )}
       {shouldAddSixteenthLine(duration) && (
-        <SixteenthLine
+        <EigthOrSixteenthLine
           yStart={getSixteenthLineYStart(baseYPosition)}
           xStart={getSixteenthLineXStart(baseXPosition)}
           color={color}

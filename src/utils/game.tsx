@@ -167,7 +167,20 @@ export const pushIfNotIdentical = (
   return newArray;
 };
 
-export const getNewAnswerStatus = <T extends Pitch | Duration>(
+export const getNewDurationAnswerStatus = <T extends Duration>(
+  oldStatus: AnswerStatus,
+  correctAnswer: T,
+  guess: T
+) => {
+  if (oldStatus === AnswerStatus.GUESSEDCORRECT) {
+    return oldStatus;
+  }
+  return areIdentical(correctAnswer, guess)
+    ? AnswerStatus.GUESSEDCORRECT
+    : AnswerStatus.INCORRECTSOFAR;
+};
+
+export const getNewAnswerStatus = <T extends Pitch>(
   oldStatus: AnswerStatus,
   correctAnswer: T,
   newAnswer: T
