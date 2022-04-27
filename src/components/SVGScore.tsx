@@ -344,7 +344,7 @@ const SelectedNoteHighlight = ({
         cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex - startIndex))}
         cy={getBaseYPosition("B4")}
         rx={120}
-        ry={SVGHeight}
+        ry={SVGHeight * 3/4}
         fill={INCORRECT_COLOR}
         opacity={0.2}
       />

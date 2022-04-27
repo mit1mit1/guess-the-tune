@@ -17,9 +17,9 @@ const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
         stroke=""
         opacity={0}
         cx={xStart - rootCircleXRadius}
-        cy={yStart + 100}
+        cy={yStart + UpStrokeLength / 2}
         rx={15 + rootCircleXRadius}
-        ry={100}
+        ry={UpStrokeLength / 2}
       />
       <path
         strokeWidth="4"
