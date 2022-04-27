@@ -1,4 +1,4 @@
-import { maxNoteXLength } from "src/constants/svg";
+import { maxNoteXLength, UpStrokeLength } from "src/constants/svg";
 import { BaseDuration, Duration } from "src/types";
 import { NoteShapePath } from "./NoteShapePath";
 
@@ -14,7 +14,7 @@ interface TiePathProps {
 }
 
 const TiePath = ({ xStart, yStart, xEnd, yEnd, color, opacity, handleClick }: TiePathProps) => {
-  return <path fill={color} opacity={opacity} onClick={handleClick} d={`M ${xStart} ${yStart} A 50 10 0 0 1 ${xEnd} ${yEnd}`} />;
+  return <path stroke={color} strokeWidth={8} opacity={opacity} onClick={handleClick} d={`M ${xStart} ${yStart} A 50 10 0 0 1 ${xEnd} ${yEnd}`} />;
 };
 
 interface NoteShapeGroupProps {
@@ -41,13 +41,13 @@ export const NoteShapeGroup = ({
     if (index > 0) {
       buffer.push(<TiePath handleClick={handleClick}
         color={color}
-        opacity={opacity} xStart={baseXPosition + (groupCounter - 1) * maxNoteXLength} yStart={baseYPosition} xEnd={baseXPosition + (groupCounter) * maxNoteXLength} yEnd={baseYPosition} />);
+        opacity={opacity} xStart={baseXPosition + (groupCounter - 1) * maxNoteXLength} yStart={baseYPosition + UpStrokeLength * 1.2} xEnd={baseXPosition + (groupCounter) * maxNoteXLength} yEnd={baseYPosition + UpStrokeLength * 1.2} />);
     }
     for (let n = 0; n < multiplier; n++) {
       if (n > 0) {
         buffer.push(<TiePath handleClick={handleClick}
           color={color}
-          opacity={opacity} xStart={baseXPosition + (groupCounter - 1) * maxNoteXLength} yStart={baseYPosition} xEnd={baseXPosition + (groupCounter) * maxNoteXLength} yEnd={baseYPosition} />);
+          opacity={opacity} xStart={baseXPosition + (groupCounter - 1) * maxNoteXLength} yStart={baseYPosition + UpStrokeLength * 1.2} xEnd={baseXPosition + (groupCounter) * maxNoteXLength} yEnd={baseYPosition + UpStrokeLength * 1.2} />);
       }
       buffer.push(
         <NoteShapePath

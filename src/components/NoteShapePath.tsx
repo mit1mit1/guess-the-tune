@@ -1,4 +1,4 @@
-import { eigthLineXLength, rootCircleXRadius } from "src/constants/svg";
+import { eigthLineXLength, eigthLineYLength, rootCircleXRadius, UpStrokeLength } from "src/constants/svg";
 import { BaseDuration } from "src/types";
 import { getRootCircleCX } from "src/utils";
 
@@ -25,7 +25,7 @@ const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
         strokeWidth="4"
         stroke={color}
         opacity={opacity}
-        d={`M${xStart} ${yStart} V ${yStart + 200}`}
+        d={`M${xStart} ${yStart} V ${yStart + UpStrokeLength}`}
       />
     </>
   );
@@ -65,7 +65,7 @@ const EigthOrSixteenthLine = ({ xStart, yStart, color, opacity }: EigthLineProps
         x1={xStart}
         y1={yStart}
         x2={xStart + eigthLineXLength}
-        y2={yStart - 15}
+        y2={yStart + eigthLineYLength}
       />
     </>
   );
@@ -219,7 +219,7 @@ export const NoteShapePath = ({
       {drawLineUp(duration) && (
         <UpStroke
           xStart={getUpStrokeXStart(baseXPosition)}
-          yStart={baseYPosition - 200}
+          yStart={baseYPosition}
           color={color}
           opacity={opacity}
         />
