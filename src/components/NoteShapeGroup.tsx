@@ -24,6 +24,7 @@ interface NoteShapeGroupProps {
   baseYPosition: number;
   handleClick?: () => void;
   color: string;
+  staccato?: boolean;
 }
 
 export const NoteShapeGroup = ({
@@ -33,6 +34,7 @@ export const NoteShapeGroup = ({
   opacity = 1,
   baseXPosition,
   baseYPosition,
+  staccato,
 }: NoteShapeGroupProps) => {
   const buffer: Array<JSX.Element> = [];
   let groupCounter = 0;
@@ -55,6 +57,7 @@ export const NoteShapeGroup = ({
           handleClick={handleClick}
           color={color}
           opacity={opacity}
+          staccato={staccato}
           baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
           baseYPosition={baseYPosition}
         />

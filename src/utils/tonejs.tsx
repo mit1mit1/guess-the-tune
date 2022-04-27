@@ -29,14 +29,15 @@ export const playNotes = (notes: Array<Note>, bpm: number) => {
   Tone.Transport.cancel();
   const synth = new Tone.Synth().toDestination();
   let current16s = 0;
-  notes.forEach((note) => {
+  for (const note of notes) {
     Tone.Transport.schedule(() => {
-      synth.triggerAttackRelease(note.pitch, note.durationObject);
+      let attackDuration = note.staccato ? "32n" : note.durationObject;
+      synth.triggerAttackRelease(note.pitch, attackDuration);
     }, "0:0:" + current16s);
     for (const [duration, multiplier] of Object.entries(note.durationObject)) {
       current16s += multiplier * durationToInt(duration as BaseDuration);
     }
-  });
+  };
   Tone.Transport.position = 0;
   Tone.Transport.start();
 };

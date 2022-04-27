@@ -3,6 +3,7 @@ import { pitchNames, durationNames } from "src/constants";
 export interface Note {
   pitch: Pitch;
   durationObject: Duration;
+  staccato?: boolean
 }
 
 export type Pitch = typeof pitchNames[number];

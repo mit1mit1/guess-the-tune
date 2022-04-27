@@ -197,7 +197,7 @@ export const allCorrect = (guesses: Array<Note>, correctNotes: Array<Note>) => {
   return guesses.every(
     (guess, index) =>
       guess.pitch === correctNotes[index].pitch &&
-      guess.durationObject === correctNotes[index].durationObject
+      areIdentical(guess.durationObject, correctNotes[index].durationObject)
   );
 };
 

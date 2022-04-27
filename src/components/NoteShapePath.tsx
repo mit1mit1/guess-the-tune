@@ -1,4 +1,4 @@
-import { eigthLineXLength, eigthLineYLength, rootCircleXRadius, UpStrokeLength } from "src/constants/svg";
+import { eigthLineXLength, eigthLineYLength, rootCircleXRadius, rootCircleYRadius, staccatoDisplacement, UpStrokeLength } from "src/constants/svg";
 import { BaseDuration } from "src/types";
 import { getRootCircleCX } from "src/utils";
 
@@ -19,7 +19,7 @@ const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
         cx={xStart - rootCircleXRadius}
         cy={yStart + UpStrokeLength / 2}
         rx={15 + rootCircleXRadius}
-        ry={UpStrokeLength / 2}
+        ry={Math.abs(UpStrokeLength) / 2}
       />
       <path
         strokeWidth="4"
@@ -79,7 +79,7 @@ const getSixteenthLineYStart = (baseYPosition: number) => {
   return baseYPosition - 200 + 8 + 30;
 };
 
-const getDotXCentre = (baseXPosition: number) => {
+const getDurationDotXCentre = (baseXPosition: number) => {
   return baseXPosition + 19;
 };
 
@@ -141,7 +141,7 @@ const shouldFillInCircle = (duration: BaseDuration) => {
   }
 };
 
-const shouldAddDot = (duration: BaseDuration) => {
+const shouldAddDurationDot = (duration: BaseDuration) => {
   return duration.includes(".");
 };
 
@@ -186,7 +186,7 @@ const RootCircle = ({
         cx={xCentre}
         cy={yCentre}
         rx={rootCircleXRadius}
-        ry="34"
+        ry={rootCircleYRadius}
         stroke={strokeColor}
         opacity={opacity}
         fillOpacity={fillOpacity}
@@ -204,6 +204,7 @@ interface NoteShapePathProps {
   baseYPosition: number;
   handleClick?: () => void;
   color: string;
+  staccato?: boolean;
 }
 
 export const NoteShapePath = ({
@@ -213,6 +214,7 @@ export const NoteShapePath = ({
   opacity = 1,
   baseXPosition,
   baseYPosition,
+  staccato,
 }: NoteShapePathProps) => {
   return (
     <g className={handleClick ? "clickable-svg" : ""} onClick={handleClick}>
@@ -232,10 +234,18 @@ export const NoteShapePath = ({
         fillOpacity={shouldFillInCircle(duration) ? opacity : opacity * 0.1}
         opacity={opacity}
       />
-      {shouldAddDot(duration) && (
+      {shouldAddDurationDot(duration) && (
         <Dot
-          xCentre={getDotXCentre(baseXPosition)}
+          xCentre={getDurationDotXCentre(baseXPosition)}
           yCentre={baseYPosition}
+          color={color}
+          opacity={opacity}
+        />
+      )}
+      {staccato && (
+        <Dot
+          xCentre={getRootCircleCX(baseXPosition)}
+          yCentre={baseYPosition + staccatoDisplacement}
           color={color}
           opacity={opacity}
         />

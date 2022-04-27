@@ -82,9 +82,10 @@ export const useStore = create<GameState>((set) => ({
   answerStatuses: initialAnswerStatuses,
   chosenSongIndex: songIndex,
   durationsGuessed: new Set<Duration>([]),
-  guesses: correctNotes.map(() => ({
+  guesses: correctNotes.map((note) => ({
     pitch: initialAvailablePitches[0],
     durationObject: correctDurations[0],
+    staccato: note.staccato,
   })),
   incorrectDurationsArrays: correctNotes.map(() => []) as Array<
     Array<Duration>

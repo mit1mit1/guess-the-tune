@@ -6,3 +6,5 @@ export const eigthLineXLength = 80;
 export const eigthLineYLength = - 15;
 export const UpStrokeLength = - 200;
 export const maxNoteXLength = 2 * rootCircleXRadius + eigthLineXLength;
+export const rootCircleYRadius = 34;
+export const staccatoDisplacement = 2 * rootCircleYRadius;

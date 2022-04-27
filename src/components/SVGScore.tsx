@@ -142,6 +142,7 @@ const NotePath = ({ note, displayIndex, trueIndex, color, opacity = 1 }: NotePat
         handleClick={handleClick}
         color={color}
         opacity={opacity}
+        staccato={note.staccato}
       />
       {shouldAddSharp(note.pitch) && (
         <Sharp
