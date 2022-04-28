@@ -23,11 +23,33 @@ enableMapSet();
 const paramSongIndex = parseInt(
   new URLSearchParams(window.location.search).get("chosenSongIndex") || "4"
 );
+
+const paramStartCorrect = parseInt(
+  new URLSearchParams(window.location.search).get("startCorrect") || "0"
+);
 const songIndex =
   paramSongIndex >= 0 && paramSongIndex < gameSongs.length ? paramSongIndex : 0;
 const correctNotes = gameSongs[songIndex].notes;
 const correctPitches = correctNotes.map((note) => note.pitch);
 const correctDurations = correctNotes.map((note) => note.durationObject);
+
+const minPitchIndex = Math.min(
+  ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
+);
+const maxPitchIndex = Math.max(
+  ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
+);
+
+const initialAvailablePitches = pitchNames.slice(
+  minPitchIndex,
+  maxPitchIndex + 1
+);
+
+const initialGuesses = paramStartCorrect ? correctNotes : correctNotes.map((note) => ({
+  pitch: initialAvailablePitches[0],
+  durationObject: correctDurations[0],
+  staccato: note.staccato,
+}))
 
 const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map(() => ({
   pitchStatus: AnswerStatus.UNKNOWN,
@@ -56,22 +78,12 @@ export interface GameState {
   wrongSpotPitches: Set<Pitch>;
   chosenSongIndex: number;
 }
-const minPitchIndex = Math.min(
-  ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
-);
-const maxPitchIndex = Math.max(
-  ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
-);
 // const minDurationIndex = Math.min(
 //   ...correctDurations.map((duration) => durationNames.indexOf(duration))
 // );
 // const maxDurationIndex = Math.max(
 //   ...correctDurations.map((duration) => durationNames.indexOf(duration))
 // );
-const initialAvailablePitches = pitchNames.slice(
-  minPitchIndex,
-  maxPitchIndex + 1
-);
 // const initialAvailableDurations = durationNames.slice(
 //   minDurationIndex,
 //   maxDurationIndex + 1
@@ -83,11 +95,7 @@ export const useStore = create<GameState>((set) => ({
   answerStatuses: initialAnswerStatuses,
   chosenSongIndex: songIndex,
   durationsGuessed: new Set<Duration>([]),
-  guesses: correctNotes.map((note) => ({
-    pitch: initialAvailablePitches[0],
-    durationObject: correctDurations[0],
-    staccato: note.staccato,
-  })),
+  guesses: initialGuesses,
   incorrectDurationsArrays: correctNotes.map(() => []) as Array<
     Array<Duration>
   >,

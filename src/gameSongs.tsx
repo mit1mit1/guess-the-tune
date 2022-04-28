@@ -73,7 +73,8 @@ const theMandalorian: GameSong = {
     { pitch: "G4", durationObject: { "4n": 1, "8n": 1 } },
     { pitch: "D4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "E4", durationObject: { "16n": 1 }, staccato: true },
-    { pitch: "F4", durationObject: { "4n": 1, "16n": 1 } },
+    // Todo: 16th below should be rest
+    { pitch: "F4", durationObject: { "4n": 1, "8n.": 1 } },
     { pitch: "G4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "F4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "E4", durationObject: { "16n": 1 }, staccato: true },
@@ -113,11 +114,41 @@ const concerningHobbits: GameSong = {
     { pitch: "B4", durationObject: { "4n": 1 } },
     { pitch: "G4", durationObject: { "4n": 1 } },
     { pitch: "E4", durationObject: { "4n.": 1 } },
-    { pitch: "F4", durationObject: { "8n": 1 } },
-    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "F4", durationObject: { "16n": 1 } },
+    { pitch: "E4", durationObject: { "16n": 1 } },
     { pitch: "D4", durationObject: { "4n": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+};
+
+const aGrandDayOut: GameSong = {
+  bpm: 110,
+  notes: [
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "F4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "F4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "4n": 1 } },
+  ],
+  timeSignature: TimeSignature.FOURFOUR,
+};
+
+const missionImpossible: GameSong = {
+  bpm: 168,
+  notes: [
+    { pitch: "A4", durationObject: { "4n.": 1 }, staccato: true },
+    { pitch: "A4", durationObject: { "4n.": 1 }, staccato: true },
+    { pitch: "C5", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "D5", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "A4", durationObject: { "4n.": 1 }, staccato: true },
+    { pitch: "A4", durationObject: { "4n.": 1 }, staccato: true },
+    { pitch: "G4", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "G#4", durationObject: { "4n": 1 }, staccato: true },
+  ],
+  timeSignature: TimeSignature.FIVEFOUR,
 };
 
 export const gameSongs: Array<GameSong> = [
@@ -128,4 +159,6 @@ export const gameSongs: Array<GameSong> = [
   theMandalorian,
   marioBrosMainTheme,
   concerningHobbits,
+  aGrandDayOut,
+  missionImpossible,
 ];
