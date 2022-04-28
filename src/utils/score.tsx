@@ -1,8 +1,12 @@
-import { Pitch } from "src/types";
+import { Duration, Pitch } from "src/types";
 
 export const shouldAddSharp = (pitch: Pitch) => {
   return pitch.includes("#");
 };
+
+export const numberOfNotePaths = (durationObject: Duration) => {
+  return Object.values(durationObject).reduce((runningTotal, baseDurationMultiplier) => runningTotal + baseDurationMultiplier)
+}
 
 export const getBaseYPosition = (pitch: Pitch) => {
   const C4Offset = 425;

@@ -70,16 +70,52 @@ const theMandalorian: GameSong = {
     { pitch: "E4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "E4", durationObject: { "8n": 1 }, staccato: true },
     { pitch: "A4", durationObject: { "8n": 1 }, staccato: true },
-    // TODO: Make duration work for combining two below notes
     { pitch: "G4", durationObject: { "4n": 1, "8n": 1 } },
     { pitch: "D4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "E4", durationObject: { "16n": 1 }, staccato: true },
-    // TODO: combine below 2 as well
     { pitch: "F4", durationObject: { "4n": 1, "16n": 1 } },
     { pitch: "G4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "F4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "E4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "D4", durationObject: { "8n": 1 }, staccato: true },
+  ],
+  timeSignature: TimeSignature.FOURFOUR,
+};
+
+const marioBrosMainTheme: GameSong = {
+  bpm: 180,
+  notes: [
+    { pitch: "E5", durationObject: { "8n": 1 }, staccato: true },
+    { pitch: "E5", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "E5", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "C5", durationObject: { "8n": 1 }, staccato: true },
+    { pitch: "E5", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "G5", durationObject: { "2n": 1 }, staccato: true },
+    { pitch: "G4", durationObject: { "2n": 1 }, staccato: true },
+  ],
+  timeSignature: TimeSignature.FOURFOUR,
+};
+
+const concerningHobbits: GameSong = {
+  bpm: 103,
+  notes: [
+    { pitch: "C4", durationObject: { "16n": 1 } },
+    { pitch: "D4", durationObject: { "16n": 1 } },
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "D4", durationObject: { "4n": 1 } },
+    { pitch: "C4", durationObject: { "2n.": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "B4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "E4", durationObject: { "4n.": 1 } },
+    { pitch: "F4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "4n": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
 };
@@ -90,4 +126,6 @@ export const gameSongs: Array<GameSong> = [
   hedwigsTheme,
   thomasTheTankEngine,
   theMandalorian,
+  marioBrosMainTheme,
+  concerningHobbits,
 ];

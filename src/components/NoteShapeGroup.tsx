@@ -42,17 +42,20 @@ export const NoteShapeGroup = ({
   for (const [baseDuration, multiplier] of Object.entries(durationObject)) {
     if (index > 0) {
       buffer.push(<TiePath handleClick={handleClick}
+        key={`tie-path-${index}-`}
         color={color}
         opacity={opacity} xStart={baseXPosition + (groupCounter - 1) * maxNoteXLength} yStart={baseYPosition + UpStrokeLength * 1.2} xEnd={baseXPosition + (groupCounter) * maxNoteXLength} yEnd={baseYPosition + UpStrokeLength * 1.2} />);
     }
     for (let n = 0; n < multiplier; n++) {
       if (n > 0) {
         buffer.push(<TiePath handleClick={handleClick}
+          key={`tie-path-${index}-${n}`}
           color={color}
           opacity={opacity} xStart={baseXPosition + (groupCounter - 1) * maxNoteXLength} yStart={baseYPosition + UpStrokeLength * 1.2} xEnd={baseXPosition + (groupCounter) * maxNoteXLength} yEnd={baseYPosition + UpStrokeLength * 1.2} />);
       }
       buffer.push(
         <NoteShapePath
+          key={`note-shape-path-${index}-${n}`}
           duration={baseDuration as BaseDuration}
           handleClick={handleClick}
           color={color}

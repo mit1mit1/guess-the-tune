@@ -14,6 +14,7 @@ import {
   arrayIncludes,
   getNewDurationAnswerStatus,
   getUniqueElements,
+  orderByLength,
   setIncludes,
 } from "./utils/game";
 
@@ -78,7 +79,7 @@ const initialAvailablePitches = pitchNames.slice(
 
 export const useStore = create<GameState>((set) => ({
   availablePitches: initialAvailablePitches,
-  availableDurations: getUniqueElements(correctDurations),
+  availableDurations: orderByLength(getUniqueElements(correctDurations)),
   answerStatuses: initialAnswerStatuses,
   chosenSongIndex: songIndex,
   durationsGuessed: new Set<Duration>([]),

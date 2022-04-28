@@ -3,17 +3,17 @@ import { BASE_COLOR, WRONG_SPOT_COLOR } from "src/constants";
 import { useStore } from "src/gameStore";
 import "./DurationKey.css";
 import { NoteShapeGroup } from "src/components/NoteShapeGroup";
-import { setIncludes } from "src/utils";
+import { numberOfNotePaths, setIncludes } from "src/utils";
 
 interface DurationKeyProps {
   durationObject: Duration;
   status: "unknown" | "wrong-spot" | "unavailable";
+  width: number;
 }
 
-const DurationKeySVGWidth = 220;
 const DurationKeySVGHeight = 220;
 
-const DurationKey = ({ durationObject, status }: DurationKeyProps) => {
+const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
   const { setSelectedGuessDuration } = useStore((state) => state);
   if (status === "unavailable") {
     return <></>;
@@ -24,9 +24,9 @@ const DurationKey = ({ durationObject, status }: DurationKeyProps) => {
   }
   return (
     <>
-      <div className="duration-key">
+      <div className="duration-key" style={{width: `${50 * numberOfNotePaths(durationObject)}px`}}>
         <svg
-          viewBox={`0 0 ${DurationKeySVGWidth} ${DurationKeySVGHeight}`}
+          viewBox={`0 0 ${width} ${DurationKeySVGHeight}`}
           xmlns="<http://www.w3.org/2000/svg>"
           className="duration-key-svg"
         >
@@ -47,12 +47,14 @@ export const DurationKeyboard = () => {
   const { availableDurations, wrongSpotDurations } = useStore((state) => state);
   const buffer: Array<JSX.Element> = [];
   availableDurations.forEach((durationObject, index) => {
+    const DurationKeySVGWidth = 220 * numberOfNotePaths(durationObject);
     if (setIncludes(wrongSpotDurations, durationObject)) {
       buffer.push(
         <DurationKey
           key={"duration-key-" + index}
           durationObject={durationObject}
           status="wrong-spot"
+          width={DurationKeySVGWidth}
         />
       );
     } else {
@@ -61,6 +63,7 @@ export const DurationKeyboard = () => {
           key={"duration-key-" + index}
           durationObject={durationObject}
           status="unknown"
+          width={DurationKeySVGWidth}
         />
       );
     }

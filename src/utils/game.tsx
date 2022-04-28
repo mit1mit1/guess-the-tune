@@ -1,4 +1,4 @@
-import { Note, Pitch, AnswerStatus, Duration } from "src/types";
+import { Note, Pitch, AnswerStatus, Duration, BaseDuration } from "src/types";
 import { pitchNames } from "src/constants";
 
 // export const durationObjectToInt = (durationObject: DurationObject) => {
@@ -201,6 +201,10 @@ export const allCorrect = (guesses: Array<Note>, correctNotes: Array<Note>) => {
   );
 };
 
+export const orderByLength = (durationArray: Array<Duration>) => {
+  return durationArray.sort((durationObjectA, durationObjectB) => durationObjectTo16thInt(durationObjectA) - durationObjectTo16thInt(durationObjectB));
+}
+
 export const areIdentical = (
   durationObject: Duration,
   durationObject2: Duration
@@ -233,3 +237,34 @@ export const getUniqueElements = (durationArray: Array<Duration>) => {
   });
   return newArray;
 };
+
+const durationToInt = (duration: BaseDuration) => {
+  switch (duration) {
+    case "16n":
+      return 1;
+    case "8n":
+      return 2;
+    case "8n.":
+      return 3;
+    case "4n":
+      return 4;
+    case "4n.":
+      return 6;
+    case "2n":
+      return 8;
+    case "2n.":
+      return 12;
+    case "1n":
+      return 16;
+    case "1n.":
+      return 24;
+  }
+};
+
+export const durationObjectTo16thInt = (durationObject: Duration) => {
+  let current16s = 0;
+  for (const [baseDuration, multiplier] of Object.entries(durationObject)) {
+    current16s += multiplier * durationToInt(baseDuration as BaseDuration);
+  }
+  return current16s;
+}

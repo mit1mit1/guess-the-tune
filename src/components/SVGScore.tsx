@@ -367,6 +367,7 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
         viewBox={`0 0 ${SVGWidth} ${SVGHeight}`}
         xmlns="<http://www.w3.org/2000/svg>"
         className="svg-score"
+        key={`score-svg-index-${i}`}
       >
         <TrebleStave SVGWidth={SVGWidth} />
         <SelectedNoteHighlight startIndex={startIndex} endIndex={endIndex} />
