@@ -17,18 +17,21 @@ import {
   orderByLength,
   setIncludes,
 } from "./utils/game";
+import dayjs from 'dayjs'
 
 enableMapSet();
 
-const paramSongIndex = parseInt(
-  new URLSearchParams(window.location.search).get("chosenSongIndex") || "7"
+const daysSinceBeginning = dayjs().diff('2022-04-22', 'days')
+
+const queryParamSongIndex = parseInt(
+  new URLSearchParams(window.location.search).get("chosenSongIndex") || '-1'
 );
+
+const songIndex = Math.abs((queryParamSongIndex === -1 ? daysSinceBeginning : queryParamSongIndex) % gameSongs.length)
 
 const paramStartCorrect = parseInt(
   new URLSearchParams(window.location.search).get("startCorrect") || "0"
 );
-const songIndex =
-  paramSongIndex >= 0 && paramSongIndex < gameSongs.length ? paramSongIndex : 0;
 const correctNotes = gameSongs[songIndex].notes;
 const correctPitches = correctNotes.map((note) => note.pitch);
 const correctDurations = correctNotes.map((note) => note.durationObject);
