@@ -73,8 +73,8 @@ const theMandalorian: GameSong = {
     { pitch: "G4", durationObject: { "4n": 1, "8n": 1 } },
     { pitch: "D4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "E4", durationObject: { "16n": 1 }, staccato: true },
-    // Todo: 16th below should be rest
-    { pitch: "F4", durationObject: { "4n": 1, "8n.": 1 } },
+    { pitch: "F4", durationObject: { "4n": 1 } },
+    { pitch: "F4", durationObject: { "8n.": 1 }, rest: true },
     { pitch: "G4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "F4", durationObject: { "16n": 1 }, staccato: true },
     { pitch: "E4", durationObject: { "16n": 1 }, staccato: true },

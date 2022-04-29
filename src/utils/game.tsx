@@ -268,3 +268,7 @@ export const durationObjectTo16thInt = (durationObject: Duration) => {
   }
   return current16s;
 }
+
+export const isGuessable = (note: Note) => {
+  return !!note.rest;
+}

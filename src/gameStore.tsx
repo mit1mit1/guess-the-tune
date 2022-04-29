@@ -92,7 +92,7 @@ export interface GameState {
 //   maxDurationIndex + 1
 // );
 
-export const useStore = create<GameState>((set) => ({
+export const useStore: () => GameState = create<GameState>((set: any) => ({
   availablePitches: initialAvailablePitches,
   availableDurations: orderByLength(getUniqueElements(correctDurations)),
   answerStatuses: initialAnswerStatuses,
@@ -109,7 +109,7 @@ export const useStore = create<GameState>((set) => ({
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
 
-  setSelectedNoteIndex: (selectedNoteIndex) =>
+  setSelectedNoteIndex: (selectedNoteIndex: number) =>
     set(
       produce((draft: GameState) => {
         return {
@@ -121,14 +121,14 @@ export const useStore = create<GameState>((set) => ({
 
   incrementTurn: () => {
     set(
-      produce((draft) => ({
+      produce((draft: GameState) => ({
         ...draft,
         turn: draft.turn + 1,
       }))
     );
   },
 
-  incrementGuessDuration: (guessIndex, increment) => {
+  incrementGuessDuration: (guessIndex: number, increment: number) => {
     set(
       produce((draft: GameState) => {
         const newGuesses = incrementDuration(
@@ -145,7 +145,7 @@ export const useStore = create<GameState>((set) => ({
     );
   },
 
-  incrementGuessPitch: (guessIndex, increment) => {
+  incrementGuessPitch: (guessIndex: number, increment: number) => {
     set(
       produce((draft: GameState) => {
         const newGuesses = incrementPitch(
@@ -162,7 +162,7 @@ export const useStore = create<GameState>((set) => ({
     );
   },
 
-  setSelectedGuessDuration: (duration) => {
+  setSelectedGuessDuration: (duration: Duration) => {
     set(
       produce((draft: GameState) => {
         draft.guesses[draft.selectedNoteIndex].durationObject = duration;
@@ -171,7 +171,7 @@ export const useStore = create<GameState>((set) => ({
     );
   },
 
-  setSelectedGuessPitch: (pitch) => {
+  setSelectedGuessPitch: (pitch: Pitch) => {
     set(
       produce((draft: GameState) => {
         draft.guesses[draft.selectedNoteIndex].pitch = pitch;

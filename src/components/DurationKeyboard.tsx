@@ -14,7 +14,7 @@ interface DurationKeyProps {
 const DurationKeySVGHeight = 220;
 
 const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
-  const { setSelectedGuessDuration } = useStore((state) => state);
+  const { setSelectedGuessDuration } = useStore();
   if (status === "unavailable") {
     return <></>;
   }
@@ -44,7 +44,7 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
 };
 
 export const DurationKeyboard = () => {
-  const { availableDurations, wrongSpotDurations } = useStore((state) => state);
+  const { availableDurations, wrongSpotDurations } = useStore();
   const buffer: Array<JSX.Element> = [];
   availableDurations.forEach((durationObject, index) => {
     const DurationKeySVGWidth = 220 * numberOfNotePaths(durationObject);

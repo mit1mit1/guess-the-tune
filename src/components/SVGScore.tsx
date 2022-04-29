@@ -130,7 +130,7 @@ interface NotePathProps {
 const NotePath = ({ note, displayIndex, trueIndex, color, opacity = 1 }: NotePathProps) => {
   const baseXPosition = getBaseXPosition(displayIndex) + noteSharpOffset(note.pitch);
   const baseYPosition = getBaseYPosition(note.pitch);
-  const { setSelectedNoteIndex } = useStore((state) => state);
+  const { setSelectedNoteIndex } = useStore();
   const handleClick = () => setSelectedNoteIndex(trueIndex);
 
   return (
@@ -179,7 +179,7 @@ const PitchGuessPath = ({
   color,
   opacity = 1,
 }: PitchGuessPathProps) => {
-  const { setSelectedNoteIndex } = useStore((state) => state);
+  const { setSelectedNoteIndex } = useStore();
   const xStart =
     clefLength +
     incorrectPitchLength +
@@ -209,9 +209,7 @@ const CurrentGuessPaths = ({
   startIndex: number;
   endIndex: number;
 }) => {
-  const { incorrectDurationsArrays, answerStatuses } = useStore(
-    (state) => state
-  );
+  const { incorrectDurationsArrays, answerStatuses } = useStore();
   const displayNotes = notes.slice(startIndex, endIndex);
 
   return (
@@ -255,7 +253,7 @@ const NonIncorrectPaths = ({
   startIndex: number;
   endIndex: number;
 }) => {
-  const { answerStatuses } = useStore((state) => state);
+  const { answerStatuses } = useStore();
   return (
     <>
       {answerStatuses
@@ -309,7 +307,7 @@ const IncorrectPitchPaths = ({
   startIndex: number;
   endIndex: number;
 }) => {
-  const { incorrectPitchesArrays } = useStore((state) => state);
+  const { incorrectPitchesArrays } = useStore();
   return (
     <>
       {incorrectPitchesArrays
@@ -338,7 +336,7 @@ const SelectedNoteHighlight = ({
   startIndex: number;
   endIndex: number;
 }) => {
-  const { selectedNoteIndex } = useStore((state) => state);
+  const { selectedNoteIndex } = useStore();
   if (selectedNoteIndex >= startIndex && selectedNoteIndex < endIndex) {
     return (
       <ellipse
@@ -355,7 +353,7 @@ const SelectedNoteHighlight = ({
 };
 
 export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
-  const { guesses } = useStore((state) => state);
+  const { guesses } = useStore();
   const songLength = correctNotes.length;
   const buffer = [];
   const notesPerLine = 5;

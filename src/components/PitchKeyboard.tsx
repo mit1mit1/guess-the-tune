@@ -53,7 +53,7 @@ const getKeyboardOffset = (pitch: Pitch) => {
 };
 
 const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
-  const { setSelectedGuessPitch } = useStore((state) => state);
+  const { setSelectedGuessPitch } = useStore();
   let color = BASE_COLOR;
   if (status === "wrong-spot") {
     color = WRONG_SPOT_COLOR;
@@ -70,7 +70,7 @@ const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
 };
 
 export const PitchKeyboard = () => {
-  const { availablePitches, wrongSpotPitches } = useStore((state) => state);
+  const { availablePitches, wrongSpotPitches } = useStore();
   return (
     <div className="pitch-keyboard">
       <div>Available Pitches</div>

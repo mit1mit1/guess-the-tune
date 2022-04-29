@@ -24,7 +24,7 @@ const App = ({
     chosenSongIndex,
     guesses,
     turn,
-  } = useStore((state) => state);
+  } = useStore();
   const chosenSong = gameSongs[chosenSongIndex];
 
   const handleCheckGuess = useCallback(() => {
