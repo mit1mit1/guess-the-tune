@@ -21,7 +21,7 @@ import {
 enableMapSet();
 
 const paramSongIndex = parseInt(
-  new URLSearchParams(window.location.search).get("chosenSongIndex") || "4"
+  new URLSearchParams(window.location.search).get("chosenSongIndex") || "7"
 );
 
 const paramStartCorrect = parseInt(
