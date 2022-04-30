@@ -6,7 +6,6 @@ import "./App.css";
 import { DurationKeyboard } from "./components/DurationKeyboard";
 import { BACKGROUND_COLOR } from "./constants";
 import { PitchKeyboard } from "./components/PitchKeyboard";
-import { gameSongs } from "./gameSongs";
 import { Note } from "./types";
 
 const App = ({
@@ -21,11 +20,10 @@ const App = ({
     incrementGuessDuration,
     incrementTurn,
     checkGuesses,
-    chosenSongIndex,
     guesses,
     turn,
+    chosenSong,
   } = useStore();
-  const chosenSong = gameSongs[chosenSongIndex];
 
   const handleCheckGuess = useCallback(() => {
     incrementTurn();

@@ -1,6 +1,6 @@
 import create from "zustand";
 import { gameSongs } from "./gameSongs";
-import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "./types";
+import { AnswerStatus, Duration, GameSong, Note, NoteStatus, Pitch } from "./types";
 import produce, { enableMapSet } from "immer";
 import {
   getNewAnswerStatus,
@@ -28,12 +28,21 @@ const queryParamSongIndex = parseInt(
   new URLSearchParams(window.location.search).get("chosenSongIndex") || '-1'
 );
 
-const songIndex = Math.abs((queryParamSongIndex === -1 ? daysSinceBeginning : queryParamSongIndex) % gameSongs.length)
+const useUnreadySongs = parseInt(
+  new URLSearchParams(window.location.search).get("unreadySongs") || '0'
+);
+
+const songIndex = (queryParamSongIndex === -1 ? daysSinceBeginning : queryParamSongIndex);
+let chosenSong = gameSongs[Math.abs(songIndex % gameSongs.length)]
+if (!useUnreadySongs) {
+  const availableSongs = gameSongs.filter(gameSong => !!gameSong.readyForProduction)
+  chosenSong = availableSongs[Math.abs(songIndex % availableSongs.length)]
+}
 
 const paramStartCorrect = parseInt(
   new URLSearchParams(window.location.search).get("startCorrect") || "0"
 );
-const correctNotes = gameSongs[songIndex].notes;
+const correctNotes = chosenSong.notes;
 const correctAvailableNotes = correctNotes.filter(note => isGuessable(note));
 const correctPitches = correctAvailableNotes.map((note) => note.pitch);
 const correctDurations = correctAvailableNotes.map((note) => note.durationObject);
@@ -82,7 +91,7 @@ export interface GameState {
   pitchesGuessed: Set<Pitch>;
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
-  chosenSongIndex: number;
+  chosenSong: GameSong;
 }
 // const minDurationIndex = Math.min(
 //   ...correctDurations.map((duration) => durationNames.indexOf(duration))
@@ -99,7 +108,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   availablePitches: initialAvailablePitches,
   availableDurations: orderByLength(getUniqueElements(correctDurations)),
   answerStatuses: initialAnswerStatuses,
-  chosenSongIndex: songIndex,
+  chosenSong: chosenSong,
   durationsGuessed: new Set<Duration>([]),
   guesses: initialGuesses,
   incorrectDurationsArrays: correctNotes.map(() => []) as Array<

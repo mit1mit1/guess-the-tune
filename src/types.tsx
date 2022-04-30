@@ -56,6 +56,7 @@ export interface GameSong {
   bpm: number;
   notes: Array<Note>;
   timeSignature: TimeSignature;
+  readyForProduction?: boolean;
 }
 
 export interface BaseSVGPathProps {

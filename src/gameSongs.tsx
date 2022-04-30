@@ -13,6 +13,7 @@ const simpsonsTheme: GameSong = {
     { pitch: "A4", durationObject: { "8n": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
 };
 
 const imperialMarch: GameSong = {
@@ -29,6 +30,7 @@ const imperialMarch: GameSong = {
     { pitch: "A4", durationObject: { "2n": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
 };
 
 const hedwigsTheme: GameSong = {
@@ -44,6 +46,7 @@ const hedwigsTheme: GameSong = {
     { pitch: "B4", durationObject: { "4n.": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
 };
 
 const thomasTheTankEngine: GameSong = {
@@ -58,6 +61,7 @@ const thomasTheTankEngine: GameSong = {
     { pitch: "G#4", durationObject: { "1n": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
 };
 
 const theMandalorian: GameSong = {
@@ -97,6 +101,7 @@ const marioBrosMainTheme: GameSong = {
     { pitch: "G4", durationObject: { "2n": 1 }, staccato: true },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
 };
 
 const concerningHobbits: GameSong = {
@@ -136,6 +141,7 @@ const aGrandDayOut: GameSong = {
     { pitch: "D4", durationObject: { "4n": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
 };
 
 const missionImpossible: GameSong = {
@@ -151,6 +157,7 @@ const missionImpossible: GameSong = {
     { pitch: "G#4", durationObject: { "4n": 1 }, staccato: true },
   ],
   timeSignature: TimeSignature.FIVEFOUR,
+  readyForProduction: true,
 };
 
 const theRaidersMarch: GameSong = {
@@ -165,6 +172,7 @@ const theRaidersMarch: GameSong = {
     { pitch: "F4", durationObject: { "2n.": 1 } },
   ],
   timeSignature: TimeSignature.FIVEFOUR,
+  readyForProduction: true,
 };
 
 export const gameSongs: Array<GameSong> = [
