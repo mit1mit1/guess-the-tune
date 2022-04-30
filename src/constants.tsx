@@ -63,4 +63,5 @@ export const BACKGROUND_COLOR = "black";
 export const BASE_COLOR = "white";
 export const WRONG_SPOT_COLOR = "yellow";
 export const INCORRECT_COLOR = "grey";
+export const CORRECT_COLOR = "green";
 export const INCORRECT_PITCH_COLOR = "#555";

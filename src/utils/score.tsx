@@ -1,4 +1,4 @@
-import { Duration, Pitch } from "src/types";
+import { BaseDuration, Duration, Pitch } from "src/types";
 
 export const shouldAddSharp = (pitch: Pitch) => {
   return pitch.includes("#");
@@ -68,4 +68,13 @@ export const getBaseYPosition = (pitch: Pitch) => {
 
 export const getRootCircleCX = (baseXPosition: number) => {
   return baseXPosition - 38;
+};
+
+export const shouldAddDurationDot = (duration: BaseDuration) => {
+  console.log(duration, 'returning ', duration.includes("."))
+  return duration.includes(".");
+};
+
+export const getDurationDotXCentre = (baseXPosition: number) => {
+  return baseXPosition + 19;
 };

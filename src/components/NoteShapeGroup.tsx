@@ -1,5 +1,5 @@
 import { maxNoteXLength, UpStrokeLength } from "src/constants/svg";
-import { BaseDuration, Duration } from "src/types";
+import { BaseDuration, BaseSVGPathProps, Duration } from "src/types";
 import { NoteShapePath } from "./NoteShapePath";
 
 interface TiePathProps {
@@ -17,13 +17,10 @@ const TiePath = ({ xStart, yStart, xEnd, yEnd, color, opacity, handleClick }: Ti
   return <path stroke={color} strokeWidth={8} opacity={opacity} onClick={handleClick} d={`M ${xStart} ${yStart} A 50 10 0 0 1 ${xEnd} ${yEnd}`} />;
 };
 
-interface NoteShapeGroupProps {
-  opacity?: number;
+interface NoteShapeGroupProps extends BaseSVGPathProps {
   durationObject: Duration;
   baseXPosition: number;
   baseYPosition: number;
-  handleClick?: () => void;
-  color: string;
   staccato?: boolean;
 }
 

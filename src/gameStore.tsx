@@ -14,6 +14,7 @@ import {
   arrayIncludes,
   getNewDurationAnswerStatus,
   getUniqueElements,
+  isGuessable,
   orderByLength,
   setIncludes,
 } from "./utils/game";
@@ -49,14 +50,15 @@ const initialAvailablePitches = pitchNames.slice(
 );
 
 const initialGuesses = paramStartCorrect ? correctNotes : correctNotes.map((note) => ({
-  pitch: initialAvailablePitches[0],
-  durationObject: correctDurations[0],
+  pitch: isGuessable(note) ? initialAvailablePitches[0] : note.pitch,
+  durationObject: isGuessable(note) ? correctDurations[0] : note.durationObject,
   staccato: note.staccato,
+  rest: note.rest,
 }))
 
-const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map(() => ({
-  pitchStatus: AnswerStatus.UNKNOWN,
-  durationStatus: AnswerStatus.UNKNOWN,
+const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note) => ({
+  pitchStatus: isGuessable(note) ? AnswerStatus.UNKNOWN : AnswerStatus.UNGUESSABLE,
+  durationStatus: isGuessable(note) ? AnswerStatus.UNKNOWN : AnswerStatus.UNGUESSABLE,
 }));
 
 export interface GameState {
@@ -184,6 +186,9 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
     set(
       produce((draft: GameState) => {
         draft.guesses.forEach((guess, index) => {
+          if (!isGuessable(correctNotes[index])) {
+            return;
+          }
           draft.pitchesGuessed.add(guess.pitch);
           draft.durationsGuessed.add(guess.durationObject);
           if (guess.pitch !== correctNotes[index].pitch) {
@@ -219,6 +224,12 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
         });
 
         const newStatuses = correctNotes.map((note, index) => {
+          if (!isGuessable(note)) {
+            return {
+              pitchStatus: draft.answerStatuses[index].pitchStatus,
+              durationStatus: draft.answerStatuses[index].durationStatus,
+            };
+          }
           return {
             pitchStatus: getNewAnswerStatus(
               draft.answerStatuses[index].pitchStatus,
@@ -237,6 +248,9 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
         draft.wrongSpotPitches = new Set();
         draft.wrongSpotDurations = new Set();
         correctNotes.forEach((note, index) => {
+          if (!isGuessable(note)) {
+            return;
+          }
           if (
             draft.answerStatuses[index].pitchStatus !==
               AnswerStatus.GUESSEDCORRECT &&

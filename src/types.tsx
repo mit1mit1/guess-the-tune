@@ -32,6 +32,7 @@ export enum AnswerStatus {
   UNKNOWN,
   GUESSEDCORRECT,
   INCORRECTSOFAR,
+  UNGUESSABLE,
 }
 
 export interface DurationObject {
@@ -55,4 +56,10 @@ export interface GameSong {
   bpm: number;
   notes: Array<Note>;
   timeSignature: TimeSignature;
+}
+
+export interface BaseSVGPathProps {
+  color: string;
+  opacity?: number;
+  handleClick?: () => void;
 }

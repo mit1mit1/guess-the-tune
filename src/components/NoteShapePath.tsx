@@ -1,18 +1,17 @@
 import { eigthLineXLength, eigthLineYLength, rootCircleXRadius, rootCircleYRadius, staccatoDisplacement, UpStrokeLength } from "src/constants/svg";
-import { BaseDuration } from "src/types";
-import { getRootCircleCX } from "src/utils";
+import { BaseDuration, BaseSVGPathProps } from "src/types";
+import { getDurationDotXCentre, getRootCircleCX, shouldAddDurationDot } from "src/utils";
+import { Dot } from "./Dot";
 
-interface UpStrokeProps {
+interface UpStrokeProps extends BaseSVGPathProps {
   xStart: number;
   yStart: number;
-  color: string;
-  opacity?: number;
 }
 
-const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
+const UpStroke = ({ xStart, yStart, color, opacity, handleClick }: UpStrokeProps) => {
   return (
     <>
-      <ellipse
+      {handleClick && <ellipse
         className="clickable-cover"
         stroke=""
         opacity={0}
@@ -20,7 +19,7 @@ const UpStroke = ({ xStart, yStart, color, opacity }: UpStrokeProps) => {
         cy={yStart + UpStrokeLength / 2}
         rx={15 + rootCircleXRadius}
         ry={Math.abs(UpStrokeLength) / 2}
-      />
+      />}
       <path
         strokeWidth="4"
         stroke={color}
@@ -39,17 +38,15 @@ const getEigthLineYStart = (baseYPosition: number) => {
   return baseYPosition - 200 + 8;
 };
 
-interface EigthLineProps {
+interface EigthLineProps extends BaseSVGPathProps {
   xStart: number;
   yStart: number;
-  color: string;
-  opacity?: number;
 }
 
-const EigthOrSixteenthLine = ({ xStart, yStart, color, opacity }: EigthLineProps) => {
+const EigthOrSixteenthLine = ({ xStart, yStart, color, opacity, handleClick }: EigthLineProps) => {
   return (
     <>
-      <ellipse
+      {handleClick && <ellipse
         className="clickable-cover"
         stroke=""
         opacity={0}
@@ -57,7 +54,7 @@ const EigthOrSixteenthLine = ({ xStart, yStart, color, opacity }: EigthLineProps
         cy={yStart - 7.5}
         rx={40}
         ry={30}
-      />
+      />}
       <line
         strokeWidth="16"
         stroke={color}
@@ -77,42 +74,6 @@ const getSixteenthLineXStart = (baseXPosition: number) => {
 
 const getSixteenthLineYStart = (baseYPosition: number) => {
   return baseYPosition - 200 + 8 + 30;
-};
-
-const getDurationDotXCentre = (baseXPosition: number) => {
-  return baseXPosition + 19;
-};
-
-interface DotProps {
-  color: string;
-  opacity?: number;
-  xCentre: number;
-  yCentre: number;
-}
-
-const Dot = ({ color, opacity, xCentre, yCentre }: DotProps) => {
-  return (
-    <>
-      <ellipse
-        className="clickable-cover"
-        stroke=""
-        opacity={0}
-        cx={xCentre}
-        cy={yCentre}
-        rx={15}
-        ry={15}
-      />
-      <circle
-        cx={xCentre}
-        cy={yCentre}
-        r="5"
-        stroke={color}
-        opacity={opacity}
-        strokeWidth="3"
-        fill={color}
-      />
-    </>
-  );
 };
 
 const getUpStrokeXStart = (baseXPosition: number) => {
@@ -139,10 +100,6 @@ const shouldFillInCircle = (duration: BaseDuration) => {
     default:
       return true;
   }
-};
-
-const shouldAddDurationDot = (duration: BaseDuration) => {
-  return duration.includes(".");
 };
 
 const shouldAddEigthLine = (duration: BaseDuration) => {
@@ -197,13 +154,10 @@ const RootCircle = ({
   );
 };
 
-interface NoteShapePathProps {
-  opacity?: number;
+interface NoteShapePathProps extends BaseSVGPathProps {
   duration: BaseDuration;
   baseXPosition: number;
   baseYPosition: number;
-  handleClick?: () => void;
-  color: string;
   staccato?: boolean;
 }
 

@@ -7,6 +7,6 @@
   opacity: 0.7;
 }
 
-.clickable-svg {
+.clickable-svg, .clickable-cover {
   cursor: pointer;
 }

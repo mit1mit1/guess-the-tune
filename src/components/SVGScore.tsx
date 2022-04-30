@@ -1,10 +1,11 @@
 import {
   BASE_COLOR,
+  CORRECT_COLOR,
   INCORRECT_COLOR,
   INCORRECT_PITCH_COLOR,
   pitchNames,
 } from "src/constants";
-import { AnswerStatus, Note, Pitch } from "src/types";
+import { AnswerStatus, BaseSVGPathProps, Note, Pitch } from "src/types";
 import { getBaseYPosition, getRootCircleCX, shouldAddSharp } from "src/utils";
 import { useStore } from "src/gameStore";
 import "./SVGScore.css";
@@ -13,7 +14,8 @@ import { SharpPath } from "./SharpPath";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";
 import { durationlessPitchRadius, maxNoteXLength, sharpYOffset } from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/NoteShapeGroup";
-import { areIdentical } from "src/utils/game";
+import { areIdentical, isGuessable } from "src/utils/game";
+import { RestShapeGroup } from "./RestShapeGroup";
 
 const SVGWidth = 3140;
 const SVGHeight = 440;
@@ -38,11 +40,9 @@ const StavePath = ({
       key={`${index}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke={BASE_COLOR}
-      d={`M${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
-      } ${getBaseYPosition(trackPitch)} H ${
-        clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
-      }`}
+      d={`M${clefLength + incorrectPitchLength + index * distanceBetweenNotes - 110
+        } ${getBaseYPosition(trackPitch)} H ${clefLength + incorrectPitchLength + index * distanceBetweenNotes + 40
+        }`}
     />
   );
 };
@@ -92,7 +92,7 @@ interface NoteSubpartProps {
   color: string;
   opacity?: number;
   displayIndex: number;
-  handleClick: () => void;
+  handleClick?: () => void;
 }
 
 const Sharp = ({ pitch, color, opacity = 1, displayIndex, handleClick }: NoteSubpartProps) => {
@@ -119,19 +119,15 @@ const getBaseXPosition = (index: number) => {
   return clefLength + incorrectPitchLength + index * distanceBetweenNotes;
 };
 
-interface NotePathProps {
-  opacity?: number;
+
+interface NotePathProps extends BaseSVGPathProps {
   note: Note;
   displayIndex: number;
-  trueIndex: number;
-  color: string;
 }
 
-const NotePath = ({ note, displayIndex, trueIndex, color, opacity = 1 }: NotePathProps) => {
+const NotePath = ({ note, displayIndex, color, opacity = 1, handleClick }: NotePathProps) => {
   const baseXPosition = getBaseXPosition(displayIndex) + noteSharpOffset(note.pitch);
   const baseYPosition = getBaseYPosition(note.pitch);
-  const { setSelectedNoteIndex } = useStore();
-  const handleClick = () => setSelectedNoteIndex(trueIndex);
 
   return (
     <>
@@ -164,22 +160,18 @@ const NotePath = ({ note, displayIndex, trueIndex, color, opacity = 1 }: NotePat
   );
 };
 
-interface PitchGuessPathProps {
+interface PitchGuessPathProps extends BaseSVGPathProps {
   pitch: Pitch;
   positionIndex: number;
-  trueIndex: number;
-  color: string;
-  opacity?: number;
 }
 
 const PitchGuessPath = ({
   pitch,
   positionIndex,
-  trueIndex,
   color,
   opacity = 1,
+  handleClick,
 }: PitchGuessPathProps) => {
-  const { setSelectedNoteIndex } = useStore();
   const xStart =
     clefLength +
     incorrectPitchLength +
@@ -191,7 +183,7 @@ const PitchGuessPath = ({
     <DurationlessPitchPath
       pitch={pitch}
       xStart={xStart}
-      handleClick={() => setSelectedNoteIndex(trueIndex)}
+      handleClick={handleClick}
       color={color}
       opacity={opacity}
     />
@@ -209,7 +201,7 @@ const CurrentGuessPaths = ({
   startIndex: number;
   endIndex: number;
 }) => {
-  const { incorrectDurationsArrays, answerStatuses } = useStore();
+  const { incorrectDurationsArrays, answerStatuses, setSelectedNoteIndex } = useStore();
   const displayNotes = notes.slice(startIndex, endIndex);
 
   return (
@@ -218,25 +210,45 @@ const CurrentGuessPaths = ({
         let trueIndex = displayIndex + startIndex;
         let color = BASE_COLOR;
         let opacity = 1;
+        const handleClick = isGuessable(note) ? () => setSelectedNoteIndex(trueIndex) : undefined;
         if (incorrectDurationsArrays[trueIndex].includes(note.durationObject)) {
           color = INCORRECT_COLOR;
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-            AnswerStatus.GUESSEDCORRECT &&
+          AnswerStatus.GUESSEDCORRECT &&
           areIdentical(note.durationObject, correctNotes[trueIndex].durationObject)
         ) {
           opacity = 0.8;
-          color = "green";
+          color = CORRECT_COLOR;
+        }
+        if (
+          answerStatuses[trueIndex].durationStatus ===
+          AnswerStatus.UNGUESSABLE &&
+          answerStatuses[trueIndex].pitchStatus ===
+          AnswerStatus.UNGUESSABLE) {
+          opacity = 1;
+          color = CORRECT_COLOR;
+        }
+        if (!!note.rest) {
+          console.log('pushingwith duration object ', note.durationObject)
+          return (
+            <RestShapeGroup
+              durationObject={note.durationObject}
+              baseXPosition={getBaseXPosition(displayIndex) + noteSharpOffset(note.pitch)}
+              color={color}
+              opacity={opacity}
+              key={`rest-${trueIndex}-${note.pitch}-${note.durationObject}`} />
+          )
         }
         return (
           <NotePath
             note={note}
             displayIndex={displayIndex}
-            trueIndex={trueIndex}
             color={color}
             opacity={opacity}
-            key={`${trueIndex}-${note.pitch}-${note.durationObject}`}
+            key={`note-${trueIndex}-${note.pitch}-${note.durationObject}`}
+            handleClick={handleClick}
           />
         );
       })}
@@ -253,7 +265,8 @@ const NonIncorrectPaths = ({
   startIndex: number;
   endIndex: number;
 }) => {
-  const { answerStatuses } = useStore();
+  const { answerStatuses, setSelectedNoteIndex } = useStore();
+
   return (
     <>
       {answerStatuses
@@ -269,16 +282,16 @@ const NonIncorrectPaths = ({
                 <PitchGuessPath
                   pitch={correctNotes[trueIndex].pitch}
                   positionIndex={displayIndex}
-                  trueIndex={trueIndex}
-                  color="green"
+                  color={CORRECT_COLOR}
                   key={`${trueIndex}-${correctNotes[trueIndex].pitch}-non-incorrect`}
+                  handleClick={() => setSelectedNoteIndex(trueIndex)}
                 />
                 <NotePath
                   opacity={0.5}
                   note={correctNotes[trueIndex]}
                   displayIndex={displayIndex}
-                  trueIndex={trueIndex}
-                  color="green"
+                  handleClick={() => setSelectedNoteIndex(trueIndex)}
+                  color={CORRECT_COLOR}
                   key={`${trueIndex}-full-correct-guess`}
                 />
               </g>
@@ -288,9 +301,9 @@ const NonIncorrectPaths = ({
               <PitchGuessPath
                 pitch={correctNotes[trueIndex].pitch}
                 positionIndex={displayIndex}
-                trueIndex={trueIndex}
-                color="green"
+                color={CORRECT_COLOR}
                 key={`${trueIndex}-pitch-correct`}
+                handleClick={() => setSelectedNoteIndex(trueIndex)}
               />
             );
           }
@@ -307,7 +320,7 @@ const IncorrectPitchPaths = ({
   startIndex: number;
   endIndex: number;
 }) => {
-  const { incorrectPitchesArrays } = useStore();
+  const { incorrectPitchesArrays, setSelectedNoteIndex } = useStore();
   return (
     <>
       {incorrectPitchesArrays
@@ -318,7 +331,7 @@ const IncorrectPitchPaths = ({
             <PitchGuessPath
               pitch={pitch}
               positionIndex={positionIndex}
-              trueIndex={trueIndex}
+              handleClick={() => setSelectedNoteIndex(trueIndex)}
               color={INCORRECT_PITCH_COLOR}
               key={`${positionIndex}-${pitch}`}
               opacity={1}
@@ -343,7 +356,7 @@ const SelectedNoteHighlight = ({
         cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex - startIndex))}
         cy={getBaseYPosition("B4")}
         rx={120}
-        ry={SVGHeight * 3/4}
+        ry={SVGHeight * 3 / 4}
         fill={INCORRECT_COLOR}
         opacity={0.2}
       />

@@ -270,5 +270,5 @@ export const durationObjectTo16thInt = (durationObject: Duration) => {
 }
 
 export const isGuessable = (note: Note) => {
-  return !!note.rest;
+  return !note.rest;
 }

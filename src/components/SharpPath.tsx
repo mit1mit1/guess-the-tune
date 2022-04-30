@@ -55,7 +55,7 @@ export const SharpPath = ({
         className={handleClick ? "clickable-svg" : ""}
         onClick={handleClick}
       />
-      <ellipse
+      {handleClick && <ellipse
         className="clickable-cover"
         stroke=""
         opacity={0}
@@ -63,7 +63,7 @@ export const SharpPath = ({
         cy={yStart + sharpHeight / 2}
         rx={30}
         ry={sharpHeight / 2}
-      />
+      />}
     </>
   );
 };

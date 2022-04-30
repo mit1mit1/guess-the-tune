@@ -34,11 +34,10 @@ export const DurationlessPitchPath = ({
         />
       )}
       <g
-        transform={`rotate(45 ${xStart + durationlessPitchRadius} ${
-          yStart + durationlessPitchRadius
-        })`}
+        transform={`rotate(45 ${xStart + durationlessPitchRadius} ${yStart + durationlessPitchRadius
+          })`}
       >
-        <ellipse
+        {handleClick && <ellipse
           className="clickable-cover"
           stroke=""
           opacity={0}
@@ -46,7 +45,7 @@ export const DurationlessPitchPath = ({
           cy={yStart + durationlessPitchRadius}
           rx={durationlessPitchRadius + 15}
           ry={durationlessPitchRadius + 15}
-        />
+        />}
         <rect
           x={xStart}
           y={yStart}
