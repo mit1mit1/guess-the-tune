@@ -11,21 +11,23 @@ interface UpStrokeProps extends BaseSVGPathProps {
 const UpStroke = ({ xStart, yStart, color, opacity, handleClick }: UpStrokeProps) => {
   return (
     <>
-      {handleClick && <ellipse
-        className="clickable-cover"
-        stroke=""
-        opacity={0}
-        cx={xStart - rootCircleXRadius}
-        cy={yStart + UpStrokeLength / 2}
-        rx={15 + rootCircleXRadius}
-        ry={Math.abs(UpStrokeLength) / 2}
-      />}
       <path
         strokeWidth="4"
         stroke={color}
         opacity={opacity}
         d={`M${xStart} ${yStart} V ${yStart + UpStrokeLength}`}
+        className="clickable-svg"
+        onClick={handleClick}
       />
+      {handleClick && <ellipse
+        className="clickable-cover"
+        stroke=""
+        opacity={0}
+        cx={xStart}
+        cy={yStart + UpStrokeLength / 2}
+        rx={15 + rootCircleXRadius}
+        ry={Math.abs(UpStrokeLength) / 2}
+      />}
     </>
   );
 };
@@ -178,6 +180,7 @@ export const NoteShapePath = ({
           yStart={baseYPosition}
           color={color}
           opacity={opacity}
+          handleClick={handleClick}
         />
       )}
       <RootCircle

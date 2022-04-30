@@ -231,7 +231,6 @@ const CurrentGuessPaths = ({
           color = CORRECT_COLOR;
         }
         if (!!note.rest) {
-          console.log('pushingwith duration object ', note.durationObject)
           return (
             <RestShapeGroup
               durationObject={note.durationObject}

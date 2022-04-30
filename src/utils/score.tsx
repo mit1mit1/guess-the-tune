@@ -71,7 +71,6 @@ export const getRootCircleCX = (baseXPosition: number) => {
 };
 
 export const shouldAddDurationDot = (duration: BaseDuration) => {
-  console.log(duration, 'returning ', duration.includes("."))
   return duration.includes(".");
 };
 

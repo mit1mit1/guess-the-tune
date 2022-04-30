@@ -9,10 +9,12 @@ export const playNotes = (notes: Array<Note>, bpm: number) => {
   const synth = new Tone.Synth().toDestination();
   let current16s = 0;
   for (const note of notes) {
-    Tone.Transport.schedule(() => {
-      let attackDuration = note.staccato ? "32n" : note.durationObject;
-      synth.triggerAttackRelease(note.pitch, attackDuration);
-    }, "0:0:" + current16s);
+    if (!note.rest) {
+      Tone.Transport.schedule(() => {
+        let attackDuration = note.staccato ? "32n" : note.durationObject;
+        synth.triggerAttackRelease(note.pitch, attackDuration);
+      }, "0:0:" + current16s);
+    }
     current16s += durationObjectTo16thInt(note.durationObject);
   };
   Tone.Transport.position = 0;

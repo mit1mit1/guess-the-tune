@@ -34,8 +34,9 @@ const paramStartCorrect = parseInt(
   new URLSearchParams(window.location.search).get("startCorrect") || "0"
 );
 const correctNotes = gameSongs[songIndex].notes;
-const correctPitches = correctNotes.map((note) => note.pitch);
-const correctDurations = correctNotes.map((note) => note.durationObject);
+const correctAvailableNotes = correctNotes.filter(note => isGuessable(note));
+const correctPitches = correctAvailableNotes.map((note) => note.pitch);
+const correctDurations = correctAvailableNotes.map((note) => note.durationObject);
 
 const minPitchIndex = Math.min(
   ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
