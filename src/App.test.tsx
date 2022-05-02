@@ -14,7 +14,7 @@ test("renders app, title displays", async () => {
       }}
     />
   );
-  const title = screen.getByText(/Musicle!/i);
+  const title = screen.getByText(/Guess the Tune!/i);
   expect(title).toBeInTheDocument();
 
   expect(await axe(view.baseElement)).toHaveNoViolations();
