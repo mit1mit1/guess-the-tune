@@ -4,9 +4,11 @@ import { allCorrect } from "./utils";
 import { useStore } from "src/gameStore";
 import "./App.css";
 import { DurationKeyboard } from "./components/DurationKeyboard";
-import { BACKGROUND_COLOR } from "./constants";
+import { BACKGROUND_COLOR, BASE_COLOR } from "./constants";
 import { PitchKeyboard } from "./components/PitchKeyboard";
 import { Note } from "./types";
+import { NoteShapePath } from "./components/NoteShapePath";
+import { maxNoteXLength } from "./constants/svg";
 
 const App = ({
   playNotes,
@@ -91,10 +93,29 @@ const App = ({
   return (
     <div className="App" style={{ backgroundColor: BACKGROUND_COLOR }}>
       <header>
-        <h1>Musicle!</h1>
-        <div>Try to guess the riff.</div>
-        <div>{chosenSong.bpm}bpm</div>
-        <div>{chosenSong.timeSignature}</div>
+        <h1>Guess the Tune!</h1>
+        <div>
+          <svg
+            viewBox={`0 0 ${maxNoteXLength} 220`}
+            xmlns="<http://www.w3.org/2000/svg>"
+            className="inline-svg-icon"
+          >
+          </svg>
+
+          <svg
+            viewBox={`0 0 ${maxNoteXLength * 6} ${220}`}
+            xmlns="<http://www.w3.org/2000/svg>"
+            className="inline-svg-text"
+          >
+            <NoteShapePath
+              duration={"4n"}
+              baseXPosition={110}
+              baseYPosition={180}
+              color={BASE_COLOR}
+            />
+            <text style={{ fontSize: `${maxNoteXLength * 0.8}px` }}  x={maxNoteXLength} y={180} width={maxNoteXLength} fill={BASE_COLOR}> = {chosenSong.bpm}</text>
+          </svg>
+        </div>
       </header>
 
       <main>

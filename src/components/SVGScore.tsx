@@ -415,10 +415,10 @@ const getDenominator = (timeSignature: TimeSignature) => {
 const TimeSignaturePath = () => {
   const { chosenSong } = useStore();
   return <>
-    <text style={{ fontSize: `${SVGHeight / 2 - 8}px` }} x={clefLength + timeSignatureWidth} y={getBaseYPosition("B4")} fill={BASE_COLOR}>
+    <text style={{ fontSize: `${SVGHeight * 0.47}px` }} x={clefLength + timeSignatureWidth} y={getBaseYPosition("B4")} fill={BASE_COLOR}>
       {getNumerator(chosenSong.timeSignature)}
     </text>
-    <text style={{ fontSize: `${SVGHeight / 2 - 8}px` }} x={clefLength + timeSignatureWidth} y={getBaseYPosition("E4")} fill={BASE_COLOR}>
+    <text style={{ fontSize: `${SVGHeight * 0.47}px` }} x={clefLength + timeSignatureWidth} y={getBaseYPosition("E4")} fill={BASE_COLOR}>
       {getDenominator(chosenSong.timeSignature)}
     </text></>
 }

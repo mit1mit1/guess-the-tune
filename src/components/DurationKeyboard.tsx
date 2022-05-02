@@ -70,7 +70,7 @@ export const DurationKeyboard = () => {
   });
   return (
     <div className="duration-keyboard">
-      <div>Available Durations</div>
+      <h2>Available Durations</h2>
       <div className="duration-keys">{buffer}</div>
     </div>
   );

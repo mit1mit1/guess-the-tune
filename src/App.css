@@ -26,6 +26,17 @@ html {
   color: #61dafb;
 }
 
+.inline-svg-icon {
+  display: inline-block;
+  height: 2em;
+}
+
+.inline-svg-text {
+  display: inline-block;
+  height: 2em;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

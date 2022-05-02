@@ -16,7 +16,7 @@ const UpStroke = ({ xStart, yStart, color, opacity, handleClick }: UpStrokeProps
         stroke={color}
         opacity={opacity}
         d={`M${xStart} ${yStart} V ${yStart + UpStrokeLength}`}
-        className="clickable-svg"
+        className={handleClick ? "clickable-svg" : ""}
         onClick={handleClick}
       />
       {handleClick && <ellipse

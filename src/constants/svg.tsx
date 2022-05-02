@@ -1,10 +1,11 @@
 export const durationlessPitchRadius = 25;
 export const sharpHeight = 70;
 export const sharpYOffset = -0.5 * sharpHeight;
-export const rootCircleXRadius = 42;
 export const eigthLineXLength = 80;
 export const eigthLineYLength = - 15;
 export const UpStrokeLength = - 200;
-export const maxNoteXLength = 2 * rootCircleXRadius + eigthLineXLength;
+export const rootCircleXRadius = 42;
 export const rootCircleYRadius = 34;
+export const maxNoteXLength = 2 * rootCircleXRadius + eigthLineXLength;
+export const maxNoteHeight = 2 * rootCircleYRadius + Math.abs(UpStrokeLength);
 export const staccatoDisplacement = 2 * rootCircleYRadius;

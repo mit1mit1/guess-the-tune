@@ -73,7 +73,7 @@ export const PitchKeyboard = () => {
   const { availablePitches, wrongSpotPitches } = useStore();
   return (
     <div className="pitch-keyboard">
-      <div>Available Pitches</div>
+      <h2>Available Pitches</h2>
       <svg
         viewBox={`0 0 ${960} ${540}`}
         xmlns="<http://www.w3.org/2000/svg>"
