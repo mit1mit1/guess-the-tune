@@ -89,6 +89,8 @@ export interface GameState {
   incorrectPitchesArrays: Array<Array<Pitch>>;
   durationsGuessed: Set<Duration>;
   pitchesGuessed: Set<Pitch>;
+  showInstructions: boolean;
+  toggleInstructions: () => void;
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
   chosenSong: GameSong;
@@ -120,6 +122,20 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   turn: 1,
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
+  showInstructions: true,
+
+  toggleInstructions: () => {
+    set(
+      produce((draft: GameState) => {
+        console.log("draft.showInstructions")
+        return {
+          ...draft,
+          showInstructions: !!!draft.showInstructions
+
+        }
+      })
+    )
+  },
 
   setSelectedNoteIndex: (selectedNoteIndex: number) =>
     set(
@@ -263,14 +279,14 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
           }
           if (
             draft.answerStatuses[index].pitchStatus !==
-              AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
             draft.pitchesGuessed.has(note.pitch)
           ) {
             draft.wrongSpotPitches.add(note.pitch);
           }
           if (
             draft.answerStatuses[index].durationStatus !==
-              AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
             setIncludes(draft.durationsGuessed, note.durationObject)
           ) {
             draft.wrongSpotDurations.add(note.durationObject);

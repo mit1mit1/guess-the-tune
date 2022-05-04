@@ -171,8 +171,23 @@ const theRaidersMarch: GameSong = {
     { pitch: "E4", durationObject: { "16n": 1 } },
     { pitch: "F4", durationObject: { "2n.": 1 } },
   ],
-  timeSignature: TimeSignature.FIVEFOUR,
+  timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+};
+
+const spidermanSpiderman: GameSong = {
+  bpm: 200,
+  notes: [
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1, "4n": 1 } },
+    { pitch: "B4", durationObject: { "4n": 1 }, rest: true },
+    { pitch: "A#4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1, "4n": 1 } },
+    { pitch: "B4", durationObject: { "4n": 1 }, rest: true },
+  ],
+  timeSignature: TimeSignature.FOURFOUR,
 };
 
 export const gameSongs: Array<GameSong> = [
@@ -186,4 +201,5 @@ export const gameSongs: Array<GameSong> = [
   aGrandDayOut,
   missionImpossible,
   theRaidersMarch,
+  spidermanSpiderman,
 ];

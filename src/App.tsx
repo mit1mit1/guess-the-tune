@@ -6,6 +6,7 @@ import "./App.css";
 import { DurationKeyboard } from "./components/DurationKeyboard";
 import { BACKGROUND_COLOR, BASE_COLOR } from "./constants";
 import { PitchKeyboard } from "./components/PitchKeyboard";
+import { Modal } from "./components/Modal/Modal";
 import { Note } from "./types";
 import { NoteShapePath } from "./components/NoteShapePath";
 import { maxNoteXLength } from "./constants/svg";
@@ -25,6 +26,7 @@ const App = ({
     guesses,
     turn,
     chosenSong,
+    toggleInstructions,
   } = useStore();
 
   const handleCheckGuess = useCallback(() => {
@@ -113,7 +115,7 @@ const App = ({
               baseYPosition={180}
               color={BASE_COLOR}
             />
-            <text style={{ fontSize: `${maxNoteXLength * 0.8}px` }}  x={maxNoteXLength} y={180} width={maxNoteXLength} fill={BASE_COLOR}> = {chosenSong.bpm}</text>
+            <text style={{ fontSize: `${maxNoteXLength * 0.8}px` }} x={maxNoteXLength} y={180} width={maxNoteXLength} fill={BASE_COLOR}> = {chosenSong.bpm}</text>
           </svg>
         </div>
       </header>
@@ -122,16 +124,21 @@ const App = ({
         <SVGScore correctNotes={chosenSong.notes} />
         <PitchKeyboard />
         <DurationKeyboard />
-        <div>Use Left and Right Arrows to select a note (or click on it).</div>
+        <Modal title="Instructions">
+          <p>Use Left and Right Arrows to select a note (or click on it).</p>
+          <p>
+            Use 'W' and 'S' to increase or decrease the pitch of the selected
+            note.
+          </p>
+          <p>
+            Use 'A' and 'D' to increase or decrease the duration of the selected
+            note.
+          </p>
+        </Modal>
         <div>
-          Use 'W' and 'S' to increase or decrease the pitch of the selected
-          note.
+          <button className="button primary-button" onClick={handleCheckGuess}>Check Guesses</button>
+          <button className="button secondary-button" onClick={() => toggleInstructions()} >Show Instructions</button>
         </div>
-        <div>
-          Use 'A' and 'D' to increase or decrease the duration of the selected
-          note.
-        </div>
-        <button onClick={handleCheckGuess}>Check Guesses</button>
       </main>
     </div>
   );

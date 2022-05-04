@@ -45,3 +45,7 @@ html {
     transform: rotate(360deg);
   }
 }
+
+.button {
+  margin-right: 10px
+}
