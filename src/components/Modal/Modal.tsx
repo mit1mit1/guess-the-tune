@@ -14,7 +14,7 @@ export const Modal: React.FC<ModalProps> = ({ title, children }) => {
         <div className={showInstructions ? "visible-modal" : "invisible-modal"} >
             <div className="modal-content" >
                 <div className="modal-header" >
-                    <h4 className="modal-title">{title}</h4>
+                    <h3 className="modal-title">{title}</h3>
                 </div>
                 <div className="modal-body">
                     {children}
