@@ -9,10 +9,11 @@ interface ModalProps {
 
 export const Modal: React.FC<ModalProps> = ({ title, children }) => {
   const { showInstructions, toggleInstructions } = useStore();
-  console.log(showInstructions);
   return (
     <>
-      {showInstructions && <div className="grey-background" />}
+      {showInstructions && (
+        <div className="grey-background" onClick={() => toggleInstructions()} />
+      )}
       <div className={showInstructions ? "visible-modal" : "invisible-modal"}>
         <div className="modal-content">
           <div className="modal-header">

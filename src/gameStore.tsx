@@ -127,7 +127,6 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   toggleInstructions: () => {
     set(
       produce((draft: GameState) => {
-        console.log("draft.showInstructions")
         return {
           ...draft,
           showInstructions: !!!draft.showInstructions
