@@ -4,14 +4,23 @@
     right: 0;
     bottom: 0;
     top: 0;
-    background-color: #FFFFFF90;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 25px;
 }
 
 .invisible-modal {
     display: none;
+}
+
+.grey-background {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: #FFFFFF90;
 }
 
 .modal-content {
