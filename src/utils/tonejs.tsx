@@ -2,7 +2,6 @@ import { Note } from "src/types";
 import * as Tone from "tone";
 import { durationObjectTo16thInt } from "./game";
 
-
 export const playNotes = (notes: Array<Note>, bpm: number) => {
   Tone.Transport.bpm.value = bpm;
   Tone.Transport.cancel();
@@ -16,7 +15,7 @@ export const playNotes = (notes: Array<Note>, bpm: number) => {
       }, "0:0:" + current16s);
     }
     current16s += durationObjectTo16thInt(note.durationObject);
-  };
+  }
   Tone.Transport.position = 0;
   Tone.Transport.start();
 };

@@ -24,7 +24,10 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
   }
   return (
     <>
-      <div className="duration-key" style={{width: `${50 * numberOfNotePaths(durationObject)}px`}}>
+      <div
+        className="duration-key"
+        style={{ width: `${50 * numberOfNotePaths(durationObject)}px` }}
+      >
         <svg
           viewBox={`0 0 ${width} ${DurationKeySVGHeight}`}
           xmlns="<http://www.w3.org/2000/svg>"

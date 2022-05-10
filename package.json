@@ -24,6 +24,8 @@
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.3",
     "@types/react-router-dom": "^5.3.3",
+    "eslint": "^8.15.0",
+    "eslint-config-react-app": "^7.0.1",
     "husky": "^7.0.4",
     "jest-axe": "^6.0.0",
     "lint-staged": "^12.3.7",
@@ -36,8 +38,8 @@
     "test": "react-scripts test",
     "test:pre-push": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "pretlint:check": "prettier \"src/**/*.{ts,tsx}\" && eslint \"src/**/*.{ts,tsx}\" --max-warnings=0",
-    "pretlint:write": "prettier --write \"src/**/*.{ts,tsx}\" && eslint --fix \"src/**/*.{ts,tsx}\" --max-warnings=0",
+    "pretlint:check": "prettier \"src/**/*.{ts,tsx}\" && yarn run eslint \"src/**/*.{ts,tsx}\" --max-warnings=0",
+    "pretlint:write": "prettier --write \"src/**/*.{ts,tsx}\" && yarn run eslint --fix \"src/**/*.{ts,tsx}\" --max-warnings=0",
     "prepare": "husky install"
   },
   "eslintConfig": {

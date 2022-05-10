@@ -1,6 +1,13 @@
 import create from "zustand";
 import { gameSongs } from "./gameSongs";
-import { AnswerStatus, Duration, GameSong, Note, NoteStatus, Pitch } from "./types";
+import {
+  AnswerStatus,
+  Duration,
+  GameSong,
+  Note,
+  NoteStatus,
+  Pitch,
+} from "./types";
 import produce, { enableMapSet } from "immer";
 import {
   getNewAnswerStatus,
@@ -18,34 +25,39 @@ import {
   orderByLength,
   setIncludes,
 } from "./utils/game";
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 enableMapSet();
 
-const daysSinceBeginning = dayjs().diff('2022-04-22', 'days')
+const daysSinceBeginning = dayjs().diff("2022-04-22", "days");
 
 const queryParamSongIndex = parseInt(
-  new URLSearchParams(window.location.search).get("chosenSongIndex") || '-1'
+  new URLSearchParams(window.location.search).get("chosenSongIndex") || "-1"
 );
 
 const useUnreadySongs = parseInt(
-  new URLSearchParams(window.location.search).get("unreadySongs") || '0'
+  new URLSearchParams(window.location.search).get("unreadySongs") || "0"
 );
 
-const songIndex = (queryParamSongIndex === -1 ? daysSinceBeginning : queryParamSongIndex);
-let chosenSong = gameSongs[Math.abs(songIndex % gameSongs.length)]
+const songIndex =
+  queryParamSongIndex === -1 ? daysSinceBeginning : queryParamSongIndex;
+let chosenSong = gameSongs[Math.abs(songIndex % gameSongs.length)];
 if (!useUnreadySongs) {
-  const availableSongs = gameSongs.filter(gameSong => !!gameSong.readyForProduction)
-  chosenSong = availableSongs[Math.abs(songIndex % availableSongs.length)]
+  const availableSongs = gameSongs.filter(
+    (gameSong) => !!gameSong.readyForProduction
+  );
+  chosenSong = availableSongs[Math.abs(songIndex % availableSongs.length)];
 }
 
 const paramStartCorrect = parseInt(
   new URLSearchParams(window.location.search).get("startCorrect") || "0"
 );
 const correctNotes = chosenSong.notes;
-const correctAvailableNotes = correctNotes.filter(note => isGuessable(note));
+const correctAvailableNotes = correctNotes.filter((note) => isGuessable(note));
 const correctPitches = correctAvailableNotes.map((note) => note.pitch);
-const correctDurations = correctAvailableNotes.map((note) => note.durationObject);
+const correctDurations = correctAvailableNotes.map(
+  (note) => note.durationObject
+);
 
 const minPitchIndex = Math.min(
   ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
@@ -59,16 +71,24 @@ const initialAvailablePitches = pitchNames.slice(
   maxPitchIndex + 1
 );
 
-const initialGuesses = paramStartCorrect ? correctNotes : correctNotes.map((note) => ({
-  pitch: isGuessable(note) ? initialAvailablePitches[0] : note.pitch,
-  durationObject: isGuessable(note) ? correctDurations[0] : note.durationObject,
-  staccato: note.staccato,
-  rest: note.rest,
-}))
+const initialGuesses = paramStartCorrect
+  ? correctNotes
+  : correctNotes.map((note) => ({
+      pitch: isGuessable(note) ? initialAvailablePitches[0] : note.pitch,
+      durationObject: isGuessable(note)
+        ? correctDurations[0]
+        : note.durationObject,
+      staccato: note.staccato,
+      rest: note.rest,
+    }));
 
 const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note) => ({
-  pitchStatus: isGuessable(note) ? AnswerStatus.UNKNOWN : AnswerStatus.UNGUESSABLE,
-  durationStatus: isGuessable(note) ? AnswerStatus.UNKNOWN : AnswerStatus.UNGUESSABLE,
+  pitchStatus: isGuessable(note)
+    ? AnswerStatus.UNKNOWN
+    : AnswerStatus.UNGUESSABLE,
+  durationStatus: isGuessable(note)
+    ? AnswerStatus.UNKNOWN
+    : AnswerStatus.UNGUESSABLE,
 }));
 
 export interface GameState {
@@ -129,11 +149,10 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
       produce((draft: GameState) => {
         return {
           ...draft,
-          showInstructions: !!!draft.showInstructions
-
-        }
+          showInstructions: !!!draft.showInstructions,
+        };
       })
-    )
+    );
   },
 
   setSelectedNoteIndex: (selectedNoteIndex: number) =>
@@ -278,14 +297,14 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
           }
           if (
             draft.answerStatuses[index].pitchStatus !==
-            AnswerStatus.GUESSEDCORRECT &&
+              AnswerStatus.GUESSEDCORRECT &&
             draft.pitchesGuessed.has(note.pitch)
           ) {
             draft.wrongSpotPitches.add(note.pitch);
           }
           if (
             draft.answerStatuses[index].durationStatus !==
-            AnswerStatus.GUESSEDCORRECT &&
+              AnswerStatus.GUESSEDCORRECT &&
             setIncludes(draft.durationsGuessed, note.durationObject)
           ) {
             draft.wrongSpotDurations.add(note.durationObject);

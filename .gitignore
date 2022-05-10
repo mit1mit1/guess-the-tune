@@ -6,6 +6,8 @@
 .pnp.js
 .yarn/cache
 .yarn/install-state.gz
+.yarn/unplugged
+.pnp.loader.mjs
 
 # testing
 /coverage

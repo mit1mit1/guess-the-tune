@@ -5,8 +5,11 @@ export const shouldAddSharp = (pitch: Pitch) => {
 };
 
 export const numberOfNotePaths = (durationObject: Duration) => {
-  return Object.values(durationObject).reduce((runningTotal, baseDurationMultiplier) => runningTotal + baseDurationMultiplier)
-}
+  return Object.values(durationObject).reduce(
+    (runningTotal, baseDurationMultiplier) =>
+      runningTotal + baseDurationMultiplier
+  );
+};
 
 export const getBaseYPosition = (pitch: Pitch) => {
   const C4Offset = 425;

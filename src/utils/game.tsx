@@ -202,8 +202,12 @@ export const allCorrect = (guesses: Array<Note>, correctNotes: Array<Note>) => {
 };
 
 export const orderByLength = (durationArray: Array<Duration>) => {
-  return durationArray.sort((durationObjectA, durationObjectB) => durationObjectTo16thInt(durationObjectA) - durationObjectTo16thInt(durationObjectB));
-}
+  return durationArray.sort(
+    (durationObjectA, durationObjectB) =>
+      durationObjectTo16thInt(durationObjectA) -
+      durationObjectTo16thInt(durationObjectB)
+  );
+};
 
 export const areIdentical = (
   durationObject: Duration,
@@ -267,8 +271,8 @@ export const durationObjectTo16thInt = (durationObject: Duration) => {
     current16s += multiplier * durationToInt(baseDuration as BaseDuration);
   }
   return current16s;
-}
+};
 
 export const isGuessable = (note: Note) => {
   return !note.rest;
-}
+};

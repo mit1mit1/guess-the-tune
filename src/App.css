@@ -45,7 +45,18 @@ html {
     transform: rotate(360deg);
   }
 }
-
 .button {
   margin-right: 10px;
+  transition-duration: 0.4s;
+  background-color: red;
+  border: none;
+  padding: 8px;
+  color: white;
+  min-height: 40px;
+  min-width: 100px;
+}
+
+.button:hover {
+  background-color: #ffb7c5;
+  cursor: pointer;
 }

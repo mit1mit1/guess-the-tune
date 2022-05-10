@@ -24,6 +24,7 @@ export const isDuration = (item: any): item is BaseDuration => {
 };
 
 export enum TimeSignature {
+  THREEFOUR = "3/4",
   FOURFOUR = "4/4",
   FIVEFOUR = "5/4",
 }

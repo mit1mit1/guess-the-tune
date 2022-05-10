@@ -1,6 +1,17 @@
-import { eigthLineXLength, eigthLineYLength, rootCircleXRadius, rootCircleYRadius, staccatoDisplacement, UpStrokeLength } from "src/constants/svg";
+import {
+  eigthLineXLength,
+  eigthLineYLength,
+  rootCircleXRadius,
+  rootCircleYRadius,
+  staccatoDisplacement,
+  UpStrokeLength,
+} from "src/constants/svg";
 import { BaseDuration, BaseSVGPathProps } from "src/types";
-import { getDurationDotXCentre, getRootCircleCX, shouldAddDurationDot } from "src/utils";
+import {
+  getDurationDotXCentre,
+  getRootCircleCX,
+  shouldAddDurationDot,
+} from "src/utils";
 import { Dot } from "./Dot";
 
 interface UpStrokeProps extends BaseSVGPathProps {
@@ -8,7 +19,13 @@ interface UpStrokeProps extends BaseSVGPathProps {
   yStart: number;
 }
 
-const UpStroke = ({ xStart, yStart, color, opacity, handleClick }: UpStrokeProps) => {
+const UpStroke = ({
+  xStart,
+  yStart,
+  color,
+  opacity,
+  handleClick,
+}: UpStrokeProps) => {
   return (
     <>
       <path
@@ -19,15 +36,17 @@ const UpStroke = ({ xStart, yStart, color, opacity, handleClick }: UpStrokeProps
         className={handleClick ? "clickable-svg" : ""}
         onClick={handleClick}
       />
-      {handleClick && <ellipse
-        className="clickable-cover"
-        stroke=""
-        opacity={0}
-        cx={xStart}
-        cy={yStart + UpStrokeLength / 2}
-        rx={15 + rootCircleXRadius}
-        ry={Math.abs(UpStrokeLength) / 2}
-      />}
+      {handleClick && (
+        <ellipse
+          className="clickable-cover"
+          stroke=""
+          opacity={0}
+          cx={xStart}
+          cy={yStart + UpStrokeLength / 2}
+          rx={15 + rootCircleXRadius}
+          ry={Math.abs(UpStrokeLength) / 2}
+        />
+      )}
     </>
   );
 };
@@ -45,18 +64,26 @@ interface EigthLineProps extends BaseSVGPathProps {
   yStart: number;
 }
 
-const EigthOrSixteenthLine = ({ xStart, yStart, color, opacity, handleClick }: EigthLineProps) => {
+const EigthOrSixteenthLine = ({
+  xStart,
+  yStart,
+  color,
+  opacity,
+  handleClick,
+}: EigthLineProps) => {
   return (
     <>
-      {handleClick && <ellipse
-        className="clickable-cover"
-        stroke=""
-        opacity={0}
-        cx={xStart + 40}
-        cy={yStart - 7.5}
-        rx={40}
-        ry={30}
-      />}
+      {handleClick && (
+        <ellipse
+          className="clickable-cover"
+          stroke=""
+          opacity={0}
+          cx={xStart + 40}
+          cy={yStart - 7.5}
+          rx={40}
+          ry={30}
+        />
+      )}
       <line
         strokeWidth="16"
         stroke={color}

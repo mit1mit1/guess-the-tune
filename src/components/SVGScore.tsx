@@ -5,14 +5,24 @@ import {
   INCORRECT_PITCH_COLOR,
   pitchNames,
 } from "src/constants";
-import { AnswerStatus, BaseSVGPathProps, Note, Pitch, TimeSignature } from "src/types";
+import {
+  AnswerStatus,
+  BaseSVGPathProps,
+  Note,
+  Pitch,
+  TimeSignature,
+} from "src/types";
 import { getBaseYPosition, getRootCircleCX, shouldAddSharp } from "src/utils";
 import { useStore } from "src/gameStore";
 import "./SVGScore.css";
 import { TrebleStave } from "./TrebleStave";
 import { SharpPath } from "./SharpPath";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";
-import { durationlessPitchRadius, maxNoteXLength, sharpYOffset } from "src/constants/svg";
+import {
+  durationlessPitchRadius,
+  maxNoteXLength,
+  sharpYOffset,
+} from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/NoteShapeGroup";
 import { areIdentical, isGuessable } from "src/utils/game";
 import { RestShapeGroup } from "./RestShapeGroup";
@@ -41,9 +51,9 @@ const StavePath = ({
       key={`${baseXPosition}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke={BASE_COLOR}
-      d={`M${baseXPosition - 110
-        } ${getBaseYPosition(trackPitch)} H ${baseXPosition + 40
-        }`}
+      d={`M${baseXPosition - 110} ${getBaseYPosition(trackPitch)} H ${
+        baseXPosition + 40
+      }`}
     />
   );
 };
@@ -89,9 +99,13 @@ const ExtraStaveLines = ({
 };
 
 const getBaseXPosition = (noteIndex: number, staveIndex: number) => {
-  return clefLength + (staveIndex === 0 ? timeSignatureWidth * 3 : 0) + incorrectPitchLength + noteIndex * distanceBetweenNotes;
+  return (
+    clefLength +
+    (staveIndex === 0 ? timeSignatureWidth * 3 : 0) +
+    incorrectPitchLength +
+    noteIndex * distanceBetweenNotes
+  );
 };
-
 
 interface NotePathProps extends BaseSVGPathProps {
   note: Note;
@@ -99,8 +113,16 @@ interface NotePathProps extends BaseSVGPathProps {
   staveIndex: number;
 }
 
-const NotePath = ({ note, displayIndex, color, opacity = 1, handleClick, staveIndex }: NotePathProps) => {
-  const baseXPosition = getBaseXPosition(displayIndex, staveIndex) + noteSharpOffset(note.pitch);
+const NotePath = ({
+  note,
+  displayIndex,
+  color,
+  opacity = 1,
+  handleClick,
+  staveIndex,
+}: NotePathProps) => {
+  const baseXPosition =
+    getBaseXPosition(displayIndex, staveIndex) + noteSharpOffset(note.pitch);
   const baseYPosition = getBaseYPosition(note.pitch);
 
   return (
@@ -116,9 +138,7 @@ const NotePath = ({ note, displayIndex, color, opacity = 1, handleClick, staveIn
       />
       {shouldAddSharp(note.pitch) && (
         <SharpPath
-          xStart={baseXPosition -
-            150 +
-            noteSharpOffset(note.pitch)}
+          xStart={baseXPosition - 150 + noteSharpOffset(note.pitch)}
           yStart={getBaseYPosition(note.pitch) + sharpYOffset}
           handleClick={handleClick}
           color={color}
@@ -180,7 +200,8 @@ const CurrentGuessPaths = ({
   endIndex: number;
   staveIndex: number;
 }) => {
-  const { incorrectDurationsArrays, answerStatuses, setSelectedNoteIndex } = useStore();
+  const { incorrectDurationsArrays, answerStatuses, setSelectedNoteIndex } =
+    useStore();
   const displayNotes = notes.slice(startIndex, endIndex);
 
   return (
@@ -189,23 +210,28 @@ const CurrentGuessPaths = ({
         let trueIndex = displayIndex + startIndex;
         let color = BASE_COLOR;
         let opacity = 1;
-        const handleClick = isGuessable(note) ? () => setSelectedNoteIndex(trueIndex) : undefined;
+        const handleClick = isGuessable(note)
+          ? () => setSelectedNoteIndex(trueIndex)
+          : undefined;
         if (incorrectDurationsArrays[trueIndex].includes(note.durationObject)) {
           color = INCORRECT_COLOR;
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-          AnswerStatus.GUESSEDCORRECT &&
-          areIdentical(note.durationObject, correctNotes[trueIndex].durationObject)
+            AnswerStatus.GUESSEDCORRECT &&
+          areIdentical(
+            note.durationObject,
+            correctNotes[trueIndex].durationObject
+          )
         ) {
           opacity = 0.8;
           color = CORRECT_COLOR;
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-          AnswerStatus.UNGUESSABLE &&
-          answerStatuses[trueIndex].pitchStatus ===
-          AnswerStatus.UNGUESSABLE) {
+            AnswerStatus.UNGUESSABLE &&
+          answerStatuses[trueIndex].pitchStatus === AnswerStatus.UNGUESSABLE
+        ) {
           opacity = 1;
           color = CORRECT_COLOR;
         }
@@ -213,11 +239,15 @@ const CurrentGuessPaths = ({
           return (
             <RestShapeGroup
               durationObject={note.durationObject}
-              baseXPosition={getBaseXPosition(displayIndex, staveIndex) + noteSharpOffset(note.pitch)}
+              baseXPosition={
+                getBaseXPosition(displayIndex, staveIndex) +
+                noteSharpOffset(note.pitch)
+              }
               color={color}
               opacity={opacity}
-              key={`rest-${trueIndex}-${note.pitch}-${note.durationObject}`} />
-          )
+              key={`rest-${trueIndex}-${note.pitch}-${note.durationObject}`}
+            />
+          );
         }
         return (
           <NotePath
@@ -239,7 +269,7 @@ const NonIncorrectPaths = ({
   correctNotes,
   startIndex,
   endIndex,
-  staveIndex
+  staveIndex,
 }: {
   correctNotes: Array<Note>;
   startIndex: number;
@@ -288,7 +318,6 @@ const NonIncorrectPaths = ({
                 key={`${trueIndex}-pitch-correct`}
                 handleClick={() => setSelectedNoteIndex(trueIndex)}
                 staveIndex={staveIndex}
-
               />
             );
           }
@@ -343,10 +372,12 @@ const SelectedNoteHighlight = ({
   if (selectedNoteIndex >= startIndex && selectedNoteIndex < endIndex) {
     return (
       <ellipse
-        cx={getRootCircleCX(getBaseXPosition(selectedNoteIndex - startIndex, staveIndex))}
+        cx={getRootCircleCX(
+          getBaseXPosition(selectedNoteIndex - startIndex, staveIndex)
+        )}
         cy={getBaseYPosition("B4")}
         rx={120}
-        ry={SVGHeight * 3 / 4}
+        ry={(SVGHeight * 3) / 4}
         fill={INCORRECT_COLOR}
         opacity={0.2}
       />
@@ -373,7 +404,11 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
       >
         <TrebleStave SVGWidth={SVGWidth} />
         {i === 0 && <TimeSignaturePath />}
-        <SelectedNoteHighlight startIndex={startIndex} endIndex={endIndex} staveIndex={staveIndex} />
+        <SelectedNoteHighlight
+          startIndex={startIndex}
+          endIndex={endIndex}
+          staveIndex={staveIndex}
+        />
         <CurrentGuessPaths
           notes={guesses}
           correctNotes={correctNotes}
@@ -387,7 +422,11 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
           endIndex={endIndex}
           staveIndex={staveIndex}
         />
-        <IncorrectPitchPaths startIndex={startIndex} endIndex={endIndex} staveIndex={staveIndex} />
+        <IncorrectPitchPaths
+          startIndex={startIndex}
+          endIndex={endIndex}
+          staveIndex={staveIndex}
+        />
       </svg>
     );
     staveIndex++;
@@ -397,12 +436,14 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
 
 const getNumerator = (timeSignature: TimeSignature) => {
   switch (timeSignature) {
+    case TimeSignature.THREEFOUR:
+      return 3;
     case TimeSignature.FOURFOUR:
       return 4;
     case TimeSignature.FIVEFOUR:
       return 5;
   }
-}
+};
 
 const getDenominator = (timeSignature: TimeSignature) => {
   switch (timeSignature) {
@@ -410,15 +451,28 @@ const getDenominator = (timeSignature: TimeSignature) => {
     case TimeSignature.FIVEFOUR:
       return 4;
   }
-}
+};
 
 const TimeSignaturePath = () => {
   const { chosenSong } = useStore();
-  return <>
-    <text style={{ fontSize: `${SVGHeight * 0.47}px` }} x={clefLength + timeSignatureWidth} y={getBaseYPosition("B4")} fill={BASE_COLOR}>
-      {getNumerator(chosenSong.timeSignature)}
-    </text>
-    <text style={{ fontSize: `${SVGHeight * 0.47}px` }} x={clefLength + timeSignatureWidth} y={getBaseYPosition("E4")} fill={BASE_COLOR}>
-      {getDenominator(chosenSong.timeSignature)}
-    </text></>
-}
+  return (
+    <>
+      <text
+        style={{ fontSize: `${SVGHeight * 0.47}px` }}
+        x={clefLength + timeSignatureWidth}
+        y={getBaseYPosition("B4")}
+        fill={BASE_COLOR}
+      >
+        {getNumerator(chosenSong.timeSignature)}
+      </text>
+      <text
+        style={{ fontSize: `${SVGHeight * 0.47}px` }}
+        x={clefLength + timeSignatureWidth}
+        y={getBaseYPosition("E4")}
+        fill={BASE_COLOR}
+      >
+        {getDenominator(chosenSong.timeSignature)}
+      </text>
+    </>
+  );
+};

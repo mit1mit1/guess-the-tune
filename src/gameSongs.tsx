@@ -190,6 +190,24 @@ const spidermanSpiderman: GameSong = {
   timeSignature: TimeSignature.FOURFOUR,
 };
 
+const spiritedAwayReprise: GameSong = {
+  bpm: 110,
+  notes: [
+    { pitch: "F4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n.": 1 } },
+    { pitch: "F4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n.": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "A#4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "2n": 1 } },
+  ],
+  timeSignature: TimeSignature.THREEFOUR,
+  readyForProduction: true,
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -202,4 +220,5 @@ export const gameSongs: Array<GameSong> = [
   missionImpossible,
   theRaidersMarch,
   spidermanSpiderman,
+  spiritedAwayReprise,
 ];
