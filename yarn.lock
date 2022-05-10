@@ -11431,7 +11431,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"standardized-audio-context@npm:^25.3.16":
+"standardized-audio-context@npm:^25.1.8":
   version: 25.3.24
   resolution: "standardized-audio-context@npm:25.3.24"
   dependencies:
@@ -11977,13 +11977,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tone@npm:^14.7.77":
-  version: 14.8.39
-  resolution: "tone@npm:14.8.39"
+"tone@npm:14.7.77":
+  version: 14.7.77
+  resolution: "tone@npm:14.7.77"
   dependencies:
-    standardized-audio-context: ^25.3.16
-    tslib: ^2.3.1
-  checksum: b66ac9dc274012c49823a56a59debaad2cfaa54fcc2be2d9b08cc38d5a156c4bbde3116adf4d86869a1be8007baf6f76b33d86bb050084f02960af785dd52831
+    standardized-audio-context: ^25.1.8
+    tslib: ^2.0.1
+  checksum: cb0dfea08fddd38d7cacdc23eaa4ab98660ca4b60fe7b7431413d79937deee790b3237aa51b2c440ebd5477dace00e1f72d48dd09553c5cad83e9750eba17ea0
   languageName: node
   linkType: hard
 
@@ -12042,7 +12042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
+"tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
@@ -12171,7 +12171,7 @@ __metadata:
     react-dom: ^17.0.2
     react-router-dom: ^5.3.1
     react-scripts: 5.0.0
-    tone: ^14.7.77
+    tone: 14.7.77
     typescript: ^4.6.4
     web-vitals: ^2.1.0
     zustand: ^4.0.0-rc.0

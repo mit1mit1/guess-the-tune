@@ -55,7 +55,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:17.0.2"],\
             ["react-router-dom", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.3.1"],\
             ["react-scripts", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.0.0"],\
-            ["tone", "npm:14.8.39"],\
+            ["tone", "npm:14.7.77"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"],\
             ["web-vitals", "npm:2.1.4"],\
             ["zustand", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:4.0.0-rc.1"]\
@@ -16166,10 +16166,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["tone", [\
-        ["npm:14.8.39", {\
-          "packageLocation": "./.yarn/cache/tone-npm-14.8.39-07dce5900a-b66ac9dc27.zip/node_modules/tone/",\
+        ["npm:14.7.77", {\
+          "packageLocation": "./.yarn/cache/tone-npm-14.7.77-577c8196c3-cb0dfea08f.zip/node_modules/tone/",\
           "packageDependencies": [\
-            ["tone", "npm:14.8.39"],\
+            ["tone", "npm:14.7.77"],\
             ["standardized-audio-context", "npm:25.3.24"],\
             ["tslib", "npm:2.4.0"]\
           ],\
@@ -16388,7 +16388,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:17.0.2"],\
             ["react-router-dom", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.3.1"],\
             ["react-scripts", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.0.0"],\
-            ["tone", "npm:14.8.39"],\
+            ["tone", "npm:14.7.77"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"],\
             ["web-vitals", "npm:2.1.4"],\
             ["zustand", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:4.0.0-rc.1"]\
