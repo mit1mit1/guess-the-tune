@@ -7,6 +7,7 @@ html {
   padding: 20px;
   max-width: 600px;
   margin: auto;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .App h1 {
@@ -54,9 +55,14 @@ html {
   color: white;
   min-height: 40px;
   min-width: 100px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .button:hover {
   background-color: #ffb7c5;
   cursor: pointer;
+}
+
+.App h1, .App h2, .App h3 {
+  font-family: 'Merriweather', serif;
 }

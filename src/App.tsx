@@ -122,7 +122,7 @@ const App = ({
         <PitchKeyboard />
         <DurationKeyboard />
         {allCorrect(guesses, chosenSong.notes) && <CongradulationsModal />}
-        - <InstructionsModal />
+        <InstructionsModal />
         <div>
           <button className="button primary-button" onClick={handleCheckGuess}>
             Check Guesses
