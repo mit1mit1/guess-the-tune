@@ -66,7 +66,7 @@ const maxPitchIndex = Math.max(
   ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
 );
 
-const initialAvailablePitches = pitchNames.slice(
+export const initialAvailablePitches = pitchNames.slice(
   minPitchIndex,
   maxPitchIndex + 1
 );
