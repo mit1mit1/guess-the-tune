@@ -24,7 +24,7 @@ import {
   sharpYOffset,
 } from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/NoteShapeGroup";
-import { areIdentical, isGuessable } from "src/utils/game";
+import { areIdentical, isGuessable, unsharp } from "src/utils/game";
 import { RestShapeGroup } from "./RestShapeGroup";
 
 const SVGWidth = 3140;
@@ -300,7 +300,7 @@ const NonIncorrectPaths = ({
                 />
                 <NotePath
                   opacity={0.5}
-                  note={correctNotes[trueIndex]}
+                  note={{'pitch': unsharp(correctNotes[trueIndex].pitch), durationObject: correctNotes[trueIndex].durationObject}}
                   displayIndex={displayIndex}
                   handleClick={() => setSelectedNoteIndex(trueIndex)}
                   color={CORRECT_COLOR}
@@ -336,24 +336,29 @@ const IncorrectPitchPaths = ({
   endIndex: number;
   staveIndex: number;
 }) => {
-  const { incorrectPitchesArrays, setSelectedNoteIndex } = useStore();
+  const { incorrectPitchesArrays, guesses, setSelectedNoteIndex } = useStore();
   return (
     <>
       {incorrectPitchesArrays
         .slice(startIndex, endIndex)
         .map((pitchArray, positionIndex) => {
           let trueIndex = startIndex + positionIndex;
-          return pitchArray.map((pitch) => (
-            <PitchGuessPath
-              pitch={pitch}
-              positionIndex={positionIndex}
-              handleClick={() => setSelectedNoteIndex(trueIndex)}
-              color={INCORRECT_PITCH_COLOR}
-              key={`${positionIndex}-${pitch}`}
-              opacity={1}
-              staveIndex={staveIndex}
-            />
-          ));
+          return pitchArray.map((pitch) => {
+            if (pitch === guesses[trueIndex].pitch) {
+              return (
+                <PitchGuessPath
+                  pitch={pitch}
+                  positionIndex={positionIndex}
+                  handleClick={() => setSelectedNoteIndex(trueIndex)}
+                  color={INCORRECT_PITCH_COLOR}
+                  key={`${positionIndex}-${pitch}`}
+                  opacity={1}
+                  staveIndex={staveIndex}
+                />
+              );
+            }
+            return <></>;
+          });
         })}
     </>
   );
