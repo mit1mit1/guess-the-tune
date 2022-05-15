@@ -12,7 +12,7 @@ import {
   Pitch,
   TimeSignature,
 } from "src/types";
-import { getBaseYPosition, getRootCircleCX, shouldAddSharp } from "src/utils";
+import { getBaseYPosition, getRootCircleCX, noteSharpOffset, shouldAddSharp } from "src/utils";
 import { useStore } from "src/gameStore";
 import "./SVGScore.css";
 import { TrebleStave } from "./TrebleStave";
@@ -32,10 +32,6 @@ const SVGHeight = 440;
 const clefLength = 300;
 const timeSignatureWidth = 80;
 const incorrectPitchLength = 250;
-
-const noteSharpOffset = (pitch: Pitch) => {
-  return 35 * (shouldAddSharp(pitch) ? -1 : 1);
-};
 
 const distanceBetweenNotes = 3 * maxNoteXLength;
 

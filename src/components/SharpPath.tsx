@@ -56,14 +56,14 @@ export const SharpPath = ({
         onClick={handleClick}
       />
       {handleClick && (
-        <ellipse
+        <rect
           className="clickable-cover"
           stroke=""
           opacity={0}
-          cx={xStart + 30}
-          cy={yStart + sharpHeight / 2}
-          rx={30}
-          ry={sharpHeight / 2}
+          x={xStart}
+          y={yStart}
+          width={60}
+          height={sharpHeight}
         />
       )}
     </>

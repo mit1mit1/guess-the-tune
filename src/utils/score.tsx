@@ -80,3 +80,7 @@ export const shouldAddDurationDot = (duration: BaseDuration) => {
 export const getDurationDotXCentre = (baseXPosition: number) => {
   return baseXPosition + 19;
 };
+
+export const noteSharpOffset = (pitch: Pitch) => {
+  return 35 * (shouldAddSharp(pitch) ? -1 : 1);
+};

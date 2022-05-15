@@ -37,14 +37,14 @@ const UpStroke = ({
         onClick={handleClick}
       />
       {handleClick && (
-        <ellipse
+        <rect
           className="clickable-cover"
           stroke=""
           opacity={0}
-          cx={xStart}
-          cy={yStart + UpStrokeLength / 2}
-          rx={15 + rootCircleXRadius}
-          ry={Math.abs(UpStrokeLength) / 2}
+          x={xStart - 1.3 * rootCircleXRadius}
+          y={yStart + UpStrokeLength - 15}
+          width={30 + 2 * rootCircleXRadius}
+          height={Math.abs(UpStrokeLength) + 30}
         />
       )}
     </>
@@ -74,14 +74,14 @@ const EigthOrSixteenthLine = ({
   return (
     <>
       {handleClick && (
-        <ellipse
+        <rect
           className="clickable-cover"
           stroke=""
           opacity={0}
-          cx={xStart + 40}
-          cy={yStart - 7.5}
-          rx={40}
-          ry={30}
+          x={xStart - 15}
+          y={yStart + eigthLineYLength - 15}
+          width={eigthLineXLength + 30}
+          height={- eigthLineYLength + 30}
         />
       )}
       <line
@@ -224,6 +224,7 @@ export const NoteShapePath = ({
           yCentre={baseYPosition}
           color={color}
           opacity={opacity}
+          handleClick={handleClick}
         />
       )}
       {staccato && (
@@ -232,6 +233,7 @@ export const NoteShapePath = ({
           yCentre={baseYPosition + staccatoDisplacement}
           color={color}
           opacity={opacity}
+          handleClick={handleClick}
         />
       )}
       {shouldAddEigthLine(duration) && (
@@ -240,6 +242,7 @@ export const NoteShapePath = ({
           xStart={getEigthLineXStart(baseXPosition)}
           color={color}
           opacity={opacity}
+          handleClick={handleClick}
         />
       )}
       {shouldAddSixteenthLine(duration) && (
@@ -248,6 +251,7 @@ export const NoteShapePath = ({
           xStart={getSixteenthLineXStart(baseXPosition)}
           color={color}
           opacity={opacity}
+          handleClick={handleClick}
         />
       )}
     </g>

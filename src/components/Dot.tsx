@@ -15,14 +15,14 @@ export const Dot = ({
   return (
     <>
       {handleClick && (
-        <ellipse
+        <rect
           className="clickable-cover"
           stroke=""
           opacity={0}
-          cx={xCentre}
-          cy={yCentre}
-          rx={15}
-          ry={15}
+          x={xCentre - 15}
+          y={yCentre - 15}
+          width={30}
+          height={30}
         />
       )}
       <circle

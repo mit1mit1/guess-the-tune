@@ -282,14 +282,14 @@ const EigthOrSixteenthRest = ({
         </>
       )}
       {handleClick && (
-        <ellipse
+        <rect
           className="clickable-cover"
           stroke=""
           opacity={0}
-          cx={xCentre}
-          cy={getBaseYPosition("B4")}
-          rx={0.5 * barRestLength + 8}
-          ry={0.5 * barRestHeight + 8}
+          x={xCentre - 0.25 * barRestLength - 8}
+          cy={getBaseYPosition("B4") - 0.25 * barRestHeight - 8}
+          width={barRestLength + 16}
+          height={barRestHeight + 16}
           onClick={handleClick}
         />
       )}
@@ -321,14 +321,14 @@ const BarRest = ({
       onClick={handleClick}
     />
     {handleClick && (
-      <ellipse
+      <rect
         className="clickable-cover"
         stroke=""
         opacity={0}
-        cx={xCentre}
-        cy={yCentre}
-        rx={0.5 * barRestLength + 8}
-        ry={0.5 * barRestHeight + 8}
+        x={xCentre - 0.5 * barRestLength - 8}
+        y={yCentre - 0.5 * barRestHeight - 8}
+        width={barRestLength + 16}
+        height={barRestHeight + 16}
         onClick={handleClick}
       />
     )}
