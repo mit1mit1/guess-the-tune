@@ -38,10 +38,10 @@ export const DurationlessPitchPath = ({
           className="clickable-cover"
           stroke=""
           opacity={0}
-          x={xStart - durationlessPitchRadius * 0.5}
-          y={yStart - durationlessPitchRadius * 0.5}
-          width={durationlessPitchRadius * 3}
-          height={durationlessPitchRadius * 3}
+          x={xStart - durationlessPitchRadius * 0.5 - 15}
+          y={yStart - durationlessPitchRadius * 0.5 - 15}
+          width={durationlessPitchRadius * 3 + 30}
+          height={durationlessPitchRadius * 3 + 30}
         />
       )}
       <g

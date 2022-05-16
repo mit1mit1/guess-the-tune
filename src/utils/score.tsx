@@ -82,5 +82,5 @@ export const getDurationDotXCentre = (baseXPosition: number) => {
 };
 
 export const noteSharpOffset = (pitch: Pitch) => {
-  return 35 * (shouldAddSharp(pitch) ? -1 : 1);
+  return 35 * (shouldAddSharp(pitch) ? 1 : -1);
 };

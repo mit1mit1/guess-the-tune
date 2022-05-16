@@ -32,7 +32,7 @@ import { NoteShapeGroup } from "src/components/NoteShapeGroup";
 import { areIdentical, isGuessable, unsharp } from "src/utils/game";
 import { RestShapeGroup } from "./RestShapeGroup";
 
-const SVGWidth = 3140;
+const SVGWidth = 2740;
 const SVGHeight = 440;
 const clefLength = 300;
 const timeSignatureWidth = 80;
@@ -139,7 +139,7 @@ const NotePath = ({
       />
       {shouldAddSharp(note.pitch) && (
         <SharpPath
-          xStart={baseXPosition - 150 + noteSharpOffset(note.pitch)}
+          xStart={baseXPosition - 160}
           yStart={getBaseYPosition(note.pitch) + sharpYOffset}
           handleClick={handleClick}
           color={color}
@@ -399,7 +399,7 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
   const { guesses } = useStore();
   const songLength = correctNotes.length;
   const buffer = [];
-  const notesPerLine = 5;
+  const notesPerLine = 4;
   let staveIndex = 0;
   for (let i = 0; i < songLength; i = i + notesPerLine) {
     const startIndex = i;

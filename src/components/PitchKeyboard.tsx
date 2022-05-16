@@ -56,7 +56,7 @@ const getKeyboardOffset = (pitch: Pitch) => {
   //     return 2.7 * multiplier;
   // }
   return (
-    multiplier * (0.5 + (initialAvailablePitches.indexOf(pitch) % 6)) -
+    multiplier * (0.5 + (initialAvailablePitches.indexOf(pitch) % 6)) +
     0.5 * noteSharpOffset(pitch)
   );
 };
