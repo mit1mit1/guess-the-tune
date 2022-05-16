@@ -167,7 +167,7 @@ export const pushIfNotIdentical = (
   return newArray;
 };
 
-export const unsharp = (pitch: Pitch) => pitch.replace('#', '') as Pitch;
+export const unsharp = (pitch: Pitch) => pitch.replace("#", "") as Pitch;
 
 export const getNewDurationAnswerStatus = <T extends Duration>(
   oldStatus: AnswerStatus,

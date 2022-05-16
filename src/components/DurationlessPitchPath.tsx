@@ -48,7 +48,7 @@ export const DurationlessPitchPath = ({
         transform={`rotate(45 ${xStart + durationlessPitchRadius} ${
           yStart + durationlessPitchRadius
         })`}
-        >
+      >
         <rect
           x={xStart}
           y={yStart}

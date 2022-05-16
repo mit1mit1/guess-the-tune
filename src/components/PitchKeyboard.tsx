@@ -1,5 +1,9 @@
 import { Pitch } from "src/types";
-import { BASE_COLOR, INCORRECT_PITCH_COLOR, pitchNames, WRONG_SPOT_COLOR } from "src/constants";
+import {
+  BASE_COLOR,
+  INCORRECT_PITCH_COLOR,
+  WRONG_SPOT_COLOR,
+} from "src/constants";
 import { initialAvailablePitches, useStore } from "src/gameStore";
 import "./PitchKeyboard.css";
 import { TrebleStave } from "./TrebleStave";
@@ -51,7 +55,10 @@ const getKeyboardOffset = (pitch: Pitch) => {
   //   case "A#5":
   //     return 2.7 * multiplier;
   // }
-  return multiplier * (0.5 + initialAvailablePitches.indexOf(pitch) % 6) - 0.5 * noteSharpOffset(pitch)
+  return (
+    multiplier * (0.5 + (initialAvailablePitches.indexOf(pitch) % 6)) -
+    0.5 * noteSharpOffset(pitch)
+  );
 };
 
 const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
@@ -62,7 +69,8 @@ const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
   } else if (status === "unavailable") {
     color = INCORRECT_PITCH_COLOR;
   }
-  const clickHandler = (status === "unavailable") ? undefined : () => setSelectedGuessPitch(pitch);
+  const clickHandler =
+    status === "unavailable" ? undefined : () => setSelectedGuessPitch(pitch);
   const offset = getKeyboardOffset(pitch);
   return (
     <DurationlessPitchPath
@@ -87,7 +95,13 @@ export const PitchKeyboard = () => {
         <TrebleStave SVGWidth={1500} />
         {initialAvailablePitches.map((pitch, index) => {
           if (!availablePitches.includes(pitch)) {
-            return <PitchKey key={"pitch-key-" + index} pitch={pitch} status="unavailable" />;
+            return (
+              <PitchKey
+                key={"pitch-key-" + index}
+                pitch={pitch}
+                status="unavailable"
+              />
+            );
           }
           if (wrongSpotPitches.has(pitch)) {
             return (

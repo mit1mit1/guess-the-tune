@@ -81,7 +81,7 @@ const EigthOrSixteenthLine = ({
           x={xStart - 15}
           y={yStart + eigthLineYLength - 15}
           width={eigthLineXLength + 30}
-          height={- eigthLineYLength + 30}
+          height={-eigthLineYLength + 30}
         />
       )}
       <line

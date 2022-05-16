@@ -12,7 +12,12 @@ import {
   Pitch,
   TimeSignature,
 } from "src/types";
-import { getBaseYPosition, getRootCircleCX, noteSharpOffset, shouldAddSharp } from "src/utils";
+import {
+  getBaseYPosition,
+  getRootCircleCX,
+  noteSharpOffset,
+  shouldAddSharp,
+} from "src/utils";
 import { useStore } from "src/gameStore";
 import "./SVGScore.css";
 import { TrebleStave } from "./TrebleStave";
@@ -296,7 +301,10 @@ const NonIncorrectPaths = ({
                 />
                 <NotePath
                   opacity={0.5}
-                  note={{'pitch': unsharp(correctNotes[trueIndex].pitch), durationObject: correctNotes[trueIndex].durationObject}}
+                  note={{
+                    pitch: unsharp(correctNotes[trueIndex].pitch),
+                    durationObject: correctNotes[trueIndex].durationObject,
+                  }}
                   displayIndex={displayIndex}
                   handleClick={() => setSelectedNoteIndex(trueIndex)}
                   color={CORRECT_COLOR}
