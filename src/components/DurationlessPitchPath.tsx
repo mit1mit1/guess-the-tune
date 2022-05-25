@@ -2,6 +2,7 @@ import { durationlessPitchRadius, sharpYOffset } from "src/constants/svg";
 import { Pitch } from "src/types";
 import { getBaseYPosition, shouldAddSharp } from "src/utils";
 import { SharpPath } from "./SharpPath";
+import svgStyles from "src/components/SVGScore.module.scss"
 
 const sharpPathDisplacement = -80;
 
@@ -35,7 +36,7 @@ export const DurationlessPitchPath = ({
       )}
       {handleClick && (
         <rect
-          className="clickable-cover"
+          className={svgStyles.clickableCover}
           stroke=""
           opacity={0}
           x={xStart - durationlessPitchRadius * 0.5 - 15}

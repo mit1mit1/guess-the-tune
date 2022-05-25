@@ -11,6 +11,7 @@ import {
   shouldAddDurationDot,
 } from "src/utils";
 import { Dot } from "./Dot";
+import svgStyles from "src/components/SVGScore.module.scss"
 
 interface RestShapeGroupProps extends BaseSVGPathProps {
   durationObject: Duration;
@@ -283,7 +284,7 @@ const EigthOrSixteenthRest = ({
       )}
       {handleClick && (
         <rect
-          className="clickable-cover"
+          className={svgStyles.clickableCover}
           stroke=""
           opacity={0}
           x={xCentre - 0.25 * barRestLength - 8}
@@ -322,7 +323,7 @@ const BarRest = ({
     />
     {handleClick && (
       <rect
-        className="clickable-cover"
+        className={svgStyles.clickableCover}
         stroke=""
         opacity={0}
         x={xCentre - 0.5 * barRestLength - 8}

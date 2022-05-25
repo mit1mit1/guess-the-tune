@@ -19,7 +19,7 @@ import {
   shouldAddSharp,
 } from "src/utils";
 import { useStore } from "src/gameStore";
-import "./SVGScore.css";
+import svgStyles from "src/components/SVGScore.module.scss";
 import { TrebleStave } from "./TrebleStave";
 import { SharpPath } from "./SharpPath";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";
@@ -408,7 +408,7 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
       <svg
         viewBox={`0 0 ${SVGWidth} ${SVGHeight}`}
         xmlns="<http://www.w3.org/2000/svg>"
-        className="svg-score"
+        className={svgStyles.svgScore}
         key={`score-svg-index-${i}`}
       >
         <TrebleStave SVGWidth={SVGWidth} />

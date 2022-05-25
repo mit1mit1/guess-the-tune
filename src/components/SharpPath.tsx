@@ -1,4 +1,5 @@
 import { sharpHeight } from "src/constants/svg";
+import svgStyles from "src/components/SVGScore.module.scss"
 
 export const SharpPath = ({
   xStart,
@@ -57,7 +58,7 @@ export const SharpPath = ({
       />
       {handleClick && (
         <rect
-          className="clickable-cover"
+          className={svgStyles.clickableCover}
           stroke=""
           opacity={0}
           x={xStart}

@@ -1,4 +1,5 @@
 import { BaseSVGPathProps } from "src/types";
+import svgStyles from "src/components/SVGScore.module.scss"
 
 interface DotProps extends BaseSVGPathProps {
   xCentre: number;
@@ -16,7 +17,7 @@ export const Dot = ({
     <>
       {handleClick && (
         <rect
-          className="clickable-cover"
+          className={svgStyles.clickableCover}
           stroke=""
           opacity={0}
           x={xCentre - 15}

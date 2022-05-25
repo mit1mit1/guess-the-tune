@@ -27,12 +27,12 @@ html {
   color: #61dafb;
 }
 
-.inline-svg-icon {
+.inlineSVGIcon {
   display: inline-block;
   height: 2em;
 }
 
-.inline-svg-text {
+.inlineSVGText {
   display: inline-block;
   height: 2em;
 }
@@ -48,6 +48,7 @@ html {
 }
 .button {
   margin-right: 10px;
+  margin-bottom: 5px;
   transition-duration: 0.4s;
   background-color: red;
   border: none;

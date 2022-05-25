@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { SVGScore } from "src/components/SVGScore";
 import { allCorrect } from "./utils";
 import { useStore } from "src/gameStore";
-import "./App.css";
+import styles from "./App.module.scss";
 import { DurationKeyboard } from "./components/DurationKeyboard";
 import { BACKGROUND_COLOR, BASE_COLOR } from "./constants";
 import { PitchKeyboard } from "./components/PitchKeyboard";
@@ -82,20 +82,20 @@ const App = ({
   ]);
 
   return (
-    <div className="App" style={{ backgroundColor: BACKGROUND_COLOR }}>
+    <div className={styles.App} style={{ backgroundColor: BACKGROUND_COLOR }}>
       <header>
         <h1>Guess the Tune!</h1>
         <div>
           <svg
             viewBox={`0 0 ${maxNoteXLength} 220`}
             xmlns="<http://www.w3.org/2000/svg>"
-            className="inline-svg-icon"
+            className={styles.inlineSVGIcon}
           ></svg>
 
           <svg
             viewBox={`0 0 ${maxNoteXLength * 6} ${220}`}
             xmlns="<http://www.w3.org/2000/svg>"
-            className="inline-svg-text"
+            className={styles.inlineSVGText}
           >
             <NoteShapePath
               duration={"4n"}
@@ -124,11 +124,11 @@ const App = ({
         {allCorrect(guesses, chosenSong.notes) && <CongradulationsModal />}
         <InstructionsModal />
         <div>
-          <button className="button primary-button" onClick={handleCheckGuess}>
+          <button className={styles.button + ' primary-button'} onClick={handleCheckGuess}>
             Check Guesses
           </button>
           <button
-            className="button secondary-button"
+            className={styles.button + " secondary-button"}
             onClick={() => toggleInstructions()}
           >
             Show Instructions

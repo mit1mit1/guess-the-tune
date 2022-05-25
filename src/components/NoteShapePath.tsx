@@ -13,6 +13,7 @@ import {
   shouldAddDurationDot,
 } from "src/utils";
 import { Dot } from "./Dot";
+import svgStyles from "src/components/SVGScore.module.scss"
 
 interface UpStrokeProps extends BaseSVGPathProps {
   xStart: number;
@@ -38,13 +39,14 @@ const UpStroke = ({
       />
       {handleClick && (
         <rect
-          className="clickable-cover"
+          className={svgStyles.clickableCover}
           stroke=""
           opacity={0}
           x={xStart - 1.3 * rootCircleXRadius}
           y={yStart + UpStrokeLength - 15}
           width={30 + 2 * rootCircleXRadius}
           height={Math.abs(UpStrokeLength) + 30}
+          onClick={handleClick}
         />
       )}
     </>
@@ -75,7 +77,7 @@ const EigthOrSixteenthLine = ({
     <>
       {handleClick && (
         <rect
-          className="clickable-cover"
+          className={svgStyles.clickableCover}
           stroke=""
           opacity={0}
           x={xStart - 15}
