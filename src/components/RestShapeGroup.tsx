@@ -54,7 +54,7 @@ export const RestShapeGroup = ({
     index++;
   }
   return (
-    <g className={handleClick ? "clickable-svg" : ""} onClick={handleClick}>
+    <g className={handleClick ? svgStyles.clickableSVG : ""} onClick={handleClick}>
       {buffer}
     </g>
   );
@@ -157,7 +157,7 @@ const QuarterRest = ({
         y1={getBaseYPosition("E5")}
         x2={xCentre + quarterRestLength / 2}
         y2={getBaseYPosition("C5")}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
       <line
@@ -168,7 +168,7 @@ const QuarterRest = ({
         y1={getBaseYPosition("C5")}
         x2={xCentre - quarterRestLength / 2}
         y2={getBaseYPosition("B4")}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
       <line
@@ -179,7 +179,7 @@ const QuarterRest = ({
         y1={getBaseYPosition("B4")}
         x2={xCentre + quarterRestLength / 2}
         y2={getBaseYPosition("G4")}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
 
@@ -188,7 +188,7 @@ const QuarterRest = ({
         stroke={color}
         fill="none"
         opacity={opacity}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
         d={`M ${xCentre + quarterRestLength / 2} ${getBaseYPosition("G4")} A ${
           quarterRestLength / 2
@@ -229,7 +229,7 @@ const EigthOrSixteenthRest = ({
         y1={lineYBottom}
         x2={lineXTop}
         y2={lineYTop}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
       <path
@@ -237,7 +237,7 @@ const EigthOrSixteenthRest = ({
         stroke={color}
         fill="none"
         opacity={opacity}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
         d={`M ${lineXTop} ${lineYTop} A ${eigthRestLength / 2} ${
           eigthRestLength / 8
@@ -262,7 +262,7 @@ const EigthOrSixteenthRest = ({
             stroke={color}
             fill="none"
             opacity={opacity}
-            className={handleClick ? "clickable-svg" : ""}
+            className={handleClick ? svgStyles.clickableSVG : ""}
             onClick={handleClick}
             d={`M ${lineXTop + sixteenthXDisplacement} ${
               lineYTop + sixteenthYDisplacement
@@ -318,7 +318,7 @@ const BarRest = ({
       d={`M${xCentre - 0.5 * barRestLength} ${yCentre} H ${
         xCentre + 0.5 * barRestLength
       }`}
-      className={handleClick ? "clickable-svg" : ""}
+      className={handleClick ? svgStyles.clickableSVG : ""}
       onClick={handleClick}
     />
     {handleClick && (

@@ -1,4 +1,4 @@
-.visible-modal {
+.visibleModal {
     position: fixed;
     left: 0;
     right: 0;
@@ -9,11 +9,11 @@
     margin: 50px 25px;
 }
 
-.invisible-modal {
+.invisibleModal {
     display: none;
 }
 
-.grey-background {
+.greyBackground {
     position: fixed;
     left: 0;
     right: 0;
@@ -22,7 +22,7 @@
     background-color: #FFFFFF90;
 }
 
-.modal-content {
+.modalContent {
     width: 90%;
     max-width: 500px;
     background-color: white;
@@ -30,6 +30,6 @@
     padding: 20px 30px 30px 30px;
 }
 
-.modal-footer {
+.modalFooter {
     padding-top: 20px;
 }

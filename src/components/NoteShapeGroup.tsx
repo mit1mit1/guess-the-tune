@@ -1,6 +1,7 @@
 import { maxNoteXLength, UpStrokeLength } from "src/constants/svg";
 import { BaseDuration, BaseSVGPathProps, Duration } from "src/types";
 import { NoteShapePath } from "./NoteShapePath";
+import svgStyles from "src/components/SVGScore.module.scss";
 
 interface TiePathProps {
   opacity?: number;
@@ -99,7 +100,7 @@ export const NoteShapeGroup = ({
     index++;
   }
   return (
-    <g className={handleClick ? "clickable-svg" : ""} onClick={handleClick}>
+    <g className={handleClick ? svgStyles.clickableSVG : ""} onClick={handleClick}>
       {buffer}
     </g>
   );

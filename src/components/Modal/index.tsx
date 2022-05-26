@@ -1,5 +1,6 @@
 import React from "react";
-import "./Modal.css";
+import modalStyles from "./Modal.module.scss";
+import appStyles from "src/App.module.scss";
 
 interface ModalProps {
   title: string;
@@ -16,15 +17,15 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   return (
     <>
-      {visible && <div className="grey-background" onClick={toggleVisible} />}
-      <div className={visible ? "visible-modal" : "invisible-modal"}>
-        <div className="modal-content">
-          <div className="modal-header">
-            <h3 className="modal-title">{title}</h3>
+      {visible && <div className={modalStyles.greyBackground} onClick={toggleVisible} />}
+      <div className={visible ? modalStyles.visibleModal : modalStyles.invisibleModal}>
+        <div className={modalStyles.modalContent}>
+          <div className={modalStyles.modalHeader}>
+            <h3 className={modalStyles.modalTitle}>{title}</h3>
           </div>
-          <div className="modal-body">{children}</div>
-          <div className="modal-footer">
-            <button className="modal-button button" onClick={toggleVisible}>
+          <div className={modalStyles.modalBody}>{children}</div>
+          <div className={modalStyles.modalFooter}>
+            <button className={[modalStyles.modalButton, appStyles.button].join(' ')} onClick={toggleVisible}>
               Close
             </button>
           </div>

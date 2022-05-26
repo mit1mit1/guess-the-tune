@@ -26,7 +26,7 @@ export const SharpPath = ({
         y1={yStart + (sharpHeight * 5) / 16}
         x2={xStart}
         y2={yStart + (sharpHeight * 7) / 16}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
       <line
@@ -37,7 +37,7 @@ export const SharpPath = ({
         y1={yStart + (sharpHeight * 9) / 16}
         x2={xStart}
         y2={yStart + (sharpHeight * 11) / 16}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
       <path
@@ -45,7 +45,7 @@ export const SharpPath = ({
         stroke={color}
         opacity={opacity}
         d={`M${xStart + 40} ${yStart} V ${yStart + sharpHeight}`}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
       <path
@@ -53,7 +53,7 @@ export const SharpPath = ({
         stroke={color}
         opacity={opacity}
         d={`M${xStart + 20} ${yStart} V ${yStart + sharpHeight}`}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
       {handleClick && (

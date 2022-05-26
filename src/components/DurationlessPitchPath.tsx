@@ -23,7 +23,7 @@ export const DurationlessPitchPath = ({
 }: DurationlessPitchPathProps) => {
   const yStart = getBaseYPosition(pitch) - durationlessPitchRadius;
   return (
-    <g onClick={handleClick} className={handleClick ? "clickable-svg" : ""}>
+    <g onClick={handleClick} className={handleClick ? svgStyles.clickableSVG : ""}>
       {shouldAddSharp(pitch) && (
         <SharpPath
           handleClick={handleClick}

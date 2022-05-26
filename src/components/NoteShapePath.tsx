@@ -34,7 +34,7 @@ const UpStroke = ({
         stroke={color}
         opacity={opacity}
         d={`M${xStart} ${yStart} V ${yStart + UpStrokeLength}`}
-        className={handleClick ? "clickable-svg" : ""}
+        className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
       />
       {handleClick && (
@@ -202,7 +202,7 @@ export const NoteShapePath = ({
   staccato,
 }: NoteShapePathProps) => {
   return (
-    <g className={handleClick ? "clickable-svg" : ""} onClick={handleClick}>
+    <g className={handleClick ? svgStyles.clickableSVG : ""} onClick={handleClick}>
       {drawLineUp(duration) && (
         <UpStroke
           xStart={getUpStrokeXStart(baseXPosition)}
