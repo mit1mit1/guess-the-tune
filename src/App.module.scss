@@ -34,7 +34,7 @@ html {
 
 .inlineSVGText {
   display: inline-block;
-  height: 2em;
+  height: 1.75em;
 }
 
 
@@ -46,14 +46,24 @@ html {
     transform: rotate(360deg);
   }
 }
+
+.buttonPrimary {
+  color: white;
+  background-color: red;
+}
+
+.button.buttonPrimary:hover {
+  background-color: #ff6382;
+}
+
+
+
 .button {
   margin-right: 10px;
   margin-bottom: 5px;
   transition-duration: 0.4s;
-  background-color: red;
   border: none;
   padding: 8px;
-  color: white;
   min-height: 40px;
   min-width: 100px;
   font-family: 'Quicksand', sans-serif;

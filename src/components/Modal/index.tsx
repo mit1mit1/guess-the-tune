@@ -25,7 +25,7 @@ export const Modal: React.FC<ModalProps> = ({
           </div>
           <div className={modalStyles.modalBody}>{children}</div>
           <div className={modalStyles.modalFooter}>
-            <button className={[modalStyles.modalButton, appStyles.button].join(' ')} onClick={toggleVisible}>
+            <button className={[modalStyles.modalButton, appStyles.button, appStyles.buttonPrimary].join(' ')} onClick={toggleVisible}>
               Close
             </button>
           </div>

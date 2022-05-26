@@ -85,40 +85,30 @@ const App = ({
 
   return (
     <div className={styles.App} style={{ backgroundColor: BACKGROUND_COLOR }}>
-      <header>
-        <div>
-          <svg
-            viewBox={`0 0 ${maxNoteXLength} 220`}
-            xmlns="<http://www.w3.org/2000/svg>"
-            className={styles.inlineSVGIcon}
-          ></svg>
-
-          <svg
-            viewBox={`0 0 ${maxNoteXLength * 6} ${220}`}
-            xmlns="<http://www.w3.org/2000/svg>"
-            className={styles.inlineSVGText}
-          >
-            <NoteShapePath
-              duration={"4n"}
-              baseXPosition={110}
-              baseYPosition={180}
-              color={BASE_COLOR}
-            />
-            <text
-              style={{ fontSize: `${maxNoteXLength * 0.8}px` }}
-              x={maxNoteXLength}
-              y={180}
-              width={maxNoteXLength}
-              fill={BASE_COLOR}
-            >
-              {" "}
-              = {chosenSong.bpm}
-            </text>
-          </svg>
-        </div>
-      </header>
 
       <main>
+        <svg
+          viewBox={`0 0 ${maxNoteXLength * 6} ${220}`}
+          xmlns="<http://www.w3.org/2000/svg>"
+          className={styles.inlineSVGText}
+        >
+          <NoteShapePath
+            duration={"4n"}
+            baseXPosition={110}
+            baseYPosition={180}
+            color={BASE_COLOR}
+          />
+          <text
+            style={{ fontSize: `${maxNoteXLength * 0.8}px` }}
+            x={maxNoteXLength}
+            y={180}
+            width={maxNoteXLength}
+            fill={BASE_COLOR}
+          >
+            {" "}
+            = {chosenSong.bpm}
+          </text>
+        </svg>
         <SVGScore correctNotes={chosenSong.notes} />
         <PitchKeyboard />
         <DurationKeyboard />
@@ -126,17 +116,17 @@ const App = ({
         <InstructionsModal />
         <SupportUsModal />
         <div>
-          <button className={styles.button + ' primary-button'} onClick={handleCheckGuess}>
+          <button className={styles.button + ' ' + styles.buttonPrimary} onClick={handleCheckGuess}>
             Check Guesses
           </button>
           <button
-            className={styles.button + " secondary-button"}
+            className={styles.button}
             onClick={() => toggleInstructions()}
           >
             Show Instructions
           </button>
           <button
-            className={styles.button + " tertiary-button"}
+            className={styles.button}
             onClick={() => toggleSupportUs()}
           >
             Support Us
