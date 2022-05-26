@@ -5,7 +5,7 @@ import {
   WRONG_SPOT_COLOR,
 } from "src/constants";
 import { initialAvailablePitches, useStore } from "src/gameStore";
-import "./PitchKeyboard.css";
+import pitchKeyboardStyles from "./PitchKeyboard.module.scss";
 import { TrebleStave } from "./TrebleStave";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";
 import { noteSharpOffset } from "src/utils";
@@ -56,7 +56,7 @@ const getKeyboardOffset = (pitch: Pitch) => {
   //     return 2.7 * multiplier;
   // }
   return (
-    multiplier * (0.5 + (initialAvailablePitches.indexOf(pitch) % 6)) +
+    multiplier * (0.5 + (initialAvailablePitches.indexOf(pitch) % 5)) +
     0.5 * noteSharpOffset(pitch)
   );
 };
@@ -85,14 +85,14 @@ const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
 export const PitchKeyboard = () => {
   const { availablePitches, wrongSpotPitches } = useStore();
   return (
-    <div className="pitch-keyboard">
+    <div className={pitchKeyboardStyles.pitchKeyboard}>
       <h2>Available Pitches</h2>
       <svg
-        viewBox={`0 0 ${1500} ${540}`}
+        viewBox={`0 0 ${1350} ${540}`}
         xmlns="<http://www.w3.org/2000/svg>"
-        className="pitch-keyboard-svg"
+        className={pitchKeyboardStyles.pitchKeyboardSVG}
       >
-        <TrebleStave SVGWidth={1500} />
+        <TrebleStave SVGWidth={1350} />
         {initialAvailablePitches.map((pitch, index) => {
           if (!availablePitches.includes(pitch)) {
             return (

@@ -1,10 +1,12 @@
-.pitch-keyboard-svg {
+.pitchKeyboardSVG {
   overflow: visible;
   max-height: 150px;
   min-height: 140px;
 }
 
-.pitch-keyboard {
+.pitchKeyboard {
   display: inline-block;
+  vertical-align: top;
   margin-right: 40px;
+  height: 200px;
 }

@@ -5,7 +5,7 @@ export const InstructionsModal = () => {
   const { showInstructions, toggleInstructions } = useStore();
   return (
     <Modal
-      title="Instructions"
+      title="Guess the Tune"
       visible={showInstructions}
       toggleVisible={toggleInstructions}
     >

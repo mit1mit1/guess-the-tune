@@ -1,12 +1,11 @@
 import { Duration } from "src/types";
 import { BASE_COLOR, WRONG_SPOT_COLOR } from "src/constants";
 import { useStore } from "src/gameStore";
-import "./DurationKey.css";
+import durationKeyStyles from "./DurationKey.module.scss";
 import { NoteShapeGroup } from "src/components/NoteShapeGroup";
 import { numberOfNotePaths, setIncludes } from "src/utils";
 import { rootCircleXRadius, rootCircleYRadius, UpStrokeLength } from "src/constants/svg";
 import svgStyles from "src/components/SVGScore.module.scss"
-
 
 
 interface DurationKeyProps {
@@ -30,13 +29,13 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
   return (
     <>
       <div
-        className="duration-key"
+        className={durationKeyStyles.durationKey}
         style={{ width: `${50 * numberOfNotePaths(durationObject)}px` }}
       >
         <svg
           viewBox={`0 0 ${width} ${DurationKeySVGHeight}`}
           xmlns="<http://www.w3.org/2000/svg>"
-          className="duration-key-svg"
+          className={durationKeyStyles.durationKeySVG}
         >
           {(
             <rect
@@ -89,9 +88,9 @@ export const DurationKeyboard = () => {
     }
   });
   return (
-    <div className="duration-keyboard">
+    <div className={durationKeyStyles.durationKeyboard}>
       <h2>Available Durations</h2>
-      <div className="duration-keys">{buffer}</div>
+      <div className={durationKeyStyles.durationKeys}>{buffer}</div>
     </div>
   );
 };

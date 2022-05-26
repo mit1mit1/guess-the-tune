@@ -84,7 +84,6 @@ const App = ({
   return (
     <div className={styles.App} style={{ backgroundColor: BACKGROUND_COLOR }}>
       <header>
-        <h1>Guess the Tune!</h1>
         <div>
           <svg
             viewBox={`0 0 ${maxNoteXLength} 220`}

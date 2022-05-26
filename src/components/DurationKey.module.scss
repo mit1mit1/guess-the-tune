@@ -1,19 +1,15 @@
-.duration-key {
+.durationKey {
   height: 10px;
   display: inline-block;
   margin-top: 60px;
 }
 
-.duration-keys {
-  max-height: 150px;
-  min-height: 110px;
-}
-
-.duration-key-svg {
+.durationKeySVG {
   display: inline-block;
   overflow: visible;
 }
 
-.duration-keyboard {
+.durationKeyboard {
   display: inline-block;
+  vertical-align: top;
 }
