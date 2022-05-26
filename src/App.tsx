@@ -11,6 +11,7 @@ import { NoteShapePath } from "./components/NoteShapePath";
 import { maxNoteXLength } from "./constants/svg";
 import { InstructionsModal } from "./components/InstructionsModal";
 import { CongradulationsModal } from "./components/CongradulationsModal";
+import { SupportUsModal } from "./components/SupportUsModal";
 
 const App = ({
   playNotes,
@@ -27,6 +28,7 @@ const App = ({
     guesses,
     chosenSong,
     toggleInstructions,
+    toggleSupportUs,
   } = useStore();
 
   const handleCheckGuess = useCallback(() => {
@@ -122,6 +124,7 @@ const App = ({
         <DurationKeyboard />
         {allCorrect(guesses, chosenSong.notes) && <CongradulationsModal />}
         <InstructionsModal />
+        <SupportUsModal />
         <div>
           <button className={styles.button + ' primary-button'} onClick={handleCheckGuess}>
             Check Guesses
@@ -131,6 +134,12 @@ const App = ({
             onClick={() => toggleInstructions()}
           >
             Show Instructions
+          </button>
+          <button
+            className={styles.button + " tertiary-button"}
+            onClick={() => toggleSupportUs()}
+          >
+            Support Us
           </button>
         </div>
       </main>

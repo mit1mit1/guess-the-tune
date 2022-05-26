@@ -14,7 +14,7 @@ test("renders app, title displays", async () => {
       }}
     />
   );
-  const title = screen.getByText(/Guess the Tune!/i);
+  const title = screen.getByText(/Available Pitches/i);
   expect(title).toBeTruthy();
 
   expect(await axe(view.baseElement)).toHaveNoViolations();

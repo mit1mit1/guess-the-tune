@@ -111,6 +111,8 @@ export interface GameState {
   pitchesGuessed: Set<Pitch>;
   showInstructions: boolean;
   toggleInstructions: () => void;
+  showSupportUs: boolean;
+  toggleSupportUs: () => void;
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
   chosenSong: GameSong;
@@ -143,6 +145,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
   showInstructions: true,
+  showSupportUs: false,
 
   toggleInstructions: () => {
     set(
@@ -150,6 +153,18 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
         return {
           ...draft,
           showInstructions: !!!draft.showInstructions,
+        };
+      })
+    );
+  },
+
+
+  toggleSupportUs: () => {
+    set(
+      produce((draft: GameState) => {
+        return {
+          ...draft,
+          showSupportUs: !!!draft.showSupportUs,
         };
       })
     );
