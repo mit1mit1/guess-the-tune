@@ -7,7 +7,7 @@ html {
   padding: 20px;
   max-width: 700px;
   margin: auto;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 
 .App h1 {
@@ -16,15 +16,6 @@ html {
 
 .App div {
   margin-bottom: 5px;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 .inlineSVGIcon {
@@ -37,16 +28,6 @@ html {
   height: 1.75em;
 }
 
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .buttonPrimary {
   color: white;
   background-color: red;
@@ -56,8 +37,6 @@ html {
   background-color: #ff6382;
 }
 
-
-
 .button {
   margin-right: 10px;
   margin-bottom: 5px;
@@ -66,7 +45,7 @@ html {
   padding: 8px;
   min-height: 40px;
   min-width: 100px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 
 .button:hover {
@@ -74,6 +53,8 @@ html {
   cursor: pointer;
 }
 
-.App h1, .App h2, .App h3 {
-  font-family: 'Merriweather', serif;
+.App h1,
+.App h2,
+.App h3 {
+  font-family: "Merriweather", serif;
 }

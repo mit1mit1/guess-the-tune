@@ -1,35 +1,35 @@
 .visibleModal {
-    position: fixed;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    margin: 50px 25px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  margin: 50px 25px;
 }
 
 .invisibleModal {
-    display: none;
+  display: none;
 }
 
 .greyBackground {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: -10px;
-    top: 0;
-    background-color: #FFFFFF90;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  top: 0;
+  background-color: #ffffff90;
 }
 
 .modalContent {
-    width: 90%;
-    max-width: 500px;
-    background-color: white;
-    color: black;
-    padding: 20px 30px 30px 30px;
+  width: 90%;
+  max-width: 500px;
+  background-color: white;
+  color: black;
+  padding: 20px 30px 30px 30px;
 }
 
 .modalFooter {
-    padding-top: 20px;
+  padding-top: 20px;
 }

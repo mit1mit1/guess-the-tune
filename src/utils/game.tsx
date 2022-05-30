@@ -1,19 +1,6 @@
 import { Note, Pitch, AnswerStatus, Duration, BaseDuration } from "src/types";
 import { pitchNames } from "src/constants";
 
-// export const durationObjectToInt = (durationObject: DurationObject) => {
-//     let result = 0;
-//     result += 2 * durationObject["8n"];
-//     result += 3 * durationObject["8n."];
-//     result += 4 * durationObject["4n"];
-//     result += 6 * durationObject["4n."];
-//     result += 8 * durationObject["2n"];
-//     result += 12 * durationObject["2n."];
-//     result += 16 * durationObject["1n"];
-//     result += 24 * durationObject["1n."];
-//     return result;
-//   };
-
 const getIndex = (
   currentDurationObject: Duration,
   durationObjectArray: Duration[]

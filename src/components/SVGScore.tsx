@@ -456,6 +456,7 @@ const getNumerator = (timeSignature: TimeSignature) => {
 
 const getDenominator = (timeSignature: TimeSignature) => {
   switch (timeSignature) {
+    case TimeSignature.THREEFOUR:
     case TimeSignature.FOURFOUR:
     case TimeSignature.FIVEFOUR:
       return 4;
