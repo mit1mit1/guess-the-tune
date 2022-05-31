@@ -208,6 +208,64 @@ const spiritedAwayReprise: GameSong = {
   readyForProduction: true,
 };
 
+
+const pokemonGottaCatchEmAll: GameSong = {
+  bpm: 145,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "4n.": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+  ]
+};
+
+
+const marriedLife: GameSong = {
+  bpm: 166,
+  timeSignature: TimeSignature.THREEFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "F5", durationObject: { "8n": 1 } },
+    { pitch: "G5", durationObject: { "8n": 1 } },
+    { pitch: "F5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "2n.": 1, "4n": 1 } },
+    { pitch: "C5", rest: true, durationObject: { "8n": 1 } },
+    { pitch: "F5", durationObject: { "8n": 1 } },
+    { pitch: "G5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "4n": 1 } },
+    { pitch: "C5", rest: true, durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "F5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "2n": 1 } },
+  ]
+};
+
+const tetris: GameSong = {
+  bpm: 149,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "B3", durationObject: { "8n": 1 } },
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "4n": 1 } },
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "B3", durationObject: { "8n": 1 } },
+    { pitch: "A3", durationObject: { "4n.": 1 } },
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "4n": 1 } },
+  ]
+};
+
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -221,4 +279,7 @@ export const gameSongs: Array<GameSong> = [
   theRaidersMarch,
   spidermanSpiderman,
   spiritedAwayReprise,
+  tetris,
+  marriedLife,
+  pokemonGottaCatchEmAll
 ];
