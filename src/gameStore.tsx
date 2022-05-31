@@ -7,7 +7,7 @@ import {
   incrementPitch,
   pushIfNotIdentical,
 } from "./utils";
-import { pitchNames } from "./constants";
+import { durationNames, pitchNames } from "./constants";
 import {
   allCorrect,
   areIdentical,
@@ -39,10 +39,7 @@ const maxPitchIndex = Math.max(
   ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
 );
 
-export const initialAvailablePitches = pitchNames.slice(
-  minPitchIndex,
-  maxPitchIndex + 1
-);
+export const initialAvailablePitches = pitchNames.slice();
 
 const initialGuesses = paramStartCorrect
   ? correctNotes
@@ -93,7 +90,7 @@ export interface GameState {
 
 export const useStore: () => GameState = create<GameState>((set: any) => ({
   availablePitches: initialAvailablePitches,
-  availableDurations: orderByLength(getUniqueElements(correctDurations)),
+  availableDurations: [...orderByLength(getUniqueElements(correctDurations)), ...(durationNames.map(name => ({[name]: 1})))],
   answerStatuses: initialAnswerStatuses,
   durationsGuessed: new Set<Duration>([]),
   guessedEverythingCorrect: false,
@@ -107,7 +104,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   turn: 0,
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
-  showInstructions: queryParamSongIndex === -1,
+  showInstructions: false,
   showSupportUs: false,
 
   toggleInstructions: () => {
@@ -207,6 +204,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
     set(
       produce((draft: GameState) => {
         draft.guesses.forEach((guess, index) => {
+          return
           if (!isGuessable(correctNotes[index])) {
             return;
           }
