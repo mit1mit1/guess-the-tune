@@ -27,6 +27,7 @@ export enum TimeSignature {
   THREEFOUR = "3/4",
   FOURFOUR = "4/4",
   FIVEFOUR = "5/4",
+  TWOTWO = "2/2",
 }
 
 export enum AnswerStatus {

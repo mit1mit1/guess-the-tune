@@ -85,7 +85,6 @@ const App = ({
 
   return (
     <div className={styles.App} style={{ backgroundColor: BACKGROUND_COLOR }}>
-
       <main>
         <svg
           viewBox={`0 0 ${maxNoteXLength * 6} ${220}`}
@@ -116,7 +115,10 @@ const App = ({
         <InstructionsModal />
         <SupportUsModal />
         <div>
-          <button className={styles.button + ' ' + styles.buttonPrimary} onClick={handleCheckGuess}>
+          <button
+            className={styles.button + " " + styles.buttonPrimary}
+            onClick={handleCheckGuess}
+          >
             Check Guesses
           </button>
           <button
@@ -125,10 +127,7 @@ const App = ({
           >
             Show Instructions
           </button>
-          <button
-            className={styles.button}
-            onClick={() => toggleSupportUs()}
-          >
+          <button className={styles.button} onClick={() => toggleSupportUs()}>
             Support Us
           </button>
         </div>

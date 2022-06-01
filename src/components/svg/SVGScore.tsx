@@ -56,8 +56,9 @@ const StavePath = ({
       key={`${baseXPosition}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke={BASE_COLOR}
-      d={`M${baseXPosition - 110} ${getBaseYPosition(trackPitch)} H ${baseXPosition + 40
-        }`}
+      d={`M${baseXPosition - 110} ${getBaseYPosition(trackPitch)} H ${
+        baseXPosition + 40
+      }`}
     />
   );
 };
@@ -125,7 +126,7 @@ const NotePath = ({
   opacity = 1,
   handleClick,
   staveIndex,
-  showSharp = true
+  showSharp = true,
 }: NotePathProps) => {
   const baseXPosition =
     getBaseXPosition(displayIndex, staveIndex) + noteSharpOffset(note.pitch);
@@ -179,8 +180,7 @@ const PitchGuessPath = ({
 }: PitchGuessPathProps) => {
   const xStart =
     getBaseXPosition(positionIndex, staveIndex) -
-    (rootCircleXRadius +
-      rootCircleYRadius) / 2 +
+    (rootCircleXRadius + rootCircleYRadius) / 2 +
     noteSharpOffset(pitch) -
     durationlessPitchRadius;
   return (
@@ -225,7 +225,7 @@ const CurrentGuessPaths = ({
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-          AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
           areIdentical(
             note.durationObject,
             correctNotes[trueIndex].durationObject
@@ -236,7 +236,7 @@ const CurrentGuessPaths = ({
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-          AnswerStatus.UNGUESSABLE &&
+            AnswerStatus.UNGUESSABLE &&
           answerStatuses[trueIndex].pitchStatus === AnswerStatus.UNGUESSABLE
         ) {
           opacity = 1;
@@ -284,7 +284,12 @@ const NonIncorrectPaths = ({
   endIndex: number;
   staveIndex: number;
 }) => {
-  const { guesses, answerStatuses, setSelectedNoteIndex, incorrectPitchesArrays } = useStore();
+  const {
+    guesses,
+    answerStatuses,
+    setSelectedNoteIndex,
+    incorrectPitchesArrays,
+  } = useStore();
 
   return (
     <>
@@ -306,43 +311,66 @@ const NonIncorrectPaths = ({
                   handleClick={() => setSelectedNoteIndex(trueIndex)}
                   staveIndex={staveIndex}
                 />
-                {guesses[trueIndex].pitch !== correctNotes[trueIndex].pitch && <PitchGuessPath
-                  pitch={guesses[trueIndex].pitch}
-                  positionIndex={displayIndex}
-                  color={incorrectPitchesArrays[trueIndex].includes(guesses[trueIndex].pitch) ? INCORRECT_COLOR : BASE_COLOR}
-                  key={`${trueIndex}-pitch-not-necessarily-correct`}
-                  handleClick={() => setSelectedNoteIndex(trueIndex)}
-                  staveIndex={staveIndex}
-                />}
+                {guesses[trueIndex].pitch !== correctNotes[trueIndex].pitch && (
+                  <PitchGuessPath
+                    pitch={guesses[trueIndex].pitch}
+                    positionIndex={displayIndex}
+                    color={
+                      incorrectPitchesArrays[trueIndex].includes(
+                        guesses[trueIndex].pitch
+                      )
+                        ? INCORRECT_COLOR
+                        : BASE_COLOR
+                    }
+                    key={`${trueIndex}-pitch-not-necessarily-correct`}
+                    handleClick={() => setSelectedNoteIndex(trueIndex)}
+                    staveIndex={staveIndex}
+                  />
+                )}
               </g>
             );
           }
           if (pitchStatus === AnswerStatus.GUESSEDCORRECT) {
-            return (<g key={`${trueIndex}-pitch-group`}>
-              <PitchGuessPath
-                pitch={correctNotes[trueIndex].pitch}
-                positionIndex={displayIndex}
-                color={CORRECT_PITCH_COLOR}
-                key={`${trueIndex}-pitch-correct`}
-                handleClick={() => setSelectedNoteIndex(trueIndex)}
-                staveIndex={staveIndex}
-              />
-              {guesses[trueIndex].pitch !== correctNotes[trueIndex].pitch && <PitchGuessPath
-                pitch={guesses[trueIndex].pitch}
-                positionIndex={displayIndex}
-                color={incorrectPitchesArrays[trueIndex].includes(guesses[trueIndex].pitch) ? INCORRECT_COLOR : BASE_COLOR}
-                key={`${trueIndex}-pitch-not-necessarily-correct`}
-                handleClick={() => setSelectedNoteIndex(trueIndex)}
-                staveIndex={staveIndex}
-              />}
-            </g>
+            return (
+              <g key={`${trueIndex}-pitch-group`}>
+                <PitchGuessPath
+                  pitch={correctNotes[trueIndex].pitch}
+                  positionIndex={displayIndex}
+                  color={CORRECT_PITCH_COLOR}
+                  key={`${trueIndex}-pitch-correct`}
+                  handleClick={() => setSelectedNoteIndex(trueIndex)}
+                  staveIndex={staveIndex}
+                />
+                {guesses[trueIndex].pitch !== correctNotes[trueIndex].pitch && (
+                  <PitchGuessPath
+                    pitch={guesses[trueIndex].pitch}
+                    positionIndex={displayIndex}
+                    color={
+                      incorrectPitchesArrays[trueIndex].includes(
+                        guesses[trueIndex].pitch
+                      )
+                        ? INCORRECT_COLOR
+                        : BASE_COLOR
+                    }
+                    key={`${trueIndex}-pitch-not-necessarily-correct`}
+                    handleClick={() => setSelectedNoteIndex(trueIndex)}
+                    staveIndex={staveIndex}
+                  />
+                )}
+              </g>
             );
           }
           return (
             <PitchGuessPath
               pitch={guesses[trueIndex].pitch}
               positionIndex={displayIndex}
-              color={incorrectPitchesArrays[trueIndex].includes(guesses[trueIndex].pitch) ? INCORRECT_COLOR : BASE_COLOR}
+              color={
+                incorrectPitchesArrays[trueIndex].includes(
+                  guesses[trueIndex].pitch
+                )
+                  ? INCORRECT_COLOR
+                  : BASE_COLOR
+              }
               key={`${trueIndex}-pitch-not-necessarily-correct`}
               handleClick={() => setSelectedNoteIndex(trueIndex)}
               staveIndex={staveIndex}
@@ -383,8 +411,7 @@ const IncorrectPitchPaths = ({
                 />
               );
             }
-            return <g
-            key={`${positionIndex}-${pitch}`}></g>;
+            return <g key={`${positionIndex}-${pitch}`}></g>;
           });
         })}
     </>
@@ -468,6 +495,8 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
 
 const getNumerator = (timeSignature: TimeSignature) => {
   switch (timeSignature) {
+    case TimeSignature.TWOTWO:
+      return 2;
     case TimeSignature.THREEFOUR:
       return 3;
     case TimeSignature.FOURFOUR:
@@ -483,6 +512,8 @@ const getDenominator = (timeSignature: TimeSignature) => {
     case TimeSignature.FOURFOUR:
     case TimeSignature.FIVEFOUR:
       return 4;
+    case TimeSignature.TWOTWO:
+      return 2;
   }
 };
 

@@ -4,9 +4,12 @@ import { useStore } from "src/gameStore";
 import durationKeyStyles from "./DurationKey.module.scss";
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
 import { numberOfNotePaths, setIncludes } from "src/utils";
-import { rootCircleXRadius, rootCircleYRadius, UpStrokeLength } from "src/constants/svg";
+import {
+  rootCircleXRadius,
+  rootCircleYRadius,
+  UpStrokeLength,
+} from "src/constants/svg";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
-
 
 interface DurationKeyProps {
   durationObject: Duration;
@@ -25,7 +28,7 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
   if (status === "wrong-spot") {
     color = WRONG_SPOT_COLOR;
   }
-  const handleClick = () => setSelectedGuessDuration(durationObject)
+  const handleClick = () => setSelectedGuessDuration(durationObject);
   return (
     <>
       <div
@@ -37,7 +40,7 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
           xmlns="<http://www.w3.org/2000/svg>"
           className={durationKeyStyles.durationKeySVG}
         >
-          {(
+          {
             <rect
               className={svgStyles.clickableCover}
               stroke=""
@@ -48,7 +51,7 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
               height={-UpStrokeLength + rootCircleYRadius}
               onClick={handleClick}
             />
-          )}
+          }
           <NoteShapeGroup
             durationObject={durationObject}
             baseXPosition={150}

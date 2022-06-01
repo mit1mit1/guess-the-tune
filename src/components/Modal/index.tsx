@@ -17,15 +17,28 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   return (
     <>
-      {visible && <div className={modalStyles.greyBackground} onClick={toggleVisible} />}
-      <div className={visible ? modalStyles.visibleModal : modalStyles.invisibleModal}>
+      {visible && (
+        <div className={modalStyles.greyBackground} onClick={toggleVisible} />
+      )}
+      <div
+        className={
+          visible ? modalStyles.visibleModal : modalStyles.invisibleModal
+        }
+      >
         <div className={modalStyles.modalContent}>
           <div className={modalStyles.modalHeader}>
             <h2 className={modalStyles.modalTitle}>{title}</h2>
           </div>
           <div className={modalStyles.modalBody}>{children}</div>
           <div className={modalStyles.modalFooter}>
-            <button className={[modalStyles.modalButton, appStyles.button, appStyles.buttonPrimary].join(' ')} onClick={toggleVisible}>
+            <button
+              className={[
+                modalStyles.modalButton,
+                appStyles.button,
+                appStyles.buttonPrimary,
+              ].join(" ")}
+              onClick={toggleVisible}
+            >
               Close
             </button>
           </div>

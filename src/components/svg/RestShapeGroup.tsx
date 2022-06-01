@@ -11,7 +11,7 @@ import {
   shouldAddDurationDot,
 } from "src/utils";
 import { Dot } from "./Dot";
-import svgStyles from "src/components/svg/SVGScore.module.scss"
+import svgStyles from "src/components/svg/SVGScore.module.scss";
 
 interface RestShapeGroupProps extends BaseSVGPathProps {
   durationObject: Duration;
@@ -54,7 +54,10 @@ export const RestShapeGroup = ({
     index++;
   }
   return (
-    <g className={handleClick ? svgStyles.clickableSVG : ""} onClick={handleClick}>
+    <g
+      className={handleClick ? svgStyles.clickableSVG : ""}
+      onClick={handleClick}
+    >
       {buffer}
     </g>
   );
@@ -190,8 +193,9 @@ const QuarterRest = ({
         opacity={opacity}
         className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
-        d={`M ${xCentre + quarterRestLength / 2} ${getBaseYPosition("G4")} A ${quarterRestLength / 2
-          } ${quarterRestLength / 4} 10 0 0 ${xCentre} ${getBaseYPosition("F4")}`}
+        d={`M ${xCentre + quarterRestLength / 2} ${getBaseYPosition("G4")} A ${
+          quarterRestLength / 2
+        } ${quarterRestLength / 4} 10 0 0 ${xCentre} ${getBaseYPosition("F4")}`}
       />
     </>
   );
@@ -238,9 +242,11 @@ const EigthOrSixteenthRest = ({
         opacity={opacity}
         className={handleClick ? svgStyles.clickableSVG : ""}
         onClick={handleClick}
-        d={`M ${lineXTop} ${lineYTop} A ${eigthRestLength / 2} ${eigthRestLength / 8
-          } -30 0 1 ${lineXTop - eigthRestLength} ${lineYTop + eigthRestLength / 2
-          }`}
+        d={`M ${lineXTop} ${lineYTop} A ${eigthRestLength / 2} ${
+          eigthRestLength / 8
+        } -30 0 1 ${lineXTop - eigthRestLength} ${
+          lineYTop + eigthRestLength / 2
+        }`}
       />
       <circle
         cx={lineXTop - eigthRestLength}
@@ -261,9 +267,11 @@ const EigthOrSixteenthRest = ({
             opacity={opacity}
             className={handleClick ? svgStyles.clickableSVG : ""}
             onClick={handleClick}
-            d={`M ${lineXTop + sixteenthXDisplacement} ${lineYTop + sixteenthYDisplacement
-              } A ${eigthRestLength / 2} ${eigthRestLength / 8} -30 0 1 ${lineXTop - eigthRestLength + sixteenthXDisplacement
-              } ${lineYTop + eigthRestLength / 2 + sixteenthYDisplacement}`}
+            d={`M ${lineXTop + sixteenthXDisplacement} ${
+              lineYTop + sixteenthYDisplacement
+            } A ${eigthRestLength / 2} ${eigthRestLength / 8} -30 0 1 ${
+              lineXTop - eigthRestLength + sixteenthXDisplacement
+            } ${lineYTop + eigthRestLength / 2 + sixteenthYDisplacement}`}
           />
           <circle
             cx={lineXTop - eigthRestLength + sixteenthXDisplacement}
@@ -310,8 +318,9 @@ const BarRest = ({
       strokeWidth={barRestHeight}
       stroke={color}
       opacity={opacity}
-      d={`M${xCentre - 0.5 * barRestLength} ${yCentre} H ${xCentre + 0.5 * barRestLength
-        }`}
+      d={`M${xCentre - 0.5 * barRestLength} ${yCentre} H ${
+        xCentre + 0.5 * barRestLength
+      }`}
       className={handleClick ? svgStyles.clickableSVG : ""}
       onClick={handleClick}
     />

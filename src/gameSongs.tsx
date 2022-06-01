@@ -208,7 +208,6 @@ const spiritedAwayReprise: GameSong = {
   readyForProduction: true,
 };
 
-
 const pokemonGottaCatchEmAll: GameSong = {
   bpm: 145,
   timeSignature: TimeSignature.FOURFOUR,
@@ -222,9 +221,8 @@ const pokemonGottaCatchEmAll: GameSong = {
     { pitch: "D5", durationObject: { "4n": 1 } },
     { pitch: "C5", durationObject: { "8n": 1 } },
     { pitch: "A4", durationObject: { "4n.": 1 } },
-  ]
+  ],
 };
-
 
 const marriedLife: GameSong = {
   bpm: 166,
@@ -245,7 +243,7 @@ const marriedLife: GameSong = {
     { pitch: "F5", durationObject: { "8n": 1 } },
     { pitch: "D5", durationObject: { "8n": 1 } },
     { pitch: "C5", durationObject: { "2n": 1 } },
-  ]
+  ],
 };
 
 const tetris: GameSong = {
@@ -262,9 +260,38 @@ const tetris: GameSong = {
     { pitch: "A3", durationObject: { "4n.": 1 } },
     { pitch: "C4", durationObject: { "8n": 1 } },
     { pitch: "E4", durationObject: { "4n": 1 } },
-  ]
+  ],
 };
 
+const zeldaMainTheme: GameSong = {
+  bpm: 108,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: false,
+  notes: [
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n.": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { pitch: "D5", durationObject: { "16n": 1 } },
+    { pitch: "E5", durationObject: { "16n": 1 } },
+    { pitch: "F5", durationObject: { "16n": 1 } },
+    { pitch: "G5", durationObject: { "2n": 1 } },
+  ],
+};
+
+const goodMornin: GameSong = {
+  bpm: 168,
+  timeSignature: TimeSignature.TWOTWO,
+  readyForProduction: true,
+  notes: [
+    { pitch: "G4", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "2n": 1 }, staccato: true },
+    { pitch: "G4", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "E5", durationObject: { "4n.": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1, "2n": 1 }, staccato: true },
+  ],
+};
 
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
@@ -281,5 +308,7 @@ export const gameSongs: Array<GameSong> = [
   spiritedAwayReprise,
   tetris,
   marriedLife,
-  pokemonGottaCatchEmAll
+  pokemonGottaCatchEmAll,
+  zeldaMainTheme,
+  goodMornin,
 ];

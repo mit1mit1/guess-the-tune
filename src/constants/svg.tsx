@@ -1,7 +1,7 @@
 export const durationlessPitchRadius = 25;
 export const sharpHeight = 70;
 export const sharpYOffset = -0.5 * sharpHeight;
-export const sharpXOffset = -160
+export const sharpXOffset = -160;
 export const eigthLineXLength = 80;
 export const eigthLineYLength = -15;
 export const UpStrokeLength = -200;

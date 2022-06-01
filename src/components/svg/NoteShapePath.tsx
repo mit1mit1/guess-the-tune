@@ -202,7 +202,10 @@ export const NoteShapePath = ({
   staccato,
 }: NoteShapePathProps) => {
   return (
-    <g className={handleClick ? svgStyles.clickableSVG : ""} onClick={handleClick}>
+    <g
+      className={handleClick ? svgStyles.clickableSVG : ""}
+      onClick={handleClick}
+    >
       {drawLineUp(duration) && (
         <UpStroke
           xStart={getUpStrokeXStart(baseXPosition)}

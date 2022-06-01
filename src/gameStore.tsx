@@ -161,7 +161,6 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
     );
   },
 
-
   toggleSupportUs: () => {
     set(
       produce((draft: GameState) => {
@@ -328,7 +327,10 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
             draft.wrongSpotDurations.add(note.durationObject);
           }
         });
-        draft.guessedEverythingCorrect = allCorrect(draft.guesses, correctNotes)
+        draft.guessedEverythingCorrect = allCorrect(
+          draft.guesses,
+          correctNotes
+        );
       })
     );
   },

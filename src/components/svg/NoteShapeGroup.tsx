@@ -100,7 +100,10 @@ export const NoteShapeGroup = ({
     index++;
   }
   return (
-    <g className={handleClick ? svgStyles.clickableSVG : ""} onClick={handleClick}>
+    <g
+      className={handleClick ? svgStyles.clickableSVG : ""}
+      onClick={handleClick}
+    >
       {buffer}
     </g>
   );
