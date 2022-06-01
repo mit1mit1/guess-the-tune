@@ -1,5 +1,5 @@
 import { BaseSVGPathProps } from "src/types";
-import svgStyles from "src/components/SVGScore.module.scss"
+import svgStyles from "src/components/svg/SVGScore.module.scss"
 
 interface DotProps extends BaseSVGPathProps {
   xCentre: number;

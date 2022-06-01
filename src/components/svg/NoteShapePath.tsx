@@ -13,7 +13,7 @@ import {
   shouldAddDurationDot,
 } from "src/utils";
 import { Dot } from "./Dot";
-import svgStyles from "src/components/SVGScore.module.scss"
+import svgStyles from "src/components/svg/SVGScore.module.scss";
 
 interface UpStrokeProps extends BaseSVGPathProps {
   xStart: number;

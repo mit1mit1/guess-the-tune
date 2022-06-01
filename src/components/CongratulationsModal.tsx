@@ -1,14 +1,16 @@
+import { useStore } from "src/gameStore";
 import { Modal } from "./Modal";
 
-export const CongradulationsModal = () => {
+export const CongratulationsModal = () => {
+  const { turn } = useStore();
   return (
     <Modal
-      title="<E3><81><8A><E3><82><81><E3><81><A7><E3><81><A8><E3><81><86>"
+      title="Well done!"
       visible={true}
       toggleVisible={() => window.location.reload()}
     >
-      <p>Congradulations!!</p>
-      <p>Got it in n turns</p>
+      <p>Congratulations!!</p>
+      <p>Got it in {turn} turns</p>
       <p>Listen to the song on spotify or something.</p>
     </Modal>
   );

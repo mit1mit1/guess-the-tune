@@ -10,10 +10,6 @@ html {
   font-family: "Quicksand", sans-serif;
 }
 
-.App h1 {
-  text-align: center;
-}
-
 .App div {
   margin-bottom: 5px;
 }
@@ -56,5 +52,6 @@ html {
 .App h1,
 .App h2,
 .App h3 {
+  font-size: 1.5em;
   font-family: "Merriweather", serif;
 }

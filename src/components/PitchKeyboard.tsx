@@ -6,8 +6,8 @@ import {
 } from "src/constants";
 import { initialAvailablePitches, useStore } from "src/gameStore";
 import pitchKeyboardStyles from "./PitchKeyboard.module.scss";
-import { TrebleStave } from "./TrebleStave";
-import { DurationlessPitchPath } from "./DurationlessPitchPath";
+import { TrebleStave } from "./svg/TrebleStave";
+import { DurationlessPitchPath } from "./svg/DurationlessPitchPath";
 import { noteSharpOffset } from "src/utils";
 
 interface PitchKeyProps {
@@ -86,7 +86,7 @@ export const PitchKeyboard = () => {
   const { availablePitches, wrongSpotPitches } = useStore();
   return (
     <div className={pitchKeyboardStyles.pitchKeyboard}>
-      <h2>Available Pitches</h2>
+      <h1>Available Pitches</h1>
       <svg
         viewBox={`0 0 ${1350} ${540}`}
         xmlns="<http://www.w3.org/2000/svg>"

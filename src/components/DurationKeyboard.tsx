@@ -2,10 +2,10 @@ import { Duration } from "src/types";
 import { BASE_COLOR, WRONG_SPOT_COLOR } from "src/constants";
 import { useStore } from "src/gameStore";
 import durationKeyStyles from "./DurationKey.module.scss";
-import { NoteShapeGroup } from "src/components/NoteShapeGroup";
+import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
 import { numberOfNotePaths, setIncludes } from "src/utils";
 import { rootCircleXRadius, rootCircleYRadius, UpStrokeLength } from "src/constants/svg";
-import svgStyles from "src/components/SVGScore.module.scss"
+import svgStyles from "src/components/svg/SVGScore.module.scss";
 
 
 interface DurationKeyProps {
@@ -89,7 +89,7 @@ export const DurationKeyboard = () => {
   });
   return (
     <div className={durationKeyStyles.durationKeyboard}>
-      <h2>Available Durations</h2>
+      <h1>Available Durations</h1>
       <div className={durationKeyStyles.durationKeys}>{buffer}</div>
     </div>
   );

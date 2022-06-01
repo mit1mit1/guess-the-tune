@@ -1,5 +1,5 @@
 import { sharpHeight } from "src/constants/svg";
-import svgStyles from "src/components/SVGScore.module.scss"
+import svgStyles from "src/components/svg/SVGScore.module.scss";
 
 export const SharpPath = ({
   xStart,

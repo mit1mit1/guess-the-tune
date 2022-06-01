@@ -17,6 +17,7 @@ import {
 } from "./utils";
 import { pitchNames } from "./constants";
 import {
+  allCorrect,
   areIdentical,
   arrayIncludes,
   getNewDurationAnswerStatus,
@@ -96,6 +97,7 @@ export interface GameState {
   availableDurations: Array<Duration>;
   selectedNoteIndex: number;
   turn: number;
+  guessedEverythingCorrect: boolean;
   incrementTurn: () => void;
   incrementGuessPitch: (index: number, increment: number) => void;
   incrementGuessDuration: (index: number, increment: number) => void;
@@ -134,6 +136,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   answerStatuses: initialAnswerStatuses,
   chosenSong: chosenSong,
   durationsGuessed: new Set<Duration>([]),
+  guessedEverythingCorrect: false,
   guesses: initialGuesses,
   incorrectDurationsArrays: correctNotes.map(() => []) as Array<
     Array<Duration>
@@ -325,6 +328,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
             draft.wrongSpotDurations.add(note.durationObject);
           }
         });
+        draft.guessedEverythingCorrect = allCorrect(draft.guesses, correctNotes)
       })
     );
   },

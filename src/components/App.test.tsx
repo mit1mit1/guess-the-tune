@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
 import App from "./App";
-import { Note } from "./types";
+import { Note } from "../types";
 
 expect.extend(toHaveNoViolations);
 

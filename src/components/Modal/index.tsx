@@ -1,6 +1,6 @@
 import React from "react";
 import modalStyles from "./Modal.module.scss";
-import appStyles from "src/App.module.scss";
+import appStyles from "src/components/App.module.scss";
 
 interface ModalProps {
   title: string;
@@ -21,7 +21,7 @@ export const Modal: React.FC<ModalProps> = ({
       <div className={visible ? modalStyles.visibleModal : modalStyles.invisibleModal}>
         <div className={modalStyles.modalContent}>
           <div className={modalStyles.modalHeader}>
-            <h3 className={modalStyles.modalTitle}>{title}</h3>
+            <h2 className={modalStyles.modalTitle}>{title}</h2>
           </div>
           <div className={modalStyles.modalBody}>{children}</div>
           <div className={modalStyles.modalFooter}>

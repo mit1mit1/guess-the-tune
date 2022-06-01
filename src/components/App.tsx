@@ -1,17 +1,16 @@
 import { useCallback, useEffect } from "react";
-import { SVGScore } from "src/components/SVGScore";
-import { allCorrect } from "./utils";
+import { SVGScore } from "src/components/svg/SVGScore";
 import { useStore } from "src/gameStore";
 import styles from "./App.module.scss";
-import { DurationKeyboard } from "./components/DurationKeyboard";
-import { BACKGROUND_COLOR, BASE_COLOR } from "./constants";
-import { PitchKeyboard } from "./components/PitchKeyboard";
-import { Note } from "./types";
-import { NoteShapePath } from "./components/NoteShapePath";
-import { maxNoteXLength } from "./constants/svg";
-import { InstructionsModal } from "./components/InstructionsModal";
-import { CongradulationsModal } from "./components/CongradulationsModal";
-import { SupportUsModal } from "./components/SupportUsModal";
+import { DurationKeyboard } from "./DurationKeyboard";
+import { BACKGROUND_COLOR, BASE_COLOR } from "../constants";
+import { PitchKeyboard } from "./PitchKeyboard";
+import { Note } from "../types";
+import { NoteShapePath } from "src/components/svg/NoteShapePath";
+import { maxNoteXLength } from "../constants/svg";
+import { InstructionsModal } from "./InstructionsModal";
+import { CongratulationsModal } from "./CongratulationsModal";
+import { SupportUsModal } from "./SupportUsModal";
 
 const App = ({
   playNotes,
@@ -26,6 +25,7 @@ const App = ({
     incrementTurn,
     checkGuesses,
     guesses,
+    guessedEverythingCorrect,
     chosenSong,
     toggleInstructions,
     toggleSupportUs,
@@ -112,7 +112,7 @@ const App = ({
         <SVGScore correctNotes={chosenSong.notes} />
         <PitchKeyboard />
         <DurationKeyboard />
-        {allCorrect(guesses, chosenSong.notes) && <CongradulationsModal />}
+        {guessedEverythingCorrect && <CongratulationsModal />}
         <InstructionsModal />
         <SupportUsModal />
         <div>

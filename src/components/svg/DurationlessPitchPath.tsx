@@ -1,10 +1,8 @@
-import { durationlessPitchRadius, sharpYOffset } from "src/constants/svg";
+import { durationlessPitchRadius, noteSharpOffsetAmount, rootCircleYRadius, sharpXOffset, sharpYOffset } from "src/constants/svg";
 import { Pitch } from "src/types";
 import { getBaseYPosition, shouldAddSharp } from "src/utils";
 import { SharpPath } from "./SharpPath";
-import svgStyles from "src/components/SVGScore.module.scss"
-
-const sharpPathDisplacement = -80;
+import svgStyles from "src/components/svg/SVGScore.module.scss";
 
 interface DurationlessPitchPathProps {
   pitch: Pitch;
@@ -27,7 +25,7 @@ export const DurationlessPitchPath = ({
       {shouldAddSharp(pitch) && (
         <SharpPath
           handleClick={handleClick}
-          xStart={xStart + sharpPathDisplacement}
+          xStart={xStart + sharpXOffset + noteSharpOffsetAmount + rootCircleYRadius}
           yStart={yStart + sharpYOffset + durationlessPitchRadius}
           color={color}
           opacity={opacity}
@@ -46,9 +44,8 @@ export const DurationlessPitchPath = ({
         />
       )}
       <g
-        transform={`rotate(45 ${xStart + durationlessPitchRadius} ${
-          yStart + durationlessPitchRadius
-        })`}
+        transform={`rotate(45 ${xStart + durationlessPitchRadius} ${yStart + durationlessPitchRadius
+          })`}
       >
         <rect
           x={xStart}

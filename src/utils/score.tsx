@@ -1,3 +1,4 @@
+import { noteSharpOffsetAmount } from "src/constants/svg";
 import { BaseDuration, Duration, Pitch } from "src/types";
 
 export const shouldAddSharp = (pitch: Pitch) => {
@@ -82,5 +83,5 @@ export const getDurationDotXCentre = (baseXPosition: number) => {
 };
 
 export const noteSharpOffset = (pitch: Pitch) => {
-  return 35 * (shouldAddSharp(pitch) ? 1 : -1);
+  return noteSharpOffsetAmount * (shouldAddSharp(pitch) ? 1 : -1);
 };

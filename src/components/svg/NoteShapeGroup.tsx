@@ -1,7 +1,7 @@
 import { maxNoteXLength, UpStrokeLength } from "src/constants/svg";
 import { BaseDuration, BaseSVGPathProps, Duration } from "src/types";
 import { NoteShapePath } from "./NoteShapePath";
-import svgStyles from "src/components/SVGScore.module.scss";
+import svgStyles from "src/components/svg/SVGScore.module.scss";
 
 interface TiePathProps {
   opacity?: number;
