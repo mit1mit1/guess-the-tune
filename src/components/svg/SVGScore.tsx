@@ -34,7 +34,6 @@ import {
 } from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
 import { areIdentical, isGuessable } from "src/utils/game";
-import { RestShapeGroup } from "./RestShapeGroup";
 
 const SVGWidth = 2740;
 const SVGHeight = 440;
@@ -56,9 +55,8 @@ const StavePath = ({
       key={`${baseXPosition}-${trackPitch}-stave-line`}
       strokeWidth="1"
       stroke={BASE_COLOR}
-      d={`M${baseXPosition - 110} ${getBaseYPosition(trackPitch)} H ${
-        baseXPosition + 40
-      }`}
+      d={`M${baseXPosition - 110} ${getBaseYPosition(trackPitch)} H ${baseXPosition + 40
+        }`}
     />
   );
 };
@@ -85,8 +83,8 @@ const ExtraStaveLines = ({
   const comparisonMultiplier = increasing ? 1 : -1;
   while (
     (cScale.indexOf(trackPitch) - cScale.indexOf(effectivePitch)) *
-      comparisonMultiplier <=
-      0 &&
+    comparisonMultiplier <=
+    0 &&
     hitEnd === false
   ) {
     buffer.push(
@@ -218,7 +216,6 @@ const CurrentGuessPaths = ({
   const { incorrectDurationsArrays, answerStatuses, setSelectedNoteIndex } =
     useStore();
   const displayNotes = notes.slice(startIndex, endIndex);
-
   return (
     <>
       {displayNotes.map((note, displayIndex) => {
@@ -233,7 +230,7 @@ const CurrentGuessPaths = ({
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-            AnswerStatus.GUESSEDCORRECT &&
+          AnswerStatus.GUESSEDCORRECT &&
           areIdentical(
             note.durationObject,
             correctNotes[trueIndex].durationObject
@@ -244,7 +241,7 @@ const CurrentGuessPaths = ({
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-            AnswerStatus.UNGUESSABLE &&
+          AnswerStatus.UNGUESSABLE &&
           answerStatuses[trueIndex].pitchStatus === AnswerStatus.UNGUESSABLE
         ) {
           opacity = 1;
@@ -252,7 +249,7 @@ const CurrentGuessPaths = ({
         }
         if (!!note.rest) {
           return (
-            <RestShapeGroup
+            <NoteShapeGroup
               durationObject={note.durationObject}
               baseXPosition={
                 getBaseXPosition(displayIndex, staveIndex) +
@@ -260,6 +257,8 @@ const CurrentGuessPaths = ({
               }
               color={color}
               opacity={opacity}
+              baseYPosition={getBaseYPosition("B4")}
+              rest
               key={`rest-${trueIndex}-${note.pitch}-${note.durationObject}`}
             />
           );
@@ -305,6 +304,9 @@ const NonIncorrectPaths = ({
         .slice(startIndex, endIndex)
         .map(({ pitchStatus, durationStatus }, displayIndex) => {
           let trueIndex = startIndex + displayIndex;
+          if (!isGuessable(correctNotes[trueIndex])) {
+            return <></>;
+          }
           if (
             pitchStatus === AnswerStatus.GUESSEDCORRECT &&
             durationStatus === AnswerStatus.GUESSEDCORRECT

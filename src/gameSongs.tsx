@@ -419,6 +419,85 @@ const battleOfTheHeroes: GameSong = {
   ],
 };
 
+const sunflower: GameSong = {
+  bpm: 85,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "16n": 1 } },
+    { pitch: "A4", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+  ]
+};
+
+const carryOnMyWaywardSon: GameSong = {
+  bpm: 123,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "B4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "16n": 1 } },
+    { pitch: "G4", durationObject: { "16n": 1 } },
+    { pitch: "F4", durationObject: { "4n": 1 } },
+  ]
+};
+
+const wiiChannel: GameSong = {
+  bpm: 114,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "C5", durationObject: { "8n": 1 }, staccato: true },
+    { pitch: "E5", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "C5", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "A4", durationObject: { "8n": 1 }, staccato: true },
+    { pitch: "F4", durationObject: { "8n": 1 }, staccato: true },
+    { pitch: "F4", durationObject: { "8n": 1 }, staccato: true },
+    { pitch: "F4", durationObject: { "8n": 1 }, staccato: true },
+  ]
+};
+
+const gourmetRace: GameSong = {
+  bpm: 186,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "C5", durationObject: { "2n": 1 } },
+    { pitch: "G4", durationObject: { "2n": 1 } },
+    { pitch: "D#4", durationObject: { "4n": 1 } },
+    { pitch: "D4", durationObject: { "4n": 1 } },
+    { pitch: "C4", durationObject: { "2n": 1 } },
+  ]
+};
+
+const heyJude: GameSong = {
+  bpm: 75,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "D#4", durationObject: { "4n": 1, "8n": 1 }, rest: true },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "4n": 1 } },
+  ]
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -443,4 +522,9 @@ export const gameSongs: Array<GameSong> = [
   schindlersList,
   avatarLegendOfAang,
   battleOfTheHeroes,
+  sunflower,
+  carryOnMyWaywardSon,
+  wiiChannel,
+  gourmetRace,
+  heyJude,
 ];

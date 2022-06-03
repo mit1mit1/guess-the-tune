@@ -86,7 +86,7 @@ interface RestShapePathProps extends BaseSVGPathProps {
   baseXPosition: number;
 }
 
-const RestShapePath = ({
+export const RestShapePath = ({
   baseDuration,
   baseXPosition,
   color,
