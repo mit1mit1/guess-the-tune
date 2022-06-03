@@ -88,6 +88,8 @@ export interface GameState {
   wrongSpotPitches: Set<Pitch>;
 }
 
+const allBaseDurations = durationNames.map(name => ({[name]: 1}))
+
 export const useStore: () => GameState = create<GameState>((set: any) => ({
   availablePitches: initialAvailablePitches,
   availableDurations: [...orderByLength(getUniqueElements(correctDurations)), ...(durationNames.map(name => ({[name]: 1})))],
