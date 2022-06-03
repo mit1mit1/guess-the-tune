@@ -12,6 +12,7 @@ const
 export const playNotes = (notes: Array<Note>, bpm: number) => {
   if (instrument.loaded) {
     Tone.Transport.cancel(-1);
+    instrument.releaseAll();
     instrument.sync();
     let currentTime: Duration = {"16n": 0};
     for (const note of notes) {
