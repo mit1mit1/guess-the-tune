@@ -11,6 +11,7 @@ const
 
 export const playNotes = (notes: Array<Note>, bpm: number) => {
   if (instrument.loaded) {
+    Tone.start();
     Tone.Transport.cancel(-1);
     instrument.releaseAll();
     instrument.sync();
