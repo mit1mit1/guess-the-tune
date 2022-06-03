@@ -4,11 +4,12 @@ import "./index.css";
 import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import axe from "@axe-core/react";
-import { playNotes } from "src/utils";
+import { playNotes } from "src/utils/tonejs";
 
 if (process.env.NODE_ENV !== "production") {
   axe(React, ReactDOM, 1000);
 }
+
 
 ReactDOM.render(
   <React.StrictMode>

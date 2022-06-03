@@ -144,7 +144,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   incorrectPitchesArrays: correctNotes.map(() => []) as Array<Array<Pitch>>,
   pitchesGuessed: new Set<Pitch>([]),
   selectedNoteIndex: 0,
-  turn: 1,
+  turn: 0,
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
   showInstructions: true,

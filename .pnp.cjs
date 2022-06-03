@@ -97,6 +97,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tailwindcss", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:3.0.24"],\
             ["terser-webpack-plugin", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.3.1"],\
             ["tone", "npm:14.7.77"],\
+            ["tonejs-instrument-piano-mp3", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:1.1.2"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"],\
             ["web-vitals", "npm:2.1.4"],\
             ["webpack", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.72.1"],\
@@ -16168,6 +16169,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["tonejs-instrument-piano-mp3", [\
+        ["npm:1.1.2", {\
+          "packageLocation": "./.yarn/cache/tonejs-instrument-piano-mp3-npm-1.1.2-1a885e0f46-48b10cee51.zip/node_modules/tonejs-instrument-piano-mp3/",\
+          "packageDependencies": [\
+            ["tonejs-instrument-piano-mp3", "npm:1.1.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:1.1.2", {\
+          "packageLocation": "./.yarn/__virtual__/tonejs-instrument-piano-mp3-virtual-e523f4558d/0/cache/tonejs-instrument-piano-mp3-npm-1.1.2-1a885e0f46-48b10cee51.zip/node_modules/tonejs-instrument-piano-mp3/",\
+          "packageDependencies": [\
+            ["tonejs-instrument-piano-mp3", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:1.1.2"],\
+            ["@types/tone", null],\
+            ["tone", "npm:14.7.77"]\
+          ],\
+          "packagePeers": [\
+            "@types/tone",\
+            "tone"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["tough-cookie", [\
         ["npm:4.0.0", {\
           "packageLocation": "./.yarn/cache/tough-cookie-npm-4.0.0-7c5f3086af-0891b37eb7.zip/node_modules/tough-cookie/",\
@@ -16422,6 +16445,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tailwindcss", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:3.0.24"],\
             ["terser-webpack-plugin", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.3.1"],\
             ["tone", "npm:14.7.77"],\
+            ["tonejs-instrument-piano-mp3", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:1.1.2"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"],\
             ["web-vitals", "npm:2.1.4"],\
             ["webpack", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.72.1"],\

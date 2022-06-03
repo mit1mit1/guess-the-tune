@@ -293,6 +293,137 @@ const goodMornin: GameSong = {
   ],
 };
 
+const leLestin: GameSong = {
+  bpm: 139,
+  timeSignature: TimeSignature.THREEFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "F4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n.": 1 } },
+    { pitch: "F4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "F4", durationObject: { "4n": 1 } },
+    { pitch: "C4", durationObject: { "2n": 1 } },
+  ]
+};
+
+
+
+const theLonelyShepherd: GameSong = {
+  bpm: 132,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "B4", durationObject: { "4n": 1 } },
+    { pitch: "B4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "E5", durationObject: { "4n": 1 } },
+    { pitch: "A5", durationObject: { "16n": 1 } },
+    { pitch: "G5", durationObject: { "16n": 1 } },
+    { pitch: "A5", durationObject: { "1n": 1 } },
+  ]
+};
+
+
+const oneSummersDay: GameSong = {
+  bpm: 78,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "16n": 1 } },
+    { pitch: "D4", durationObject: { "16n": 1, "2n.": 1 } },
+  ]
+};
+
+
+const schindlersList: GameSong = {
+  bpm: 48,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "F5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "2n": 1 } },
+  ]
+};
+
+// TODO: Get triplets sorted
+// const theGloryDays: GameSong = {
+//   bpm: 138,
+//   timeSignature: TimeSignature.THREEFOUR,
+//   readyForProduction: true,
+//   notes: [
+//     { pitch: "A4", durationObject: { "4n.": 1 } },
+//     { pitch: "A4", durationObject: { "8n": 1 } },
+//     { pitch: "E5", durationObject: { "2n": 1, "4n.": 1 } },
+//     { pitch: "A4", durationObject: { "8n": 1 } },
+//     { pitch: "A4", durationObject: { "6n": 1 } },
+//     { pitch: "B4", durationObject: { "6n": 1 } },
+//     { pitch: "C5", durationObject: { "6n": 1 } },
+//     { pitch: "B4", durationObject: { "4n.": 1 } },
+//     { pitch: "A4", durationObject: { "8n": 1 } },
+//     { pitch: "F5", durationObject: { "2n": 1 } },
+//   ]
+// };
+
+const avatarLegendOfAang: GameSong = {
+  bpm: 60,
+  timeSignature: TimeSignature.THREEFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+  ]
+};
+
+
+const battleOfTheHeroes: GameSong = {
+  bpm: 184,
+  timeSignature: TimeSignature.THREEFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "D4", durationObject: { "2n": 1, "4n.": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "F4", durationObject: { "2n": 1 } },
+    { pitch: "F4", durationObject: { "2n.": 1 } },
+    { pitch: "E4", durationObject: { "2n.": 1 } },
+    { pitch: "C4", durationObject: { "2n.": 1 } },
+    { pitch: "E4", durationObject: { "2n.": 1 } },
+    { pitch: "E4", durationObject: { "2n.": 1 } },
+    { pitch: "D4", durationObject: { "2n.": 1 } },
+  ]
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -311,4 +442,10 @@ export const gameSongs: Array<GameSong> = [
   pokemonGottaCatchEmAll,
   zeldaMainTheme,
   goodMornin,
+  leLestin,
+  theLonelyShepherd,
+  oneSummersDay,
+  schindlersList,
+  avatarLegendOfAang,
+  battleOfTheHeroes,
 ];

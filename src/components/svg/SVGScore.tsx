@@ -82,8 +82,9 @@ const ExtraStaveLines = ({
   let newIndex;
   const effectivePitch: Pitch = pitch.replace("#", "") as Pitch;
   const cScale = pitchNames.filter((pitch) => !pitch.includes("#"));
+  const comparisonMultiplier = increasing ? 1 : -1
   while (
-    cScale.indexOf(effectivePitch) <= cScale.indexOf(trackPitch) &&
+    (cScale.indexOf(trackPitch) - cScale.indexOf(effectivePitch)) * comparisonMultiplier <= 0 &&
     hitEnd === false
   ) {
     buffer.push(
@@ -93,7 +94,7 @@ const ExtraStaveLines = ({
         key={`stave-extra-${trackPitch}`}
       />
     );
-    newIndex = cScale.indexOf(trackPitch) + (increasing ? 1 : -1) * 2;
+    newIndex = cScale.indexOf(trackPitch) + (comparisonMultiplier) * 2;
     if (newIndex < 0 || newIndex >= cScale.length) {
       hitEnd = true;
     } else {
@@ -153,7 +154,7 @@ const NotePath = ({
           opacity={opacity}
         />
       )}
-      {/* <ExtraStaveLines pitch={note.pitch} startPitch="A5" increasing index={index} /> */}
+      <ExtraStaveLines pitch={note.pitch} startPitch="A5" increasing baseXPosition={baseXPosition} />
       <ExtraStaveLines
         pitch={note.pitch}
         startPitch="C4"
