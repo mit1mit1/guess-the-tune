@@ -26,15 +26,9 @@ import {
   orderByLength,
   setIncludes,
 } from "./utils/game";
-import dayjs from "dayjs";
+import { daysSinceBeginning, queryParamSongIndex } from "./constants/game";
 
 enableMapSet();
-
-const daysSinceBeginning = dayjs().diff("2022-04-22", "days");
-
-const queryParamSongIndex = parseInt(
-  new URLSearchParams(window.location.search).get("chosenSongIndex") || "-1"
-);
 
 const useUnreadySongs = parseInt(
   new URLSearchParams(window.location.search).get("unreadySongs") || "0"
@@ -42,7 +36,9 @@ const useUnreadySongs = parseInt(
 
 const songIndex =
   queryParamSongIndex === -1 ? daysSinceBeginning : queryParamSongIndex;
+
 let chosenSong = gameSongs[Math.abs(songIndex % gameSongs.length)];
+
 if (!useUnreadySongs) {
   const availableSongs = gameSongs.filter(
     (gameSong) => !!gameSong.readyForProduction

@@ -262,15 +262,17 @@ export const durationObjectTo16thInt = (durationObject: Duration) => {
   return current16s;
 };
 
-export const addDurationObjects = (durationObject: Duration, durationObject2: Duration) => {
-  let newObject: Duration = {...durationObject}
+export const addDurationObjects = (
+  durationObject: Duration,
+  durationObject2: Duration
+) => {
+  let newObject: Duration = { ...durationObject };
   for (const [baseDuration, multiplier] of Object.entries(durationObject2)) {
     let based = baseDuration as BaseDuration;
     newObject[based] = (newObject[based] || 0) + multiplier;
   }
   return newObject;
-}
-
+};
 
 export const isGuessable = (note: Note) => {
   return !note.rest;

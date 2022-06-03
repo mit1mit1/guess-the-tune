@@ -309,10 +309,8 @@ const leLestin: GameSong = {
     { pitch: "G4", durationObject: { "4n": 1 } },
     { pitch: "F4", durationObject: { "4n": 1 } },
     { pitch: "C4", durationObject: { "2n": 1 } },
-  ]
+  ],
 };
-
-
 
 const theLonelyShepherd: GameSong = {
   bpm: 132,
@@ -329,9 +327,8 @@ const theLonelyShepherd: GameSong = {
     { pitch: "A5", durationObject: { "16n": 1 } },
     { pitch: "G5", durationObject: { "16n": 1 } },
     { pitch: "A5", durationObject: { "1n": 1 } },
-  ]
+  ],
 };
-
 
 const oneSummersDay: GameSong = {
   bpm: 78,
@@ -348,9 +345,8 @@ const oneSummersDay: GameSong = {
     { pitch: "E4", durationObject: { "8n": 1 } },
     { pitch: "D4", durationObject: { "16n": 1 } },
     { pitch: "D4", durationObject: { "16n": 1, "2n.": 1 } },
-  ]
+  ],
 };
-
 
 const schindlersList: GameSong = {
   bpm: 48,
@@ -371,7 +367,7 @@ const schindlersList: GameSong = {
     { pitch: "C5", durationObject: { "8n": 1 } },
     { pitch: "D5", durationObject: { "8n": 1 } },
     { pitch: "E5", durationObject: { "2n": 1 } },
-  ]
+  ],
 };
 
 // TODO: Get triplets sorted
@@ -403,9 +399,8 @@ const avatarLegendOfAang: GameSong = {
     { pitch: "B4", durationObject: { "8n": 1 } },
     { pitch: "A4", durationObject: { "4n": 1 } },
     { pitch: "C5", durationObject: { "4n": 1 } },
-  ]
+  ],
 };
-
 
 const battleOfTheHeroes: GameSong = {
   bpm: 184,
@@ -421,7 +416,7 @@ const battleOfTheHeroes: GameSong = {
     { pitch: "E4", durationObject: { "2n.": 1 } },
     { pitch: "E4", durationObject: { "2n.": 1 } },
     { pitch: "D4", durationObject: { "2n.": 1 } },
-  ]
+  ],
 };
 
 export const gameSongs: Array<GameSong> = [
