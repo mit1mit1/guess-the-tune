@@ -498,6 +498,69 @@ const heyJude: GameSong = {
   ]
 };
 
+const tossACoinToYourWatcher: GameSong = {
+  bpm: 105,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "4n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "4n": 1 } },
+  ]
+};
+
+const theChain: GameSong = {
+  bpm: 152,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "4n": 1 } },
+    { pitch: "E4", durationObject: { "2n": 1 } },
+  ]
+};  
+
+const standByMe: GameSong = {
+  bpm: 120,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "F4", durationObject: { "4n.": 1 } },
+    { pitch: "F4", durationObject: { "4n.": 1 } },
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "F4", durationObject: { "4n.": 1 } },
+    { pitch: "F4", durationObject: { "4n.": 1 } },
+  ]
+};
+
+const tinyDancer: GameSong = {
+  bpm: 125,
+  notes: [
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "C4", durationObject: { "4n": 1 } },
+    { pitch: "D4", durationObject: { "4n": 1 } },
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "4n.": 1 } },
+    { pitch: "C4", durationObject: { "2n.": 1 } },
+  ],
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -527,4 +590,8 @@ export const gameSongs: Array<GameSong> = [
   wiiChannel,
   gourmetRace,
   heyJude,
+  tossACoinToYourWatcher,
+  theChain,
+  standByMe,
+  tinyDancer,
 ];
