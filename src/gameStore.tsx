@@ -22,9 +22,7 @@ import { chosenSong, queryParamSongIndex } from "./constants/game";
 
 enableMapSet();
 
-const paramStartCorrect = parseInt(
-  new URLSearchParams(window.location.search).get("startCorrect") || "0"
-);
+const paramStartCorrect = "1";
 const correctNotes = chosenSong.notes;
 const correctAvailableNotes = correctNotes.filter((note) => isGuessable(note));
 const correctPitches = correctAvailableNotes.map((note) => note.pitch);
