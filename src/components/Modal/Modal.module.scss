@@ -6,7 +6,41 @@
   align-items: center;
   justify-content: center;
   top: 0;
-  margin: 50px 25px;
+  margin: 50px 25px 20px 25px;
+}
+
+@media screen and (max-height: 480px) {
+  .visibleModal {
+    height: -webkit-fill-available;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .visibleModal {
+    height: -webkit-fill-available;
+  }
+}
+
+@media screen and (min-height: 480px) {
+  .visibleModal {
+    min-height: 440px;
+  }
+}
+
+
+.modalContent {
+  width: 90%;
+  max-width: 500px;
+  background-color: white;
+  color: black;
+  padding: 20px 30px 25px 30px;
+  height: inherit;
+  overflow: auto;
+
+}
+
+.modalFooter {
+  padding-top: 20px;
 }
 
 .invisibleModal {
@@ -17,20 +51,7 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: -10px;
+  bottom: -50px;
   top: 0;
   background-color: #ffffff90;
-}
-
-.modalContent {
-  width: 90%;
-  max-width: 500px;
-  background-color: white;
-  color: black;
-  padding: 20px 30px 30px 30px;
-  max-height: 80vh;
-}
-
-.modalFooter {
-  padding-top: 20px;
 }
