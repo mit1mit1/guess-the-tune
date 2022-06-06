@@ -1,6 +1,9 @@
 import { daysSinceBeginning, queryParamSongIndex } from "src/constants/game";
 import { useStore } from "src/gameStore";
 import { Modal } from "./Modal";
+import dayjs from "dayjs";
+
+const loadTime = dayjs()
 
 export const CongratulationsModal = () => {
   const { chosenSong, turn } = useStore();
@@ -21,7 +24,7 @@ export const CongratulationsModal = () => {
       }}
     >
       <p>Congratulations!!</p>
-      <p>Guessed <i>{chosenSong.name}</i> in {turn} turns</p>
+      <p>Guessed <i>{chosenSong.name}</i> in {turn} turns, {dayjs().diff(loadTime, 's', true).toFixed(2)} seconds.</p>
       <p>Listen to the song on spotify or something.</p>
     </Modal>
   );
