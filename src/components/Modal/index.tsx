@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import modalStyles from "./Modal.module.scss";
 import appStyles from "src/components/App.module.scss";
 
@@ -15,6 +15,18 @@ export const Modal: React.FC<ModalProps> = ({
   visible,
   toggleVisible,
 }) => {
+  useEffect(() => {
+    if (!visible) {
+      return;
+    }
+    const close = (e: { key: string; }) => {
+      if (e.key === 'Escape') {
+        toggleVisible()
+      }
+    }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  }, [toggleVisible, visible])
   return (
     <>
       {visible && (
