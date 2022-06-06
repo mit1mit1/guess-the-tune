@@ -47,6 +47,7 @@ export interface GameSong {
   notes: Array<Note>;
   timeSignature: TimeSignature;
   readyForProduction?: boolean;
+  name: string;
 }
 
 export interface BaseSVGPathProps {

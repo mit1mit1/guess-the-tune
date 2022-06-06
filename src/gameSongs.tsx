@@ -14,6 +14,7 @@ const simpsonsTheme: GameSong = {
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+  name: "The Simpson's Theme",
 };
 
 const imperialMarch: GameSong = {
@@ -31,6 +32,7 @@ const imperialMarch: GameSong = {
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+  name: "The Imperial March",
 };
 
 const hedwigsTheme: GameSong = {
@@ -47,6 +49,7 @@ const hedwigsTheme: GameSong = {
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+  name: "Hedwig's Theme",
 };
 
 const thomasTheTankEngine: GameSong = {
@@ -62,6 +65,7 @@ const thomasTheTankEngine: GameSong = {
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+  name: "Thomas the Tank Engine's Theme",
 };
 
 const theMandalorian: GameSong = {
@@ -87,6 +91,7 @@ const theMandalorian: GameSong = {
     { pitch: "D4", durationObject: { "8n": 1 }, staccato: true },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  name: "The Mandalorian Theme",
 };
 
 const marioBrosMainTheme: GameSong = {
@@ -102,6 +107,7 @@ const marioBrosMainTheme: GameSong = {
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+  name: "Mario Bros: Overworld Theme",
 };
 
 const concerningHobbits: GameSong = {
@@ -126,6 +132,7 @@ const concerningHobbits: GameSong = {
     { pitch: "D4", durationObject: { "4n": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  name: "Concerning Hobbits",
 };
 
 const aGrandDayOut: GameSong = {
@@ -142,6 +149,7 @@ const aGrandDayOut: GameSong = {
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+  name: "A Grand Day Out",
 };
 
 const missionImpossible: GameSong = {
@@ -158,6 +166,7 @@ const missionImpossible: GameSong = {
   ],
   timeSignature: TimeSignature.FIVEFOUR,
   readyForProduction: true,
+  name: "Mission Impossible",
 };
 
 const theRaidersMarch: GameSong = {
@@ -173,6 +182,7 @@ const theRaidersMarch: GameSong = {
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+  name: "The Raider's March",
 };
 
 const spidermanSpiderman: GameSong = {
@@ -188,6 +198,7 @@ const spidermanSpiderman: GameSong = {
     { pitch: "B4", durationObject: { "4n": 1 }, rest: true },
   ],
   timeSignature: TimeSignature.FOURFOUR,
+  name: "Spiderman's Theme (Old)",
 };
 
 const spiritedAwayReprise: GameSong = {
@@ -206,6 +217,7 @@ const spiritedAwayReprise: GameSong = {
   ],
   timeSignature: TimeSignature.THREEFOUR,
   readyForProduction: true,
+  name: "Spirited Away, Reprise",
 };
 
 const pokemonGottaCatchEmAll: GameSong = {
@@ -222,6 +234,7 @@ const pokemonGottaCatchEmAll: GameSong = {
     { pitch: "C5", durationObject: { "8n": 1 } },
     { pitch: "A4", durationObject: { "4n.": 1 } },
   ],
+  name: "The Pokemon Theme Song",
 };
 
 const marriedLife: GameSong = {
@@ -244,6 +257,7 @@ const marriedLife: GameSong = {
     { pitch: "D5", durationObject: { "8n": 1 } },
     { pitch: "C5", durationObject: { "2n": 1 } },
   ],
+  name: "Married Life",
 };
 
 const tetris: GameSong = {
@@ -261,6 +275,7 @@ const tetris: GameSong = {
     { pitch: "C4", durationObject: { "8n": 1 } },
     { pitch: "E4", durationObject: { "4n": 1 } },
   ],
+  name: "Korobeiniki (Tetris)",
 };
 
 const zeldaMainTheme: GameSong = {
@@ -277,6 +292,7 @@ const zeldaMainTheme: GameSong = {
     { pitch: "F5", durationObject: { "16n": 1 } },
     { pitch: "G5", durationObject: { "2n": 1 } },
   ],
+  name: "Zelda: Overworld Theme",
 };
 
 const goodMornin: GameSong = {
@@ -291,9 +307,10 @@ const goodMornin: GameSong = {
     { pitch: "E5", durationObject: { "4n.": 1 } },
     { pitch: "C5", durationObject: { "8n": 1, "2n": 1 }, staccato: true },
   ],
+  name: "Good Mornin'",
 };
 
-const leLestin: GameSong = {
+const leFestin: GameSong = {
   bpm: 139,
   timeSignature: TimeSignature.THREEFOUR,
   readyForProduction: true,
@@ -310,6 +327,7 @@ const leLestin: GameSong = {
     { pitch: "F4", durationObject: { "4n": 1 } },
     { pitch: "C4", durationObject: { "2n": 1 } },
   ],
+  name: "Le Festin",
 };
 
 const theLonelyShepherd: GameSong = {
@@ -328,6 +346,7 @@ const theLonelyShepherd: GameSong = {
     { pitch: "G5", durationObject: { "16n": 1 } },
     { pitch: "A5", durationObject: { "1n": 1 } },
   ],
+  name: "The Lonely Shepherd",
 };
 
 const oneSummersDay: GameSong = {
@@ -346,6 +365,7 @@ const oneSummersDay: GameSong = {
     { pitch: "D4", durationObject: { "16n": 1 } },
     { pitch: "D4", durationObject: { "16n": 1, "2n.": 1 } },
   ],
+  name: "One Summer's Day",
 };
 
 const schindlersList: GameSong = {
@@ -368,6 +388,7 @@ const schindlersList: GameSong = {
     { pitch: "D5", durationObject: { "8n": 1 } },
     { pitch: "E5", durationObject: { "2n": 1 } },
   ],
+  name: "Theme from Schindler's List",
 };
 
 // TODO: Get triplets sorted
@@ -400,6 +421,7 @@ const avatarLegendOfAang: GameSong = {
     { pitch: "A4", durationObject: { "4n": 1 } },
     { pitch: "C5", durationObject: { "4n": 1 } },
   ],
+  name: "Avatar: Legend of Aang",
 };
 
 const battleOfTheHeroes: GameSong = {
@@ -417,6 +439,7 @@ const battleOfTheHeroes: GameSong = {
     { pitch: "E4", durationObject: { "2n.": 1 } },
     { pitch: "D4", durationObject: { "2n.": 1 } },
   ],
+  name: "Battle of the Heroes",
 };
 
 const sunflower: GameSong = {
@@ -433,7 +456,8 @@ const sunflower: GameSong = {
     { pitch: "A4", durationObject: { "16n": 1 } },
     { pitch: "A4", durationObject: { "16n": 1 } },
     { pitch: "C5", durationObject: { "8n": 1 } },
-  ]
+  ],
+  name: "Sunflower",
 };
 
 const carryOnMyWaywardSon: GameSong = {
@@ -451,10 +475,11 @@ const carryOnMyWaywardSon: GameSong = {
     { pitch: "A4", durationObject: { "16n": 1 } },
     { pitch: "G4", durationObject: { "16n": 1 } },
     { pitch: "F4", durationObject: { "4n": 1 } },
-  ]
+  ],
+  name: "Carry on my Wayward Son",
 };
 
-const wiiChannel: GameSong = {
+const miiChannel: GameSong = {
   bpm: 114,
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
@@ -467,7 +492,8 @@ const wiiChannel: GameSong = {
     { pitch: "F4", durationObject: { "8n": 1 }, staccato: true },
     { pitch: "F4", durationObject: { "8n": 1 }, staccato: true },
     { pitch: "F4", durationObject: { "8n": 1 }, staccato: true },
-  ]
+  ],
+  name: "Mii Channel",
 };
 
 const gourmetRace: GameSong = {
@@ -480,7 +506,8 @@ const gourmetRace: GameSong = {
     { pitch: "D#4", durationObject: { "4n": 1 } },
     { pitch: "D4", durationObject: { "4n": 1 } },
     { pitch: "C4", durationObject: { "2n": 1 } },
-  ]
+  ],
+  name: "Gourmet Race",
 };
 
 const heyJude: GameSong = {
@@ -495,10 +522,11 @@ const heyJude: GameSong = {
     { pitch: "G4", durationObject: { "8n": 1 } },
     { pitch: "A4", durationObject: { "8n": 1 } },
     { pitch: "D4", durationObject: { "4n": 1 } },
-  ]
+  ],
+  name: "Hey Jude",
 };
 
-const tossACoinToYourWatcher: GameSong = {
+const tossACoinToYourWitcher: GameSong = {
   bpm: 105,
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
@@ -510,7 +538,8 @@ const tossACoinToYourWatcher: GameSong = {
     { pitch: "C5", durationObject: { "8n": 1 } },
     { pitch: "D5", durationObject: { "8n": 1 } },
     { pitch: "E5", durationObject: { "4n": 1 } },
-  ]
+  ],
+  name: "Toss a Coin to Your Witcher",
 };
 
 const theChain: GameSong = {
@@ -528,7 +557,8 @@ const theChain: GameSong = {
     { pitch: "A4", durationObject: { "8n": 1 } },
     { pitch: "B4", durationObject: { "4n": 1 } },
     { pitch: "E4", durationObject: { "2n": 1 } },
-  ]
+  ],
+  name: "The Chain",
 };  
 
 const standByMe: GameSong = {
@@ -542,7 +572,8 @@ const standByMe: GameSong = {
     { pitch: "E4", durationObject: { "8n": 1 } },
     { pitch: "F4", durationObject: { "4n.": 1 } },
     { pitch: "F4", durationObject: { "4n.": 1 } },
-  ]
+  ],
+  name: "Stand By Me",
 };
 
 const tinyDancer: GameSong = {
@@ -559,6 +590,7 @@ const tinyDancer: GameSong = {
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
+  name: "Tiny Dancer",
 };
 
 const theTimeIsNow: GameSong = {
@@ -574,7 +606,8 @@ const theTimeIsNow: GameSong = {
     { pitch: "B4", durationObject: { "8n": 1 } },
     { pitch: "G4", durationObject: { "4n": 1 } },
     { pitch: "A4", durationObject: { "1n": 1 } },
-  ]
+  ],
+  name: "The Time is Now",
 };
 
 const sevenNationArmy: GameSong = {
@@ -589,7 +622,8 @@ const sevenNationArmy: GameSong = {
     { pitch: "D4", durationObject: { "8n": 1 } },
     { pitch: "C4", durationObject: { "2n": 1 } },
     { pitch: "B3", durationObject: { "2n": 1 } },
-  ]
+  ],
+  name: "Seven Nation Army",
 };
 
 
@@ -605,7 +639,8 @@ const smokeOnTheWater: GameSong = {
     { pitch: "G4", durationObject: { "4n": 1 } },
     { pitch: "A#4", durationObject: { "8n": 1 } },
     { pitch: "A4", durationObject: { "4n.": 1 } },
-  ]
+  ],
+  name: "Smoke on the Water",
 };
 
 const chameleon: GameSong = {
@@ -621,7 +656,8 @@ const chameleon: GameSong = {
     { pitch: "A4", durationObject: { "8n.": 1 }, staccato: true },
     { pitch: "C5", durationObject: { "8n.": 1 } },
     { pitch: "A4", durationObject: { "8n": 1 }, staccato: true },
-  ]
+  ],
+  name: "Chameleon",
 };
 
 export const gameSongs: Array<GameSong> = [
@@ -637,7 +673,7 @@ export const gameSongs: Array<GameSong> = [
   sunflower,
   theRaidersMarch,
   theChain,
-  leLestin,
+  leFestin,
   standByMe,
   spiritedAwayReprise,
   tetris,
@@ -649,7 +685,7 @@ export const gameSongs: Array<GameSong> = [
   chameleon,
   sevenNationArmy,
   carryOnMyWaywardSon,
-  tossACoinToYourWatcher,
+  tossACoinToYourWitcher,
   heyJude,
   theLonelyShepherd,
   oneSummersDay,
@@ -659,6 +695,6 @@ export const gameSongs: Array<GameSong> = [
   theTimeIsNow,
   pokemonGottaCatchEmAll,
   goodMornin,
-  wiiChannel,
+  miiChannel,
   spidermanSpiderman,
 ];

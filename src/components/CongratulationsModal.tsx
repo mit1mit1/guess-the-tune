@@ -3,11 +3,12 @@ import { useStore } from "src/gameStore";
 import { Modal } from "./Modal";
 
 export const CongratulationsModal = () => {
-  const { turn } = useStore();
+  const { chosenSong, turn } = useStore();
   return (
     <Modal
       title="Well done!"
       visible={true}
+      closeText="Another!"
       toggleVisible={() => {
         if ("URLSearchParams" in window) {
           var searchParams = new URLSearchParams(window.location.search);
@@ -20,7 +21,7 @@ export const CongratulationsModal = () => {
       }}
     >
       <p>Congratulations!!</p>
-      <p>Got it in {turn} turns</p>
+      <p>Guessed <i>{chosenSong.name}</i> in {turn} turns</p>
       <p>Listen to the song on spotify or something.</p>
     </Modal>
   );

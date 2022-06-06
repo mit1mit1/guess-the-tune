@@ -7,6 +7,7 @@ interface ModalProps {
   children?: React.ReactNode;
   visible: boolean;
   toggleVisible: () => void;
+  closeText?: string;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -14,6 +15,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   visible,
   toggleVisible,
+  closeText = "Close"
 }) => {
   useEffect(() => {
     if (!visible) {
@@ -51,7 +53,7 @@ export const Modal: React.FC<ModalProps> = ({
               ].join(" ")}
               onClick={toggleVisible}
             >
-              Close
+              {closeText}
             </button>
           </div>
         </div>
