@@ -577,6 +577,37 @@ const theTimeIsNow: GameSong = {
   ]
 };
 
+const sevenNationArmy: GameSong = {
+  bpm: 118,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E4", durationObject: { "4n.": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n.": 1 } },
+    { pitch: "E4", durationObject: { "8n.": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "C4", durationObject: { "2n": 1 } },
+    { pitch: "B3", durationObject: { "2n": 1 } },
+  ]
+};
+
+
+const smokeOnTheWater: GameSong = {
+  bpm: 115,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "A#4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+  ]
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -596,8 +627,10 @@ export const gameSongs: Array<GameSong> = [
   tetris,
   marriedLife,
   tinyDancer,
+  smokeOnTheWater,
   gourmetRace,
   zeldaMainTheme,
+  sevenNationArmy,
   carryOnMyWaywardSon,
   tossACoinToYourWatcher,
   heyJude,
