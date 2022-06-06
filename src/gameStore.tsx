@@ -1,9 +1,7 @@
 import create from "zustand";
-import { gameSongs } from "./gameSongs";
 import {
   AnswerStatus,
   Duration,
-  GameSong,
   Note,
   NoteStatus,
   Pitch,
@@ -26,25 +24,9 @@ import {
   orderByLength,
   setIncludes,
 } from "./utils/game";
-import { daysSinceBeginning, queryParamSongIndex } from "./constants/game";
+import { chosenSong, queryParamSongIndex } from "./constants/game";
 
 enableMapSet();
-
-const useUnreadySongs = parseInt(
-  new URLSearchParams(window.location.search).get("unreadySongs") || "0"
-);
-
-const songIndex =
-  queryParamSongIndex === -1 ? daysSinceBeginning : queryParamSongIndex;
-
-let chosenSong = gameSongs[Math.abs(songIndex % gameSongs.length)];
-
-if (!useUnreadySongs) {
-  const availableSongs = gameSongs.filter(
-    (gameSong) => !!gameSong.readyForProduction
-  );
-  chosenSong = availableSongs[Math.abs(songIndex % availableSongs.length)];
-}
 
 const paramStartCorrect = parseInt(
   new URLSearchParams(window.location.search).get("startCorrect") || "0"
@@ -113,7 +95,6 @@ export interface GameState {
   toggleSupportUs: () => void;
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
-  chosenSong: GameSong;
 }
 // const minDurationIndex = Math.min(
 //   ...correctDurations.map((duration) => durationNames.indexOf(duration))
@@ -130,7 +111,6 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   availablePitches: initialAvailablePitches,
   availableDurations: orderByLength(getUniqueElements(correctDurations)),
   answerStatuses: initialAnswerStatuses,
-  chosenSong: chosenSong,
   durationsGuessed: new Set<Duration>([]),
   guessedEverythingCorrect: false,
   guesses: initialGuesses,
@@ -143,7 +123,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   turn: 0,
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
-  showInstructions: true,
+  showInstructions: queryParamSongIndex === -1,
   showSupportUs: false,
 
   toggleInstructions: () => {

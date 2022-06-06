@@ -11,6 +11,7 @@ import { maxNoteXLength } from "../constants/svg";
 import { InstructionsModal } from "./InstructionsModal";
 import { CongratulationsModal } from "./CongratulationsModal";
 import { SupportUsModal } from "./SupportUsModal";
+import { chosenSong } from "src/constants/game";
 
 const App = ({
   playNotes,
@@ -26,7 +27,6 @@ const App = ({
     checkGuesses,
     guesses,
     guessedEverythingCorrect,
-    chosenSong,
     toggleInstructions,
     toggleSupportUs,
   } = useStore();
@@ -35,10 +35,10 @@ const App = ({
     incrementTurn();
     checkGuesses();
     playNotes([...guesses], chosenSong.bpm);
-  }, [checkGuesses, chosenSong.bpm, guesses, incrementTurn, playNotes]);
+  }, [checkGuesses, guesses, incrementTurn, playNotes]);
   useEffect(() => {
     playNotes([guesses[selectedNoteIndex]], chosenSong.bpm);
-  }, [chosenSong.bpm, guesses, playNotes, selectedNoteIndex]);
+  }, [guesses, playNotes, selectedNoteIndex]);
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
       const key = e.key;
@@ -73,8 +73,6 @@ const App = ({
       document.removeEventListener("keyup", handleKeyup, true);
     };
   }, [
-    chosenSong.bpm,
-    chosenSong.notes.length,
     guesses,
     handleCheckGuess,
     incrementGuessDuration,

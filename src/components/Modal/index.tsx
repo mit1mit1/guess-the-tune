@@ -15,20 +15,20 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   visible,
   toggleVisible,
-  closeText = "Close"
+  closeText = "Close",
 }) => {
   useEffect(() => {
     if (!visible) {
       return;
     }
-    const close = (e: { key: string; }) => {
-      if (e.key === 'Escape') {
-        toggleVisible()
+    const close = (e: { key: string }) => {
+      if (e.key === "Escape") {
+        toggleVisible();
       }
-    }
-    window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
-  }, [toggleVisible, visible])
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [toggleVisible, visible]);
   return (
     <>
       {visible && (

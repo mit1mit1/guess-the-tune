@@ -559,7 +559,7 @@ const theChain: GameSong = {
     { pitch: "E4", durationObject: { "2n": 1 } },
   ],
   name: "The Chain",
-};  
+};
 
 const standByMe: GameSong = {
   bpm: 120,
@@ -625,7 +625,6 @@ const sevenNationArmy: GameSong = {
   ],
   name: "Seven Nation Army",
 };
-
 
 const smokeOnTheWater: GameSong = {
   bpm: 115,

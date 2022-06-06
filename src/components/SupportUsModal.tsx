@@ -17,7 +17,8 @@ export const SupportUsModal = () => {
         or{" "}
         <a href="https://www.againstmalaria.com/default.aspx">
           againstmalaria.com
-        </a> (or any other charity you know is doing good work).
+        </a>{" "}
+        (or any other charity you know is doing good work).
       </p>
       <p>
         Feel free to let me know and I'll consider it game-development income ;)

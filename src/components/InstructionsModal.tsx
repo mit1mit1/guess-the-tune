@@ -1,4 +1,8 @@
-import { CORRECT_COLOR, CORRECT_PITCH_COLOR, WRONG_SPOT_COLOR } from "src/constants";
+import {
+  CORRECT_COLOR,
+  CORRECT_PITCH_COLOR,
+  WRONG_SPOT_COLOR,
+} from "src/constants";
 import { useStore } from "src/gameStore";
 import { Modal } from "./Modal";
 import { DurationlessPitchPath } from "./svg/DurationlessPitchPath";
@@ -26,28 +30,46 @@ export const InstructionsModal = () => {
           xmlns="<http://www.w3.org/2000/svg>"
           style={{ width: "30px", height: "1.5em" }}
         >
-          <DurationlessPitchPath color={CORRECT_PITCH_COLOR} pitch={"F5"} xStart={25} />
-        </svg> means that the pitch in this position is correct.
+          <DurationlessPitchPath
+            color={CORRECT_PITCH_COLOR}
+            pitch={"F5"}
+            xStart={25}
+          />
+        </svg>{" "}
+        means that the pitch in this position is correct.
       </p>
-      
+
       <p>
         <svg
           viewBox={`0 0 ${200} ${220}`}
           xmlns="<http://www.w3.org/2000/svg>"
           style={{ width: "30px", height: "2em" }}
         >
-          <NoteShapePath color={CORRECT_COLOR} duration={"4n"} baseXPosition={80} baseYPosition={160} />
-        </svg> means that the duration in this position is correct.
+          <NoteShapePath
+            color={CORRECT_COLOR}
+            duration={"4n"}
+            baseXPosition={80}
+            baseYPosition={160}
+          />
+        </svg>{" "}
+        means that the duration in this position is correct.
       </p>
-      
+
       <p>
         <svg
           viewBox={`0 0 ${200} ${220}`}
           xmlns="<http://www.w3.org/2000/svg>"
           style={{ width: "30px", height: "2em" }}
         >
-          <NoteShapePath color={WRONG_SPOT_COLOR} duration={"4n"} baseXPosition={80} baseYPosition={160} />
-        </svg> means that the duration in this position is incorrect, but would be correct somewhere you haven't guessed yet.
+          <NoteShapePath
+            color={WRONG_SPOT_COLOR}
+            duration={"4n"}
+            baseXPosition={80}
+            baseYPosition={160}
+          />
+        </svg>{" "}
+        means that the duration in this position is incorrect, but would be
+        correct somewhere you haven't guessed yet.
       </p>
     </Modal>
   );

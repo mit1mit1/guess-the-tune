@@ -3,7 +3,11 @@ import { BaseDuration, BaseSVGPathProps, Duration } from "src/types";
 import { NoteShapePath } from "./NoteShapePath";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
 import { RestShapePath } from "./RestShapeGroup";
-import { getBaseYPosition, getDurationDotXCentre, shouldAddDurationDot } from "src/utils";
+import {
+  getBaseYPosition,
+  getDurationDotXCentre,
+  shouldAddDurationDot,
+} from "src/utils";
 import { Dot } from "./Dot";
 
 interface TiePathProps {
@@ -90,13 +94,15 @@ export const NoteShapeGroup = ({
       }
       if (rest) {
         if (shouldAddDurationDot(baseDuration as BaseDuration)) {
-          buffer.push(<Dot
-            xCentre={getDurationDotXCentre(baseXPosition)}
-            yCentre={getBaseYPosition("B4")}
-            color={color}
-            opacity={opacity}
-            handleClick={handleClick}
-          />)
+          buffer.push(
+            <Dot
+              xCentre={getDurationDotXCentre(baseXPosition)}
+              yCentre={getBaseYPosition("B4")}
+              color={color}
+              opacity={opacity}
+              handleClick={handleClick}
+            />
+          );
         }
         buffer.push(
           <RestShapePath
@@ -107,9 +113,7 @@ export const NoteShapeGroup = ({
             opacity={opacity}
             baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
           />
-        )
-        
-
+        );
       } else {
         buffer.push(
           <NoteShapePath
@@ -122,7 +126,7 @@ export const NoteShapeGroup = ({
             baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
             baseYPosition={baseYPosition}
           />
-        )
+        );
       }
       groupCounter++;
     }
