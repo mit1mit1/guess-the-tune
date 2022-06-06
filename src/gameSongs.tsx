@@ -608,6 +608,22 @@ const smokeOnTheWater: GameSong = {
   ]
 };
 
+const chameleon: GameSong = {
+  bpm: 96,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "16n": 1 }, staccato: true },
+    { pitch: "A4", durationObject: { "8n.": 1 }, staccato: true },
+    { pitch: "G4", durationObject: { "16n": 1 }, staccato: true },
+    { pitch: "G4", durationObject: { "8n.": 1 }, staccato: true },
+    { pitch: "A4", durationObject: { "16n": 1 }, staccato: true },
+    { pitch: "A4", durationObject: { "8n.": 1 }, staccato: true },
+    { pitch: "C5", durationObject: { "8n.": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 }, staccato: true },
+  ]
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -630,6 +646,7 @@ export const gameSongs: Array<GameSong> = [
   smokeOnTheWater,
   gourmetRace,
   zeldaMainTheme,
+  chameleon,
   sevenNationArmy,
   carryOnMyWaywardSon,
   tossACoinToYourWatcher,
