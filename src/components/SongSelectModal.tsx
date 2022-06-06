@@ -1,28 +1,20 @@
 import {
   chosenSong,
-  daysSinceBeginning,
   queryParamSongIndex,
 } from "src/constants/game";
 import { Modal } from "./Modal";
+import { useState } from "react";
 
 export const SongSelectModal = () => {
+  const [show, setShow] = useState(true);
   return (
     <Modal
-      title={"Song " + queryParamSongIndex + ": " + chosenSong.bpm}
-      visible={true}
-      closeText="Another!"
-      toggleVisible={() => {
-        if ("URLSearchParams" in window) {
-          var searchParams = new URLSearchParams(window.location.search);
-          searchParams.set(
-            "chosenSongIndex",
-            ((queryParamSongIndex + 1) % daysSinceBeginning).toString()
-          );
-          window.location.search = searchParams.toString();
-        }
-      }}
+      title={"Song " + queryParamSongIndex + ": " + chosenSong.bpm + "bpm"}
+      visible={show}
+      closeText="Close"
+      toggleVisible={() => setShow(false)}
     >
-      <p>Pick a new song?</p>
+      <p>Pick a different song from the archives by changing <i>chosenSongIndex=0</i> in the url.</p>
     </Modal>
   );
 };

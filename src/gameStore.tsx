@@ -96,16 +96,6 @@ export interface GameState {
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
 }
-// const minDurationIndex = Math.min(
-//   ...correctDurations.map((duration) => durationNames.indexOf(duration))
-// );
-// const maxDurationIndex = Math.max(
-//   ...correctDurations.map((duration) => durationNames.indexOf(duration))
-// );
-// const initialAvailableDurations = durationNames.slice(
-//   minDurationIndex,
-//   maxDurationIndex + 1
-// );
 
 export const useStore: () => GameState = create<GameState>((set: any) => ({
   availablePitches: initialAvailablePitches,

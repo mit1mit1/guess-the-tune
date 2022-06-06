@@ -1,6 +1,6 @@
 import {
   chosenSong,
-  daysSinceBeginning,
+  maxAvailableArchiveSongs,
   queryParamSongIndex,
 } from "src/constants/game";
 import { useStore } from "src/gameStore";
@@ -21,7 +21,7 @@ export const CongratulationsModal = () => {
           var searchParams = new URLSearchParams(window.location.search);
           searchParams.set(
             "chosenSongIndex",
-            ((queryParamSongIndex + 1) % daysSinceBeginning).toString()
+            ((queryParamSongIndex + 1) % maxAvailableArchiveSongs).toString()
           );
           window.location.search = searchParams.toString();
         }

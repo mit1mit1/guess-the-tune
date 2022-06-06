@@ -1,20 +1,20 @@
 import dayjs from "dayjs";
 import { gameSongs } from "src/gameSongs";
 
-export const daysSinceBeginning = dayjs().diff("2022-05-31", "days");
+export const maxAvailableArchiveSongs = dayjs().diff("2022-05-31", "days");
 
 export const queryParamSongIndex =
   parseInt(
     new URLSearchParams(window.location.search).get("chosenSongIndex") || "-1"
   ) %
-  (daysSinceBeginning + 1);
+  (maxAvailableArchiveSongs + 1);
 
 const useUnreadySongs = parseInt(
   new URLSearchParams(window.location.search).get("unreadySongs") || "0"
 );
 
 const songIndex =
-  queryParamSongIndex === -1 ? daysSinceBeginning : queryParamSongIndex;
+  queryParamSongIndex === -1 ? maxAvailableArchiveSongs : queryParamSongIndex;
 
 const availableSongs = useUnreadySongs
   ? gameSongs

@@ -11,7 +11,8 @@ import { maxNoteXLength } from "../constants/svg";
 import { InstructionsModal } from "./InstructionsModal";
 import { CongratulationsModal } from "./CongratulationsModal";
 import { SupportUsModal } from "./SupportUsModal";
-import { chosenSong } from "src/constants/game";
+import { chosenSong, queryParamSongIndex } from "src/constants/game";
+import { SongSelectModal } from "./SongSelectModal";
 
 const App = ({
   playNotes,
@@ -112,6 +113,7 @@ const App = ({
         {guessedEverythingCorrect && <CongratulationsModal />}
         <InstructionsModal />
         <SupportUsModal />
+        {queryParamSongIndex !== -1 ? <SongSelectModal /> : ''}
         <div>
           <button
             className={styles.button + " " + styles.buttonPrimary}
