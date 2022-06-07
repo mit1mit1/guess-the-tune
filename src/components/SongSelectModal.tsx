@@ -1,7 +1,4 @@
-import {
-  chosenSong,
-  queryParamSongIndex,
-} from "src/constants/game";
+import { chosenSong, queryParamSongIndex } from "src/constants/game";
 import { Modal } from "./Modal";
 import { useState } from "react";
 
@@ -14,7 +11,10 @@ export const SongSelectModal = () => {
       closeText="Close"
       toggleVisible={() => setShow(false)}
     >
-      <p>Pick a different song from the archives by changing <i>chosenSongIndex=0</i> in the url.</p>
+      <p>
+        Pick a different song from the archives by changing{" "}
+        <i>chosenSongIndex=0</i> in the url.
+      </p>
     </Modal>
   );
 };

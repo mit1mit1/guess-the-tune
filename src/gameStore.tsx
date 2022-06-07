@@ -1,11 +1,5 @@
 import create from "zustand";
-import {
-  AnswerStatus,
-  Duration,
-  Note,
-  NoteStatus,
-  Pitch,
-} from "./types";
+import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "./types";
 import produce, { enableMapSet } from "immer";
 import {
   getNewAnswerStatus,

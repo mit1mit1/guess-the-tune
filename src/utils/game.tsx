@@ -193,8 +193,8 @@ export const allCorrect = (guesses: Array<Note>, correctNotes: Array<Note>) => {
 export const orderByLength = (durationArray: Array<Duration>) => {
   return durationArray.sort(
     (durationObjectA, durationObjectB) =>
-      durationObjectTo16thInt(durationObjectA) -
-      durationObjectTo16thInt(durationObjectB)
+      durationObjectTo16thCount(durationObjectA) -
+      durationObjectTo16thCount(durationObjectB)
   );
 };
 
@@ -231,7 +231,7 @@ export const getUniqueElements = (durationArray: Array<Duration>) => {
   return newArray;
 };
 
-const durationToInt = (duration: BaseDuration) => {
+const durationToNumber = (duration: BaseDuration) => {
   switch (duration) {
     case "16n":
       return 1;
@@ -251,13 +251,21 @@ const durationToInt = (duration: BaseDuration) => {
       return 16;
     case "1n.":
       return 24;
+    case "2t":
+      return 12;
+    case "4t":
+      return 16;
+    case "8t":
+      return 24;
+    case "16t":
+      return 24;
   }
 };
 
-export const durationObjectTo16thInt = (durationObject: Duration) => {
+export const durationObjectTo16thCount = (durationObject: Duration) => {
   let current16s = 0;
   for (const [baseDuration, multiplier] of Object.entries(durationObject)) {
-    current16s += multiplier * durationToInt(baseDuration as BaseDuration);
+    current16s += multiplier * durationToNumber(baseDuration as BaseDuration);
   }
   return current16s;
 };

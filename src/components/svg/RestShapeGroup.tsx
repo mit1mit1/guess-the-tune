@@ -2,16 +2,20 @@ import {
   maxNoteXLength,
   rootCircleXRadius,
   rootCircleYRadius,
+  UpStrokeLength,
 } from "src/constants/svg";
 import { BaseDuration, BaseSVGPathProps, Duration } from "src/types";
 import {
   getBaseYPosition,
   getDurationDotXCentre,
   getRootCircleCX,
+  getTripletCX,
   shouldAddDurationDot,
+  shouldAddTripletSymbol,
 } from "src/utils";
 import { Dot } from "./Dot";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
+import { TripletSymbol } from "./TripletSymbol";
 
 interface RestShapeGroupProps extends BaseSVGPathProps {
   durationObject: Duration;
@@ -50,6 +54,19 @@ export const RestShapeGroup = ({
           />
         );
       }
+
+      if (shouldAddTripletSymbol(baseDuration as BaseDuration)) {
+        buffer.push(
+          <TripletSymbol
+            xCentre={getTripletCX(baseXPosition)}
+            yCentre={
+              getRestYCentre(baseDuration as BaseDuration) + UpStrokeLength
+            }
+            color={color}
+            opacity={opacity}
+          />
+        );
+      }
     }
     index++;
   }
@@ -75,6 +92,7 @@ const getRestYCentre = (baseDuration: BaseDuration) => {
       return getBaseYPosition("D5") + 0.5 * barRestHeight;
     case "2n":
     case "2n.":
+    case "2t":
       return getBaseYPosition("B4") - 0.5 * barRestHeight;
     default:
       return getBaseYPosition("B4");
@@ -95,27 +113,22 @@ export const RestShapePath = ({
 }: RestShapePathProps) => {
   switch (baseDuration) {
     case "16n":
-      return (
-        <EigthOrSixteenthRest
-          color={color}
-          opacity={opacity}
-          handleClick={handleClick}
-          xCentre={getRootCircleCX(baseXPosition)}
-          isSixteenth={true}
-        />
-      );
+    case "16t":
     case "8n":
     case "8n.":
+    case "8t":
       return (
         <EigthOrSixteenthRest
           color={color}
           opacity={opacity}
           handleClick={handleClick}
           xCentre={getRootCircleCX(baseXPosition)}
+          isSixteenth={baseDuration.includes("16")}
         />
       );
     case "4n":
     case "4n.":
+    case "4t":
       return (
         <QuarterRest
           color={color}
@@ -128,6 +141,7 @@ export const RestShapePath = ({
     case "2n.":
     case "1n":
     case "1n.":
+    case "2t":
       return (
         <BarRest
           color={color}

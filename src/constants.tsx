@@ -50,6 +50,10 @@ export const durationNames = [
   "2n.",
   "1n",
   "1n.",
+  "16t",
+  "8t",
+  "4t",
+  "2t",
 ] as const;
 
 export const durationMarks = durationNames.map((name, index) => {

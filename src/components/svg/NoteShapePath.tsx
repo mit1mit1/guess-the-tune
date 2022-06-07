@@ -10,10 +10,13 @@ import { BaseDuration, BaseSVGPathProps } from "src/types";
 import {
   getDurationDotXCentre,
   getRootCircleCX,
+  getTripletCX,
   shouldAddDurationDot,
+  shouldAddTripletSymbol,
 } from "src/utils";
 import { Dot } from "./Dot";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
+import { TripletSymbol } from "./TripletSymbol";
 
 interface UpStrokeProps extends BaseSVGPathProps {
   xStart: number;
@@ -123,6 +126,7 @@ const drawLineUp = (duration: BaseDuration) => {
 
 const shouldFillInCircle = (duration: BaseDuration) => {
   switch (duration) {
+    case "2t":
     case "2n":
     case "2n.":
     case "1n":
@@ -138,6 +142,8 @@ const shouldAddEigthLine = (duration: BaseDuration) => {
     case "16n":
     case "8n":
     case "8n.":
+    case "16t":
+    case "8t":
       return true;
     default:
       return false;
@@ -145,7 +151,7 @@ const shouldAddEigthLine = (duration: BaseDuration) => {
 };
 
 const shouldAddSixteenthLine = (duration: BaseDuration) => {
-  if (duration === "16n") {
+  if (duration === "16n" || duration === "16t") {
     return true;
   }
   return false;
@@ -227,6 +233,15 @@ export const NoteShapePath = ({
         <Dot
           xCentre={getDurationDotXCentre(baseXPosition)}
           yCentre={baseYPosition}
+          color={color}
+          opacity={opacity}
+          handleClick={handleClick}
+        />
+      )}
+      {shouldAddTripletSymbol(duration) && (
+        <TripletSymbol
+          xCentre={getTripletCX(baseXPosition)}
+          yCentre={baseYPosition + UpStrokeLength}
           color={color}
           opacity={opacity}
           handleClick={handleClick}

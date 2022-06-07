@@ -1,4 +1,4 @@
-import { noteSharpOffsetAmount } from "src/constants/svg";
+import { noteSharpOffsetAmount, rootCircleXRadius } from "src/constants/svg";
 import { BaseDuration, Duration, Pitch } from "src/types";
 
 export const shouldAddSharp = (pitch: Pitch) => {
@@ -78,10 +78,18 @@ export const shouldAddDurationDot = (duration: BaseDuration) => {
   return duration.includes(".");
 };
 
+export const shouldAddTripletSymbol = (duration: BaseDuration) => {
+  return duration.includes("t");
+};
+
 export const getDurationDotXCentre = (baseXPosition: number) => {
   return baseXPosition + 19;
 };
 
 export const noteSharpOffset = (pitch: Pitch) => {
   return noteSharpOffsetAmount * (shouldAddSharp(pitch) ? 1 : -1);
+};
+
+export const getTripletCX = (baseXPosition: number) => {
+  return baseXPosition - 1.5 * rootCircleXRadius;
 };

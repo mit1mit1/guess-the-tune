@@ -113,7 +113,7 @@ const App = ({
         {guessedEverythingCorrect && <CongratulationsModal />}
         <InstructionsModal />
         <SupportUsModal />
-        {queryParamSongIndex !== -1 ? <SongSelectModal /> : ''}
+        {queryParamSongIndex !== -1 ? <SongSelectModal /> : ""}
         <div>
           <button
             className={styles.button + " " + styles.buttonPrimary}

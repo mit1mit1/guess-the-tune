@@ -391,24 +391,24 @@ const schindlersList: GameSong = {
   name: "Theme from Schindler's List",
 };
 
-// TODO: Get triplets sorted
-// const theGloryDays: GameSong = {
-//   bpm: 138,
-//   timeSignature: TimeSignature.THREEFOUR,
-//   readyForProduction: true,
-//   notes: [
-//     { pitch: "A4", durationObject: { "4n.": 1 } },
-//     { pitch: "A4", durationObject: { "8n": 1 } },
-//     { pitch: "E5", durationObject: { "2n": 1, "4n.": 1 } },
-//     { pitch: "A4", durationObject: { "8n": 1 } },
-//     { pitch: "A4", durationObject: { "6n": 1 } },
-//     { pitch: "B4", durationObject: { "6n": 1 } },
-//     { pitch: "C5", durationObject: { "6n": 1 } },
-//     { pitch: "B4", durationObject: { "4n.": 1 } },
-//     { pitch: "A4", durationObject: { "8n": 1 } },
-//     { pitch: "F5", durationObject: { "2n": 1 } },
-//   ]
-// };
+const theGloryDays: GameSong = {
+  bpm: 138,
+  timeSignature: TimeSignature.THREEFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "2n": 1, "4n.": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4t": 1 } },
+    { pitch: "B4", durationObject: { "4t": 1 } },
+    { pitch: "C5", durationObject: { "4t": 1 } },
+    { pitch: "B4", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "F5", durationObject: { "2n": 1 } },
+  ],
+  name: "The Glory Days",
+};
 
 const avatarLegendOfAang: GameSong = {
   bpm: 60,
@@ -692,6 +692,7 @@ export const gameSongs: Array<GameSong> = [
   avatarLegendOfAang,
   battleOfTheHeroes,
   theTimeIsNow,
+  theGloryDays,
   pokemonGottaCatchEmAll,
   goodMornin,
   miiChannel,
