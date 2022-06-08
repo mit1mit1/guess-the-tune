@@ -692,7 +692,7 @@ const monstersInc: GameSong = {
   name: "Monsters, Inc"
 };
 
-const CantinaBand: GameSong = {
+const cantinaBand: GameSong = {
   bpm: 220,
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
@@ -739,6 +739,98 @@ const flyMeToTheMoon: GameSong = {
   ],
   name: "Fly Me To The Moon"
 };
+const cityOfStars: GameSong = {
+  bpm: 103,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "D4", durationObject: { "4t": 1 } },
+    { pitch: "F4", durationObject: { "8t": 1 } },
+    { pitch: "A4", durationObject: { "4t": 1 } },
+    { pitch: "D5", durationObject: { "4n": 1 } },
+    { pitch: "D5", durationObject: { "8t": 1 } },
+    { pitch: "C5", durationObject: { "4t": 1 } },
+    { pitch: "A4", durationObject: { "8t": 1 } },
+  ],
+  name: "City of Stars",
+};
+
+const stayinAliveIntro: GameSong = {
+  bpm: 104,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "G4", durationObject: { "16n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n.": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "16n": 1 } },
+    { pitch: "E4", durationObject: { "16n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+  ],
+  name: "Stayin Alive Intro"
+};
+
+
+const stayinAliveChorus: GameSong = {
+  bpm: 103,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { rest: true, pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { rest: true, pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { rest: true, pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1 } },
+    { rest: true, pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "2n": 1 } },
+  ],
+  name: "test"
+};
+
+const underTheMilkyWay: GameSong = {
+  bpm: 66,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "16n": 1 } },
+    { pitch: "A4", durationObject: { "16n": 1 } },
+    { pitch: "B4", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n.": 1 } },
+    { pitch: "E5", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n.": 1 } },
+  ],
+  name: "Under the Milky Way"
+};
+
+const september: GameSong = {
+  bpm: 123,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "B4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "2n": 1 } },
+    { rest: true, pitch: "B4", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+  ],
+  name: "September"
+};
 
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
@@ -770,17 +862,24 @@ export const gameSongs: Array<GameSong> = [
   theLonelyShepherd,
   flyMeToTheMoon,
   oneSummersDay,
+  stayinAliveIntro,
   schindlersList,
   furElise,
   avatarLegendOfAang,
+  cityOfStars,
   battleOfTheHeroes,
   theTimeIsNow,
-  CantinaBand,
+  september,
+  cantinaBand,
   theGloryDays,
+  underTheMilkyWay,
   pokemonGottaCatchEmAll,
   goodMornin,
   miiChannel,
   spidermanSpiderman,
   monstersInc,
+  stayinAliveChorus,
   lifesIncredibleAgain,
 ];
+
+console.log(gameSongs.length)
