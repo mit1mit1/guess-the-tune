@@ -659,6 +659,39 @@ const chameleon: GameSong = {
   name: "Chameleon",
 };
 
+const lifesIncredibleAgain: GameSong = {
+  bpm: 120,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "D5", durationObject: { "8t": 1 } },
+    { pitch: "E5", durationObject: { "4t": 1 } },
+    { pitch: "D5", durationObject: { "4n": 1 } },
+    { pitch: "A5", durationObject: { "4n": 1 }, staccato: true },
+    { pitch: "D5", durationObject: { "8t": 1 } },
+    { pitch: "E5", durationObject: { "4t": 1 } },
+    { pitch: "D5", durationObject: { "4n": 1 } },
+    { pitch: "A#5", durationObject: { "4n": 1 }, staccato: true },
+  ],
+  name: "Life's Incredible Again"
+};
+
+const monstersInc: GameSong = {
+  bpm: 145,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E5", durationObject: { "8t": 1 } },
+    { pitch: "E5", durationObject: { "4t": 1 } },
+    { pitch: "F5", durationObject: { "8t": 1 } },
+    { pitch: "G5", durationObject: { "4t": 1 } },
+    { pitch: "D5", durationObject: { "8t": 1 } },
+    { rest: true, pitch: "E5", durationObject: {"4t": 1}},
+    { pitch: "D5", durationObject: { "4n.": 1 } },
+  ],
+  name: "Monsters, Inc"
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -697,4 +730,6 @@ export const gameSongs: Array<GameSong> = [
   goodMornin,
   miiChannel,
   spidermanSpiderman,
+  monstersInc,
+  lifesIncredibleAgain,
 ];

@@ -2,13 +2,16 @@ import { maxNoteXLength, UpStrokeLength } from "src/constants/svg";
 import { BaseDuration, BaseSVGPathProps, Duration } from "src/types";
 import { NoteShapePath } from "./NoteShapePath";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
-import { RestShapePath } from "./RestShapeGroup";
+import { getRestYCentre, RestShapePath } from "./RestShapePath";
 import {
   getBaseYPosition,
   getDurationDotXCentre,
+  getTripletCX,
   shouldAddDurationDot,
+  shouldAddTripletSymbol,
 } from "src/utils";
 import { Dot } from "./Dot";
+import { TripletSymbol } from "./TripletSymbol";
 
 interface TiePathProps {
   opacity?: number;
@@ -101,6 +104,18 @@ export const NoteShapeGroup = ({
               color={color}
               opacity={opacity}
               handleClick={handleClick}
+            />
+          );
+        }
+        if (shouldAddTripletSymbol(baseDuration as BaseDuration)) {
+          buffer.push(
+            <TripletSymbol
+              xCentre={getTripletCX(baseXPosition)}
+              yCentre={
+                getRestYCentre(baseDuration as BaseDuration) + UpStrokeLength
+              }
+              color={color}
+              opacity={opacity}
             />
           );
         }
