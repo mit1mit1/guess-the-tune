@@ -692,6 +692,54 @@ const monstersInc: GameSong = {
   name: "Monsters, Inc"
 };
 
+const CantinaBand: GameSong = {
+  bpm: 220,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "E4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1 } },
+  ],
+  name: "Cantina Band"
+};
+
+const furElise: GameSong = {
+  bpm: 128,
+  timeSignature: TimeSignature.THREEFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "D#5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "D#5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+  ],
+  name: "Für Elise"
+};
+
+const flyMeToTheMoon: GameSong = {
+  bpm: 128,
+  timeSignature: TimeSignature.THREEFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "C5", durationObject: { "4n": 1, "8t": 1 } },
+    { pitch: "B4", durationObject: { "8t": 1 } },
+    { pitch: "A4", durationObject: { "4t": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "F4", durationObject: { "4n": 1 } },
+  ],
+  name: "Fly Me To The Moon"
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -720,11 +768,14 @@ export const gameSongs: Array<GameSong> = [
   tossACoinToYourWitcher,
   heyJude,
   theLonelyShepherd,
+  flyMeToTheMoon,
   oneSummersDay,
   schindlersList,
+  furElise,
   avatarLegendOfAang,
   battleOfTheHeroes,
   theTimeIsNow,
+  CantinaBand,
   theGloryDays,
   pokemonGottaCatchEmAll,
   goodMornin,
