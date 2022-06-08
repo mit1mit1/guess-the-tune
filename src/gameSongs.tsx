@@ -832,7 +832,75 @@ const september: GameSong = {
   name: "September"
 };
 
+const dancingInTheMoonlight: GameSong = {
+  bpm: 145,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "F4", durationObject: { "8n": 1 } },
+    { pitch: "F4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+  ],
+  name: "Dancing In the Moonlight"
+};
+
+
+const vertigo: GameSong = {
+  bpm: 145,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+  ],
+  name: "test"
+};
+
+const letEmIn: GameSong = {
+  bpm: 80,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E5", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "D5", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "2n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "D5", durationObject: { "4n": 1 } },
+    { pitch: "E5", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "2n": 1 } },
+  ],
+  name: "Let 'Em In"
+};
+
+const strangerThings: GameSong = {
+  bpm: 80,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { pitch: "E5", durationObject: { "16n": 1 } },
+    { pitch: "G5", durationObject: { "16n": 1 } },
+    { pitch: "A5", durationObject: { "16n": 1 } },
+    { pitch: "G5", durationObject: { "16n": 1 } },
+    { pitch: "E5", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+  ],
+  name: "Stranger Things Theme"
+};
+
 export const gameSongs: Array<GameSong> = [
+  strangerThings,
   simpsonsTheme,
   imperialMarch,
   hedwigsTheme,
@@ -867,6 +935,7 @@ export const gameSongs: Array<GameSong> = [
   furElise,
   avatarLegendOfAang,
   cityOfStars,
+  dancingInTheMoonlight,
   battleOfTheHeroes,
   theTimeIsNow,
   september,
@@ -876,10 +945,10 @@ export const gameSongs: Array<GameSong> = [
   pokemonGottaCatchEmAll,
   goodMornin,
   miiChannel,
+  vertigo,
   spidermanSpiderman,
   monstersInc,
+  letEmIn,
   stayinAliveChorus,
   lifesIncredibleAgain,
 ];
-
-console.log(gameSongs.length)
