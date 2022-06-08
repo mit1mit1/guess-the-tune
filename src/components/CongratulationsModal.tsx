@@ -32,7 +32,7 @@ export const CongratulationsModal = () => {
         Guessed <i>{chosenSong.name}</i> in {turn} turns,{" "}
         {dayjs().diff(loadTime, "s", true).toFixed(2)} seconds.
       </p>
-      <p>Listen to the song on spotify or something.</p>
+      <p>Come back tomorrow for a new tune, or in the meantime, try one from the archives?</p>
     </Modal>
   );
 };
