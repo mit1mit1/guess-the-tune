@@ -887,20 +887,19 @@ const strangerThings: GameSong = {
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
   notes: [
+    { pitch: "A3", durationObject: { "16n": 1 } },
+    { pitch: "C4", durationObject: { "16n": 1 } },
+    { pitch: "E4", durationObject: { "16n": 1 } },
+    { pitch: "G4", durationObject: { "16n": 1 } },
     { pitch: "A4", durationObject: { "16n": 1 } },
-    { pitch: "C5", durationObject: { "16n": 1 } },
-    { pitch: "E5", durationObject: { "16n": 1 } },
-    { pitch: "G5", durationObject: { "16n": 1 } },
-    { pitch: "A5", durationObject: { "16n": 1 } },
-    { pitch: "G5", durationObject: { "16n": 1 } },
-    { pitch: "E5", durationObject: { "16n": 1 } },
-    { pitch: "C5", durationObject: { "16n": 1 } },
+    { pitch: "G4", durationObject: { "16n": 1 } },
+    { pitch: "E4", durationObject: { "16n": 1 } },
+    { pitch: "C4", durationObject: { "16n": 1 } },
   ],
   name: "Stranger Things Theme"
 };
 
 export const gameSongs: Array<GameSong> = [
-  strangerThings,
   simpsonsTheme,
   imperialMarch,
   hedwigsTheme,
@@ -935,6 +934,7 @@ export const gameSongs: Array<GameSong> = [
   furElise,
   avatarLegendOfAang,
   cityOfStars,
+  strangerThings,
   dancingInTheMoonlight,
   battleOfTheHeroes,
   theTimeIsNow,
