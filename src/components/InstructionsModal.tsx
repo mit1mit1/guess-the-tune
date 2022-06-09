@@ -18,8 +18,8 @@ export const InstructionsModal = () => {
       toggleVisible={toggleInstructions}
     >
       <p>Use Left/Right Arrows to select a note (or click it).</p>
-      <p>Use 'W'/'S' to change the pitch of the selected note.</p>
-      <p>Use 'A'/'D' to change the duration of the selected note.</p>
+      <p>Use 'W'/'S' to change the pitch of the selected note, or click one of the Available Pitches.</p>
+      <p>Use 'A'/'D' to change the duration of the selected note, or click one of the Available Durations..</p>
       <p>
         <svg
           viewBox={`0 0 ${100} ${100}`}
