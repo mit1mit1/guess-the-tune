@@ -1,6 +1,6 @@
 html {
-  color: white;
-  background-color: black;
+  color: #fff;
+  background-color: #212121;
 }
 
 .App {
@@ -25,12 +25,12 @@ html {
 }
 
 .buttonPrimary {
-  color: white;
-  background-color: red;
+  color: #f1f1f1;
+  background-color: #d30005;
 }
 
 .button.buttonPrimary:hover {
-  background-color: #ff6382;
+  background-color: #cc5266;
 }
 
 .button {
@@ -38,9 +38,10 @@ html {
   margin-bottom: 5px;
   transition-duration: 0.4s;
   border: none;
-  padding: 8px;
+  padding: 8px 12px;
   min-height: 40px;
   min-width: 100px;
+  font-size: 0.95em;
   font-family: "Quicksand", sans-serif;
 }
 

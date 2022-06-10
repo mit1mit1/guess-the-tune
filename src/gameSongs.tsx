@@ -1,20 +1,22 @@
 import { GameSong, TimeSignature } from "src/types";
 
 const testSong: GameSong = {
-  bpm: 145,
+  bpm: 113,
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
   notes: [
-    { pitch: "E5", durationObject: { "8n": 1 } },
-    { pitch: "E5", durationObject: { "8n": 1 } },
-    { pitch: "E5", durationObject: { "8n": 1 } },
-    { pitch: "E5", durationObject: { "4n.": 1 } },
-    { pitch: "E5", durationObject: { "8n": 1 } },
-    { pitch: "D5", durationObject: { "4n": 1 } },
     { pitch: "C5", durationObject: { "8n": 1 } },
-    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { rest: true, pitch: "C5", durationObject: { "8t": 1 } },
+    { pitch: "E4", durationObject: { "4t": 1 } },
+    { pitch: "F4", durationObject: { "8n": 1 } },
+    { pitch: "F#4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
   ],
-  name: "test"
+  name: "Bob-omb Battlefield Theme"
 };
 
 export const gameSongs: Array<GameSong> = [
@@ -23,7 +25,6 @@ export const gameSongs: Array<GameSong> = [
 
 
 export const gameSongsString = `[
-  strangerThings,
   simpsonsTheme,
   imperialMarch,
   hedwigsTheme,
@@ -58,6 +59,7 @@ export const gameSongsString = `[
   furElise,
   avatarLegendOfAang,
   cityOfStars,
+  strangerThings,
   dancingInTheMoonlight,
   battleOfTheHeroes,
   theTimeIsNow,

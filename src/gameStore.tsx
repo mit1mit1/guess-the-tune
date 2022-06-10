@@ -42,9 +42,9 @@ export const initialAvailablePitches = pitchNames.slice();
 const initialGuesses = paramStartCorrect
   ? correctNotes
   : correctNotes.map((note) => ({
-      pitch: isGuessable(note) ? initialAvailablePitches[0] : note.pitch,
+      pitch: isGuessable(note) ? correctNotes[0].pitch : note.pitch,
       durationObject: isGuessable(note)
-        ? correctDurations[0]
+        ? correctNotes[correctNotes.length - 1].durationObject
         : note.durationObject,
       staccato: note.staccato,
       rest: note.rest,
@@ -58,6 +58,9 @@ const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note) => ({
     ? AnswerStatus.UNKNOWN
     : AnswerStatus.UNGUESSABLE,
 }));
+
+initialAnswerStatuses[0].pitchStatus = AnswerStatus.GUESSEDCORRECT;
+initialAnswerStatuses[initialAnswerStatuses.length - 1].durationStatus = AnswerStatus.GUESSEDCORRECT;
 
 export interface GameState {
   availablePitches: Array<Pitch>;
@@ -82,6 +85,8 @@ export interface GameState {
   toggleInstructions: () => void;
   showSupportUs: boolean;
   toggleSupportUs: () => void;
+  showCongrats: boolean;
+  toggleCongrats: () => void;
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
 }
@@ -104,9 +109,19 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   turn: 0,
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
+  showCongrats: false,
   showInstructions: false,
   showSupportUs: false,
-
+  toggleCongrats: () => {
+    set(
+      produce((draft: GameState) => {
+        return {
+          ...draft,
+          showCongrats: !!!draft.showCongrats,
+        };
+      })
+    );
+  },
   toggleInstructions: () => {
     set(
       produce((draft: GameState) => {
@@ -289,6 +304,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
           draft.guesses,
           correctNotes
         );
+        draft.showCongrats = draft.guessedEverythingCorrect;
       })
     );
   },

@@ -8,7 +8,6 @@ export const SongSelectModal = () => {
     <Modal
       title={"Song " + queryParamSongIndex + ": " + chosenSong.bpm + "bpm"}
       visible={show}
-      closeText="Close"
       toggleVisible={() => setShow(false)}
     >
       <p>

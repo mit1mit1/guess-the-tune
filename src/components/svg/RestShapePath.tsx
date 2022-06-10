@@ -1,91 +1,20 @@
 import {
-  maxNoteXLength,
   rootCircleXRadius,
   rootCircleYRadius,
-  UpStrokeLength,
 } from "src/constants/svg";
-import { BaseDuration, BaseSVGPathProps, Duration } from "src/types";
+import { BaseDuration, BaseSVGPathProps } from "src/types";
 import {
   getBaseYPosition,
-  getDurationDotXCentre,
   getRootCircleCX,
-  getTripletCX,
-  shouldAddDurationDot,
-  shouldAddTripletSymbol,
 } from "src/utils";
-import { Dot } from "./Dot";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
-import { TripletSymbol } from "./TripletSymbol";
-
-interface RestShapeGroupProps extends BaseSVGPathProps {
-  durationObject: Duration;
-  baseXPosition: number;
-}
-
-export const RestShapeGroup = ({
-  durationObject,
-  handleClick,
-  color,
-  opacity = 1,
-  baseXPosition,
-}: RestShapeGroupProps) => {
-  const buffer: Array<JSX.Element> = [];
-  let groupCounter = 0;
-  let index = 0;
-  for (const [baseDuration, multiplier] of Object.entries(durationObject)) {
-    for (let n = 0; n < multiplier; n++) {
-      buffer.push(
-        <RestShapePath
-          key={`rest-shape-path-${index}-${n}`}
-          baseDuration={baseDuration as BaseDuration}
-          handleClick={handleClick}
-          color={color}
-          opacity={opacity}
-          baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
-        />
-      );
-      if (shouldAddDurationDot(baseDuration as BaseDuration)) {
-        buffer.push(
-          <Dot
-            xCentre={getDurationDotXCentre(baseXPosition)}
-            yCentre={getRestYCentre(baseDuration as BaseDuration)}
-            color={color}
-            opacity={opacity}
-          />
-        );
-      }
-
-      if (shouldAddTripletSymbol(baseDuration as BaseDuration)) {
-        buffer.push(
-          <TripletSymbol
-            xCentre={getTripletCX(baseXPosition)}
-            yCentre={
-              getRestYCentre(baseDuration as BaseDuration) + UpStrokeLength
-            }
-            color={color}
-            opacity={opacity}
-          />
-        );
-      }
-    }
-    index++;
-  }
-  return (
-    <g
-      className={handleClick ? svgStyles.clickableSVG : ""}
-      onClick={handleClick}
-    >
-      {buffer}
-    </g>
-  );
-};
 
 const quarterRestLength = rootCircleXRadius;
 const eigthRestLength = 2 * rootCircleXRadius;
 const barRestHeight = 0.7 * rootCircleXRadius;
 const barRestLength = 2 * rootCircleYRadius;
 
-const getRestYCentre = (baseDuration: BaseDuration) => {
+export const getRestYCentre = (baseDuration: BaseDuration) => {
   switch (baseDuration) {
     case "1n":
     case "1n.":
