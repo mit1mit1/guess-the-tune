@@ -899,6 +899,80 @@ const strangerThings: GameSong = {
   name: "Stranger Things Theme"
 };
 
+
+const delfinoPlaze: GameSong = {
+  bpm: 240,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "4n": 1 } },
+    { pitch: "E5", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "F4", durationObject: { "4n.": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1, "2n": 1 } },
+  ],
+  name: "Delfino Plaza Theme"
+};
+
+const insideTheCastleWalls: GameSong = {
+  bpm: 140,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "G4", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "F#4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+  ],
+  name: "Inside the Castle Walls"
+};
+
+const punchOut: GameSong = {
+  bpm: 161,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "2n.": 1 } },
+    { pitch: "B4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n": 1 } },
+    { pitch: "B4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "G4", durationObject: { "16n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1, "16n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { rest: true, pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "G4", durationObject: { "16n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1, "16n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { rest: true, pitch: "A4", durationObject: { "4n": 1 } },
+  ],
+  name: "Punch-Out! Fight Theme"
+};
+
+const bobombBattlefield: GameSong = {
+  bpm: 113,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "16n": 1 } },
+    { pitch: "C5", durationObject: { "16n": 1 } },
+    { rest: true, pitch: "C5", durationObject: { "8t": 1 } },
+    { pitch: "E4", durationObject: { "4t": 1 } },
+    { pitch: "F4", durationObject: { "8n": 1 } },
+    { pitch: "F#4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+  ],
+  name: "Bob-omb Battlefield Theme"
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -945,10 +1019,14 @@ export const gameSongs: Array<GameSong> = [
   pokemonGottaCatchEmAll,
   goodMornin,
   miiChannel,
+  punchOut,
   vertigo,
   spidermanSpiderman,
+  insideTheCastleWalls,
   monstersInc,
+  delfinoPlaze,
   letEmIn,
   stayinAliveChorus,
   lifesIncredibleAgain,
+  bobombBattlefield,
 ];
