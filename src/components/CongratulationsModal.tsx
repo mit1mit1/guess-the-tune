@@ -15,7 +15,7 @@ export const CongratulationsModal = () => {
     <Modal
       title="Well done!"
       visible={true}
-      closeText="Another!"
+      // closeText="Another!"
       toggleVisible={() => {
         if ("URLSearchParams" in window) {
           var searchParams = new URLSearchParams(window.location.search);

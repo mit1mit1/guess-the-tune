@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import modalStyles from "./Modal.module.scss";
-import appStyles from "src/components/App.module.scss";
 
 interface ModalProps {
   title: string;
   children?: React.ReactNode;
   visible: boolean;
   toggleVisible: () => void;
-  closeText?: string;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -15,7 +13,6 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   visible,
   toggleVisible,
-  closeText = "Close",
 }) => {
   useEffect(() => {
     if (!visible) {
@@ -39,23 +36,17 @@ export const Modal: React.FC<ModalProps> = ({
           visible ? modalStyles.visibleModal : modalStyles.invisibleModal
         }
       >
+        <button
+          className={[modalStyles.modalCloseButton].join(" ")}
+          onClick={toggleVisible}
+        >
+          x
+        </button>
         <div className={modalStyles.modalContent}>
           <div className={modalStyles.modalHeader}>
             <h2 className={modalStyles.modalTitle}>{title}</h2>
           </div>
           <div className={modalStyles.modalBody}>{children}</div>
-          <div className={modalStyles.modalFooter}>
-            <button
-              className={[
-                modalStyles.modalButton,
-                appStyles.button,
-                appStyles.buttonPrimary,
-              ].join(" ")}
-              onClick={toggleVisible}
-            >
-              {closeText}
-            </button>
-          </div>
         </div>
       </div>
     </>
