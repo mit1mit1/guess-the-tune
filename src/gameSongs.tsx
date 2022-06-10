@@ -973,6 +973,97 @@ const bobombBattlefield: GameSong = {
   name: "Bob-omb Battlefield Theme"
 };
 
+const blindingLights: GameSong = {
+  bpm: 171,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "D5", durationObject: { "2n": 1 } },
+    { pitch: "D5", durationObject: { "4n.": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durationObject: { "4n.": 1 } },
+  ],
+  name: "Blinding Lights"
+};
+
+const loveStoryIntro: GameSong = {
+  bpm: 120,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "E4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+  ],
+  name: "Love Story Intro",
+};
+
+const shapeOfYouIntro: GameSong = {
+  bpm: 190,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "C5", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "C5", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "C5", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { pitch: "B4", durationObject: { "4n.": 1 } },
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+    { pitch: "G4", durationObject: { "4n": 1 } },
+  ],
+  name: "Shape Of You (Intro)",
+};
+
+const uptownFunkIntro: GameSong = {
+    bpm: 120,
+    timeSignature: TimeSignature.FOURFOUR,
+    readyForProduction: true,
+    notes: [
+      { pitch: "A4", durationObject: { "4n": 1 } },
+      { rest: true, durationObject: { "2n": 1, "8n": 1, }, pitch: "F#4"},
+      { pitch: "A4", durationObject: { "8n": 1 } },
+      { pitch: "D5", durationObject: { "8n.": 1 } },
+      { pitch: "C5", durationObject: { "8n.": 1 } },
+      { pitch: "A4", durationObject: { "8n": 1 } },
+      { pitch: "D5", durationObject: { "8n.": 1 } },
+      { pitch: "C5", durationObject: { "8n.": 1 } },
+      { pitch: "G4", durationObject: { "8n": 1 } },
+      { pitch: "A4", durationObject: { "4n": 1 } },
+    ],
+    name: "Uptown Funk (Intro)",
+  };
+
+  
+const myHeartWillGoOnIntro: GameSong = {
+  bpm: 90,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "E4", durationObject: { "8n": 1, "2n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "C4", durationObject: { "8n": 1 } },
+    { pitch: "D4", durationObject: { "8n": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1, "2n": 1 } },
+  ],
+  name: "My Heart Will Go On (Intro)",
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -1014,19 +1105,24 @@ export const gameSongs: Array<GameSong> = [
   theTimeIsNow,
   september,
   cantinaBand,
+  blindingLights,
   theGloryDays,
   underTheMilkyWay,
   pokemonGottaCatchEmAll,
   goodMornin,
+  uptownFunkIntro,
   miiChannel,
   punchOut,
   vertigo,
   spidermanSpiderman,
+  shapeOfYouIntro,
   insideTheCastleWalls,
+  myHeartWillGoOnIntro,
   monstersInc,
   delfinoPlaze,
   letEmIn,
   stayinAliveChorus,
   lifesIncredibleAgain,
   bobombBattlefield,
+  loveStoryIntro,
 ];
