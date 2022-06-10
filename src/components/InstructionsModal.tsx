@@ -71,7 +71,7 @@ const DisplayInstructions = () => (
         <NoteShapePath
           color={CORRECT_COLOR}
           duration={"4n"}
-          baseXPosition={80}
+          baseXPosition={140}
           baseYPosition={160}
         />
       </svg>{" "}
@@ -87,12 +87,11 @@ const DisplayInstructions = () => (
         <NoteShapePath
           color={WRONG_SPOT_COLOR}
           duration={"4n"}
-          baseXPosition={80}
+          baseXPosition={140}
           baseYPosition={160}
         />
       </svg>{" "}
-      means that the duration in this position is incorrect, but would be
-      correct somewhere you haven't guessed yet.
+      means that this duration is in the song somewhere.
     </p>
     <p>
       <svg
@@ -120,6 +119,9 @@ const RuleInstructions = () => (
     <p>
       The key has been chosen to be as close to <i>C Major</i> as possible: that
       is, there will be a few sharps as the tune allows.
+    </p>
+    <p>
+      The first pitch and the last duration are set to be correct by default.
     </p>
   </>
 );
