@@ -673,7 +673,7 @@ const lifesIncredibleAgain: GameSong = {
     { pitch: "D5", durationObject: { "4n": 1 } },
     { pitch: "A#5", durationObject: { "4n": 1 }, staccato: true },
   ],
-  name: "Life's Incredible Again"
+  name: "Life's Incredible Again",
 };
 
 const monstersInc: GameSong = {
@@ -686,10 +686,10 @@ const monstersInc: GameSong = {
     { pitch: "F5", durationObject: { "8t": 1 } },
     { pitch: "G5", durationObject: { "4t": 1 } },
     { pitch: "D5", durationObject: { "8t": 1 } },
-    { rest: true, pitch: "E5", durationObject: {"4t": 1}},
+    { rest: true, pitch: "E5", durationObject: { "4t": 1 } },
     { pitch: "D5", durationObject: { "4n.": 1 } },
   ],
-  name: "Monsters, Inc"
+  name: "Monsters, Inc",
 };
 
 const cantinaBand: GameSong = {
@@ -705,7 +705,7 @@ const cantinaBand: GameSong = {
     { pitch: "A4", durationObject: { "4n": 1 } },
     { pitch: "E4", durationObject: { "8n": 1 } },
   ],
-  name: "Cantina Band"
+  name: "Cantina Band",
 };
 
 const furElise: GameSong = {
@@ -723,7 +723,7 @@ const furElise: GameSong = {
     { pitch: "C5", durationObject: { "8n": 1 } },
     { pitch: "A4", durationObject: { "4n": 1 } },
   ],
-  name: "Für Elise"
+  name: "Für Elise",
 };
 
 const flyMeToTheMoon: GameSong = {
@@ -737,7 +737,7 @@ const flyMeToTheMoon: GameSong = {
     { pitch: "G4", durationObject: { "4n": 1 } },
     { pitch: "F4", durationObject: { "4n": 1 } },
   ],
-  name: "Fly Me To The Moon"
+  name: "Fly Me To The Moon",
 };
 const cityOfStars: GameSong = {
   bpm: 103,
@@ -769,9 +769,8 @@ const stayinAliveIntro: GameSong = {
     { pitch: "E4", durationObject: { "16n": 1 } },
     { pitch: "G4", durationObject: { "8n": 1 } },
   ],
-  name: "Stayin Alive Intro"
+  name: "Stayin Alive Intro",
 };
-
 
 const stayinAliveChorus: GameSong = {
   bpm: 103,
@@ -791,7 +790,7 @@ const stayinAliveChorus: GameSong = {
     { pitch: "C5", durationObject: { "16n": 1 } },
     { pitch: "C5", durationObject: { "2n": 1 } },
   ],
-  name: "test"
+  name: "test",
 };
 
 const underTheMilkyWay: GameSong = {
@@ -810,7 +809,7 @@ const underTheMilkyWay: GameSong = {
     { pitch: "C5", durationObject: { "8n": 1 } },
     { pitch: "A4", durationObject: { "8n.": 1 } },
   ],
-  name: "Under the Milky Way"
+  name: "Under the Milky Way",
 };
 
 const september: GameSong = {
@@ -829,7 +828,7 @@ const september: GameSong = {
     { pitch: "G4", durationObject: { "4n": 1 } },
     { pitch: "A4", durationObject: { "8n": 1 } },
   ],
-  name: "September"
+  name: "September",
 };
 
 const dancingInTheMoonlight: GameSong = {
@@ -844,9 +843,8 @@ const dancingInTheMoonlight: GameSong = {
     { pitch: "F4", durationObject: { "4n": 1 } },
     { pitch: "G4", durationObject: { "4n": 1 } },
   ],
-  name: "Dancing In the Moonlight"
+  name: "Dancing In the Moonlight",
 };
-
 
 const vertigo: GameSong = {
   bpm: 145,
@@ -862,7 +860,7 @@ const vertigo: GameSong = {
     { pitch: "C4", durationObject: { "8n": 1 } },
     { pitch: "D4", durationObject: { "8n": 1 } },
   ],
-  name: "test"
+  name: "test",
 };
 
 const letEmIn: GameSong = {
@@ -879,7 +877,7 @@ const letEmIn: GameSong = {
     { pitch: "E5", durationObject: { "4n": 1 } },
     { pitch: "C5", durationObject: { "2n": 1 } },
   ],
-  name: "Let 'Em In"
+  name: "Let 'Em In",
 };
 
 const strangerThings: GameSong = {
@@ -896,9 +894,8 @@ const strangerThings: GameSong = {
     { pitch: "E4", durationObject: { "16n": 1 } },
     { pitch: "C4", durationObject: { "16n": 1 } },
   ],
-  name: "Stranger Things Theme"
+  name: "Stranger Things Theme",
 };
-
 
 const delfinoPlaze: GameSong = {
   bpm: 240,
@@ -912,7 +909,7 @@ const delfinoPlaze: GameSong = {
     { pitch: "F4", durationObject: { "4n.": 1 } },
     { pitch: "D5", durationObject: { "8n": 1, "2n": 1 } },
   ],
-  name: "Delfino Plaza Theme"
+  name: "Delfino Plaza Theme",
 };
 
 const insideTheCastleWalls: GameSong = {
@@ -928,7 +925,7 @@ const insideTheCastleWalls: GameSong = {
     { pitch: "C5", durationObject: { "8n": 1 } },
     { pitch: "E5", durationObject: { "8n": 1 } },
   ],
-  name: "Inside the Castle Walls"
+  name: "Inside the Castle Walls",
 };
 
 const punchOut: GameSong = {
@@ -951,7 +948,7 @@ const punchOut: GameSong = {
     { pitch: "G4", durationObject: { "8n": 1 } },
     { rest: true, pitch: "A4", durationObject: { "4n": 1 } },
   ],
-  name: "Punch-Out! Fight Theme"
+  name: "Punch-Out! Fight Theme",
 };
 
 const bobombBattlefield: GameSong = {
@@ -970,7 +967,7 @@ const bobombBattlefield: GameSong = {
     { pitch: "F#4", durationObject: { "8n": 1 } },
     { pitch: "G4", durationObject: { "4n": 1 } },
   ],
-  name: "Bob-omb Battlefield Theme"
+  name: "Bob-omb Battlefield Theme",
 };
 
 const blindingLights: GameSong = {
@@ -986,7 +983,7 @@ const blindingLights: GameSong = {
     { pitch: "A4", durationObject: { "4n": 1 } },
     { pitch: "C5", durationObject: { "4n.": 1 } },
   ],
-  name: "Blinding Lights"
+  name: "Blinding Lights",
 };
 
 const loveStoryIntro: GameSong = {
@@ -1028,25 +1025,24 @@ const shapeOfYouIntro: GameSong = {
 };
 
 const uptownFunkIntro: GameSong = {
-    bpm: 120,
-    timeSignature: TimeSignature.FOURFOUR,
-    readyForProduction: true,
-    notes: [
-      { pitch: "A4", durationObject: { "4n": 1 } },
-      { rest: true, durationObject: { "2n": 1, "8n": 1, }, pitch: "F#4"},
-      { pitch: "A4", durationObject: { "8n": 1 } },
-      { pitch: "D5", durationObject: { "8n.": 1 } },
-      { pitch: "C5", durationObject: { "8n.": 1 } },
-      { pitch: "A4", durationObject: { "8n": 1 } },
-      { pitch: "D5", durationObject: { "8n.": 1 } },
-      { pitch: "C5", durationObject: { "8n.": 1 } },
-      { pitch: "G4", durationObject: { "8n": 1 } },
-      { pitch: "A4", durationObject: { "4n": 1 } },
-    ],
-    name: "Uptown Funk (Intro)",
-  };
+  bpm: 120,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durationObject: { "4n": 1 } },
+    { rest: true, durationObject: { "2n": 1, "8n": 1 }, pitch: "F#4" },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n.": 1 } },
+    { pitch: "C5", durationObject: { "8n.": 1 } },
+    { pitch: "A4", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "8n.": 1 } },
+    { pitch: "C5", durationObject: { "8n.": 1 } },
+    { pitch: "G4", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n": 1 } },
+  ],
+  name: "Uptown Funk (Intro)",
+};
 
-  
 const myHeartWillGoOnIntro: GameSong = {
   bpm: 90,
   timeSignature: TimeSignature.FOURFOUR,

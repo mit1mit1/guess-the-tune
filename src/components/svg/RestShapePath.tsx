@@ -1,12 +1,6 @@
-import {
-  rootCircleXRadius,
-  rootCircleYRadius,
-} from "src/constants/svg";
+import { rootCircleXRadius, rootCircleYRadius } from "src/constants/svg";
 import { BaseDuration, BaseSVGPathProps } from "src/types";
-import {
-  getBaseYPosition,
-  getRootCircleCX,
-} from "src/utils";
+import { getBaseYPosition, getRootCircleCX } from "src/utils";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
 
 const quarterRestLength = rootCircleXRadius;

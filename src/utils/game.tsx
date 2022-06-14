@@ -1,5 +1,7 @@
 import { Note, Pitch, AnswerStatus, Duration, BaseDuration } from "src/types";
 import { pitchNames } from "src/constants";
+import { chosenSongIndex, isLatestTune } from "src/constants/game";
+import dayjs from "dayjs";
 
 const getIndex = (
   currentDurationObject: Duration,
@@ -284,4 +286,39 @@ export const addDurationObjects = (
 
 export const isGuessable = (note: Note) => {
   return !note.rest;
+};
+
+export const setTodaysGuessed = () => {
+  if (isLatestTune) {
+    localStorage.setItem("lastCorrectIndex", chosenSongIndex.toString());
+  }
+};
+
+const loadTime = dayjs();
+export const getSecondsSinceLoaded = () =>
+  dayjs().diff(loadTime, "s", true).toFixed(2);
+
+export const setTodaysTime = () => {
+  if (isLatestTune && !localStorage.getItem("lastTime")) {
+    localStorage.setItem("lastTime", getSecondsSinceLoaded());
+  }
+};
+
+export const getTimePlayed = () => {
+  const storageLastTime = localStorage.getItem("lastTime");
+  if (storageLastTime && isLatestTune) {
+    return storageLastTime;
+  }
+  return getSecondsSinceLoaded();
+};
+
+export const setTodaysTurns = (guesses: number) => {
+  if (isLatestTune && !localStorage.getItem("lastTurns")) {
+    localStorage.setItem("lastTurns", guesses.toString());
+  }
+};
+
+export const getTodaysTurns = () => {
+  const storageLastTime = localStorage.getItem("lastTurns");
+  return isLatestTune && storageLastTime;
 };
