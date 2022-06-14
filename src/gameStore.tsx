@@ -17,8 +17,15 @@ import {
   isGuessable,
   orderByLength,
   setIncludes,
+  setTodaysGuessed,
+  setTodaysTurns,
+  setTodaysTime,
 } from "./utils/game";
-import { chosenSong, queryParamSongIndex } from "./constants/game";
+import {
+  chosenSong,
+  alreadyGuessedTodays,
+  playedBefore,
+} from "./constants/game";
 
 enableMapSet();
 
@@ -60,7 +67,8 @@ const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note) => ({
 }));
 
 initialAnswerStatuses[0].pitchStatus = AnswerStatus.GUESSEDCORRECT;
-initialAnswerStatuses[initialAnswerStatuses.length - 1].durationStatus = AnswerStatus.GUESSEDCORRECT;
+initialAnswerStatuses[initialAnswerStatuses.length - 1].durationStatus =
+  AnswerStatus.GUESSEDCORRECT;
 
 export interface GameState {
   availablePitches: Array<Pitch>;
@@ -98,7 +106,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   availableDurations: [...orderByLength(getUniqueElements(correctDurations)), ...(durationNames.map(name => ({[name]: 1})))],
   answerStatuses: initialAnswerStatuses,
   durationsGuessed: new Set<Duration>([]),
-  guessedEverythingCorrect: false,
+  guessedEverythingCorrect: alreadyGuessedTodays,
   guesses: initialGuesses,
   incorrectDurationsArrays: correctNotes.map(() => []) as Array<
     Array<Duration>
@@ -304,6 +312,11 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
           draft.guesses,
           correctNotes
         );
+        if (draft.guessedEverythingCorrect) {
+          setTodaysGuessed();
+          setTodaysTurns(draft.turn);
+          setTodaysTime();
+        }
         draft.showCongrats = draft.guessedEverythingCorrect;
       })
     );

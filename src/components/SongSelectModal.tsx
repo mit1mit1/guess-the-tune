@@ -12,7 +12,7 @@ export const SongSelectModal = () => {
     >
       <p>
         Pick a different song from the archives by changing{" "}
-        <i>chosenSongIndex=0</i> in the url.
+        <i>chosenSongIndex={queryParamSongIndex}</i> in the url.
       </p>
     </Modal>
   );
