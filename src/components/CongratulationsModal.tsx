@@ -1,12 +1,11 @@
 import {
   chosenSong,
   maxAvailableArchiveSongs,
-  queryParamSongIndex,
 } from "src/constants/game";
 import { useStore } from "src/gameStore";
 import { Modal } from "./Modal";
 import appStyles from "./App.module.scss";
-import { getTimePlayed, getTodaysTurns } from "src/utils/game";
+import { getTimePlayed, getTodaysTurns, getNextUnguessedIndex } from "src/utils/game";
 
 export const CongratulationsModal = () => {
   const { turn, showCongrats, toggleCongrats } = useStore();
@@ -15,7 +14,7 @@ export const CongratulationsModal = () => {
       var searchParams = new URLSearchParams(window.location.search);
       searchParams.set(
         "chosenSongIndex",
-        ((queryParamSongIndex + 1) % maxAvailableArchiveSongs).toString()
+        (getNextUnguessedIndex() % maxAvailableArchiveSongs).toString()
       );
       window.location.search = searchParams.toString();
     }

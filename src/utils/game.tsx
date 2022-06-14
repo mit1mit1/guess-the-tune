@@ -1,6 +1,7 @@
 import { Note, Pitch, AnswerStatus, Duration, BaseDuration } from "src/types";
 import { pitchNames } from "src/constants";
-import { chosenSongIndex, isLatestTune } from "src/constants/game";
+import { gameSongs } from "src/gameSongs";
+import { chosenSongIndex, isLatestTune, availableIndices, availableSongs } from "src/constants/game";
 import dayjs from "dayjs";
 
 const getIndex = (
@@ -292,6 +293,9 @@ export const setTodaysGuessed = () => {
   if (isLatestTune) {
     localStorage.setItem("lastCorrectIndex", chosenSongIndex.toString());
   }
+  const allGuessed = getAllGuessed();
+  allGuessed.push(chosenSongIndex);
+  localStorage.setItem("allGuessed", JSON.stringify(allGuessed));
 };
 
 const loadTime = dayjs();
@@ -322,3 +326,19 @@ export const getTodaysTurns = () => {
   const storageLastTime = localStorage.getItem("lastTurns");
   return isLatestTune && storageLastTime;
 };
+
+export const getAllGuessed = () => {
+  const allGuessedStorage = JSON.parse(localStorage.getItem("allGuessed") || "[]");
+  if (!Array.isArray(allGuessedStorage)) {
+    return [];
+  }
+  return allGuessedStorage;
+}
+
+export const getNextUnguessedIndex = () => {
+  const unguessedAvailbleIndices = availableIndices.filter(index => !getAllGuessed().includes(index))
+  if (unguessedAvailbleIndices.length) {
+    return availableSongs.indexOf(gameSongs[unguessedAvailbleIndices[0]]);
+  }
+  return 0;
+}

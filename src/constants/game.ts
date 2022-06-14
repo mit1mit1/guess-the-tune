@@ -25,9 +25,11 @@ const useUnreadySongs = parseInt(
 const songIndex =
   queryParamSongIndex === -1 ? maxAvailableArchiveSongs : queryParamSongIndex;
 
-const availableSongs = useUnreadySongs
+export const availableSongs = useUnreadySongs
   ? gameSongs
   : gameSongs.filter((gameSong) => !!gameSong.readyForProduction);
+
+export const availableIndices = availableSongs.map(availableSong => gameSongs.indexOf(availableSong));
 
 export const chosenSong =
   availableSongs[Math.abs(songIndex % availableSongs.length)];
