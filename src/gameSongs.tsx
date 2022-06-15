@@ -281,7 +281,7 @@ const tetris: GameSong = {
 const zeldaMainTheme: GameSong = {
   bpm: 108,
   timeSignature: TimeSignature.FOURFOUR,
-  readyForProduction: false,
+  readyForProduction: true,
   notes: [
     { pitch: "C5", durationObject: { "4n": 1 } },
     { pitch: "G4", durationObject: { "4n.": 1 } },
