@@ -577,7 +577,7 @@ const standByMe: GameSong = {
 };
 
 const tinyDancer: GameSong = {
-  bpm: 125,
+  bpm: 135,
   notes: [
     { pitch: "A4", durationObject: { "4n": 1 } },
     { pitch: "C5", durationObject: { "8n": 1 } },
@@ -586,7 +586,7 @@ const tinyDancer: GameSong = {
     { pitch: "D4", durationObject: { "4n": 1 } },
     { pitch: "C4", durationObject: { "8n": 1 } },
     { pitch: "E4", durationObject: { "4n.": 1 } },
-    { pitch: "C4", durationObject: { "2n.": 1 } },
+    { pitch: "D4", durationObject: { "2n.": 1 } },
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
