@@ -10,7 +10,7 @@ const instrument = new PianoMp3({
 export const playNotes = (notes: Array<Note>, bpm: number) => {
   if (instrument.loaded) {
     Tone.start();
-    Tone.Transport.cancel(-1);
+    Tone.Transport.cancel();
     instrument.releaseAll();
     instrument.sync();
     let currentTime: Duration = { "16n": 0 };

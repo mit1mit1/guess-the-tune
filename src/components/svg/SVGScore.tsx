@@ -4,7 +4,6 @@ import {
   CORRECT_PITCH_COLOR,
   INCORRECT_COLOR,
   INCORRECT_PITCH_COLOR,
-  pitchNames,
 } from "src/constants";
 import {
   AnswerStatus,
@@ -35,6 +34,7 @@ import {
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
 import { areIdentical, isGuessable } from "src/utils/game";
 import { chosenSong } from "src/constants/game";
+import { ExtraStaveLines } from "./ExtraStaveLines";
 
 const SVGWidth = 2740;
 const SVGHeight = 440;
@@ -43,68 +43,6 @@ const timeSignatureWidth = 80;
 const incorrectPitchLength = 250;
 
 const distanceBetweenNotes = 3 * maxNoteXLength;
-
-const StavePath = ({
-  baseXPosition,
-  trackPitch,
-}: {
-  baseXPosition: number;
-  trackPitch: Pitch;
-}) => {
-  return (
-    <path
-      key={`${baseXPosition}-${trackPitch}-stave-line`}
-      strokeWidth="1"
-      stroke={BASE_COLOR}
-      d={`M${baseXPosition - 110} ${getBaseYPosition(trackPitch)} H ${
-        baseXPosition + 40
-      }`}
-    />
-  );
-};
-
-interface ExtraStaveLinesProps {
-  pitch: Pitch;
-  baseXPosition: number;
-  startPitch: Pitch;
-  increasing: Boolean;
-}
-
-const ExtraStaveLines = ({
-  pitch,
-  baseXPosition,
-  startPitch,
-  increasing,
-}: ExtraStaveLinesProps) => {
-  let trackPitch = startPitch;
-  const buffer = [];
-  let hitEnd = false;
-  let newIndex;
-  const effectivePitch: Pitch = pitch.replace("#", "") as Pitch;
-  const cScale = pitchNames.filter((pitch) => !pitch.includes("#"));
-  const comparisonMultiplier = increasing ? 1 : -1;
-  while (
-    (cScale.indexOf(trackPitch) - cScale.indexOf(effectivePitch)) *
-      comparisonMultiplier <=
-      0 &&
-    hitEnd === false
-  ) {
-    buffer.push(
-      <StavePath
-        baseXPosition={baseXPosition}
-        trackPitch={trackPitch}
-        key={`stave-extra-${trackPitch}`}
-      />
-    );
-    newIndex = cScale.indexOf(trackPitch) + comparisonMultiplier * 2;
-    if (newIndex < 0 || newIndex >= cScale.length) {
-      hitEnd = true;
-    } else {
-      trackPitch = cScale[newIndex];
-    }
-  }
-  return <>{buffer}</>;
-};
 
 const getBaseXPosition = (noteIndex: number, staveIndex: number) => {
   return (
@@ -232,18 +170,20 @@ const CurrentGuessPaths = ({
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-            AnswerStatus.GUESSEDCORRECT &&
-          areIdentical(
+          AnswerStatus.GUESSEDCORRECT) {
+          if (areIdentical(
             note.durationObject,
             correctNotes[trueIndex].durationObject
-          )
-        ) {
-          opacity = 0.8;
-          color = CORRECT_COLOR;
+          )) {
+            opacity = 0.8;
+            color = CORRECT_COLOR;
+          } else {
+            color = INCORRECT_COLOR;
+          }
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-            AnswerStatus.UNGUESSABLE &&
+          AnswerStatus.UNGUESSABLE &&
           answerStatuses[trueIndex].pitchStatus === AnswerStatus.UNGUESSABLE
         ) {
           opacity = 1;
@@ -357,13 +297,7 @@ const NonIncorrectPaths = ({
                   <PitchGuessPath
                     pitch={guesses[trueIndex].pitch}
                     positionIndex={displayIndex}
-                    color={
-                      incorrectPitchesArrays[trueIndex].includes(
-                        guesses[trueIndex].pitch
-                      )
-                        ? INCORRECT_COLOR
-                        : BASE_COLOR
-                    }
+                    color={INCORRECT_COLOR}
                     key={`${trueIndex}-pitch-not-necessarily-correct`}
                     handleClick={() => setSelectedNoteIndex(trueIndex)}
                     staveIndex={staveIndex}

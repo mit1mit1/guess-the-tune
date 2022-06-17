@@ -9,6 +9,8 @@ import pitchKeyboardStyles from "./PitchKeyboard.module.scss";
 import { TrebleStave } from "./svg/TrebleStave";
 import { DurationlessPitchPath } from "./svg/DurationlessPitchPath";
 import { noteSharpOffset } from "src/utils";
+import { ExtraStaveLines } from "./svg/ExtraStaveLines";
+import { durationlessPitchRadius } from "src/constants/svg";
 
 interface PitchKeyProps {
   pitch: Pitch;
@@ -73,12 +75,25 @@ const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
     status === "unavailable" ? undefined : () => setSelectedGuessPitch(pitch);
   const offset = getKeyboardOffset(pitch);
   return (
-    <DurationlessPitchPath
-      pitch={pitch}
-      xStart={300 + offset}
-      color={color}
-      handleClick={clickHandler}
-    />
+    <>
+      <ExtraStaveLines
+        pitch={pitch}
+        startPitch="A5"
+        increasing
+        baseXPosition={300 + offset + durationlessPitchRadius * 2}
+      />
+      <ExtraStaveLines
+        pitch={pitch}
+        startPitch="C4"
+        increasing={false}
+        baseXPosition={300 + offset + durationlessPitchRadius * 2}
+      />
+      <DurationlessPitchPath
+        pitch={pitch}
+        xStart={300 + offset}
+        color={color}
+        handleClick={clickHandler}
+      /></>
   );
 };
 
