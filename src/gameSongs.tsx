@@ -1060,6 +1060,39 @@ const myHeartWillGoOnIntro: GameSong = {
   name: "My Heart Will Go On (Intro)",
 };
 
+const canYouFeelTheLoveTonight: GameSong = {
+  bpm: 64,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "G5", durationObject: { "4n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "4n.": 1} },
+    { pitch: "G5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "4n.": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "A4", durationObject: { "4n.": 1 } },
+  ],
+  name: "Can You Feel the Love Tonight"
+};
+
+const theOffice: GameSong = {
+  bpm: 168,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "F4", durationObject: { "2n": 1 } },
+    { pitch: "F5", durationObject: { "2n": 1 } },
+    { rest: true, pitch: "F5", durationObject: { "2n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1} },
+    { pitch: "F5", durationObject: { "8n": 1 } },
+    { pitch: "E5", durationObject: { "8n": 1 } },
+    { pitch: "C5", durationObject: { "8n": 1 } },
+    { pitch: "D5", durationObject: { "2n": 1 } },
+  ],
+  name: "The Office Theme"
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -1119,6 +1152,8 @@ export const gameSongs: Array<GameSong> = [
   letEmIn,
   stayinAliveChorus,
   lifesIncredibleAgain,
+  canYouFeelTheLoveTonight,
+  theOffice,
   bobombBattlefield,
   loveStoryIntro,
 ];
