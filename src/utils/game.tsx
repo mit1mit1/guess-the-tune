@@ -1,6 +1,6 @@
 import { Note, Pitch, AnswerStatus, Duration, BaseDuration } from "src/types";
 import { pitchNames } from "src/constants";
-import { gameSongs } from "src/gameSongs";
+import { generatedGameSongs } from "src/utils/generator";
 import { chosenSongIndex, isLatestTune, availableIndices, availableSongs } from "src/constants/game";
 import dayjs from "dayjs";
 
@@ -234,7 +234,7 @@ export const getUniqueElements = (durationArray: Array<Duration>) => {
   return newArray;
 };
 
-const durationToNumber = (duration: BaseDuration) => {
+export const durationToNumber = (duration: BaseDuration) => {
   switch (duration) {
     case "16n":
       return 1;
@@ -255,13 +255,13 @@ const durationToNumber = (duration: BaseDuration) => {
     case "1n.":
       return 24;
     case "2t":
-      return 12;
+      return 5.33;
     case "4t":
-      return 16;
+      return 2.67;
     case "8t":
-      return 24;
+      return 1.33;
     case "16t":
-      return 24;
+      return 0.67;
   }
 };
 
@@ -338,7 +338,7 @@ export const getAllGuessed = () => {
 export const getNextUnguessedIndex = () => {
   const unguessedAvailbleIndices = availableIndices.filter(index => !getAllGuessed().includes(index))
   if (unguessedAvailbleIndices.length) {
-    return availableSongs.indexOf(gameSongs[unguessedAvailbleIndices[0]]);
+    return availableSongs.indexOf(generatedGameSongs[unguessedAvailbleIndices[0]]);
   }
   return 0;
 }
