@@ -12,14 +12,14 @@ import {
 import svgStyles from "src/components/svg/SVGScore.module.scss";
 
 interface DurationKeyProps {
-  durationObject: Duration;
+  durations: Duration;
   status: "unknown" | "wrong-spot" | "unavailable";
   width: number;
 }
 
 const DurationKeySVGHeight = 220;
 
-const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
+const DurationKey = ({ durations, status, width }: DurationKeyProps) => {
   const { setSelectedGuessDuration } = useStore();
   if (status === "unavailable") {
     return <></>;
@@ -28,12 +28,12 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
   if (status === "wrong-spot") {
     color = WRONG_SPOT_COLOR;
   }
-  const handleClick = () => setSelectedGuessDuration(durationObject);
+  const handleClick = () => setSelectedGuessDuration(durations);
   return (
     <>
       <div
         className={durationKeyStyles.durationKey}
-        style={{ width: `${50 * numberOfNotePaths(durationObject)}px` }}
+        style={{ width: `${50 * numberOfNotePaths(durations)}px` }}
       >
         <svg
           viewBox={`0 0 ${width} ${DurationKeySVGHeight}`}
@@ -53,7 +53,7 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
             />
           }
           <NoteShapeGroup
-            durationObject={durationObject}
+            durations={durations}
             baseXPosition={150}
             baseYPosition={50}
             color={color}
@@ -68,13 +68,13 @@ const DurationKey = ({ durationObject, status, width }: DurationKeyProps) => {
 export const DurationKeyboard = () => {
   const { availableDurations, wrongSpotDurations } = useStore();
   const buffer: Array<JSX.Element> = [];
-  availableDurations.forEach((durationObject, index) => {
-    const DurationKeySVGWidth = 220 * numberOfNotePaths(durationObject);
-    if (setIncludes(wrongSpotDurations, durationObject)) {
+  availableDurations.forEach((durations, index) => {
+    const DurationKeySVGWidth = 220 * numberOfNotePaths(durations);
+    if (setIncludes(wrongSpotDurations, durations)) {
       buffer.push(
         <DurationKey
           key={"duration-key-" + index}
-          durationObject={durationObject}
+          durations={durations}
           status="wrong-spot"
           width={DurationKeySVGWidth}
         />
@@ -83,7 +83,7 @@ export const DurationKeyboard = () => {
       buffer.push(
         <DurationKey
           key={"duration-key-" + index}
-          durationObject={durationObject}
+          durations={durations}
           status="unknown"
           width={DurationKeySVGWidth}
         />

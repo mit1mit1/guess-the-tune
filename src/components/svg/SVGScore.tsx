@@ -32,7 +32,7 @@ import {
   sharpYOffset,
 } from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
-import { areIdentical, isGuessable } from "src/utils/game";
+import { arraysIdentical, isGuessable } from "src/utils/game";
 import { chosenSong } from "src/constants/game";
 import { ExtraStaveLines } from "./ExtraStaveLines";
 
@@ -76,7 +76,7 @@ const NotePath = ({
   return (
     <>
       <NoteShapeGroup
-        durationObject={note.durationObject}
+        durations={note.durations}
         baseXPosition={baseXPosition}
         baseYPosition={baseYPosition}
         handleClick={handleClick}
@@ -165,15 +165,15 @@ const CurrentGuessPaths = ({
         const handleClick = isGuessable(note)
           ? () => setSelectedNoteIndex(trueIndex)
           : undefined;
-        if (incorrectDurationsArrays[trueIndex].includes(note.durationObject)) {
+        if (incorrectDurationsArrays[trueIndex].includes(note.durations)) {
           color = INCORRECT_COLOR;
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
           AnswerStatus.GUESSEDCORRECT) {
-          if (areIdentical(
-            note.durationObject,
-            correctNotes[trueIndex].durationObject
+          if (arraysIdentical(
+            note.durations,
+            correctNotes[trueIndex].durations
           )) {
             opacity = 0.8;
             color = CORRECT_COLOR;
@@ -192,7 +192,7 @@ const CurrentGuessPaths = ({
         if (!!note.rest) {
           return (
             <NoteShapeGroup
-              durationObject={note.durationObject}
+              durations={note.durations}
               baseXPosition={
                 getBaseXPosition(displayIndex, staveIndex) +
                 noteSharpOffset(note.pitch)
@@ -201,7 +201,7 @@ const CurrentGuessPaths = ({
               opacity={opacity}
               baseYPosition={getBaseYPosition("B4")}
               rest
-              key={`rest-${trueIndex}-${note.pitch}-${note.durationObject}`}
+              key={`rest-${trueIndex}-${note.pitch}-${note.durations}`}
             />
           );
         }
@@ -212,7 +212,7 @@ const CurrentGuessPaths = ({
             color={color}
             showSharp={false}
             opacity={opacity}
-            key={`note-${trueIndex}-${note.pitch}-${note.durationObject}`}
+            key={`note-${trueIndex}-${note.pitch}-${note.durations}`}
             handleClick={handleClick}
             staveIndex={staveIndex}
           />

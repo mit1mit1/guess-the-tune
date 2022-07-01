@@ -1,4 +1,4 @@
-import { Duration, Note } from "src/types";
+import { Note, ToneJSDuration } from "src/types";
 import * as Tone from "tone";
 import { addDurationObjects } from "./game";
 import PianoMp3 from "tonejs-instrument-piano-mp3";
@@ -13,17 +13,17 @@ export const playNotes = (notes: Array<Note>, bpm: number) => {
     Tone.Transport.cancel();
     instrument.releaseAll();
     instrument.sync();
-    let currentTime: Duration = { "16n": 0 };
+    let currentTime: ToneJSDuration = { "16n": 0 };
     for (const note of notes) {
       if (!note.rest) {
-        let attackDuration = note.staccato ? "32n" : note.durationObject;
+        let attackDuration = note.staccato ? "32n" :  addDurationObjects({}, note.durations);
         instrument.triggerAttackRelease(
           note.pitch,
           attackDuration,
           currentTime
         );
       }
-      currentTime = addDurationObjects(currentTime, note.durationObject);
+      currentTime = addDurationObjects(currentTime, note.durations);
     }
     Tone.Transport.bpm.value = bpm;
     Tone.Transport.position = "0:0:0";

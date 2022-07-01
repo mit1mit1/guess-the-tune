@@ -10,7 +10,7 @@ import {
 import { pitchNames } from "./constants";
 import {
   allCorrect,
-  areIdentical,
+  arraysIdentical,
   arrayIncludes,
   getNewDurationAnswerStatus,
   getUniqueElements,
@@ -36,7 +36,7 @@ const correctNotes = chosenSong.notes;
 const correctAvailableNotes = correctNotes.filter((note) => isGuessable(note));
 const correctPitches = correctAvailableNotes.map((note) => note.pitch);
 const correctDurations = correctAvailableNotes.map(
-  (note) => note.durationObject
+  (note) => note.durations
 );
 
 const minPitchIndex = Math.min(
@@ -55,9 +55,9 @@ const initialGuesses = paramStartCorrect
   ? correctNotes
   : correctNotes.map((note) => ({
       pitch: isGuessable(note) ? correctNotes[0].pitch : note.pitch,
-      durationObject: isGuessable(note)
-        ? correctNotes[correctNotes.length - 1].durationObject
-        : note.durationObject,
+      durations: isGuessable(note)
+        ? correctNotes[correctNotes.length - 1].durations
+        : note.durations,
       staccato: note.staccato,
       rest: note.rest,
     }));
@@ -211,7 +211,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   setSelectedGuessDuration: (duration: Duration) => {
     set(
       produce((draft: GameState) => {
-        draft.guesses[draft.selectedNoteIndex].durationObject = duration;
+        draft.guesses[draft.selectedNoteIndex].durations = duration;
         return draft;
       })
     );
@@ -234,7 +234,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
             return;
           }
           draft.pitchesGuessed.add(guess.pitch);
-          draft.durationsGuessed.add(guess.durationObject);
+          draft.durationsGuessed.add(guess.durations);
           if (guess.pitch !== correctNotes[index].pitch) {
             draft.incorrectPitchesArrays = pushIfNotIdentical(
               draft.incorrectPitchesArrays,
@@ -243,15 +243,15 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
             );
           }
           if (
-            !areIdentical(
-              guess.durationObject,
-              correctNotes[index].durationObject
+            !arraysIdentical(
+              guess.durations,
+              correctNotes[index].durations
             )
           ) {
             draft.incorrectDurationsArrays = pushIfNotIdentical(
               draft.incorrectDurationsArrays,
               index,
-              guess.durationObject
+              guess.durations
             );
           }
           if (correctPitches.indexOf(guess.pitch) === -1) {
@@ -259,10 +259,10 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
               (pitch) => pitch !== guess.pitch
             );
           }
-          if (!arrayIncludes(correctDurations, guess.durationObject)) {
+          if (!arrayIncludes(correctDurations, guess.durations)) {
             draft.availableDurations.filter(
-              (durationObject) =>
-                !areIdentical(durationObject, guess.durationObject)
+              (durations) =>
+                !arraysIdentical(durations, guess.durations)
             );
           }
         });
@@ -282,8 +282,8 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
             ),
             durationStatus: getNewDurationAnswerStatus(
               draft.answerStatuses[index].durationStatus,
-              note.durationObject,
-              draft.guesses[index].durationObject
+              note.durations,
+              draft.guesses[index].durations
             ),
           } as NoteStatus;
         });
@@ -305,9 +305,9 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
           if (
             draft.answerStatuses[index].durationStatus !==
               AnswerStatus.GUESSEDCORRECT &&
-            setIncludes(draft.durationsGuessed, note.durationObject)
+            setIncludes(draft.durationsGuessed, note.durations)
           ) {
-            draft.wrongSpotDurations.add(note.durationObject);
+            draft.wrongSpotDurations.add(note.durations);
           }
         });
         draft.guessedEverythingCorrect = allCorrect(
