@@ -1,6 +1,6 @@
 import { Note, Pitch, AnswerStatus, Duration, BaseDuration, ToneJSDuration } from "src/types";
 import { pitchNames } from "src/constants";
-import { generatedGameSongs } from "src/utils/generator";
+import { probabilisticGameSongs } from "src/utils/generatorProbability";
 import { chosenSongIndex, isLatestTune, availableIndices, availableSongs } from "src/constants/game";
 import dayjs from "dayjs";
 
@@ -340,7 +340,7 @@ export const getAllGuessed = () => {
 export const getNextUnguessedIndex = () => {
   const unguessedAvailbleIndices = availableIndices.filter(index => !getAllGuessed().includes(index))
   if (unguessedAvailbleIndices.length) {
-    return availableSongs.indexOf(generatedGameSongs[unguessedAvailbleIndices[0]]);
+    return availableSongs.indexOf(probabilisticGameSongs[unguessedAvailbleIndices[0]]);
   }
   return 0;
 }

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
-import { generatedGameSongs } from "src/utils/generator";
+import { probabilisticGameSongs } from "src/utils/generatorProbability";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -26,15 +26,15 @@ const songIndex =
   queryParamSongIndex === -1 ? maxAvailableArchiveSongs : queryParamSongIndex;
 
 export const availableSongs = useUnreadySongs
-  ? generatedGameSongs
-  : generatedGameSongs.filter((gameSong) => !!gameSong.readyForProduction);
+  ? probabilisticGameSongs
+  : probabilisticGameSongs.filter((gameSong) => !!gameSong.readyForProduction);
 
-export const availableIndices = availableSongs.map(availableSong => generatedGameSongs.indexOf(availableSong));
+export const availableIndices = availableSongs.map(availableSong => probabilisticGameSongs.indexOf(availableSong));
 
 export const chosenSong =
   availableSongs[Math.abs(songIndex % availableSongs.length)];
 
-export const chosenSongIndex = generatedGameSongs.indexOf(chosenSong);
+export const chosenSongIndex = probabilisticGameSongs.indexOf(chosenSong);
 
 export const isLatestTune = queryParamSongIndex === -1;
 

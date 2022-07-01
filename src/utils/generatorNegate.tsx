@@ -1,5 +1,6 @@
 import { durationNames, pitchNames } from "src/constants";
 import { BaseDuration, GameSong, TimeSignature } from "src/types";
+import { getSong, SongRepresentation } from "./generatorShared";
 
 const durationToNumber = (duration: BaseDuration) => {
     switch (duration) {
@@ -31,26 +32,10 @@ const durationToNumber = (duration: BaseDuration) => {
             return 0.67;
     }
 };
-type SongRepresentation = Array<Array<number>>;
 
 const getTotalBeats = (representation: SongRepresentation) =>  representation.reduce((previousValue, currentValue) => previousValue + durationToNumber(durationNames[currentValue[1]]), 0) / 4;
 
-const getSong = (representation: SongRepresentation, index: number) => {
-    // const totalBeats = getTotalBeats(representation)
-    const bpm = 95;
-    return {
-        bpm: Math.floor(bpm),
-        timeSignature: TimeSignature.FOURFOUR,
-        readyForProduction: true,
-        notes: representation.map(noteRep => (
-            {
-                pitch: pitchNames[noteRep[0]],
-                durations: [durationNames[noteRep[1]]]
-            }
-        )),
-        name: "Midly Opus No. " + index.toString(),
-    };
-}
+
 
 const getNextRepresentation = (representation: SongRepresentation) => {
     const newRep = JSON.parse(JSON.stringify(representation));
