@@ -45,9 +45,7 @@ const getSong = (representation: SongRepresentation, index: number) => {
         notes: representation.map(noteRep => (
             {
                 pitch: pitchNames[noteRep[0]],
-                durationObject: {
-                    [durationNames[noteRep[1]]]: 1,
-                }
+                durations: [durationNames[noteRep[1]]]
             }
         )),
         name: "Midly Opus No. " + index.toString(),

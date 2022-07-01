@@ -2,7 +2,7 @@ import { pitchNames, durationNames } from "src/constants";
 
 export interface Note {
   pitch: Pitch;
-  durationObject: Duration;
+  durations: Array<BaseDuration>;
   staccato?: boolean;
   rest?: boolean;
 }
@@ -11,7 +11,9 @@ export type Pitch = typeof pitchNames[number];
 
 export type BaseDuration = typeof durationNames[number];
 
-export type Duration = {
+export type Duration = Array<BaseDuration>;
+
+export type ToneJSDuration = {
   [key in typeof durationNames[number]]?: number;
 };
 

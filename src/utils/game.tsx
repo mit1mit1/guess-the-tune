@@ -1,44 +1,44 @@
-import { Note, Pitch, AnswerStatus, Duration, BaseDuration } from "src/types";
+import { Note, Pitch, AnswerStatus, Duration, BaseDuration, ToneJSDuration } from "src/types";
 import { pitchNames } from "src/constants";
 import { generatedGameSongs } from "src/utils/generator";
 import { chosenSongIndex, isLatestTune, availableIndices, availableSongs } from "src/constants/game";
 import dayjs from "dayjs";
 
 const getIndex = (
-  currentDurationObject: Duration,
-  durationObjectArray: Duration[]
+  currentDurationArray: Duration,
+  durationArrayArray: Duration[]
 ) => {
-  return durationObjectArray.findIndex((element) =>
-    areIdentical(currentDurationObject, element)
+  return durationArrayArray.findIndex((element) =>
+    arraysIdentical(currentDurationArray, element)
   );
 };
 
 const nextDuration = (
-  currentDurationObject: Duration,
-  durationObjectArray: Duration[]
+  currentDurationArray: Duration,
+  durationArrayArray: Duration[]
 ) => {
-  const index = getIndex(currentDurationObject, durationObjectArray);
+  const index = getIndex(currentDurationArray, durationArrayArray);
   if (index === -1) {
-    return durationObjectArray[durationObjectArray.length - 1];
+    return durationArrayArray[durationArrayArray.length - 1];
   }
-  if (index >= 0 && index < durationObjectArray.length - 1) {
-    return durationObjectArray[index + 1];
+  if (index >= 0 && index < durationArrayArray.length - 1) {
+    return durationArrayArray[index + 1];
   }
-  return durationObjectArray[0];
+  return durationArrayArray[0];
 };
 
 const previousDuration = (
-  currentDurationObject: Duration,
-  durationObjectArray: Duration[]
+  currentDurationArray: Duration,
+  durationArrayArray: Duration[]
 ) => {
-  const index = getIndex(currentDurationObject, durationObjectArray);
+  const index = getIndex(currentDurationArray, durationArrayArray);
   if (index === -1) {
-    return durationObjectArray[0];
+    return durationArrayArray[0];
   }
-  if (index > 0 && index <= durationObjectArray.length) {
-    return durationObjectArray[index - 1];
+  if (index > 0 && index <= durationArrayArray.length) {
+    return durationArrayArray[index - 1];
   }
-  return durationObjectArray[durationObjectArray.length - 1];
+  return durationArrayArray[durationArrayArray.length - 1];
 };
 
 export const incrementDuration = (
@@ -47,7 +47,7 @@ export const incrementDuration = (
   increment: number,
   availableDurations: Array<Duration>
 ) => {
-  let newDurationObject = notes[index].durationObject;
+  let newDurationObject = notes[index].durations;
   const incrementFunc = increment > 0 ? nextDuration : previousDuration;
   increment = Math.abs(increment);
   while (increment !== 0) {
@@ -58,7 +58,7 @@ export const incrementDuration = (
   const newNotes = [...notes];
   const newNote: Note = {
     ...newNotes[index],
-    durationObject: newDurationObject,
+    durations: newDurationObject,
   };
   newNotes[index] = newNote;
   return newNotes;
@@ -167,7 +167,7 @@ export const getNewDurationAnswerStatus = <T extends Duration>(
   if (oldStatus === AnswerStatus.GUESSEDCORRECT) {
     return oldStatus;
   }
-  return areIdentical(correctAnswer, guess)
+  return arraysIdentical(correctAnswer, guess)
     ? AnswerStatus.GUESSEDCORRECT
     : AnswerStatus.INCORRECTSOFAR;
 };
@@ -189,46 +189,48 @@ export const allCorrect = (guesses: Array<Note>, correctNotes: Array<Note>) => {
   return guesses.every(
     (guess, index) =>
       guess.pitch === correctNotes[index].pitch &&
-      areIdentical(guess.durationObject, correctNotes[index].durationObject)
+      arraysIdentical(guess.durations, correctNotes[index].durations)
   );
 };
 
 export const orderByLength = (durationArray: Array<Duration>) => {
   return durationArray.sort(
-    (durationObjectA, durationObjectB) =>
-      durationObjectTo16thCount(durationObjectA) -
-      durationObjectTo16thCount(durationObjectB)
+    (durationsA, durationsB) =>
+      durationsTo16thCount(durationsA) -
+      durationsTo16thCount(durationsB)
   );
 };
 
-export const areIdentical = (
-  durationObject: Duration,
-  durationObject2: Duration
+export const arraysIdentical = (a1: Array<string>, a2: Array<string>) => a1.every((value, index) => value === a2[index])
+
+export const arraysIdenticalLegacy = (
+  durations: Duration,
+  durations2: Duration
 ) => {
-  return JSON.stringify(durationObject) === JSON.stringify(durationObject2);
+  return JSON.stringify(durations) === JSON.stringify(durations2);
 };
 
 export const arrayIncludes = (
-  durationObjectArray: Duration[],
+  durationArrayArray: Duration[],
   searchObject: Duration
 ) => {
-  return durationObjectArray.some((durationObject) =>
-    areIdentical(searchObject, durationObject)
+  return durationArrayArray.some((durations) =>
+    arraysIdentical(searchObject, durations)
   );
 };
 
 export const setIncludes = (
-  durationObjectSet: Set<Duration>,
+  durationsSet: Set<Duration>,
   searchObject: Duration
 ) => {
-  return arrayIncludes(Array.from(durationObjectSet), searchObject);
+  return arrayIncludes(Array.from(durationsSet), searchObject);
 };
 
 export const getUniqueElements = (durationArray: Array<Duration>) => {
   const newArray: Array<Duration> = [];
-  durationArray.forEach((durationObject) => {
-    if (getIndex(durationObject, newArray) === -1) {
-      newArray.push(durationObject);
+  durationArray.forEach((durations) => {
+    if (getIndex(durations, newArray) === -1) {
+      newArray.push(durations);
     }
   });
   return newArray;
@@ -265,22 +267,22 @@ export const durationToNumber = (duration: BaseDuration) => {
   }
 };
 
-export const durationObjectTo16thCount = (durationObject: Duration) => {
+export const durationsTo16thCount = (durations: Array<BaseDuration>) => {
   let current16s = 0;
-  for (const [baseDuration, multiplier] of Object.entries(durationObject)) {
-    current16s += multiplier * durationToNumber(baseDuration as BaseDuration);
+  for (let i = 0; i < durations.length; i++) {
+    current16s += durationToNumber(durations[i] as BaseDuration);
   }
   return current16s;
 };
 
 export const addDurationObjects = (
-  durationObject: Duration,
-  durationObject2: Duration
+  durationObject: ToneJSDuration,
+  durations: Array<BaseDuration>
 ) => {
-  let newObject: Duration = { ...durationObject };
-  for (const [baseDuration, multiplier] of Object.entries(durationObject2)) {
-    let based = baseDuration as BaseDuration;
-    newObject[based] = (newObject[based] || 0) + multiplier;
+  let newObject: ToneJSDuration = { ...durationObject };
+  for (let i = 0; i < durations.length; i++) {
+    let based = durations[i] as BaseDuration;
+    newObject[based] = (newObject[based] || 0) + 1;
   }
   return newObject;
 };
