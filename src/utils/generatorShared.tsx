@@ -13,7 +13,7 @@ export const getSong = (representation: SongRepresentation, index: number) => {
         notes: representation.map(noteRep => (
             {
                 pitch: pitchNames[noteRep[0]],
-                durations: [durationNames[noteRep[1]]]
+                durations: noteRep.slice(1).map(durationNumber => durationNames[durationNumber])
             }
         )),
         name: "Midly Opus No. " + index.toString(),

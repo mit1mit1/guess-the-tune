@@ -11,25 +11,25 @@ const bangerDurationss = gameSongsSpare.map(gameSong => getDurationssRepresentat
 
 const bangerIntervals = bangerPitches.map(pitchRepresentation => getIntervals(pitchRepresentation));
 
-const allPitches = ([] as Array<number>).concat.apply([], bangerPitches);
+const allBangerPitches = ([] as Array<number>).concat.apply([], bangerPitches);
 
-const allIntervals = ([] as Array<number>).concat.apply([], bangerIntervals);
+const allBangerIntervals = ([] as Array<number>).concat.apply([], bangerIntervals);
 
-const allDurations = ([] as Array<Array<number>>).concat.apply([], bangerDurationss);
+const allBangerDurations = ([] as Array<Array<number>>).concat.apply([], bangerDurationss);
 
 const probabilisticallyGetPitchNumber = () => {
-    const index = Math.floor(Math.random() * (allPitches.length - 1))
-    return allPitches[index];
+    const index = Math.floor(Math.random() * (allBangerPitches.length - 1))
+    return allBangerPitches[index];
 }
 
 const probabilisticallyGetInterval = () => {
-    const index = Math.floor(Math.random() * (allIntervals.length - 1))
-    return allIntervals[index];
+    const index = Math.floor(Math.random() * (allBangerIntervals.length - 1))
+    return allBangerIntervals[index];
 }
 
 const probabilisticallyGetDurationss = () => {
-    const index = Math.floor(Math.random() * (allDurations.length - 1))
-    return allDurations[index];
+    const index = Math.floor(Math.random() * (allBangerDurations.length - 1))
+    return allBangerDurations[index];
 }
 
 const probabilisticallyGenerateSong = () => {
@@ -40,15 +40,21 @@ const probabilisticallyGenerateSong = () => {
         readyForProduction: true,
         name: 'Midly Opus 1',
     }
-    for (let i = 0; i < 8; i++) {
-        let pitchNumber = 0;
-        if (i === 0) {
-            pitchNumber = probabilisticallyGetPitchNumber()
-        } else {
-            pitchNumber = pitchNumber + probabilisticallyGetInterval();
+    let pitchNumber = probabilisticallyGetPitchNumber();
+    let oldPitchNumber = pitchNumber;
+    for (let i = 0; i < 7; i++) {
+        if (i !== 0) {
+            pitchNumber = oldPitchNumber + probabilisticallyGetInterval();
+            if (pitchNumber < 0 || pitchNumber >= pitchNames.length || pitchNames[pitchNumber].includes('#')) {
+                pitchNumber = oldPitchNumber + probabilisticallyGetInterval();
+            }
+            if (pitchNumber < 0 || pitchNumber >= pitchNames.length) {
+                pitchNumber = oldPitchNumber + probabilisticallyGetInterval();
+            }
             if (pitchNumber < 0 || pitchNumber >= pitchNames.length) {
                 pitchNumber = probabilisticallyGetPitchNumber();
             }
+            oldPitchNumber = pitchNumber;
         }
         gameSong.notes.push({
             pitch: pitchNames[pitchNumber],

@@ -13,14 +13,14 @@ export const getBaseYPosition = (pitch: Pitch) => {
   const C4Offset = 425;
   const multiplier = 37.5;
   switch (pitch) {
-    case "E3":
-      return C4Offset + multiplier * 5;
-    case "F3":
-    case "F#3":
-      return C4Offset + multiplier * 4;
-    case "G3":
-    case "G#3":
-      return C4Offset + multiplier * 3;
+    // case "E3":
+    //   return C4Offset + multiplier * 5;
+    // case "F3":
+    // case "F#3":
+    //   return C4Offset + multiplier * 4;
+    // case "G3":
+    // case "G#3":
+    //   return C4Offset + multiplier * 3;
     case "A3":
     case "A#3":
       return C4Offset + multiplier * 2;
