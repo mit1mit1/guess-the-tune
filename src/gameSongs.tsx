@@ -1124,7 +1124,7 @@ const midlyOpusOne: GameSong = {
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
   name: "Midly Opus 1",
-},
+};
 
 
 export const gameSongs: Array<GameSong> = [
