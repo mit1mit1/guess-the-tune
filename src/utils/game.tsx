@@ -338,7 +338,7 @@ export const getAllGuessed = () => {
 }
 
 export const getNextUnguessedIndex = () => {
-  const unguessedAvailbleIndices = availableIndices.filter(index => !getAllGuessed().includes(index))
+  const unguessedAvailbleIndices = availableIndices.filter((index: any) => !getAllGuessed().includes(index))
   if (unguessedAvailbleIndices.length) {
     return availableSongs.indexOf(gameSongs[unguessedAvailbleIndices[0]]);
   }

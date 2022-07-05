@@ -13,6 +13,7 @@ import { CongratulationsModal } from "./CongratulationsModal";
 import { SupportUsModal } from "./SupportUsModal";
 import { chosenSong, queryParamSongIndex } from "src/constants/game";
 import { SongSelectModal } from "./SongSelectModal";
+import { OutputModal } from "./OutputModal";
 
 const App = ({
   playNotes,
@@ -30,6 +31,7 @@ const App = ({
     guessedEverythingCorrect,
     toggleInstructions,
     toggleSupportUs,
+    toggleOutputModal,
   } = useStore();
 
   const handleCheckGuess = useCallback(() => {
@@ -114,6 +116,7 @@ const App = ({
         {guessedEverythingCorrect && <CongratulationsModal />}
         <InstructionsModal />
         <SupportUsModal />
+        <OutputModal />
         {queryParamSongIndex !== -1 ? <SongSelectModal /> : ""}
         <div>
           <button
@@ -127,6 +130,9 @@ const App = ({
             onClick={() => toggleInstructions()}
           >
             Show Instructions
+          </button>
+          <button className={styles.button} onClick={() => toggleOutputModal()}>
+            Export Song
           </button>
           <button className={styles.button} onClick={() => toggleSupportUs()}>
             Support Us
