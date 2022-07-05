@@ -116,5 +116,4 @@ while (generatingGameSongs.length < 1) {
     }
 }
 
-console.log(generatingGameSongs)
 export const generatedGameSongs = [...generatingGameSongs];

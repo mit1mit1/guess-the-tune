@@ -35,7 +35,6 @@ const App = ({
   const handleCheckGuess = useCallback(() => {
     incrementTurn();
     checkGuesses();
-    console.log(JSON.stringify(guesses))
     playNotes([...guesses], chosenSong.bpm);
   }, [checkGuesses, guesses, incrementTurn, playNotes]);
   useEffect(() => {

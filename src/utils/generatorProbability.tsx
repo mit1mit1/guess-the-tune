@@ -32,7 +32,7 @@ const probabilisticallyGetDurationss = () => {
     return allBangerDurations[index];
 }
 
-const probabilisticallyGenerateSong = () => {
+export const probabilisticallyGenerateSong = () => {
     const gameSong: GameSong = {
         bpm: 120,
         notes: [],
@@ -42,7 +42,7 @@ const probabilisticallyGenerateSong = () => {
     }
     let pitchNumber = probabilisticallyGetPitchNumber();
     let oldPitchNumber = pitchNumber;
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 8; i++) {
         if (i !== 0) {
             pitchNumber = oldPitchNumber + probabilisticallyGetInterval();
             if (pitchNumber < 0 || pitchNumber >= pitchNames.length || pitchNames[pitchNumber].includes('#')) {
@@ -58,7 +58,9 @@ const probabilisticallyGenerateSong = () => {
         }
         gameSong.notes.push({
             pitch: pitchNames[pitchNumber],
-            durations: probabilisticallyGetDurationss().map(durationNumber => durationNames[durationNumber])
+            durations: probabilisticallyGetDurationss().map(index => durationNames[index])
+            // pitch: pitchNames[Math.floor(Math.random() * (pitchNames.length - 1))],
+            // durations: [durationNames[Math.floor(Math.random() * (durationNames.length - 1))]]
         })
     }
     return gameSong;

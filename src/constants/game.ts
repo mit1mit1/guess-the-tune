@@ -2,9 +2,13 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import { probabilisticGameSongs } from "src/utils/generatorProbability";
+import { machineLearntSongs } from "src/utils/generatorMachineLearning";
+import { generatedSongs } from "src/constants/generatedBangers";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+
+console.log(machineLearntSongs);
 
 const userTimezone = dayjs.tz.guess();
 const dawnOfFirstDay = dayjs.tz("2022-05-31 00:00", userTimezone);
@@ -26,15 +30,17 @@ const songIndex =
   queryParamSongIndex === -1 ? maxAvailableArchiveSongs : queryParamSongIndex;
 
 export const availableSongs = useUnreadySongs
-  ? probabilisticGameSongs
-  : probabilisticGameSongs.filter((gameSong) => !!gameSong.readyForProduction);
+  ? generatedSongs
+  : generatedSongs.filter((gameSong) => !!gameSong.readyForProduction);
 
-export const availableIndices = availableSongs.map(availableSong => probabilisticGameSongs.indexOf(availableSong));
+export const availableIndices = availableSongs.map((availableSong) =>
+  generatedSongs.indexOf(availableSong)
+);
 
 export const chosenSong =
   availableSongs[Math.abs(songIndex % availableSongs.length)];
 
-export const chosenSongIndex = probabilisticGameSongs.indexOf(chosenSong);
+export const chosenSongIndex = generatedSongs.indexOf(chosenSong);
 
 export const isLatestTune = queryParamSongIndex === -1;
 

@@ -3,6 +3,7 @@ import { pitchNames } from "src/constants";
 import { probabilisticGameSongs } from "src/utils/generatorProbability";
 import { chosenSongIndex, isLatestTune, availableIndices, availableSongs } from "src/constants/game";
 import dayjs from "dayjs";
+import { generatedSongs } from "src/constants/generatedBangers";
 
 const getIndex = (
   currentDurationArray: Duration,
@@ -340,7 +341,7 @@ export const getAllGuessed = () => {
 export const getNextUnguessedIndex = () => {
   const unguessedAvailbleIndices = availableIndices.filter(index => !getAllGuessed().includes(index))
   if (unguessedAvailbleIndices.length) {
-    return availableSongs.indexOf(probabilisticGameSongs[unguessedAvailbleIndices[0]]);
+    return availableSongs.indexOf(generatedSongs[unguessedAvailbleIndices[0]]);
   }
   return 0;
 }

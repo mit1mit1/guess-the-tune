@@ -8,6 +8,9 @@ const instrument = new PianoMp3({
 }).toDestination("main");
 
 export const playNotes = (notes: Array<Note>, bpm: number) => {
+  if (notes.length > 1) {
+    console.log(JSON.stringify(notes));
+  }
   if (instrument.loaded) {
     Tone.start();
     Tone.Transport.cancel();
