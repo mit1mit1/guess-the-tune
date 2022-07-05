@@ -1093,6 +1093,22 @@ const theOffice: GameSong = {
   name: "The Office Theme"
 };
 
+const gavityFallsTheme: GameSong = {
+  bpm: 160,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durations: ["2n."] },
+    { pitch: "B4", durations: ["4n"] },
+    { pitch: "C5", durations: ["1n"] },
+    { pitch: "E5", durations: ["4n."] },
+    { pitch: "D5", durations: ["4n."] },
+    { pitch: "E5", durations: ["4n"] },
+    { pitch: "G4", durations: ["1n"] },
+  ],
+  name: "Gravity Falls Theme"
+};
+
 export const gameSongs: Array<GameSong> = [
   simpsonsTheme,
   imperialMarch,
@@ -1136,6 +1152,7 @@ export const gameSongs: Array<GameSong> = [
   cantinaBand,
   blindingLights,
   theGloryDays,
+  gavityFallsTheme,
   underTheMilkyWay,
   pokemonGottaCatchEmAll,
   goodMornin,
@@ -1156,4 +1173,5 @@ export const gameSongs: Array<GameSong> = [
   theOffice,
   bobombBattlefield,
   loveStoryIntro,
+  gavityFallsTheme,
 ];
