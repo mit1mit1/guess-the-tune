@@ -5,11 +5,8 @@ export const shouldAddSharp = (pitch: Pitch) => {
   return pitch.includes("#");
 };
 
-export const numberOfNotePaths = (durationObject: Duration) => {
-  return Object.values(durationObject).reduce(
-    (runningTotal, baseDurationMultiplier) =>
-      runningTotal + baseDurationMultiplier
-  );
+export const numberOfNotePaths = (durations: Duration) => {
+  return durations.length;
 };
 
 export const getBaseYPosition = (pitch: Pitch) => {

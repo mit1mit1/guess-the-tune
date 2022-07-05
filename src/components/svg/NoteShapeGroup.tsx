@@ -1,5 +1,5 @@
 import { maxNoteXLength, UpStrokeLength } from "src/constants/svg";
-import { BaseDuration, BaseSVGPathProps, Duration } from "src/types";
+import { BaseDuration, BaseSVGPathProps } from "src/types";
 import { NoteShapePath } from "./NoteShapePath";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
 import { getRestYCentre, RestShapePath } from "./RestShapePath";
@@ -45,7 +45,7 @@ const TiePath = ({
 };
 
 interface NoteShapeGroupProps extends BaseSVGPathProps {
-  durationObject: Duration;
+  durations: Array<BaseDuration>;
   baseXPosition: number;
   baseYPosition: number;
   staccato?: boolean;
@@ -53,7 +53,7 @@ interface NoteShapeGroupProps extends BaseSVGPathProps {
 }
 
 export const NoteShapeGroup = ({
-  durationObject,
+  durations,
   handleClick,
   color,
   opacity = 1,
@@ -65,7 +65,8 @@ export const NoteShapeGroup = ({
   const buffer: Array<JSX.Element> = [];
   let groupCounter = 0;
   let index = 0;
-  for (const [baseDuration, multiplier] of Object.entries(durationObject)) {
+  for (let i = 0; i < durations.length; i++) {
+    let baseDuration = durations[i];
     if (index > 0 && !rest) {
       buffer.push(
         <TiePath
@@ -80,71 +81,55 @@ export const NoteShapeGroup = ({
         />
       );
     }
-    for (let n = 0; n < multiplier; n++) {
-      if (n > 0 && !rest) {
+    if (rest) {
+      if (shouldAddDurationDot(baseDuration as BaseDuration)) {
         buffer.push(
-          <TiePath
-            handleClick={handleClick}
-            key={`tie-path-${index}-${n}`}
+          <Dot
+            xCentre={getDurationDotXCentre(baseXPosition)}
+            yCentre={getBaseYPosition("B4")}
             color={color}
             opacity={opacity}
-            xStart={baseXPosition + (groupCounter - 1) * maxNoteXLength}
-            yStart={baseYPosition + UpStrokeLength * 1.2}
-            xEnd={baseXPosition + groupCounter * maxNoteXLength}
-            yEnd={baseYPosition + UpStrokeLength * 1.2}
+            handleClick={handleClick}
           />
         );
       }
-      if (rest) {
-        if (shouldAddDurationDot(baseDuration as BaseDuration)) {
-          buffer.push(
-            <Dot
-              xCentre={getDurationDotXCentre(baseXPosition)}
-              yCentre={getBaseYPosition("B4")}
-              color={color}
-              opacity={opacity}
-              handleClick={handleClick}
-            />
-          );
-        }
-        if (shouldAddTripletSymbol(baseDuration as BaseDuration)) {
-          buffer.push(
-            <TripletSymbol
-              xCentre={getTripletCX(baseXPosition)}
-              yCentre={
-                getRestYCentre(baseDuration as BaseDuration) + UpStrokeLength
-              }
-              color={color}
-              opacity={opacity}
-            />
-          );
-        }
+      if (shouldAddTripletSymbol(baseDuration as BaseDuration)) {
         buffer.push(
-          <RestShapePath
-            key={`rest-shape-path-${index}-${n}`}
-            baseDuration={baseDuration as BaseDuration}
-            handleClick={handleClick}
+          <TripletSymbol
+            xCentre={getTripletCX(baseXPosition)}
+            yCentre={
+              getRestYCentre(baseDuration as BaseDuration) + UpStrokeLength
+            }
             color={color}
             opacity={opacity}
-            baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
-          />
-        );
-      } else {
-        buffer.push(
-          <NoteShapePath
-            key={`note-shape-path-${index}-${n}`}
-            duration={baseDuration as BaseDuration}
-            handleClick={handleClick}
-            color={color}
-            opacity={opacity}
-            staccato={staccato}
-            baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
-            baseYPosition={baseYPosition}
           />
         );
       }
-      groupCounter++;
+      buffer.push(
+        <RestShapePath
+          key={`rest-shape-path-${index}-${i}`}
+          baseDuration={baseDuration as BaseDuration}
+          handleClick={handleClick}
+          color={color}
+          opacity={opacity}
+          baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
+        />
+      );
+    } else {
+      buffer.push(
+        <NoteShapePath
+          key={`note-shape-path-${index}-${i}`}
+          duration={baseDuration as BaseDuration}
+          handleClick={handleClick}
+          color={color}
+          opacity={opacity}
+          staccato={staccato}
+          baseXPosition={baseXPosition + groupCounter * maxNoteXLength}
+          baseYPosition={baseYPosition}
+        />
+      );
     }
+    groupCounter++;
     index++;
   }
   return (

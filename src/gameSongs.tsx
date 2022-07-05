@@ -5,16 +5,16 @@ const testSong: GameSong = {
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
   notes: [
-    { pitch: "C5", durationObject: { "8n": 1 } },
-    { pitch: "A4", durationObject: { "8n": 1 } },
-    { pitch: "C5", durationObject: { "8n": 1 } },
-    { pitch: "D5", durationObject: { "16n": 1 } },
-    { pitch: "C5", durationObject: { "16n": 1 } },
-    { rest: true, pitch: "C5", durationObject: { "8t": 1 } },
-    { pitch: "E4", durationObject: { "4t": 1 } },
-    { pitch: "F4", durationObject: { "8n": 1 } },
-    { pitch: "F#4", durationObject: { "8n": 1 } },
-    { pitch: "G4", durationObject: { "4n": 1 } },
+    { pitch: "C5", durations: [ "8n"] },
+    { pitch: "A4", durations: [ "8n"] },
+    { pitch: "C5", durations: [ "8n"] },
+    { pitch: "D5", durations: [ "16n"] },
+    { pitch: "C5", durations: [ "16n"] },
+    { rest: true, pitch: "C5", durations: [ "8t"] },
+    { pitch: "E4", durations: [ "4t"] },
+    { pitch: "F4", durations: [ "8n"] },
+    { pitch: "F#4", durations: [ "8n"] },
+    { pitch: "G4", durations: [ "4n"] },
   ],
   name: "Bob-omb Battlefield Theme"
 };
@@ -67,6 +67,7 @@ export const gameSongsString = `[
   cantinaBand,
   blindingLights,
   theGloryDays,
+  gavityFallsTheme,
   underTheMilkyWay,
   pokemonGottaCatchEmAll,
   goodMornin,
@@ -83,8 +84,11 @@ export const gameSongsString = `[
   letEmIn,
   stayinAliveChorus,
   lifesIncredibleAgain,
+  canYouFeelTheLoveTonight,
+  theOffice,
   bobombBattlefield,
   loveStoryIntro,
+  gavityFallsTheme,
 ];
 
 
