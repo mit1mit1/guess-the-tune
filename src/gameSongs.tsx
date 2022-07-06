@@ -1126,8 +1126,32 @@ const midlyOpusOne: GameSong = {
   name: "Midly Opus 1",
 };
 
+const gravityFallsIntro: GameSong = {
+  bpm: 160,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { "pitch": "F4", durations: ["4n"] },
+    { "pitch": "F4", durations: ["4n"] },
+    { "pitch": "F4", durations: ["4n"] },
+    { "pitch": "A4", durations: ["4n"] },
+    { "pitch": "A4", durations: ["4n"] },
+    { "pitch": "G4", durations: ["4n"] },
+    { "pitch": "F4", durations: ["2n"], staccato: true },
+    { "pitch": "A4", durations: ["4n"] },
+    { "pitch": "A4", durations: ["4n"] },
+    { "pitch": "A4", durations: ["4n"] },
+    { "pitch": "G4", durations: ["4n"] },
+    { "pitch": "A4", durations: ["4n"] },
+    { "pitch": "G4", durations: ["4n"] },
+    { "pitch": "F4", durations: ["2n"], staccato: true }
+  ],
+  name: "Gravity Falls Intro"
+}
+
 
 export const gameSongs: Array<GameSong> = [
+  gravityFallsIntro,
   simpsonsTheme,
   imperialMarch,
   hedwigsTheme,
