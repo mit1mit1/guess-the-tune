@@ -1073,7 +1073,7 @@ const canYouFeelTheLoveTonight: GameSong = {
     { pitch: "C5", durations: ["8n"] },
     { pitch: "A4", durations: ["4n."] },
   ],
-  name: "Can You Feel the Love Tonight"
+  name: "Can You Feel the Love Tonight",
 };
 
 const theOffice: GameSong = {
@@ -1090,7 +1090,46 @@ const theOffice: GameSong = {
     { pitch: "C5", durations: ["8n"] },
     { pitch: "D5", durations: ["2n"] },
   ],
-  name: "The Office Theme"
+  name: "The Office Theme",
+};
+
+const gavityFallsTheme: GameSong = {
+  bpm: 160,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "A4", durations: ["2n."] },
+    { pitch: "B4", durations: ["4n"] },
+    { pitch: "C5", durations: ["1n"] },
+    { pitch: "E5", durations: ["4n."] },
+    { pitch: "D5", durations: ["4n."] },
+    { pitch: "E5", durations: ["4n"] },
+    { pitch: "G4", durations: ["1n"] },
+  ],
+  name: "Gravity Falls Theme",
+};
+
+const gravityFallsIntro: GameSong = {
+  bpm: 160,
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  notes: [
+    { pitch: "F4", durations: ["4n"] },
+    { pitch: "F4", durations: ["4n"] },
+    { pitch: "F4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "G4", durations: ["4n"] },
+    { pitch: "F4", durations: ["2n"], staccato: true },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "G4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "G4", durations: ["4n"] },
+    { pitch: "F4", durations: ["2n"], staccato: true },
+  ],
+  name: "Gravity Falls Intro",
 };
 
 export const gameSongsSpare: Array<GameSong> = [
@@ -1156,4 +1195,6 @@ export const gameSongsSpare: Array<GameSong> = [
   theOffice,
   bobombBattlefield,
   loveStoryIntro,
+  gavityFallsTheme,
+  gravityFallsIntro,
 ];

@@ -67,6 +67,7 @@ export const gameSongsString = `[
   cantinaBand,
   blindingLights,
   theGloryDays,
+  gavityFallsTheme,
   underTheMilkyWay,
   pokemonGottaCatchEmAll,
   goodMornin,
@@ -85,6 +86,8 @@ export const gameSongsString = `[
   lifesIncredibleAgain,
   bobombBattlefield,
   loveStoryIntro,
+  gavityFallsTheme,
+  midlyOpusOne,
 ];
 
 
