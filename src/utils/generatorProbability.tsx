@@ -57,10 +57,10 @@ export const probabilisticallyGenerateSong = () => {
             oldPitchNumber = pitchNumber;
         }
         gameSong.notes.push({
-            // pitch: pitchNames[pitchNumber],
-            // durations: probabilisticallyGetDurationss().map(index => durationNames[index])
-            pitch: pitchNames[Math.floor(Math.random() * (pitchNames.length - 1))],
-            durations: [durationNames[Math.floor(Math.random() * (durationNames.length - 1))]]
+            pitch: pitchNames[pitchNumber],
+            durations: probabilisticallyGetDurationss().map(index => durationNames[index])
+            // pitch: pitchNames[Math.floor(Math.random() * (pitchNames.length - 1))],
+            // durations: [durationNames[Math.floor(Math.random() * (durationNames.length - 1))]]
         })
     }
     return gameSong;

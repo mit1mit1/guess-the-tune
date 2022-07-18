@@ -102,7 +102,7 @@ function finishedTraining() {
   console.log("beginning search for banger");
   const discoveredBangers: Array<GameSong> = [];
   console.log("enter while loop");
-  while (songsSearched < 1) {
+  while (songsSearched < 99) {
     let song = probabilisticallyGenerateSong();
     let inputs: any = {};
     song.notes.forEach((note, index) => {
