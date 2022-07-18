@@ -42,7 +42,7 @@ const nn = ml5.neuralNetwork({
     "pitch7",
   ],
   outputs: ["isBanger", "isNotBanger"],
-  debug: true,
+  // debug: true,
   learningRate: 0.2,
   task: 'classification',
   hiddenUnits: 16,
@@ -102,7 +102,7 @@ function finishedTraining() {
   console.log("beginning search for banger");
   const discoveredBangers: Array<GameSong> = [];
   console.log("enter while loop");
-  while (songsSearched < 100) {
+  while (songsSearched < 1) {
     let song = probabilisticallyGenerateSong();
     let inputs: any = {};
     song.notes.forEach((note, index) => {
