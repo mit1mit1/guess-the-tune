@@ -1,5 +1,5 @@
 import create from "zustand";
-import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "./types";
+import { AnswerStatus, Duration, GameSong, Note, NoteStatus, Pitch } from "./types";
 import produce, { enableMapSet } from "immer";
 import {
   getNewAnswerStatus,
@@ -99,6 +99,9 @@ export interface GameState {
   toggleCongrats: () => void;
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
+  correctNotes: Array<Note>;
+  addNote: () => void;
+  removeNote: () => void;
 }
 
 const allBaseDurations = durationNames.map(name => ({[name]: 1}))
@@ -123,6 +126,38 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   showCongrats: false,
   showInstructions: false,
   showSupportUs: false,
+  correctNotes: correctNotes,
+  addNote: () => {
+    set(
+      produce((draft: GameState) => {
+        draft.correctNotes.push({
+          durations: ["4n"],
+          pitch: "C5"
+        });
+        draft.incorrectDurationsArrays.push([]);
+        draft.incorrectPitchesArrays.push([]);
+        draft.answerStatuses.push({
+          pitchStatus: AnswerStatus.INCORRECTSOFAR,
+          durationStatus: AnswerStatus.INCORRECTSOFAR,
+        });
+        draft.guesses.push({
+          durations: ["4n"],
+          pitch: "C5"
+        });
+      })
+    );
+  },
+  removeNote: () => {
+    set(
+      produce((draft: GameState) => {
+        draft.correctNotes.pop();
+        draft.incorrectDurationsArrays.pop();
+        draft.incorrectPitchesArrays.pop();
+        draft.answerStatuses.pop();
+        draft.guesses.pop();
+      })
+    );
+  },
   toggleCongrats: () => {
     set(
       produce((draft: GameState) => {
@@ -277,7 +312,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
           }
         });
 
-        const newStatuses = correctNotes.map((note: Note, index: number) => {
+        const newStatuses = draft.correctNotes.map((note: Note, index: number) => {
           if (!isGuessable(note)) {
             return {
               pitchStatus: draft.answerStatuses[index].pitchStatus,
@@ -301,7 +336,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
 
         draft.wrongSpotPitches = new Set();
         draft.wrongSpotDurations = new Set();
-        correctNotes.forEach((note: Note, index: number) => {
+        draft.correctNotes.forEach((note: Note, index: number) => {
           if (!isGuessable(note)) {
             return;
           }
@@ -322,7 +357,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
         });
         draft.guessedEverythingCorrect = allCorrect(
           draft.guesses,
-          correctNotes
+          draft.correctNotes
         );
         if (draft.guessedEverythingCorrect) {
           setTodaysGuessed();

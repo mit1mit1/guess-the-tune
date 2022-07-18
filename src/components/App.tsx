@@ -14,6 +14,7 @@ import { SupportUsModal } from "./SupportUsModal";
 import { chosenSong, queryParamSongIndex } from "src/constants/game";
 import { SongSelectModal } from "./SongSelectModal";
 import { OutputModal } from "./OutputModal";
+import { addDurationObjects } from "src/utils";
 
 const App = ({
   playNotes,
@@ -32,6 +33,9 @@ const App = ({
     toggleInstructions,
     toggleSupportUs,
     toggleOutputModal,
+    correctNotes,
+    addNote,
+    removeNote,
   } = useStore();
 
   const handleCheckGuess = useCallback(() => {
@@ -110,7 +114,7 @@ const App = ({
             = {chosenSong.bpm}
           </text>
         </svg>
-        <SVGScore correctNotes={chosenSong.notes} />
+        <SVGScore correctNotes={correctNotes} />
         <PitchKeyboard />
         <DurationKeyboard />
         {guessedEverythingCorrect && <CongratulationsModal />}
@@ -133,6 +137,12 @@ const App = ({
           </button>
           <button className={styles.button} onClick={() => toggleOutputModal()}>
             Export Song
+          </button>
+          <button className={styles.button} onClick={() => addNote()}>
+            Add Note
+          </button>
+          <button className={styles.button} onClick={() => removeNote()}>
+            Remove Note
           </button>
           <button className={styles.button} onClick={() => toggleSupportUs()}>
             Support Us
