@@ -117,10 +117,6 @@ const RuleInstructions = () => (
       may be any number of beats.
     </p>
     <p>
-      The key has been chosen to be as close to <i>C Major</i> as possible: that
-      is, there will be as few sharps as the tune allows.
-    </p>
-    <p>
       The first pitch and the last duration are set to be correct by default.
     </p>
   </>

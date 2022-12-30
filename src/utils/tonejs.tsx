@@ -16,7 +16,15 @@ export const playNotes = (notes: Array<Note>, bpm: number) => {
     let currentTime: ToneJSDuration = { "16n": 0 };
     for (const note of notes) {
       if (!note.rest) {
-        let attackDuration = note.staccato ? "32n" :  addDurationObjects({}, note.durations);
+        let holdNoteLength: ToneJSDuration | string = addDurationObjects({}, note.durations);
+        if (note.staccato) {
+          if (note.durations.length === 1 && (note.durations[0] === "16n" || note.durations[0] === "8n")) {
+            holdNoteLength = "32n";
+          } else {
+            holdNoteLength = "16n";
+          }
+        }
+        let attackDuration = holdNoteLength;
         instrument.triggerAttackRelease(
           note.pitch,
           attackDuration,

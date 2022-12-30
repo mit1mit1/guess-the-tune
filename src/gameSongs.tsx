@@ -17,6 +17,7 @@ const testSong: GameSong = {
   name: "Midly Opus No. " + Math.random().toString()
 };
 
+
 export const gameSongs: Array<GameSong> = [
   testSong,
 ];
@@ -87,7 +88,36 @@ export const gameSongsString = `[
   bobombBattlefield,
   loveStoryIntro,
   gavityFallsTheme,
+  midlyOpusOne,
+  midlyOpus3,
+  midlyOpus4,
+  midlyOpus5,
+  midlyOpus6,
+  midlyOpus7,
+  midlyOpus8,
+  midlyOpus9,
+  midlyOpus10,
+  midlyOpus11,
+  midlyOpus12,
+  midlyOpus13,
+  midlyOpus14,
+  midlyOpus15,
+  midlyOpus16,
+  midlyOpus17,
+  midlyOpus18,
+  midlyOpus19,
+  midlyOpus20,
+  midlyOpus21,
+  midlyOpus22,
+  midlyOpus23,
+  midlyOpus24,
+  midlyOpus25,
+  midlyOpus26,
+  midlyOpus27,
+  midlyOpus28,
+  midlyOpus29,
+  midlyOpus30,
+  midlyOpus31,
+  midlyOpus32,
 ];
-
-
 `
