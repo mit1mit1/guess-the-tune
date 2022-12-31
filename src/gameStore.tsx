@@ -1,5 +1,5 @@
 import create from "zustand";
-import { AnswerStatus, Duration, GameSong, Note, NoteStatus, Pitch } from "./types";
+import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "./types";
 import produce, { enableMapSet } from "immer";
 import {
   getNewAnswerStatus,
@@ -25,11 +25,14 @@ import {
   chosenSong,
   alreadyGuessedTodays,
   playedBefore,
+  composeMode,
 } from "./constants/game";
 
 enableMapSet();
 
-const paramStartCorrect = "1";
+const paramStartCorrect = parseInt(
+  new URLSearchParams(window.location.search).get("startCorrect") || "0"
+);
 const correctNotes = chosenSong.notes;
 const correctAvailableNotes = correctNotes.filter((note: Note) => isGuessable(note));
 const correctPitches = correctAvailableNotes.map((note: { pitch: any; }) => note.pitch);
@@ -44,18 +47,21 @@ const maxPitchIndex = Math.max(
   ...correctPitches.map((pitch: Pitch) => pitchNames.indexOf(pitch))
 );
 
-export const initialAvailablePitches = pitchNames.slice();
+export const initialAvailablePitches = composeMode ? pitchNames.slice() : pitchNames.slice(
+  minPitchIndex,
+  maxPitchIndex + 1
+);;
 
 const initialGuesses = paramStartCorrect
   ? correctNotes
   : correctNotes.map((note: Note) => ({
-      pitch: isGuessable(note) ? correctNotes[0].pitch : note.pitch,
-      durations: isGuessable(note)
-        ? correctNotes[correctNotes.length - 1].durations
-        : note.durations,
-      staccato: note.staccato,
-      rest: note.rest,
-    }));
+    pitch: isGuessable(note) ? correctNotes[0].pitch : note.pitch,
+    durations: isGuessable(note)
+      ? correctNotes[correctNotes.length - 1].durations
+      : note.durations,
+    staccato: note.staccato,
+    rest: note.rest,
+  }));
 
 const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note: Note) => ({
   pitchStatus: isGuessable(note)
@@ -104,12 +110,10 @@ export interface GameState {
   removeNote: () => void;
 }
 
-const allBaseDurations = durationNames.map(name => ({[name]: 1}))
-
 export const useStore: () => GameState = create<GameState>((set: any) => ({
   showOutput: false,
   availablePitches: initialAvailablePitches,
-  availableDurations: [...(getUniqueElements(correctDurations).filter(durations => durations.length > 1)), ...(durationNames.map(name => ([name])))],
+  availableDurations: composeMode ? [...(getUniqueElements(correctDurations).filter(durations => durations.length > 1)), ...(durationNames.map(name => ([name])))] : orderByLength(getUniqueElements(correctDurations)),
   answerStatuses: initialAnswerStatuses,
   durationsGuessed: new Set<Duration>([]),
   guessedEverythingCorrect: alreadyGuessedTodays,
@@ -123,8 +127,8 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   turn: 0,
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
-  showCongrats: false,
-  showInstructions: false,
+  showCongrats: alreadyGuessedTodays && !composeMode,
+  showInstructions: !playedBefore && !composeMode,
   showSupportUs: false,
   correctNotes: correctNotes,
   addNote: () => {
@@ -274,7 +278,6 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
     set(
       produce((draft: GameState) => {
         draft.guesses.forEach((guess, index) => {
-          return
           if (!isGuessable(correctNotes[index])) {
             return;
           }
@@ -342,14 +345,14 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
           }
           if (
             draft.answerStatuses[index].pitchStatus !==
-              AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
             draft.pitchesGuessed.has(note.pitch)
           ) {
             draft.wrongSpotPitches.add(note.pitch);
           }
           if (
             draft.answerStatuses[index].durationStatus !==
-              AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
             setIncludes(draft.durationsGuessed, note.durations)
           ) {
             draft.wrongSpotDurations.add(note.durations);

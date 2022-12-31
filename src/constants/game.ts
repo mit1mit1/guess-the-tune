@@ -4,7 +4,6 @@ import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import { gameSongs } from "src/gameSongs";
 import CryptoJS from "crypto-js";
 
-
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -13,6 +12,10 @@ const dawnOfFirstDay = dayjs.tz("2022-05-31 00:00", userTimezone);
 export const maxAvailableArchiveSongs = dayjs()
   .tz(userTimezone)
   .diff(dawnOfFirstDay, "days");
+
+export const composeMode = parseInt(
+  new URLSearchParams(window.location.search).get("composeMode") || "0"
+);
 
 export const queryParamSongIndex =
   parseInt(

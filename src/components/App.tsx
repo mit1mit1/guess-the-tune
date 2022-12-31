@@ -11,10 +11,9 @@ import { maxNoteXLength } from "../constants/svg";
 import { InstructionsModal } from "./InstructionsModal";
 import { CongratulationsModal } from "./CongratulationsModal";
 import { SupportUsModal } from "./SupportUsModal";
-import { chosenSong, queryParamSongIndex } from "src/constants/game";
+import { chosenSong, composeMode, queryParamSongIndex } from "src/constants/game";
 import { SongSelectModal } from "./SongSelectModal";
 import { OutputModal } from "./OutputModal";
-import { addDurationObjects } from "src/utils";
 
 const App = ({
   playNotes,
@@ -41,7 +40,6 @@ const App = ({
   const handleCheckGuess = useCallback(() => {
     incrementTurn();
     checkGuesses();
-    console.log(JSON.stringify(guesses))
     playNotes([...guesses], chosenSong.bpm);
   }, [checkGuesses, guesses, incrementTurn, playNotes]);
   useEffect(() => {
@@ -138,12 +136,14 @@ const App = ({
           <button className={styles.button} onClick={() => toggleOutputModal()}>
             Export Song
           </button>
-          <button className={styles.button} onClick={() => addNote()}>
-            Add Note
-          </button>
-          <button className={styles.button} onClick={() => removeNote()}>
-            Remove Note
-          </button>
+          {composeMode ? <>
+            <button className={styles.button} onClick={() => addNote()}>
+              Add Note
+            </button>
+            <button className={styles.button} onClick={() => removeNote()}>
+              Remove Note
+            </button>
+          </> : <></>}
           <button className={styles.button} onClick={() => toggleSupportUs()}>
             Support Us
           </button>
