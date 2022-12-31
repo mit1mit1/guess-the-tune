@@ -278,6 +278,9 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
     set(
       produce((draft: GameState) => {
         draft.guesses.forEach((guess, index) => {
+          if (composeMode) {
+            return;
+          }
           if (!isGuessable(correctNotes[index])) {
             return;
           }

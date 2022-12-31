@@ -35,6 +35,7 @@ const App = ({
     correctNotes,
     addNote,
     removeNote,
+    showOutput,
   } = useStore();
 
   const handleCheckGuess = useCallback(() => {
@@ -46,6 +47,10 @@ const App = ({
     playNotes([guesses[selectedNoteIndex]], chosenSong.bpm);
   }, [guesses, playNotes, selectedNoteIndex]);
   useEffect(() => {
+    if (showOutput) {
+      // Don't allow song to be changed while user is typing in the name
+      return;
+    }
     const handleKeyup = (e: KeyboardEvent) => {
       const key = e.key;
       if (key === "w") {
@@ -85,6 +90,7 @@ const App = ({
     incrementGuessPitch,
     selectedNoteIndex,
     setSelectedNoteIndex,
+    showOutput,
   ]);
 
   return (
@@ -134,7 +140,7 @@ const App = ({
             Show Instructions
           </button>
           <button className={styles.button} onClick={() => toggleOutputModal()}>
-            Export Song
+            Share Song
           </button>
           {composeMode ? <>
             <button className={styles.button} onClick={() => addNote()}>
