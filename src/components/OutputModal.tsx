@@ -22,7 +22,7 @@ export const OutputModal = () => {
       toggleVisible={toggleOutputModal}
     >
       <div>
-        Name: <input onChange={(e) => setSongName(e.target.value)} value={songName} />
+        <label htmlFor="customSongName">Name: </label> <input id="customSongName" type="text" name="customSongName" onChange={(e) => setSongName(e.target.value)} value={songName} />
 
       </div>
       <a href={`${path}?${queryString}`}>
