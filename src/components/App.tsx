@@ -139,10 +139,10 @@ const App = ({
           >
             Show Instructions
           </button>
-          <button className={styles.button} onClick={() => toggleOutputModal()}>
-            Share Song
-          </button>
           {composeMode ? <>
+            <button className={styles.button} onClick={() => toggleOutputModal()}>
+              Share Song
+            </button>
             <button className={styles.button} onClick={() => addNote()}>
               Add Note
             </button>

@@ -56,10 +56,11 @@ if (queryParamSongHash) {
 
 export const chosenSongIndex = gameSongs.indexOf(chosenSong);
 
-export const isLatestTune = queryParamSongIndex === -1;
+export const isLatestTune = queryParamSongIndex === -1 && !queryParamSongHash;
 
 export const alreadyGuessedTodays =
   localStorage.getItem("lastCorrectIndex") === chosenSongIndex.toString() &&
-  isLatestTune;
+  isLatestTune &&
+  !composeMode;
 
 export const playedBefore = !!localStorage.getItem("lastCorrectIndex");
