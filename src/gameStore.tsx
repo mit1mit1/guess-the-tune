@@ -50,7 +50,7 @@ const maxPitchIndex = Math.max(
 export const initialAvailablePitches = composeMode ? pitchNames.slice() : pitchNames.slice(
   minPitchIndex,
   maxPitchIndex + 1
-);;
+);
 
 const initialGuesses = paramStartCorrect
   ? correctNotes
@@ -72,9 +72,12 @@ const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note: Note) =
     : AnswerStatus.UNGUESSABLE,
 }));
 
-initialAnswerStatuses[0].pitchStatus = AnswerStatus.GUESSEDCORRECT;
-initialAnswerStatuses[initialAnswerStatuses.length - 1].durationStatus =
-  AnswerStatus.GUESSEDCORRECT;
+if (!composeMode) {
+  initialAnswerStatuses[0].pitchStatus = AnswerStatus.GUESSEDCORRECT;
+  initialAnswerStatuses[initialAnswerStatuses.length - 1].durationStatus =
+    AnswerStatus.GUESSEDCORRECT;
+}
+
 
 export interface GameState {
   availablePitches: Array<Pitch>;
@@ -290,10 +293,10 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   checkGuesses: () => {
     set(
       produce((draft: GameState) => {
+        if (composeMode) {
+          return;
+        }
         draft.guesses.forEach((guess, index) => {
-          if (composeMode) {
-            return;
-          }
           if (!isGuessable(correctNotes[index])) {
             return;
           }
