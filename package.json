@@ -46,20 +46,20 @@
     "react-router-dom": "^5.3.1",
     "resolve": "^1.22.1",
     "resolve-url-loader": "^4.0.0",
-    "sass-loader": "^12.3.0",
-    "semver": "^7.3.5",
+    "sass-loader": "^13.2.0",
+    "semver": "^7.3.8",
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.3.1",
-    "tailwindcss": "^3.0.2",
-    "terser-webpack-plugin": "^5.2.5",
-    "tone": "14.7.77",
+    "tailwindcss": "^3.2.4",
+    "terser-webpack-plugin": "^5.3.6",
+    "tone": "14.8.49",
     "tonejs-instrument-piano-mp3": "^1.1.2",
     "web-vitals": "^2.1.0",
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1",
-    "zustand": "^4.0.0-rc.0"
+    "zustand": "^4.2.0"
   },
   "devDependencies": {
     "@axe-core/react": "^4.5.2",
@@ -79,8 +79,8 @@
     "jest-axe": "^6.0.0",
     "lint-staged": "^12.3.7",
     "prettier": "^2.8.1",
-    "sass": "^1.52.1",
-    "sass-loader": "^13.0.0",
+    "sass": "^1.57.1",
+    "sass-loader": "^13.2.0",
     "typescript": "^4.6.4"
   },
   "scripts": {
