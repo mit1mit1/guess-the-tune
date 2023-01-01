@@ -93,6 +93,9 @@ const App = ({
     showOutput,
   ]);
 
+  const path = window.location.href.split('?')[0]
+
+
   return (
     <div className={styles.App} style={{ backgroundColor: BACKGROUND_COLOR }}>
       <main>
@@ -133,12 +136,6 @@ const App = ({
           >
             Check Guesses
           </button>
-          <button
-            className={styles.button}
-            onClick={() => toggleInstructions()}
-          >
-            Show Instructions
-          </button>
           {composeMode ? <>
             <button className={styles.button} onClick={() => toggleOutputModal()}>
               Share Song
@@ -149,7 +146,20 @@ const App = ({
             <button className={styles.button} onClick={() => removeNote()}>
               Remove Note
             </button>
-          </> : <></>}
+            <button className={styles.button} onClick={() => { window.open(`${path}`, "_blank") }}>
+              Normal Game
+            </button>
+          </> : <>
+            <button
+              className={styles.button}
+              onClick={() => toggleInstructions()}
+            >
+              Show Instructions
+            </button>
+            <button className={styles.button} onClick={() => { window.open(`${path}?composeMode=1`, "_blank") }}>
+              Compose Mode
+            </button>
+          </>}
           <button className={styles.button} onClick={() => toggleSupportUs()}>
             Support Us
           </button>
