@@ -11978,7 +11978,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"standardized-audio-context@npm:^25.3.29":
+"standardized-audio-context@npm:^25.1.8":
   version: 25.3.36
   resolution: "standardized-audio-context@npm:25.3.36"
   dependencies:
@@ -12548,13 +12548,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tone@npm:14.8.49":
-  version: 14.8.49
-  resolution: "tone@npm:14.8.49"
+"tone@npm:14.7.77":
+  version: 14.7.77
+  resolution: "tone@npm:14.7.77"
   dependencies:
-    standardized-audio-context: ^25.3.29
-    tslib: ^2.3.1
-  checksum: ffc0d81f77e9030b5c5074b690f415a72be415edcda5ef01768de1ed89a7176392759ae1aae1cd70c5540da5616754b9c17fdf2a25c1d85dcb0ff64d9cac99c6
+    standardized-audio-context: ^25.1.8
+    tslib: ^2.0.1
+  checksum: cb0dfea08fddd38d7cacdc23eaa4ab98660ca4b60fe7b7431413d79937deee790b3237aa51b2c440ebd5477dace00e1f72d48dd09553c5cad83e9750eba17ea0
   languageName: node
   linkType: hard
 
@@ -12622,17 +12622,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:^2.0.1, tslib@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "tslib@npm:2.4.1"
+  checksum: 19480d6e0313292bd6505d4efe096a6b31c70e21cf08b5febf4da62e95c265c8f571f7b36fcc3d1a17e068032f59c269fab3459d6cd3ed6949eafecf64315fca
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^2.0.3, tslib@npm:^2.1.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.3.1, tslib@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "tslib@npm:2.4.1"
-  checksum: 19480d6e0313292bd6505d4efe096a6b31c70e21cf08b5febf4da62e95c265c8f571f7b36fcc3d1a17e068032f59c269fab3459d6cd3ed6949eafecf64315fca
   languageName: node
   linkType: hard
 
@@ -12801,7 +12801,7 @@ __metadata:
     style-loader: ^3.3.1
     tailwindcss: ^3.2.4
     terser-webpack-plugin: ^5.3.6
-    tone: 14.8.49
+    tone: 14.7.77
     tonejs-instrument-piano-mp3: ^1.1.2
     typescript: ^4.6.4
     web-vitals: ^2.1.0

@@ -98,7 +98,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["style-loader", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:3.3.1"],\
             ["tailwindcss", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:3.2.4"],\
             ["terser-webpack-plugin", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.3.6"],\
-            ["tone", "npm:14.8.49"],\
+            ["tone", "npm:14.7.77"],\
             ["tonejs-instrument-piano-mp3", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:1.1.2"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"],\
             ["web-vitals", "npm:2.1.4"],\
@@ -17072,10 +17072,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["tone", [\
-        ["npm:14.8.49", {\
-          "packageLocation": "./.yarn/cache/tone-npm-14.8.49-b98b1649ec-ffc0d81f77.zip/node_modules/tone/",\
+        ["npm:14.7.77", {\
+          "packageLocation": "./.yarn/cache/tone-npm-14.7.77-577c8196c3-cb0dfea08f.zip/node_modules/tone/",\
           "packageDependencies": [\
-            ["tone", "npm:14.8.49"],\
+            ["tone", "npm:14.7.77"],\
             ["standardized-audio-context", "npm:25.3.36"],\
             ["tslib", "npm:2.4.1"]\
           ],\
@@ -17095,7 +17095,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["tonejs-instrument-piano-mp3", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:1.1.2"],\
             ["@types/tone", null],\
-            ["tone", "npm:14.8.49"]\
+            ["tone", "npm:14.7.77"]\
           ],\
           "packagePeers": [\
             "@types/tone",\
@@ -17366,7 +17366,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["style-loader", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:3.3.1"],\
             ["tailwindcss", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:3.2.4"],\
             ["terser-webpack-plugin", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.3.6"],\
-            ["tone", "npm:14.8.49"],\
+            ["tone", "npm:14.7.77"],\
             ["tonejs-instrument-piano-mp3", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:1.1.2"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"],\
             ["web-vitals", "npm:2.1.4"],\
