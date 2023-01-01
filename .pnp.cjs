@@ -3463,6 +3463,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@jridgewell/sourcemap-codec", "npm:1.4.13"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.3.2", {\
+          "packageLocation": "./.yarn/cache/@jridgewell-gen-mapping-npm-0.3.2-c64eeb4a4e-1832707a1c.zip/node_modules/@jridgewell/gen-mapping/",\
+          "packageDependencies": [\
+            ["@jridgewell/gen-mapping", "npm:0.3.2"],\
+            ["@jridgewell/set-array", "npm:1.1.2"],\
+            ["@jridgewell/sourcemap-codec", "npm:1.4.13"],\
+            ["@jridgewell/trace-mapping", "npm:0.3.10"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@jridgewell/resolve-uri", [\
@@ -3479,6 +3489,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@jridgewell-set-array-npm-1.1.1-0d86b67787-cc5d91e038.zip/node_modules/@jridgewell/set-array/",\
           "packageDependencies": [\
             ["@jridgewell/set-array", "npm:1.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:1.1.2", {\
+          "packageLocation": "./.yarn/cache/@jridgewell-set-array-npm-1.1.2-45b82d7fb6-69a84d5980.zip/node_modules/@jridgewell/set-array/",\
+          "packageDependencies": [\
+            ["@jridgewell/set-array", "npm:1.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@jridgewell/source-map", [\
+        ["npm:0.3.2", {\
+          "packageLocation": "./.yarn/cache/@jridgewell-source-map-npm-0.3.2-6fd1f37b22-1b83f0eb94.zip/node_modules/@jridgewell/source-map/",\
+          "packageDependencies": [\
+            ["@jridgewell/source-map", "npm:0.3.2"],\
+            ["@jridgewell/gen-mapping", "npm:0.3.2"],\
+            ["@jridgewell/trace-mapping", "npm:0.3.10"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9351,7 +9379,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["he", "npm:1.2.0"],\
             ["param-case", "npm:3.0.4"],\
             ["relateurl", "npm:0.2.7"],\
-            ["terser", "npm:5.13.1"]\
+            ["terser", "npm:5.16.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14866,7 +14894,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-worker", "npm:26.6.2"],\
             ["rollup", "npm:2.72.1"],\
             ["serialize-javascript", "npm:4.0.0"],\
-            ["terser", "npm:5.13.1"]\
+            ["terser", "npm:5.16.1"]\
           ],\
           "packagePeers": [\
             "@types/rollup",\
@@ -16004,13 +16032,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["terser", [\
-        ["npm:5.13.1", {\
-          "packageLocation": "./.yarn/cache/terser-npm-5.13.1-c7df10bd07-0b1f5043cf.zip/node_modules/terser/",\
+        ["npm:5.16.1", {\
+          "packageLocation": "./.yarn/cache/terser-npm-5.16.1-d407c2c364-cb52412350.zip/node_modules/terser/",\
           "packageDependencies": [\
-            ["terser", "npm:5.13.1"],\
+            ["terser", "npm:5.16.1"],\
+            ["@jridgewell/source-map", "npm:0.3.2"],\
             ["acorn", "npm:8.7.1"],\
             ["commander", "npm:2.20.3"],\
-            ["source-map", "npm:0.8.0-beta.0"],\
             ["source-map-support", "npm:0.5.21"]\
           ],\
           "linkType": "HARD"\
@@ -16038,7 +16066,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["schema-utils", "npm:3.1.1"],\
             ["serialize-javascript", "npm:6.0.0"],\
             ["source-map", "npm:0.6.1"],\
-            ["terser", "npm:5.13.1"],\
+            ["terser", "npm:5.16.1"],\
             ["uglify-js", null],\
             ["webpack", "virtual:abd86f0db4e628a3d1844be9352358a814881ef2b82dee67188058dec9fd0f37a9154622d1055dbe04477d6e93c1d74ae4e55efba208fff05df26b9f136509a2#npm:5.72.1"]\
           ],\
