@@ -11,8 +11,9 @@ import { maxNoteXLength } from "../constants/svg";
 import { InstructionsModal } from "./InstructionsModal";
 import { CongratulationsModal } from "./CongratulationsModal";
 import { SupportUsModal } from "./SupportUsModal";
-import { chosenSong, queryParamSongIndex } from "src/constants/game";
+import { chosenSong, composeMode, queryParamSongIndex } from "src/constants/game";
 import { SongSelectModal } from "./SongSelectModal";
+import { OutputModal } from "./OutputModal";
 
 const App = ({
   playNotes,
@@ -30,17 +31,27 @@ const App = ({
     guessedEverythingCorrect,
     toggleInstructions,
     toggleSupportUs,
+    toggleOutputModal,
+    correctNotes,
+    addNote,
+    removeNote,
+    showOutput,
+    bpm,
   } = useStore();
 
   const handleCheckGuess = useCallback(() => {
     incrementTurn();
     checkGuesses();
-    playNotes([...guesses], chosenSong.bpm);
-  }, [checkGuesses, guesses, incrementTurn, playNotes]);
+    playNotes([...guesses], bpm);
+  }, [checkGuesses, guesses, incrementTurn, playNotes, bpm]);
   useEffect(() => {
-    playNotes([guesses[selectedNoteIndex]], chosenSong.bpm);
-  }, [guesses, playNotes, selectedNoteIndex]);
+    playNotes([guesses[selectedNoteIndex]], bpm);
+  }, [guesses, playNotes, selectedNoteIndex, bpm]);
   useEffect(() => {
+    if (showOutput) {
+      // Don't allow song to be changed while user is typing in the name
+      return;
+    }
     const handleKeyup = (e: KeyboardEvent) => {
       const key = e.key;
       if (key === "w") {
@@ -80,7 +91,11 @@ const App = ({
     incrementGuessPitch,
     selectedNoteIndex,
     setSelectedNoteIndex,
+    showOutput,
   ]);
+
+  const path = window.location.href.split('?')[0]
+
 
   return (
     <div className={styles.App} style={{ backgroundColor: BACKGROUND_COLOR }}>
@@ -104,29 +119,54 @@ const App = ({
             fill={BASE_COLOR}
           >
             {" "}
-            = {chosenSong.bpm}
+            = {bpm}
           </text>
         </svg>
-        <SVGScore correctNotes={chosenSong.notes} />
+        <SVGScore correctNotes={correctNotes} />
         <PitchKeyboard />
         <DurationKeyboard />
         {guessedEverythingCorrect && <CongratulationsModal />}
         <InstructionsModal />
         <SupportUsModal />
+        <OutputModal />
         {queryParamSongIndex !== -1 ? <SongSelectModal /> : ""}
         <div>
-          <button
-            className={styles.button + " " + styles.buttonPrimary}
-            onClick={handleCheckGuess}
-          >
-            Check Guesses
-          </button>
-          <button
-            className={styles.button}
-            onClick={() => toggleInstructions()}
-          >
-            Show Instructions
-          </button>
+          {composeMode ? <>
+            <button
+              className={styles.button}
+              onClick={handleCheckGuess}
+            >
+              Play Notes
+            </button>
+            <button className={styles.button + " " + styles.buttonPrimary} onClick={() => toggleOutputModal()}>
+              Share/Tweak Song
+            </button>
+            <button className={styles.button} onClick={() => addNote()}>
+              Add Note
+            </button>
+            <button className={styles.button} onClick={() => removeNote()}>
+              Remove Note
+            </button>
+            <button className={styles.button} onClick={() => { window.open(`${path}`, "_blank") }}>
+              Normal Game
+            </button>
+          </> : <>
+            <button
+              className={styles.button + " " + styles.buttonPrimary}
+              onClick={handleCheckGuess}
+            >
+              Check Guesses
+            </button>
+            <button
+              className={styles.button}
+              onClick={() => toggleInstructions()}
+            >
+              Show Instructions
+            </button>
+            <button className={styles.button} onClick={() => { window.open(`${path}?composeMode=1`, "_blank") }}>
+              Compose Mode
+            </button>
+          </>}
           <button className={styles.button} onClick={() => toggleSupportUs()}>
             Support Us
           </button>

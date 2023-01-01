@@ -1,5 +1,24 @@
 import { GameSong, TimeSignature } from "src/types";
 
+
+export const midlyOpusOne: GameSong = {
+  bpm: 120,
+  notes: [
+    { pitch: "D5", durations: ["4n"] },
+    { pitch: "F5", durations: ["8n"] },
+    { pitch: "F5", durations: ["4n"] },
+    { pitch: "F5", durations: ["8n"] },
+    { pitch: "F5", durations: ["8n"] },
+    { pitch: "G5", durations: ["4n"] },
+    { pitch: "F5", durations: ["8n"] },
+    { pitch: "F#5", durations: ["4n"] }
+  ],
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  name: "Midly Opus 1",
+};
+
+
 const simpsonsTheme: GameSong = {
   bpm: 172,
   notes: [
@@ -1109,23 +1128,6 @@ const gavityFallsTheme: GameSong = {
   name: "Gravity Falls Theme"
 };
 
-const midlyOpusOne: GameSong = {
-  bpm: 120,
-  notes: [
-    { pitch: "D5", durations: ["4n"] },
-    { pitch: "F5", durations: ["8n"] },
-    { pitch: "F5", durations: ["4n"] },
-    { pitch: "F5", durations: ["8n"] },
-    { pitch: "F5", durations: ["8n"] },
-    { pitch: "G5", durations: ["4n"] },
-    { pitch: "F5", durations: ["8n"] },
-    { pitch: "F#5", durations: ["4n"] }
-  ],
-  timeSignature: TimeSignature.FOURFOUR,
-  readyForProduction: true,
-  name: "Midly Opus 1",
-};
-
 const gravityFallsIntro: GameSong = {
   bpm: 160,
   timeSignature: TimeSignature.FOURFOUR,
@@ -1148,38 +1150,6 @@ const gravityFallsIntro: GameSong = {
   ],
   name: "Gravity Falls Intro"
 }
-
-const midlyOpus3: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["4n"] }, { "pitch": "D5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 2" };
-const midlyOpus4: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["4n"] }, { "pitch": "D5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 3" };
-const midlyOpus5: GameSong = { "bpm": 120, "notes": [{ "pitch": "D5", "durations": ["8t"] }, { "pitch": "G5", "durations": ["4n."] }, { "pitch": "E5", "durations": ["4n"] }, { "pitch": "F5", "durations": ["16n"] }, { "pitch": "G5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["16n"] }, { "pitch": "G#5", "durations": ["4n"] }, { "pitch": "E5", "durations": ["2n", "4n."] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 4" };
-const midlyOpus6: GameSong = { "bpm": 120, "notes": [{ "pitch": "D5", "durations": ["8t"] }, { "pitch": "D5", "durations": ["16n"] }, { "pitch": "E5", "durations": ["4n"] }, { "pitch": "D5", "durations": ["8n"] }, { "pitch": "B4", "durations": ["8n"] }, { "pitch": "G4", "durations": ["4n."] }, { "pitch": "E4", "durations": ["8n"] }, { "pitch": "F#4", "durations": ["2n."] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 5" };
-const midlyOpus7: GameSong = { "bpm": 120, "notes": [{ "pitch": "B4", "durations": ["16n"] }, { "pitch": "C5", "durations": ["4n."] }, { "pitch": "A4", "durations": ["16n"] }, { "pitch": "B4", "durations": ["8n"] }, { "pitch": "A4", "durations": ["8n"] }, { "pitch": "G4", "durations": ["2n"] }, { "pitch": "A4", "durations": ["8n"] }, { "pitch": "E4", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 6" };
-const midlyOpus8: GameSong = { "bpm": 120, "notes": [{ "pitch": "E4", "durations": ["8n"] }, { "pitch": "G4", "durations": ["8n"] }, { "pitch": "B4", "durations": ["8n"] }, { "pitch": "A4", "durations": ["1n"] }, { "pitch": "B4", "durations": ["4n"] }, { "pitch": "G4", "durations": ["8n"] }, { "pitch": "A4", "durations": ["8n."] }, { "pitch": "A4", "durations": ["2n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 7" };
-const midlyOpus9: GameSong = { "bpm": 120, "notes": [{ "pitch": "C5", "durations": ["4n"] }, { "pitch": "B4", "durations": ["16n"] }, { "pitch": "B4", "durations": ["4n"] }, { "pitch": "C5", "durations": ["8n"] }, { "pitch": "G4", "durations": ["2n."] }, { "pitch": "E4", "durations": ["4n"] }, { "pitch": "C4", "durations": ["8n"] }, { "pitch": "D4", "durations": ["8n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 8" };
-const midlyOpus10: GameSong = { "bpm": 120, "notes": [{ "pitch": "A5", "durations": ["16n"] }, { "pitch": "G5", "durations": ["16n"] }, { "pitch": "G5", "durations": ["8n"] }, { "pitch": "D5", "durations": ["8n"] }, { "pitch": "B4", "durations": ["4n."] }, { "pitch": "G4", "durations": ["8n"] }, { "pitch": "G4", "durations": ["8n"] }, { "pitch": "G4", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 9" };
-const midlyOpus11: GameSong = { "bpm": 120, "notes": [{ "pitch": "G4", "durations": ["8n"] }, { "pitch": "A4", "durations": ["16n"] }, { "pitch": "B4", "durations": ["16n"] }, { "pitch": "A4", "durations": ["8n", "2n"] }, { "pitch": "D5", "durations": ["2n."] }, { "pitch": "A4", "durations": ["8n."] }, { "pitch": "B4", "durations": ["8n"] }, { "pitch": "E4", "durations": ["4n."] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 10" };
-const midlyOpus12: GameSong = { "bpm": 120, "notes": [{ "pitch": "D5", "durations": ["16n"] }, { "pitch": "G5", "durations": ["16n"] }, { "pitch": "B5", "durations": ["8n"] }, { "pitch": "E5", "durations": ["4n."] }, { "pitch": "E5", "durations": ["8n", "2n"] }, { "pitch": "E5", "durations": ["8n"] }, { "pitch": "A4", "durations": ["4n"] }, { "pitch": "D5", "durations": ["4n."] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 11" };
-const midlyOpus13: GameSong = { "bpm": 120, "notes": [{ "pitch": "G4", "durations": ["2n"] }, { "pitch": "G5", "durations": ["2n"] }, { "pitch": "C5", "durations": ["16n"] }, { "pitch": "A4", "durations": ["16n"] }, { "pitch": "E4", "durations": ["8n"] }, { "pitch": "D4", "durations": ["8n"] }, { "pitch": "F4", "durations": ["4n."] }, { "pitch": "G4", "durations": ["2n."] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 12" };
-const midlyOpus14: GameSong = { "bpm": 120, "notes": [{ "pitch": "E4", "durations": ["2n"] }, { "pitch": "A4", "durations": ["1n."] }, { "pitch": "E4", "durations": ["4n"] }, { "pitch": "A#5", "durations": ["8n."] }, { "pitch": "A#5", "durations": ["1n"] }, { "pitch": "A5", "durations": ["1n"] }, { "pitch": "D5", "durations": ["1n."] }, { "pitch": "E4", "durations": ["1n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 13" };
-const midlyOpus15: GameSong = { "bpm": 120, "notes": [{ "pitch": "E4", "durations": ["8n."] }, { "pitch": "F5", "durations": ["4t"] }, { "pitch": "A5", "durations": ["2n."] }, { "pitch": "A5", "durations": ["2n."] }, { "pitch": "A3", "durations": ["4n."] }, { "pitch": "C4", "durations": ["4n."] }, { "pitch": "B3", "durations": ["8n."] }, { "pitch": "A#5", "durations": ["2n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 14" };
-const midlyOpus16: GameSong = { "bpm": 120, "notes": [{ "pitch": "C5", "durations": ["4n"] }, { "pitch": "A4", "durations": ["2n"] }, { "pitch": "B4", "durations": ["8t"] }, { "pitch": "E5", "durations": ["4t"] }, { "pitch": "E5", "durations": ["8t"] }, { "pitch": "E5", "durations": ["4n"] }, { "pitch": "G#5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["4t"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 15" };
-const midlyOpus17: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["8n"] }, { "pitch": "A4", "durations": ["8n"] }, { "pitch": "C5", "durations": ["8n"] }, { "pitch": "C5", "durations": ["2n"] }, { "pitch": "D5", "durations": ["4n"] }, { "pitch": "A4", "durations": ["8n", "2n"] }, { "pitch": "G4", "durations": ["8n"] }, { "pitch": "G#4", "durations": ["8n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 16" };
-const midlyOpus18: GameSong = { "bpm": 120, "notes": [{ "pitch": "D5", "durations": ["8n"] }, { "pitch": "G5", "durations": ["8t"] }, { "pitch": "G5", "durations": ["2n."] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["16n"] }, { "pitch": "D#5", "durations": ["8n"] }, { "pitch": "D#5", "durations": ["8n."] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 17" };
-const midlyOpus19: GameSong = { "bpm": 120, "notes": [{ "pitch": "C4", "durations": ["8n"] }, { "pitch": "C4", "durations": ["16n"] }, { "pitch": "F4", "durations": ["8n"] }, { "pitch": "A4", "durations": ["4n"] }, { "pitch": "A4", "durations": ["8n"] }, { "pitch": "F4", "durations": ["8n"] }, { "pitch": "D4", "durations": ["8n"] }, { "pitch": "C4", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 18" };
-const midlyOpus20: GameSong = { "bpm": 120, "notes": [{ "pitch": "C5", "durations": ["16n"] }, { "pitch": "C5", "durations": ["16n"] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "D#5", "durations": ["4n"] }, { "pitch": "C#5", "durations": ["4n"] }, { "pitch": "E5", "durations": ["4n"] }, { "pitch": "D5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["16n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 19" };
-const midlyOpus21: GameSong = { "bpm": 120, "notes": [{ "pitch": "A3", "durations": ["8n"] }, { "pitch": "F4", "durations": ["8n"] }, { "pitch": "F4", "durations": ["4n"] }, { "pitch": "D#5", "durations": ["4n"] }, { "pitch": "F5", "durations": ["4n"] }, { "pitch": "F5", "durations": ["16n"] }, { "pitch": "E5", "durations": ["4n."] }, { "pitch": "E5", "durations": ["8n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 20" };
-const midlyOpus22: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["8n"] }, { "pitch": "B4", "durations": ["8n"] }, { "pitch": "B4", "durations": ["8t"] }, { "pitch": "C5", "durations": ["8n"] }, { "pitch": "A4", "durations": ["8n."] }, { "pitch": "G4", "durations": ["16n"] }, { "pitch": "C5", "durations": ["2n."] }, { "pitch": "D5", "durations": ["8n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 21" };
-const midlyOpus23: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["8n"] }, { "pitch": "B4", "durations": ["8t"] }, { "pitch": "C5", "durations": ["4n"] }, { "pitch": "D5", "durations": ["2n"] }, { "pitch": "G4", "durations": ["16n"] }, { "pitch": "A4", "durations": ["4n"] }, { "pitch": "A4", "durations": ["4n"] }, { "pitch": "B4", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 22" };
-const midlyOpus24: GameSong = { "bpm": 120, "notes": [{ "pitch": "D5", "durations": ["4n"] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["4n"] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "G5", "durations": ["4n"] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "F#5", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 23" };
-const midlyOpus25: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["8n"] }, { "pitch": "G4", "durations": ["4n"] }, { "pitch": "C5", "durations": ["8n"] }, { "pitch": "D5", "durations": ["4n"] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["4n."] }, { "pitch": "B4", "durations": ["8n"] }, { "pitch": "A4", "durations": ["8n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 24" };
-const midlyOpus26: GameSong = { "bpm": 120, "notes": [{ "pitch": "E5", "durations": ["16n"] }, { "pitch": "D5", "durations": ["16n"] }, { "pitch": "D5", "durations": ["4n"] }, { "pitch": "A4", "durations": ["4n"] }, { "pitch": "F4", "durations": ["4n"] }, { "pitch": "A3", "durations": ["8n"] }, { "pitch": "A3", "durations": ["4n"] }, { "pitch": "A#3", "durations": ["8n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 25" };
-const midlyOpus27: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["4n."] }, { "pitch": "D5", "durations": ["8n"] }, { "pitch": "E5", "durations": ["2n"] }, { "pitch": "G5", "durations": ["8n"] }, { "pitch": "D5", "durations": ["16n"] }, { "pitch": "C#5", "durations": ["8n"] }, { "pitch": "B4", "durations": ["4t"] }, { "pitch": "D5", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 26" };
-const midlyOpus28: GameSong = { "bpm": 120, "notes": [{ "pitch": "E5", "durations": ["2n"] }, { "pitch": "E5", "durations": ["8n"] }, { "pitch": "G#5", "durations": ["8n"] }, { "pitch": "G#5", "durations": ["4n"] }, { "pitch": "F#5", "durations": ["4n."] }, { "pitch": "E5", "durations": ["8n"] }, { "pitch": "D#5", "durations": ["4n"] }, { "pitch": "C5", "durations": ["8n."] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 27" };
-const midlyOpus29: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["8n"] }, { "pitch": "G4", "durations": ["8n"] }, { "pitch": "B4", "durations": ["4n."] }, { "pitch": "A4", "durations": ["8n"] }, { "pitch": "E4", "durations": ["8n"] }, { "pitch": "D4", "durations": ["8n"] }, { "pitch": "C4", "durations": ["8n"] }, { "pitch": "C#4", "durations": ["4n."] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 28" };
-const midlyOpus30: GameSong = { "bpm": 120, "notes": [{ "pitch": "C5", "durations": ["8n"] }, { "pitch": "D5", "durations": ["16n"] }, { "pitch": "D5", "durations": ["4n"] }, { "pitch": "A4", "durations": ["8n"] }, { "pitch": "G4", "durations": ["16n"] }, { "pitch": "F4", "durations": ["16n"] }, { "pitch": "E4", "durations": ["8n"] }, { "pitch": "G#4", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 29" };
-const midlyOpus31: GameSong = { "bpm": 120, "notes": [{ "pitch": "C5", "durations": ["8n"] }, { "pitch": "A4", "durations": ["8n"] }, { "pitch": "A#4", "durations": ["4n."] }, { "pitch": "C5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["8n"] }, { "pitch": "G5", "durations": ["8n"] }, { "pitch": "G#5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["8n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 30" };
-const midlyOpus32: GameSong = { "bpm": 120, "notes": [{ "pitch": "A4", "durations": ["4n"] }, { "pitch": "D5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["8n"] }, { "pitch": "A5", "durations": ["8n"] }, { "pitch": "F5", "durations": ["4n"] }, { "pitch": "G5", "durations": ["4n"] }], "timeSignature": TimeSignature.FOURFOUR, "readyForProduction": true, "name": "Midly Opus 31" };
-
 
 
 export const gameSongs: Array<GameSong> = [
@@ -1248,35 +1218,4 @@ export const gameSongs: Array<GameSong> = [
   bobombBattlefield,
   loveStoryIntro,
   gavityFallsTheme,
-  midlyOpusOne,
-  midlyOpus3,
-  midlyOpus4,
-  midlyOpus5,
-  midlyOpus6,
-  midlyOpus7,
-  midlyOpus8,
-  midlyOpus9,
-  midlyOpus10,
-  midlyOpus11,
-  midlyOpus12,
-  midlyOpus13,
-  midlyOpus14,
-  midlyOpus15,
-  midlyOpus16,
-  midlyOpus17,
-  midlyOpus18,
-  midlyOpus19,
-  midlyOpus20,
-  midlyOpus21,
-  midlyOpus22,
-  midlyOpus23,
-  midlyOpus24,
-  midlyOpus25,
-  midlyOpus26,
-  midlyOpus27,
-  midlyOpus28,
-  midlyOpus29,
-  midlyOpus30,
-  midlyOpus31,
-  midlyOpus32,
 ];

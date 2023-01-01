@@ -7,7 +7,7 @@ import {
   incrementPitch,
   pushIfNotIdentical,
 } from "./utils";
-import { pitchNames } from "./constants";
+import { durationNames, pitchNames } from "./constants";
 import {
   allCorrect,
   arraysIdentical,
@@ -25,6 +25,7 @@ import {
   chosenSong,
   alreadyGuessedTodays,
   playedBefore,
+  composeMode,
 } from "./constants/game";
 
 enableMapSet();
@@ -33,36 +34,36 @@ const paramStartCorrect = parseInt(
   new URLSearchParams(window.location.search).get("startCorrect") || "0"
 );
 const correctNotes = chosenSong.notes;
-const correctAvailableNotes = correctNotes.filter((note) => isGuessable(note));
-const correctPitches = correctAvailableNotes.map((note) => note.pitch);
+const correctAvailableNotes = correctNotes.filter((note: Note) => isGuessable(note));
+const correctPitches = correctAvailableNotes.map((note: { pitch: any; }) => note.pitch);
 const correctDurations = correctAvailableNotes.map(
-  (note) => note.durations
+  (note: { durations: any; }) => note.durations
 );
 
 const minPitchIndex = Math.min(
-  ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
+  ...correctPitches.map((pitch: Pitch) => pitchNames.indexOf(pitch))
 );
 const maxPitchIndex = Math.max(
-  ...correctPitches.map((pitch) => pitchNames.indexOf(pitch))
+  ...correctPitches.map((pitch: Pitch) => pitchNames.indexOf(pitch))
 );
 
-export const initialAvailablePitches = pitchNames.slice(
+export const initialAvailablePitches = composeMode ? pitchNames.slice() : pitchNames.slice(
   minPitchIndex,
   maxPitchIndex + 1
 );
 
 const initialGuesses = paramStartCorrect
   ? correctNotes
-  : correctNotes.map((note) => ({
-      pitch: isGuessable(note) ? correctNotes[0].pitch : note.pitch,
-      durations: isGuessable(note)
-        ? correctNotes[correctNotes.length - 1].durations
-        : note.durations,
-      staccato: note.staccato,
-      rest: note.rest,
-    }));
+  : correctNotes.map((note: Note) => ({
+    pitch: isGuessable(note) ? correctNotes[0].pitch : note.pitch,
+    durations: isGuessable(note)
+      ? correctNotes[correctNotes.length - 1].durations
+      : note.durations,
+    staccato: note.staccato,
+    rest: note.rest,
+  }));
 
-const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note) => ({
+const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note: Note) => ({
   pitchStatus: isGuessable(note)
     ? AnswerStatus.UNKNOWN
     : AnswerStatus.UNGUESSABLE,
@@ -71,13 +72,17 @@ const initialAnswerStatuses: Array<NoteStatus> = correctNotes.map((note) => ({
     : AnswerStatus.UNGUESSABLE,
 }));
 
-initialAnswerStatuses[0].pitchStatus = AnswerStatus.GUESSEDCORRECT;
-initialAnswerStatuses[initialAnswerStatuses.length - 1].durationStatus =
-  AnswerStatus.GUESSEDCORRECT;
+if (!composeMode) {
+  initialAnswerStatuses[0].pitchStatus = AnswerStatus.GUESSEDCORRECT;
+  initialAnswerStatuses[initialAnswerStatuses.length - 1].durationStatus =
+    AnswerStatus.GUESSEDCORRECT;
+}
+
 
 export interface GameState {
   availablePitches: Array<Pitch>;
   availableDurations: Array<Duration>;
+  bpm: number;
   selectedNoteIndex: number;
   turn: number;
   guessedEverythingCorrect: boolean;
@@ -91,6 +96,7 @@ export interface GameState {
   answerStatuses: Array<NoteStatus>;
   incorrectDurationsArrays: Array<Array<Duration>>;
   checkGuesses: () => void;
+  overrideBPM: (bpm: number) => void;
   incorrectPitchesArrays: Array<Array<Pitch>>;
   durationsGuessed: Set<Duration>;
   pitchesGuessed: Set<Pitch>;
@@ -98,16 +104,23 @@ export interface GameState {
   toggleInstructions: () => void;
   showSupportUs: boolean;
   toggleSupportUs: () => void;
+  toggleOutputModal: () => void;
+  showOutput: boolean;
   showCongrats: boolean;
   toggleCongrats: () => void;
   wrongSpotDurations: Set<Duration>;
   wrongSpotPitches: Set<Pitch>;
+  correctNotes: Array<Note>;
+  addNote: () => void;
+  removeNote: () => void;
 }
 
 export const useStore: () => GameState = create<GameState>((set: any) => ({
+  showOutput: false,
   availablePitches: initialAvailablePitches,
-  availableDurations: orderByLength(getUniqueElements(correctDurations)),
+  availableDurations: composeMode ? [...(getUniqueElements(correctDurations).filter(durations => durations.length > 1)), ...(durationNames.map(name => ([name])))] : orderByLength(getUniqueElements(correctDurations)),
   answerStatuses: initialAnswerStatuses,
+  bpm: chosenSong.bpm,
   durationsGuessed: new Set<Duration>([]),
   guessedEverythingCorrect: alreadyGuessedTodays,
   guesses: initialGuesses,
@@ -120,9 +133,41 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   turn: 0,
   wrongSpotDurations: new Set<Duration>([]),
   wrongSpotPitches: new Set<Pitch>([]),
-  showCongrats: alreadyGuessedTodays,
-  showInstructions: !playedBefore,
+  showCongrats: alreadyGuessedTodays && !composeMode,
+  showInstructions: !playedBefore && !composeMode,
   showSupportUs: false,
+  correctNotes: correctNotes,
+  addNote: () => {
+    set(
+      produce((draft: GameState) => {
+        draft.correctNotes.push({
+          durations: ["4n"],
+          pitch: "C5"
+        });
+        draft.incorrectDurationsArrays.push([]);
+        draft.incorrectPitchesArrays.push([]);
+        draft.answerStatuses.push({
+          pitchStatus: AnswerStatus.INCORRECTSOFAR,
+          durationStatus: AnswerStatus.INCORRECTSOFAR,
+        });
+        draft.guesses.push({
+          durations: ["4n"],
+          pitch: "C5"
+        });
+      })
+    );
+  },
+  removeNote: () => {
+    set(
+      produce((draft: GameState) => {
+        draft.correctNotes.pop();
+        draft.incorrectDurationsArrays.pop();
+        draft.incorrectPitchesArrays.pop();
+        draft.answerStatuses.pop();
+        draft.guesses.pop();
+      })
+    );
+  },
   toggleCongrats: () => {
     set(
       produce((draft: GameState) => {
@@ -143,7 +188,26 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
       })
     );
   },
-
+  overrideBPM: (bpm: number) => {
+    set(
+      produce((draft: GameState) => {
+        return {
+          ...draft,
+          bpm,
+        };
+      })
+    );
+  },
+  toggleOutputModal: () => {
+    set(
+      produce((draft: GameState) => {
+        return {
+          ...draft,
+          showOutput: !!!draft.showOutput,
+        };
+      })
+    );
+  },
   toggleSupportUs: () => {
     set(
       produce((draft: GameState) => {
@@ -229,6 +293,9 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   checkGuesses: () => {
     set(
       produce((draft: GameState) => {
+        if (composeMode) {
+          return;
+        }
         draft.guesses.forEach((guess, index) => {
           if (!isGuessable(correctNotes[index])) {
             return;
@@ -267,7 +334,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
           }
         });
 
-        const newStatuses = correctNotes.map((note, index) => {
+        const newStatuses = draft.correctNotes.map((note: Note, index: number) => {
           if (!isGuessable(note)) {
             return {
               pitchStatus: draft.answerStatuses[index].pitchStatus,
@@ -291,20 +358,20 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
 
         draft.wrongSpotPitches = new Set();
         draft.wrongSpotDurations = new Set();
-        correctNotes.forEach((note, index) => {
+        draft.correctNotes.forEach((note: Note, index: number) => {
           if (!isGuessable(note)) {
             return;
           }
           if (
             draft.answerStatuses[index].pitchStatus !==
-              AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
             draft.pitchesGuessed.has(note.pitch)
           ) {
             draft.wrongSpotPitches.add(note.pitch);
           }
           if (
             draft.answerStatuses[index].durationStatus !==
-              AnswerStatus.GUESSEDCORRECT &&
+            AnswerStatus.GUESSEDCORRECT &&
             setIncludes(draft.durationsGuessed, note.durations)
           ) {
             draft.wrongSpotDurations.add(note.durations);
@@ -312,7 +379,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
         });
         draft.guessedEverythingCorrect = allCorrect(
           draft.guesses,
-          correctNotes
+          draft.correctNotes
         );
         if (draft.guessedEverythingCorrect) {
           setTodaysGuessed();

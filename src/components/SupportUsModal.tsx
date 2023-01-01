@@ -21,7 +21,10 @@ export const SupportUsModal = () => {
         (or any other charity you know is doing good work).
       </p>
       <p>
-        Feel free to let me know and I'll consider it game-development income ;)
+        Feel free to let me know and I'll consider it game-development income.
+      </p>
+      <p>
+        ;)
       </p>
     </Modal>
   );
