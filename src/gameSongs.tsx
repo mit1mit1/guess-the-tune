@@ -1,4 +1,24 @@
 import { GameSong, TimeSignature } from "src/types";
+
+
+export const midlyOpusOne: GameSong = {
+  bpm: 120,
+  notes: [
+    { pitch: "D5", durations: ["4n"] },
+    { pitch: "F5", durations: ["8n"] },
+    { pitch: "F5", durations: ["4n"] },
+    { pitch: "F5", durations: ["8n"] },
+    { pitch: "F5", durations: ["8n"] },
+    { pitch: "G5", durations: ["4n"] },
+    { pitch: "F5", durations: ["8n"] },
+    { pitch: "F#5", durations: ["4n"] }
+  ],
+  timeSignature: TimeSignature.FOURFOUR,
+  readyForProduction: true,
+  name: "Midly Opus 1",
+};
+
+
 const simpsonsTheme: GameSong = {
   bpm: 172,
   notes: [
@@ -1107,23 +1127,6 @@ const gavityFallsTheme: GameSong = {
   ],
   name: "Gravity Falls Theme"
 };
-
-// const midlyOpusOne: GameSong = {
-//   bpm: 120,
-//   notes: [
-//     { pitch: "D5", durations: ["4n"] },
-//     { pitch: "F5", durations: ["8n"] },
-//     { pitch: "F5", durations: ["4n"] },
-//     { pitch: "F5", durations: ["8n"] },
-//     { pitch: "F5", durations: ["8n"] },
-//     { pitch: "G5", durations: ["4n"] },
-//     { pitch: "F5", durations: ["8n"] },
-//     { pitch: "F#5", durations: ["4n"] }
-//   ],
-//   timeSignature: TimeSignature.FOURFOUR,
-//   readyForProduction: true,
-//   name: "Midly Opus 1",
-// };
 
 const gravityFallsIntro: GameSong = {
   bpm: 160,

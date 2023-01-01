@@ -79,6 +79,7 @@ initialAnswerStatuses[initialAnswerStatuses.length - 1].durationStatus =
 export interface GameState {
   availablePitches: Array<Pitch>;
   availableDurations: Array<Duration>;
+  bpm: number;
   selectedNoteIndex: number;
   turn: number;
   guessedEverythingCorrect: boolean;
@@ -92,6 +93,7 @@ export interface GameState {
   answerStatuses: Array<NoteStatus>;
   incorrectDurationsArrays: Array<Array<Duration>>;
   checkGuesses: () => void;
+  overrideBPM: (bpm: number) => void;
   incorrectPitchesArrays: Array<Array<Pitch>>;
   durationsGuessed: Set<Duration>;
   pitchesGuessed: Set<Pitch>;
@@ -115,6 +117,7 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
   availablePitches: initialAvailablePitches,
   availableDurations: composeMode ? [...(getUniqueElements(correctDurations).filter(durations => durations.length > 1)), ...(durationNames.map(name => ([name])))] : orderByLength(getUniqueElements(correctDurations)),
   answerStatuses: initialAnswerStatuses,
+  bpm: chosenSong.bpm,
   durationsGuessed: new Set<Duration>([]),
   guessedEverythingCorrect: alreadyGuessedTodays,
   guesses: initialGuesses,
@@ -178,6 +181,16 @@ export const useStore: () => GameState = create<GameState>((set: any) => ({
         return {
           ...draft,
           showInstructions: !!!draft.showInstructions,
+        };
+      })
+    );
+  },
+  overrideBPM: (bpm: number) => {
+    set(
+      produce((draft: GameState) => {
+        return {
+          ...draft,
+          bpm,
         };
       })
     );
