@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 I haven't decided what to do about licencing yet, so please do not copy this work without reaching out first!
 
+Try it out at https://mit1mit1.github.io/guess-the-tune/index.html.
+
 ## Available Scripts
 
 In the project directory, you can run:
