@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.20.7",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@babel/core": "^7.16.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^6.5.1",
     "babel-jest": "^29.3.1",
-    "babel-loader": "^9.1.0",
+    "babel-loader": "^8.3.0",
     "babel-plugin-named-asset-import": "^0.3.8",
     "babel-preset-react-app": "^10.0.1",
     "bfj": "^7.0.2",
@@ -86,8 +86,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
-    "test:pre-push": "node scripts/test.js --watchAll=false --runInBand",
+    "test": "node scripts/test.js --watchAll=false --runInBand",
     "pretlint:check": "prettier \"src/**/*.{ts,tsx}\" && yarn run eslint \"src/**/*.{ts,tsx}\" --max-warnings=0",
     "pretlint:write": "prettier --write \"src/**/*.{ts,tsx}\" && yarn run eslint --fix \"src/**/*.{ts,tsx}\" --max-warnings=0",
     "prepare": "husky install"
