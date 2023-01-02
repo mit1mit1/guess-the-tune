@@ -2,7 +2,7 @@ import { chosenSong } from "src/constants/game";
 import { useStore } from "src/gameStore";
 import { Modal } from "./Modal";
 import { useState } from "react";
-import { encodeSong } from "src/utils/encoder";
+import { encodeSong } from "src/utils";
 import styles from "./App.module.scss";
 
 export const OutputModal = () => {

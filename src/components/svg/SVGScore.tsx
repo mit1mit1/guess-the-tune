@@ -32,7 +32,7 @@ import {
   sharpYOffset,
 } from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
-import { arraysIdentical, isGuessable } from "src/utils/game";
+import { arraysIdentical, isGuessable } from "src/utils";
 import { chosenSong } from "src/constants/game";
 import { ExtraStaveLines } from "./ExtraStaveLines";
 

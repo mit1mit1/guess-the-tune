@@ -5,7 +5,7 @@ import {
 import { useStore } from "src/gameStore";
 import { Modal } from "./Modal";
 import appStyles from "./App.module.scss";
-import { getTimePlayed, getTodaysTurns, getNextUnguessedIndex } from "src/utils/game";
+import { getTimePlayed, getTodaysTurns, getNextUnguessedIndex } from "src/utils";
 
 export const CongratulationsModal = () => {
   const { turn, showCongrats, toggleCongrats } = useStore();

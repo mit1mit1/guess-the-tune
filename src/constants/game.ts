@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone"; // dependent on utc plugin
 import { gameSongs, midlyOpusOne } from "src/gameSongs";
-import { decodeSong } from "src/utils/encoder";
+import { decodeSong } from "src/utils";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import axe from "@axe-core/react";
-import { playNotes } from "src/utils/tonejs";
+import { playNotes } from "./playNotes";
 
 if (process.env.NODE_ENV !== "production") {
   axe(React, ReactDOM, 1000);

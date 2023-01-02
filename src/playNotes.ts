@@ -1,6 +1,6 @@
 import { Note, ToneJSDuration } from "src/types";
 import * as Tone from "tone";
-import { addDurationObjects } from "./game";
+import { addDurationObjects } from "src/utils";
 import PianoMp3 from "tonejs-instrument-piano-mp3";
 
 const instrument = new PianoMp3({
@@ -16,9 +16,15 @@ export const playNotes = (notes: Array<Note>, bpm: number) => {
     let currentTime: ToneJSDuration = { "16n": 0 };
     for (const note of notes) {
       if (!note.rest) {
-        let holdNoteLength: ToneJSDuration | string = addDurationObjects({}, note.durations);
+        let holdNoteLength: ToneJSDuration | string = addDurationObjects(
+          {},
+          note.durations
+        );
         if (note.staccato) {
-          if (note.durations.length === 1 && (note.durations[0] === "16n" || note.durations[0] === "8n")) {
+          if (
+            note.durations.length === 1 &&
+            (note.durations[0] === "16n" || note.durations[0] === "8n")
+          ) {
             holdNoteLength = "32n";
           } else {
             holdNoteLength = "16n";

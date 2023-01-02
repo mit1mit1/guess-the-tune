@@ -20,7 +20,7 @@ import {
   setTodaysGuessed,
   setTodaysTurns,
   setTodaysTime,
-} from "./utils/game";
+} from "./utils";
 import {
   chosenSong,
   alreadyGuessedTodays,
