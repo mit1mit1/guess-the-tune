@@ -1,6 +1,4 @@
-import {
-  pushIfNotIdentical,
-} from "./game";
+import { pushIfNotIdentical } from "./arrayCompare";
 
 describe("pushIfNotIdentical", () => {
   it("adds pitch to array of pitches if it isn't already there", () => {
@@ -18,4 +16,3 @@ describe("pushIfNotIdentical", () => {
     ]);
   });
 });
-

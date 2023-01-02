@@ -8,29 +8,6 @@ import dayjs from "dayjs";
 import { chosenSongIndex } from "src/constants/chosenSong";
 import { getAllGuessed } from "src/persistantState/dynamic";
 
-const containsItem = (arr: Array<any>, item: any) => {
-  let found = false;
-  for (let i = 0; i < arr.length; i++) {
-    if (JSON.stringify(item) === JSON.stringify(arr[i])) {
-      found = true;
-      break;
-    }
-  }
-  return found;
-};
-
-export const pushIfNotIdentical = (
-  oldArrayOfArrays: Array<Array<any>>,
-  index: number,
-  newItem: any
-) => {
-  const newArray = [...oldArrayOfArrays];
-  if (!containsItem(oldArrayOfArrays[index], newItem)) {
-    newArray[index].push(newItem);
-  }
-  return newArray;
-};
-
 export const setTodaysGuessed = () => {
   if (isLatestTune) {
     localStorage.setItem("lastCorrectIndex", chosenSongIndex.toString());

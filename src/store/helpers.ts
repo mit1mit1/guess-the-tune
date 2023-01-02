@@ -13,9 +13,9 @@ import {
   getNewAnswerStatus,
   getNewDurationAnswerStatus,
 } from "src/utils/checkAnswer";
-import { pushIfNotIdentical } from "src/utils/game";
+import { pushIfNotIdentical } from "src/utils/arrayCompare";
 import { isGuessable } from "src/utils/note";
-import { GameStore } from "./gameStore";
+import { GameStore } from "./types";
 
 export const getNewStatuses = (
   correctNotes: Note[],

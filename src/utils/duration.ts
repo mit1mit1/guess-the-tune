@@ -16,7 +16,6 @@ const nextDuration = (
 ) => {
   const index = getIndex(currentDuration, availableDurations);
   if (index === -1) {
-    alert('defaulting to last')
     return availableDurations[availableDurations.length - 1];
   }
   if (index >= 0 && index < availableDurations.length - 1) {

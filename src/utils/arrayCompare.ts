@@ -24,3 +24,26 @@ export const setIncludes = (
 ) => {
   return arrayIncludes(Array.from(durationsSet), searchObject);
 };
+
+const containsItem = (arr: Array<any>, item: any) => {
+  let found = false;
+  for (let i = 0; i < arr.length; i++) {
+    if (JSON.stringify(item) === JSON.stringify(arr[i])) {
+      found = true;
+      break;
+    }
+  }
+  return found;
+};
+
+export const pushIfNotIdentical = (
+  oldArrayOfArrays: Array<Array<any>>,
+  index: number,
+  newItem: any
+) => {
+  const newArray = [...oldArrayOfArrays];
+  if (!containsItem(oldArrayOfArrays[index], newItem)) {
+    newArray[index].push(newItem);
+  }
+  return newArray;
+};
