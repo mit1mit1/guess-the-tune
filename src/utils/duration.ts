@@ -11,17 +11,18 @@ const getIndex = (
 };
 
 const nextDuration = (
-  currentDurationArray: Duration,
-  durationArrayArray: Duration[]
+  currentDuration: Duration,
+  availableDurations: Duration[]
 ) => {
-  const index = getIndex(currentDurationArray, durationArrayArray);
+  const index = getIndex(currentDuration, availableDurations);
   if (index === -1) {
-    return durationArrayArray[durationArrayArray.length - 1];
+    alert('defaulting to last')
+    return availableDurations[availableDurations.length - 1];
   }
-  if (index >= 0 && index < durationArrayArray.length - 1) {
-    return durationArrayArray[index + 1];
+  if (index >= 0 && index < availableDurations.length - 1) {
+    return availableDurations[index + 1];
   }
-  return durationArrayArray[0];
+  return availableDurations[0];
 };
 
 const previousDuration = (

@@ -11,3 +11,4 @@ export const maxNoteXLength = 2 * rootCircleXRadius + eigthLineXLength;
 export const maxNoteHeight = 2 * rootCircleYRadius + Math.abs(UpStrokeLength);
 export const staccatoDisplacement = 2 * rootCircleYRadius;
 export const noteSharpOffsetAmount = 35;
+export const noteOutlinePath = "6";

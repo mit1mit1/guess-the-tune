@@ -1,6 +1,7 @@
 import {
   eigthLineXLength,
   eigthLineYLength,
+  noteOutlinePath,
   rootCircleXRadius,
   rootCircleYRadius,
   staccatoDisplacement,
@@ -33,7 +34,7 @@ const UpStroke = ({
   return (
     <>
       <path
-        strokeWidth="4"
+        strokeWidth={noteOutlinePath}
         stroke={color}
         opacity={opacity}
         d={`M${xStart} ${yStart} V ${yStart + UpStrokeLength}`}
@@ -184,7 +185,7 @@ const RootCircle = ({
         stroke={strokeColor}
         opacity={opacity}
         fillOpacity={fillOpacity}
-        strokeWidth="3"
+        strokeWidth={noteOutlinePath}
         fill={fillColor}
       />
     </g>
