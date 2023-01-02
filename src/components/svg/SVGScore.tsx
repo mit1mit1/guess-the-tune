@@ -10,7 +10,6 @@ import {
   BaseSVGPathProps,
   Note,
   Pitch,
-  TimeSignature,
 } from "src/types";
 import { useStore } from "src/store/gameStore";
 import svgStyles from "./SVGScore.module.scss";
@@ -19,35 +18,22 @@ import { SharpPath } from "./SharpPath";
 import { DurationlessPitchPath } from "./DurationlessPitchPath";
 import {
   durationlessPitchRadius,
-  maxNoteXLength,
   rootCircleXRadius,
   rootCircleYRadius,
   sharpXOffset,
   sharpYOffset,
+  SVGHeight,
+  SVGWidth,
 } from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
 import { isGuessable } from "src/utils/note";
 import { arraysIdentical } from "src/utils/arrayCompare";
 import { chosenSong } from "src/constants/chosenSong";
 import { ExtraStaveLines } from "./ExtraStaveLines";
-import { getBaseYPosition, getRootCircleCX, noteSharpOffset, shouldAddSharp } from "src/utils/score";
+import { getBaseXPosition, getBaseYPosition, noteSharpOffset, shouldAddSharp } from "src/utils/score";
+import { TimeSignaturePath } from "./TimeSignaturePath";
+import { SelectedNoteHighlight } from "./SelectedNoteHighlight";
 
-const SVGWidth = 2740;
-const SVGHeight = 440;
-const clefLength = 300;
-const timeSignatureWidth = 80;
-const incorrectPitchLength = 250;
-
-const distanceBetweenNotes = 3 * maxNoteXLength;
-
-const getBaseXPosition = (noteIndex: number, staveIndex: number) => {
-  return (
-    clefLength +
-    (staveIndex === 0 ? timeSignatureWidth * 3 : 0) +
-    incorrectPitchLength +
-    noteIndex * distanceBetweenNotes
-  );
-};
 
 interface NotePathProps extends BaseSVGPathProps {
   note: Note;
@@ -360,33 +346,6 @@ const IncorrectPitchPaths = ({
   );
 };
 
-const SelectedNoteHighlight = ({
-  startIndex,
-  endIndex,
-  staveIndex,
-}: {
-  startIndex: number;
-  endIndex: number;
-  staveIndex: number;
-}) => {
-  const { selectedNoteIndex } = useStore();
-  if (selectedNoteIndex >= startIndex && selectedNoteIndex < endIndex) {
-    return (
-      <ellipse
-        cx={getRootCircleCX(
-          getBaseXPosition(selectedNoteIndex - startIndex, staveIndex)
-        )}
-        cy={getBaseYPosition("B4")}
-        rx={120}
-        ry={(SVGHeight * 3) / 4}
-        fill={INCORRECT_COLOR}
-        opacity={0.2}
-      />
-    );
-  }
-  return <></>;
-};
-
 export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
   const { guesses } = useStore();
   const songLength = correctNotes.length;
@@ -404,7 +363,7 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
         key={`score-svg-index-${i}`}
       >
         <TrebleStave SVGWidth={SVGWidth} />
-        {i === 0 && <TimeSignaturePath />}
+        {i === 0 && <TimeSignaturePath timeSignature={chosenSong.timeSignature} />}
         <SelectedNoteHighlight
           startIndex={startIndex}
           endIndex={endIndex}
@@ -433,51 +392,4 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
     staveIndex++;
   }
   return <>{buffer}</>;
-};
-
-const getNumerator = (timeSignature: TimeSignature) => {
-  switch (timeSignature) {
-    case TimeSignature.TWOTWO:
-      return 2;
-    case TimeSignature.THREEFOUR:
-      return 3;
-    case TimeSignature.FOURFOUR:
-      return 4;
-    case TimeSignature.FIVEFOUR:
-      return 5;
-  }
-};
-
-const getDenominator = (timeSignature: TimeSignature) => {
-  switch (timeSignature) {
-    case TimeSignature.THREEFOUR:
-    case TimeSignature.FOURFOUR:
-    case TimeSignature.FIVEFOUR:
-      return 4;
-    case TimeSignature.TWOTWO:
-      return 2;
-  }
-};
-
-const TimeSignaturePath = () => {
-  return (
-    <>
-      <text
-        style={{ fontSize: `${SVGHeight * 0.47}px` }}
-        x={clefLength + timeSignatureWidth}
-        y={getBaseYPosition("B4")}
-        fill={BASE_COLOR}
-      >
-        {getNumerator(chosenSong.timeSignature)}
-      </text>
-      <text
-        style={{ fontSize: `${SVGHeight * 0.47}px` }}
-        x={clefLength + timeSignatureWidth}
-        y={getBaseYPosition("E4")}
-        fill={BASE_COLOR}
-      >
-        {getDenominator(chosenSong.timeSignature)}
-      </text>
-    </>
-  );
 };

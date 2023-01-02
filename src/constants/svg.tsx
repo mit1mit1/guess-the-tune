@@ -12,3 +12,7 @@ export const maxNoteHeight = 2 * rootCircleYRadius + Math.abs(UpStrokeLength);
 export const staccatoDisplacement = 2 * rootCircleYRadius;
 export const noteSharpOffsetAmount = 35;
 export const noteOutlinePath = "6";
+export const SVGWidth = 2740;
+export const SVGHeight = 440;
+export const timeSignatureWidth = 80;
+export const clefLength = 300;

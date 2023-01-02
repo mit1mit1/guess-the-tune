@@ -1,4 +1,10 @@
-import { noteSharpOffsetAmount, rootCircleXRadius } from "src/constants/svg";
+import {
+  clefLength,
+  maxNoteXLength,
+  noteSharpOffsetAmount,
+  rootCircleXRadius,
+  timeSignatureWidth,
+} from "src/constants/svg";
 import { BaseDuration, Duration, Pitch } from "src/types";
 
 export const shouldAddSharp = (pitch: Pitch) => {
@@ -89,4 +95,17 @@ export const noteSharpOffset = (pitch: Pitch) => {
 
 export const getTripletCX = (baseXPosition: number) => {
   return baseXPosition - 1.5 * rootCircleXRadius;
+};
+
+const incorrectPitchLength = 250;
+
+const distanceBetweenNotes = 3 * maxNoteXLength;
+
+export const getBaseXPosition = (noteIndex: number, staveIndex: number) => {
+  return (
+    clefLength +
+    (staveIndex === 0 ? timeSignatureWidth * 3 : 0) +
+    incorrectPitchLength +
+    noteIndex * distanceBetweenNotes
+  );
 };
