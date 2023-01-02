@@ -4,7 +4,7 @@ import {
   INCORRECT_COLOR,
   WRONG_SPOT_COLOR,
 } from "src/constants";
-import { useStore } from "src/gameStore";
+import { useStore } from "src/store/gameStore";
 import { Modal } from "./Modal";
 import { MultipageContent } from "./MultipageContent";
 import { DurationlessPitchPath } from "./svg/DurationlessPitchPath";

@@ -1,6 +1,6 @@
 import { Note, ToneJSDuration } from "src/types";
 import * as Tone from "tone";
-import { addDurationObjects } from "src/utils";
+import { addDurationObjects } from "src/utils/duration";
 import PianoMp3 from "tonejs-instrument-piano-mp3";
 
 const instrument = new PianoMp3({

@@ -12,13 +12,7 @@ import {
   Pitch,
   TimeSignature,
 } from "src/types";
-import {
-  getBaseYPosition,
-  getRootCircleCX,
-  noteSharpOffset,
-  shouldAddSharp,
-} from "src/utils";
-import { useStore } from "src/gameStore";
+import { useStore } from "src/store/gameStore";
 import svgStyles from "./SVGScore.module.scss";
 import { TrebleStave } from "./TrebleStave";
 import { SharpPath } from "./SharpPath";
@@ -32,9 +26,11 @@ import {
   sharpYOffset,
 } from "src/constants/svg";
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
-import { arraysIdentical, isGuessable } from "src/utils";
-import { chosenSong } from "src/constants/game";
+import { isGuessable } from "src/utils/note";
+import { arraysIdentical } from "src/utils/arrayCompare";
+import { chosenSong } from "src/constants/chosenSong";
 import { ExtraStaveLines } from "./ExtraStaveLines";
+import { getBaseYPosition, getRootCircleCX, noteSharpOffset, shouldAddSharp } from "src/utils/score";
 
 const SVGWidth = 2740;
 const SVGHeight = 440;

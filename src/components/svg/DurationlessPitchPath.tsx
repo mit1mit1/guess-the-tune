@@ -6,7 +6,7 @@ import {
   sharpYOffset,
 } from "src/constants/svg";
 import { Pitch } from "src/types";
-import { getBaseYPosition, shouldAddSharp } from "src/utils";
+import { getBaseYPosition, shouldAddSharp } from "src/utils/score";
 import { SharpPath } from "./SharpPath";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
 

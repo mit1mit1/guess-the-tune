@@ -1,15 +1,16 @@
 import { Duration } from "src/types";
 import { BASE_COLOR, WRONG_SPOT_COLOR } from "src/constants";
-import { useStore } from "src/gameStore";
+import { useStore } from "src/store/gameStore";
 import durationKeyStyles from "./DurationKey.module.scss";
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
-import { numberOfNotePaths, setIncludes } from "src/utils";
 import {
   rootCircleXRadius,
   rootCircleYRadius,
   UpStrokeLength,
 } from "src/constants/svg";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
+import { numberOfNotePaths } from "src/utils/score";
+import { setIncludes } from "src/utils/arrayCompare";
 
 interface DurationKeyProps {
   durations: Duration;

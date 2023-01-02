@@ -9,7 +9,7 @@ import {
   getTripletCX,
   shouldAddDurationDot,
   shouldAddTripletSymbol,
-} from "src/utils";
+} from "src/utils/score";
 import { Dot } from "./Dot";
 import { TripletSymbol } from "./TripletSymbol";
 

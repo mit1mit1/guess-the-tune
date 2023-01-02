@@ -1,4 +1,5 @@
-import { chosenSong, queryParamSongIndex } from "src/constants/game";
+import { chosenSong } from "src/constants/chosenSong";
+import { queryParamSongIndex } from "src/constants/queryParams";
 import { Modal } from "./Modal";
 import { useState } from "react";
 

@@ -1,8 +1,8 @@
-import { chosenSong } from "src/constants/game";
-import { useStore } from "src/gameStore";
+import { chosenSong } from "src/constants/chosenSong";
+import { useStore } from "src/store/gameStore";
 import { Modal } from "./Modal";
 import { useState } from "react";
-import { encodeSong } from "src/utils";
+import { encodeSong } from "src/utils/encoder";
 import styles from "./App.module.scss";
 
 export const OutputModal = () => {

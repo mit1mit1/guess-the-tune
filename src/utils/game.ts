@@ -1,12 +1,12 @@
-import { Note } from "src/types";
 import { gameSongs } from "src/gameSongs";
 import {
-  chosenSongIndex,
   isLatestTune,
   availableIndices,
   availableSongs,
-} from "src/constants/game";
+} from "src/constants/songHistory";
 import dayjs from "dayjs";
+import { chosenSongIndex } from "src/constants/chosenSong";
+import { getAllGuessed } from "src/persistantState/dynamic";
 
 const containsItem = (arr: Array<any>, item: any) => {
   let found = false;
@@ -29,10 +29,6 @@ export const pushIfNotIdentical = (
     newArray[index].push(newItem);
   }
   return newArray;
-};
-
-export const isGuessable = (note: Note) => {
-  return !note.rest;
 };
 
 export const setTodaysGuessed = () => {
@@ -60,27 +56,6 @@ export const getTimePlayed = () => {
     return storageLastTime;
   }
   return getSecondsSinceLoaded();
-};
-
-export const setTodaysTurns = (guesses: number) => {
-  if (isLatestTune && !localStorage.getItem("lastTurns")) {
-    localStorage.setItem("lastTurns", guesses.toString());
-  }
-};
-
-export const getTodaysTurns = () => {
-  const storageLastTime = localStorage.getItem("lastTurns");
-  return isLatestTune && storageLastTime;
-};
-
-export const getAllGuessed = () => {
-  const allGuessedStorage = JSON.parse(
-    localStorage.getItem("allGuessed") || "[]"
-  );
-  if (!Array.isArray(allGuessedStorage)) {
-    return [];
-  }
-  return allGuessedStorage;
 };
 
 export const getNextUnguessedIndex = () => {

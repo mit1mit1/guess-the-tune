@@ -1,11 +1,12 @@
 import {
-  chosenSong,
   maxAvailableArchiveSongs,
 } from "src/constants/game";
-import { useStore } from "src/gameStore";
+import { useStore } from "src/store/gameStore";
 import { Modal } from "./Modal";
 import appStyles from "./App.module.scss";
-import { getTimePlayed, getTodaysTurns, getNextUnguessedIndex } from "src/utils";
+import { chosenSong } from "src/constants/chosenSong";
+import { getNextUnguessedIndex, getTimePlayed } from "src/utils/game";
+import { getTodaysTurns } from "src/persistantState/dynamic";
 
 export const CongratulationsModal = () => {
   const { turn, showCongrats, toggleCongrats } = useStore();

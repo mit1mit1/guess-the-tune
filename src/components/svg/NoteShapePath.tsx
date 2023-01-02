@@ -13,7 +13,7 @@ import {
   getTripletCX,
   shouldAddDurationDot,
   shouldAddTripletSymbol,
-} from "src/utils";
+} from "src/utils/score";
 import { Dot } from "./Dot";
 import svgStyles from "src/components/svg/SVGScore.module.scss";
 import { TripletSymbol } from "./TripletSymbol";

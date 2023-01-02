@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { SVGScore } from "src/components/svg/SVGScore";
-import { useStore } from "src/gameStore";
+import { useStore } from "src/store/gameStore";
 import styles from "./App.module.scss";
 import { DurationKeyboard } from "./DurationKeyboard";
 import { BACKGROUND_COLOR, BASE_COLOR } from "../constants";
@@ -11,7 +11,8 @@ import { maxNoteXLength } from "../constants/svg";
 import { InstructionsModal } from "./InstructionsModal";
 import { CongratulationsModal } from "./CongratulationsModal";
 import { SupportUsModal } from "./SupportUsModal";
-import { chosenSong, composeMode, queryParamSongIndex } from "src/constants/game";
+import { chosenSong } from "src/constants/chosenSong";
+import { composeMode, queryParamSongIndex } from "src/constants/queryParams";
 import { SongSelectModal } from "./SongSelectModal";
 import { OutputModal } from "./OutputModal";
 

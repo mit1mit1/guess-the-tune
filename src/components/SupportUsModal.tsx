@@ -1,4 +1,4 @@
-import { useStore } from "src/gameStore";
+import { useStore } from "src/store/gameStore";
 import { Modal } from "./Modal";
 
 export const SupportUsModal = () => {

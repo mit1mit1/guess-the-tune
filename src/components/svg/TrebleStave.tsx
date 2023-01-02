@@ -1,6 +1,6 @@
 import { BASE_COLOR } from "src/constants";
 import { Pitch } from "src/types";
-import { getBaseYPosition } from "src/utils";
+import { getBaseYPosition } from "src/utils/score";
 
 const TrebleClef = () => {
   return (
