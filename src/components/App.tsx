@@ -37,6 +37,8 @@ const App = ({
     removeNote,
     showOutput,
     bpm,
+    switchIsRest,
+    switchIsStaccato,
   } = useStore();
 
   const handleCheckGuess = useCallback(() => {
@@ -132,44 +134,62 @@ const App = ({
         {queryParamSongIndex !== -1 ? <SongSelectModal /> : ""}
         <div>
           {composeMode ? <>
-            <button
-              className={styles.button}
-              onClick={handleCheckGuess}
-            >
-              Play Notes
-            </button>
-            <button className={styles.button + " " + styles.buttonPrimary} onClick={() => toggleOutputModal()}>
-              Share/Tweak Song
-            </button>
-            <button className={styles.button} onClick={() => addNote()}>
-              Add Note
-            </button>
-            <button className={styles.button} onClick={() => removeNote()}>
-              Remove Note
-            </button>
-            <button className={styles.button} onClick={() => { window.open(`${path}`, "_blank") }}>
-              Normal Game
-            </button>
+            <div>
+              <button className={styles.button + " " + styles.buttonPrimary} onClick={toggleOutputModal}>
+                Share/Tweak Song
+              </button>
+              <button
+                className={styles.button}
+                onClick={handleCheckGuess}
+              >
+                Play Notes
+              </button>
+              <button className={styles.button} onClick={addNote}>
+                Add Note
+              </button>
+              <button className={styles.button} onClick={removeNote}>
+                Remove Note
+              </button>
+              <button className={styles.button} onClick={switchIsRest}>
+                {correctNotes[selectedNoteIndex].rest ? "Unrest" : "Make Rest"}
+              </button>
+              <button className={styles.button} onClick={switchIsStaccato}>
+                {correctNotes[selectedNoteIndex].staccato ? "Unstaccato" : "Make Staccato"}
+              </button>
+            </div>
+            <div>
+              <button className={styles.button} onClick={() => { window.open(`${path}`, "_blank") }}>
+                Normal Game
+              </button>
+              <button className={styles.button} onClick={toggleSupportUs}>
+                Support Us
+              </button>
+            </div>
           </> : <>
-            <button
-              className={styles.button + " " + styles.buttonPrimary}
-              onClick={handleCheckGuess}
-            >
-              Check Guesses
-            </button>
-            <button
-              className={styles.button}
-              onClick={() => toggleInstructions()}
-            >
-              Show Instructions
-            </button>
-            <button className={styles.button} onClick={() => { window.open(`${path}?composeMode=1`, "_blank") }}>
-              Compose Mode
-            </button>
+            <div>
+              <button
+                className={styles.button + " " + styles.buttonPrimary}
+                onClick={handleCheckGuess}
+              >
+                Check Guesses
+              </button>
+              <button
+                className={styles.button}
+                onClick={() => toggleInstructions()}
+              >
+                Show Instructions
+              </button>
+
+            </div>
+            <div>
+              <button className={styles.button} onClick={() => { window.open(`${path}?composeMode=1`, "_blank") }}>
+                Compose Mode
+              </button>
+              <button className={styles.button} onClick={() => toggleSupportUs()}>
+                Support Us
+              </button>
+            </div>
           </>}
-          <button className={styles.button} onClick={() => toggleSupportUs()}>
-            Support Us
-          </button>
         </div>
       </main>
     </div>
