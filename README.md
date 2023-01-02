@@ -2,8 +2,6 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a Wordle inspired clone designed to help introduce music theory in an intuitive way, using fun film and pop music many people will be familiar with, and it is also very much a work in progress. Currently most of the functionality has been built, but a lot of love is needed for the UI and test suite.
 
-I haven't decided what to do about licencing yet, so please do not copy this work without reaching out first!
-
 Try it out at https://mit1mit1.github.io/guess-the-tune/index.html.
 
 ## Available Scripts
