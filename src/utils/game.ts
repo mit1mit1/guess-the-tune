@@ -1,7 +1,19 @@
-import { Note, Pitch, AnswerStatus, Duration, BaseDuration, ToneJSDuration } from "src/types";
+import {
+  Note,
+  Pitch,
+  AnswerStatus,
+  Duration,
+  BaseDuration,
+  ToneJSDuration,
+} from "src/types";
 import { pitchNames } from "src/constants";
 import { gameSongs } from "src/gameSongs";
-import { chosenSongIndex, isLatestTune, availableIndices, availableSongs } from "src/constants/game";
+import {
+  chosenSongIndex,
+  isLatestTune,
+  availableIndices,
+  availableSongs,
+} from "src/constants/game";
 import dayjs from "dayjs";
 
 const getIndex = (
@@ -145,13 +157,24 @@ const previousElementInCycle = <T extends any>(
   return elementList[elementList.length - 1];
 };
 
+const containsItem = (arr: Array<any>, item: any) => {
+  let found = false;
+  for (let i = 0; i < arr.length; i++) {
+    if (JSON.stringify(item) === JSON.stringify(arr[i])) {
+      found = true;
+      break;
+    }
+  }
+  return found;
+};
+
 export const pushIfNotIdentical = (
   oldArrayOfArrays: Array<Array<any>>,
   index: number,
   newItem: any
 ) => {
   const newArray = [...oldArrayOfArrays];
-  if (oldArrayOfArrays[index].indexOf(newItem) === -1) {
+  if (!containsItem(oldArrayOfArrays[index], newItem)) {
     newArray[index].push(newItem);
   }
   return newArray;
@@ -196,19 +219,12 @@ export const allCorrect = (guesses: Array<Note>, correctNotes: Array<Note>) => {
 export const orderByLength = (durationArray: Array<Duration>) => {
   return durationArray.sort(
     (durationsA, durationsB) =>
-      durationsTo16thCount(durationsA) -
-      durationsTo16thCount(durationsB)
+      durationsTo16thCount(durationsA) - durationsTo16thCount(durationsB)
   );
 };
 
-export const arraysIdentical = (a1: Array<string>, a2: Array<string>) => a1.every((value, index) => value === a2[index])
-
-export const arraysIdenticalLegacy = (
-  durations: Duration,
-  durations2: Duration
-) => {
-  return JSON.stringify(durations) === JSON.stringify(durations2);
-};
+export const arraysIdentical = (a1: Array<string>, a2: Array<string>) =>
+  a1.every((value, index) => value === a2[index]) && a1.length === a2.length;
 
 export const arrayIncludes = (
   durationArrayArray: Duration[],
@@ -330,17 +346,21 @@ export const getTodaysTurns = () => {
 };
 
 export const getAllGuessed = () => {
-  const allGuessedStorage = JSON.parse(localStorage.getItem("allGuessed") || "[]");
+  const allGuessedStorage = JSON.parse(
+    localStorage.getItem("allGuessed") || "[]"
+  );
   if (!Array.isArray(allGuessedStorage)) {
     return [];
   }
   return allGuessedStorage;
-}
+};
 
 export const getNextUnguessedIndex = () => {
-  const unguessedAvailbleIndices = availableIndices.filter((index: any) => !getAllGuessed().includes(index))
+  const unguessedAvailbleIndices = availableIndices.filter(
+    (index: any) => !getAllGuessed().includes(index)
+  );
   if (unguessedAvailbleIndices.length) {
     return availableSongs.indexOf(gameSongs[unguessedAvailbleIndices[0]]);
   }
   return 0;
-}
+};

@@ -18,13 +18,13 @@ export const minifySong = (song: GameSong): MinifiedSong => {
   return {
     b: song.bpm,
     t: song.timeSignature,
-    r: song.readyForProduction,
+    r: !!song.readyForProduction,
     na: song.name,
     no: song.notes.map((note) => ({
       p: note.pitch,
       d: note.durations,
-      s: note.staccato,
-      r: note.rest,
+      s: !!note.staccato,
+      r: !!note.rest,
     })),
   };
 };
