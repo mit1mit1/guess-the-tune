@@ -4,9 +4,9 @@
 
   "coverageThreshold": {
     "global": {
-      "branches": 45,
-      "functions": 50,
-      "lines": 50
+      "branches": 53,
+      "functions": 53,
+      "lines": 53
     }
   },
   "setupFiles": ["react-app-polyfill/jsdom"],
