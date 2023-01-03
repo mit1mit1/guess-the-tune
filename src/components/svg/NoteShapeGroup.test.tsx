@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { NoteShapeGroup } from "./NoteShapeGroup";
 
-describe("Modal component", () => {
+describe("NoteShapeGroup component", () => {
     it("renders without error with no duration and no non-mandatory props", async () => {
         render(
             <NoteShapeGroup
