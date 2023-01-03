@@ -25,9 +25,9 @@ export const getAllGuessed = () => {
   return allGuessedStorage;
 };
 
-export const setSongIndexGuessed = (songIndex: string) => {
+export const setSongIndexGuessed = (songIndex: number) => {
   if (isLatestTune) {
-    localStorage.setItem("lastCorrectIndex", songIndex);
+    localStorage.setItem("lastCorrectIndex", songIndex.toString());
   }
   const allGuessed = getAllGuessed();
   allGuessed.push(songIndex);

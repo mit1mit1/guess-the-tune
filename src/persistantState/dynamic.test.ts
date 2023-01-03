@@ -1,8 +1,10 @@
 import { LocalStorageMock } from "src/mocks";
 import {
+  getAllGuessed,
   getLastCorrectIndex,
   getTimePlayed,
   getTodaysTurns,
+  setSongIndexGuessed,
   setTodaysTime,
   setTodaysTurns,
 } from "./dynamic";
@@ -25,5 +27,10 @@ describe("local storage state", () => {
   it("setTodaysTime sets a value that can be gotten from getTimePlayed when isLatestTune", () => {
     setTodaysTime();
     expect(Number(getTimePlayed())).toBeGreaterThanOrEqual(0);
+  });
+
+  it("setSongIndexGuessed pushes a number to allGuessed", () => {
+    setSongIndexGuessed(123);
+    expect(getAllGuessed().includes(123)).toBeTruthy();
   });
 });

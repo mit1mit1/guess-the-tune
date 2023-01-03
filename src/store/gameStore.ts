@@ -260,7 +260,7 @@ export const useStore: () => GameStore = create<GameStore>((set: any) => ({
           draft.correctNotes
         );
         if (draft.guessedEverythingCorrect) {
-          setSongIndexGuessed(chosenSongIndex.toString());
+          setSongIndexGuessed(chosenSongIndex);
           setTodaysTurns(draft.turn);
           setTodaysTime();
         }
