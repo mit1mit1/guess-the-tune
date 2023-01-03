@@ -17,6 +17,7 @@ export const CongratulationsModal = () => {
         "chosenSongIndex",
         (getNextUnguessedIndex() % maxAvailableArchiveSongs).toString()
       );
+      searchParams.delete("songHash");
       window.location.search = searchParams.toString();
     }
   };
