@@ -1,7 +1,7 @@
 import { AnswerStatus, Duration, Note, NoteStatus, Pitch } from "src/types";
 import { GameStore } from "./types";
 import { getNewStatuses, pushGuess, pushWrongSpots } from "./helpers";
-import { mockStore } from "./mocks";
+import { mockStore } from "src/mocks";
 
 describe("getNewStatuses", () => {
   it("ignores already guessed, marks correct guesses as correct, and marks incorrect as incorrect", () => {
