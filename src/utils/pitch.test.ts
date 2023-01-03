@@ -33,6 +33,28 @@ describe("incrementPitch", () => {
     expect(result.length).toBe(1);
     expect(result[0]).toEqual({ pitch: "A#3", durations: ["16n"], rest: true });
   });
+
+  it("picks closest element when incrementing and current pitch is unavailable", () => {
+    const result = incrementPitch(
+      [{ pitch: "A#5", durations: ["16n"], rest: true }],
+      0,
+      1,
+      ["A#3", "A#4", "B5"]
+    );
+    expect(result.length).toBe(1);
+    expect(result[0]).toEqual({ pitch: "B5", durations: ["16n"], rest: true });
+  });
+
+  it("picks closest element when decrementing and current pitch is unavailable", () => {
+    const result = incrementPitch(
+      [{ pitch: "A#5", durations: ["16n"], rest: true }],
+      0,
+      -1,
+      ["A#3", "A#4", "B5"]
+    );
+    expect(result.length).toBe(1);
+    expect(result[0]).toEqual({ pitch: "B5", durations: ["16n"], rest: true });
+  });
 });
 
 describe("unsharp", () => {

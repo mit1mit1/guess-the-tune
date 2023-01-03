@@ -1,12 +1,12 @@
 {
   "roots": ["<rootDir>/src"],
-  "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts"],
+  "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts", "!**/reportWebVitals.ts"],
 
   "coverageThreshold": {
     "global": {
-      "branches": 53,
-      "functions": 53,
-      "lines": 53
+      "branches": 64,
+      "functions": 64,
+      "lines": 64
     }
   },
   "setupFiles": ["react-app-polyfill/jsdom"],
