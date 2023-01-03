@@ -1,5 +1,5 @@
 import { Duration, Pitch } from "src/types";
-import { GameStore } from "./types";
+import { GameStore } from "./store/types";
 
 export const mockStore: GameStore = {
   addNote: () => {},
@@ -38,3 +38,32 @@ export const mockStore: GameStore = {
   wrongSpotDurations: new Set([]),
   wrongSpotPitches: new Set([]),
 };
+
+export class LocalStorageMock {
+  store: Record<string | number, string>;
+  length: number;
+  key: (index: number) => "";
+  constructor() {
+    this.store = {};
+    this.length = 0;
+    this.key = (index: number) => "";
+  }
+
+  clear() {
+    this.store = {};
+  }
+
+  getItem(key: string | number) {
+    return this.store[key] || null;
+  }
+
+  setItem(key: string | number, value: any) {
+    this.store[key] = String(value);
+    this.length++;
+  }
+
+  removeItem(key: string | number) {
+    delete this.store[key];
+    this.length--;
+  }
+}

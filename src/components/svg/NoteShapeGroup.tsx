@@ -85,6 +85,7 @@ export const NoteShapeGroup = ({
       if (shouldAddDurationDot(baseDuration as BaseDuration)) {
         buffer.push(
           <Dot
+            key={`dot-shape-path-${index}-${i}`}
             xCentre={getDurationDotXCentre(baseXPosition)}
             yCentre={getBaseYPosition("B4")}
             color={color}
@@ -96,6 +97,7 @@ export const NoteShapeGroup = ({
       if (shouldAddTripletSymbol(baseDuration as BaseDuration)) {
         buffer.push(
           <TripletSymbol
+            key={`triplet-shape-path-${index}-${i}`}
             xCentre={getTripletCX(baseXPosition)}
             yCentre={
               getRestYCentre(baseDuration as BaseDuration) + UpStrokeLength

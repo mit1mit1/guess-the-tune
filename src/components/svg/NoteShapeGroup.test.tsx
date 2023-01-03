@@ -25,7 +25,7 @@ describe("Modal component", () => {
         render(
             <NoteShapeGroup
                 baseXPosition={123} baseYPosition={123} color={"#abc"}
-                durations={["2n", "2n.", "2t", "4n."]}
+                durations={["2n", "2n.", "2t", "4n.", "8n.", "1n", "16n"]}
                 rest={true} staccato={true} handleClick={() => { }}
             />
         );

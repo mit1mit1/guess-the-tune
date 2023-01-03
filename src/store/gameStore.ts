@@ -4,14 +4,16 @@ import produce, { enableMapSet } from "immer";
 import { durationNames } from "src/constants";
 import { composeMode } from "src/constants/queryParams";
 import { playedBefore } from "src/persistantState/constants";
+import { setSongIndexGuessed } from "src/persistantState/dynamic";
 import { getNewStatuses, pushGuess, pushWrongSpots } from "./helpers";
 import {
   alreadyGuessedTodays,
   chosenSong,
+  chosenSongIndex,
   correctDurations,
   correctNotes,
 } from "src/constants/chosenSong";
-import { setTodaysGuessed, setTodaysTime } from "src/utils/game";
+import { setTodaysTime } from "src/persistantState/dynamic";
 import { isGuessable } from "src/utils/note";
 import { incrementPitch } from "src/utils/pitch";
 import {
@@ -258,7 +260,7 @@ export const useStore: () => GameStore = create<GameStore>((set: any) => ({
           draft.correctNotes
         );
         if (draft.guessedEverythingCorrect) {
-          setTodaysGuessed();
+          setSongIndexGuessed(chosenSongIndex.toString());
           setTodaysTurns(draft.turn);
           setTodaysTime();
         }

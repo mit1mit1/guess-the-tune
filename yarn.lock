@@ -3693,7 +3693,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^8.5.0":
+"@testing-library/dom@npm:^8.19.1, @testing-library/dom@npm:^8.5.0":
   version: 8.19.1
   resolution: "@testing-library/dom@npm:8.19.1"
   dependencies:
@@ -13857,6 +13857,7 @@ __metadata:
     "@babel/core": ^7.16.0
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.10
     "@svgr/webpack": ^6.5.1
+    "@testing-library/dom": ^8.19.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^14.4.3
