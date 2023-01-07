@@ -1,10 +1,6 @@
 import {
   BASE_COLOR,
-  CORRECT_COLOR,
-  CORRECT_PITCH_COLOR,
-  INCORRECT_COLOR,
-  INCORRECT_PITCH_COLOR,
-} from "src/constants";
+} from "src/constants/color";
 import {
   AnswerStatus,
   BaseSVGPathProps,
@@ -33,6 +29,7 @@ import { ExtraStaveLines } from "./ExtraStaveLines";
 import { getBaseXPosition, getBaseYPosition, noteSharpOffset, shouldAddSharp } from "src/utils/score";
 import { TimeSignaturePath } from "./TimeSignaturePath";
 import { SelectedNoteHighlight } from "./SelectedNoteHighlight";
+import { FillDefs } from "./FillDefs";
 
 
 interface NotePathProps extends BaseSVGPathProps {
@@ -148,7 +145,7 @@ const CurrentGuessPaths = ({
           ? () => setSelectedNoteIndex(trueIndex)
           : undefined;
         if (incorrectDurationsArrays[trueIndex].includes(note.durations)) {
-          color = INCORRECT_COLOR;
+          color = "url(#INCORRECT_FILL)";
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
@@ -158,9 +155,9 @@ const CurrentGuessPaths = ({
             correctNotes[trueIndex].durations
           )) {
             opacity = 0.8;
-            color = CORRECT_COLOR;
+            color = "url(#CORRECT_FILL)";
           } else {
-            color = INCORRECT_COLOR;
+            color = "url(#INCORRECT_FILL)";
           }
         }
         if (
@@ -169,7 +166,7 @@ const CurrentGuessPaths = ({
           answerStatuses[trueIndex].pitchStatus === AnswerStatus.UNGUESSABLE
         ) {
           opacity = 1;
-          color = CORRECT_COLOR;
+          color = "url(#CORRECT_FILL)";
         }
         if (!!note.rest) {
           return (
@@ -240,7 +237,7 @@ const NonIncorrectPaths = ({
                 <PitchGuessPath
                   pitch={correctNotes[trueIndex].pitch}
                   positionIndex={displayIndex}
-                  color={CORRECT_PITCH_COLOR}
+                  color="url(#CORRECT_PITCH_FILL)"
                   key={`${trueIndex}-${correctNotes[trueIndex].pitch}-non-incorrect`}
                   handleClick={() => setSelectedNoteIndex(trueIndex)}
                   staveIndex={staveIndex}
@@ -253,7 +250,7 @@ const NonIncorrectPaths = ({
                       incorrectPitchesArrays[trueIndex].includes(
                         guesses[trueIndex].pitch
                       )
-                        ? INCORRECT_COLOR
+                        ? "url(#INCORRECT_PITCH_FILL)"
                         : BASE_COLOR
                     }
                     key={`${trueIndex}-pitch-not-necessarily-correct`}
@@ -270,7 +267,7 @@ const NonIncorrectPaths = ({
                 <PitchGuessPath
                   pitch={correctNotes[trueIndex].pitch}
                   positionIndex={displayIndex}
-                  color={CORRECT_PITCH_COLOR}
+                  color="url(#CORRECT_PITCH_FILL)"
                   key={`${trueIndex}-pitch-correct`}
                   handleClick={() => setSelectedNoteIndex(trueIndex)}
                   staveIndex={staveIndex}
@@ -279,7 +276,7 @@ const NonIncorrectPaths = ({
                   <PitchGuessPath
                     pitch={guesses[trueIndex].pitch}
                     positionIndex={displayIndex}
-                    color={INCORRECT_COLOR}
+                    color="url(#INCORRECT_PITCH_FILL)"
                     key={`${trueIndex}-pitch-not-necessarily-correct`}
                     handleClick={() => setSelectedNoteIndex(trueIndex)}
                     staveIndex={staveIndex}
@@ -296,7 +293,7 @@ const NonIncorrectPaths = ({
                 incorrectPitchesArrays[trueIndex].includes(
                   guesses[trueIndex].pitch
                 )
-                  ? INCORRECT_COLOR
+                  ? "url(#INCORRECT_FILL)"
                   : BASE_COLOR
               }
               key={`${trueIndex}-pitch-not-necessarily-correct`}
@@ -332,7 +329,7 @@ const IncorrectPitchPaths = ({
                   pitch={pitch}
                   positionIndex={positionIndex}
                   handleClick={() => setSelectedNoteIndex(trueIndex)}
-                  color={INCORRECT_PITCH_COLOR}
+                  color="url(#INCORRECT_PITCH_FILL)"
                   key={`${positionIndex}-${pitch}`}
                   opacity={1}
                   staveIndex={staveIndex}
@@ -362,6 +359,7 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
         className={svgStyles.svgScore}
         key={`score-svg-index-${i}`}
       >
+        <FillDefs />
         <TrebleStave SVGWidth={SVGWidth} />
         {i === 0 && <TimeSignaturePath timeSignature={chosenSong.timeSignature} />}
         <SelectedNoteHighlight

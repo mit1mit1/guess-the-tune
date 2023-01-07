@@ -1,9 +1,7 @@
 import { Pitch } from "src/types";
 import {
   BASE_COLOR,
-  INCORRECT_PITCH_COLOR,
-  WRONG_SPOT_COLOR,
-} from "src/constants";
+} from "src/constants/color";
 import { initialAvailablePitches } from "src/store/constants";
 import { useStore } from "src/store/gameStore";
 import pitchKeyboardStyles from "./PitchKeyboard.module.scss";
@@ -12,6 +10,7 @@ import { DurationlessPitchPath } from "./svg/DurationlessPitchPath";
 import { noteSharpOffset } from "src/utils/score";
 import { ExtraStaveLines } from "./svg/ExtraStaveLines";
 import { durationlessPitchRadius } from "src/constants/svg";
+import { FillDefs } from "./svg/FillDefs";
 
 interface PitchKeyProps {
   pitch: Pitch;
@@ -30,9 +29,9 @@ const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
   const { setSelectedGuessPitch } = useStore();
   let color = BASE_COLOR;
   if (status === "wrong-spot") {
-    color = WRONG_SPOT_COLOR;
+    color = "url(#WRONG_SPOT_FILL)";
   } else if (status === "unavailable") {
-    color = INCORRECT_PITCH_COLOR;
+    color = "url(#INCORRECT_PITCH_COLOR)";
   }
   const clickHandler =
     status === "unavailable" ? undefined : () => setSelectedGuessPitch(pitch);
@@ -70,6 +69,7 @@ export const PitchKeyboard = () => {
         xmlns="<http://www.w3.org/2000/svg>"
         className={pitchKeyboardStyles.pitchKeyboardSVG}
       >
+        <FillDefs />
         <TrebleStave SVGWidth={1350} />
         {initialAvailablePitches.map((pitch, index) => {
           if (!availablePitches.includes(pitch)) {
