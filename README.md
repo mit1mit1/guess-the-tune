@@ -1,8 +1,8 @@
 # Getting Started with Musicle
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a Wordle inspired clone designed to help introduce music theory in an intuitive way, using fun film and pop music many people will be familiar with, and it is also very much a work in progress. Currently most of the functionality has been built, but a lot of love is needed for the UI and test suite.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a Wordle inspired clone designed to help introduce music theory in an intuitive way, using fun film and pop music many people will be familiar with.
 
-Try it out at https://mit1mit1.github.io/guess-the-tune/index.html.
+Thanks to GitHub Pages, you can try it out at https://mit1mit1.github.io/guess-the-tune/index.html.
 
 ## Available Scripts
 
@@ -20,13 +20,3 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
