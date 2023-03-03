@@ -30,7 +30,7 @@ export const SupportUsModal = () => {
         Feel free to let me know and I'll consider it game-development income.
       </p>
       <p>
-        If you want to see more of my work, check it out at
+        If you want to see more of my work, check it out at{" "}
         <a
           target="_blank"
           rel="noreferrer"
