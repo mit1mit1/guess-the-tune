@@ -49,6 +49,10 @@ html {
   font-family: "Quicksand", sans-serif;
 }
 
+.button.buttonLarge {
+  min-width: 200px;
+}
+
 .button:hover {
   background-color: #ffb7c5;
   cursor: pointer;
