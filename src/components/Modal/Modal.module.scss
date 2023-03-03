@@ -18,7 +18,6 @@
   }
 }
 
-
 .modalContent {
   width: 90%;
   background-color: #fff;
@@ -26,6 +25,13 @@
   padding: 20px 30px 25px 30px;
   height: inherit;
   overflow: auto;
+}
+
+@media screen and (min-height: 480px) and (min-width: 480px) {
+  .modalContentMedium {
+    min-height: 300px;
+    position: relative;
+  }
 }
 
 .modalTitle {
