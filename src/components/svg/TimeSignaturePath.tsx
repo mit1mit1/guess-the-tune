@@ -1,4 +1,4 @@
-import { BASE_COLOR } from "src/constants";
+import { BASE_COLOR } from "src/constants/color";
 import { clefLength, SVGHeight, timeSignatureWidth } from "src/constants/svg";
 import { TimeSignature } from "src/types";
 import { getBaseYPosition } from "src/utils/score";

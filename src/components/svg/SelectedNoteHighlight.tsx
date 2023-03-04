@@ -1,4 +1,4 @@
-import { INCORRECT_COLOR } from "src/constants";
+import { INCORRECT_COLOR } from "src/constants/color";
 import { SVGHeight } from "src/constants/svg";
 import { useStore } from "src/store/gameStore";
 import { getRootCircleCX, getBaseYPosition, getBaseXPosition } from "src/utils/score";

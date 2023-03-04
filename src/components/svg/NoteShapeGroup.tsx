@@ -39,6 +39,7 @@ const TiePath = ({
       strokeWidth={8}
       opacity={opacity}
       onClick={handleClick}
+      fill="none"
       d={`M ${xStart} ${yStart} A 50 10 0 0 1 ${xEnd} ${yEnd}`}
     />
   );

@@ -62,11 +62,3 @@ export const durationMarks = durationNames.map((name, index) => {
     label: name,
   };
 });
-
-export const BACKGROUND_COLOR = "#212121";
-export const BASE_COLOR = "#fff";
-export const WRONG_SPOT_COLOR = "#E6CF01";
-export const INCORRECT_COLOR = "grey";
-export const CORRECT_COLOR = "green";
-export const CORRECT_PITCH_COLOR = "#0E0";
-export const INCORRECT_PITCH_COLOR = "#555";

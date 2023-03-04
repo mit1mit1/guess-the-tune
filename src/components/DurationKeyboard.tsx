@@ -1,5 +1,5 @@
 import { Duration } from "src/types";
-import { BASE_COLOR, WRONG_SPOT_COLOR } from "src/constants";
+import { BASE_COLOR } from "src/constants/color";
 import { useStore } from "src/store/gameStore";
 import durationKeyStyles from "./DurationKey.module.scss";
 import { NoteShapeGroup } from "src/components/svg/NoteShapeGroup";
@@ -11,6 +11,7 @@ import {
 import svgStyles from "src/components/svg/SVGScore.module.scss";
 import { numberOfNotePaths } from "src/utils/score";
 import { setIncludes } from "src/utils/arrayCompare";
+import { FillDefs } from "./svg/FillDefs";
 
 interface DurationKeyProps {
   durations: Duration;
@@ -27,7 +28,7 @@ const DurationKey = ({ durations, status, width }: DurationKeyProps) => {
   }
   let color = BASE_COLOR;
   if (status === "wrong-spot") {
-    color = WRONG_SPOT_COLOR;
+    color = "url(#WRONG_SPOT_FILL)";
   }
   const handleClick = () => setSelectedGuessDuration(durations);
   return (
@@ -41,6 +42,7 @@ const DurationKey = ({ durations, status, width }: DurationKeyProps) => {
           xmlns="<http://www.w3.org/2000/svg>"
           className={durationKeyStyles.durationKeySVG}
         >
+          <FillDefs />
           {
             <rect
               className={svgStyles.clickableCover}

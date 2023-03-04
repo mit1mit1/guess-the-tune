@@ -1,13 +1,8 @@
-import {
-  CORRECT_COLOR,
-  CORRECT_PITCH_COLOR,
-  INCORRECT_COLOR,
-  WRONG_SPOT_COLOR,
-} from "src/constants";
 import { useStore } from "src/store/gameStore";
 import { Modal } from "./Modal";
 import { MultipageContent } from "./MultipageContent";
 import { DurationlessPitchPath } from "./svg/DurationlessPitchPath";
+import { FillDefs } from "./svg/FillDefs";
 import { NoteShapePath } from "./svg/NoteShapePath";
 
 const isTouchDevice = "ontouchstart" in document.documentElement;
@@ -53,8 +48,9 @@ const DisplayInstructions = () => (
         xmlns="<http://www.w3.org/2000/svg>"
         style={{ width: "30px", height: "1.5em" }}
       >
+        <FillDefs />
         <DurationlessPitchPath
-          color={CORRECT_PITCH_COLOR}
+          color="url(#CORRECT_PITCH_FILL)"
           pitch={"F5"}
           xStart={25}
         />
@@ -68,8 +64,9 @@ const DisplayInstructions = () => (
         xmlns="<http://www.w3.org/2000/svg>"
         style={{ width: "30px", height: "2em" }}
       >
+        <FillDefs />
         <NoteShapePath
-          color={CORRECT_COLOR}
+          color="url(#CORRECT_FILL)"
           duration={"4n"}
           baseXPosition={140}
           baseYPosition={160}
@@ -84,8 +81,9 @@ const DisplayInstructions = () => (
         xmlns="<http://www.w3.org/2000/svg>"
         style={{ width: "30px", height: "2em" }}
       >
+        <FillDefs />
         <NoteShapePath
-          color={WRONG_SPOT_COLOR}
+          color="url(#WRONG_SPOT_FILL)"
           duration={"4n"}
           baseXPosition={140}
           baseYPosition={160}
@@ -99,8 +97,9 @@ const DisplayInstructions = () => (
         xmlns="<http://www.w3.org/2000/svg>"
         style={{ width: "30px", height: "1.5em" }}
       >
+        <FillDefs />
         <DurationlessPitchPath
-          color={INCORRECT_COLOR}
+          color="url(#INCORRECT_FILL)"
           pitch={"F5"}
           xStart={25}
         />

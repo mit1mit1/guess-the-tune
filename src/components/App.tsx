@@ -3,7 +3,7 @@ import { SVGScore } from "src/components/svg/SVGScore";
 import { useStore } from "src/store/gameStore";
 import styles from "./App.module.scss";
 import { DurationKeyboard } from "./DurationKeyboard";
-import { BACKGROUND_COLOR, BASE_COLOR } from "../constants";
+import { BACKGROUND_COLOR, BASE_COLOR } from "../constants/color";
 import { PitchKeyboard } from "./PitchKeyboard";
 import { Note } from "../types";
 import { NoteShapePath } from "src/components/svg/NoteShapePath";

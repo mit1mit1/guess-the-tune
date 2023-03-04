@@ -1,4 +1,4 @@
-import { BASE_COLOR } from "src/constants";
+import { BASE_COLOR } from "src/constants/color";
 import { Pitch } from "src/types";
 import { getBaseYPosition } from "src/utils/score";
 
