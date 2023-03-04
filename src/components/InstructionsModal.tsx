@@ -127,6 +127,7 @@ export const InstructionsModal = () => {
     <Modal
       title="Guess the Tune"
       visible={showInstructions}
+      size={"medium"}
       toggleVisible={toggleInstructions}
     >
       <MultipageContent

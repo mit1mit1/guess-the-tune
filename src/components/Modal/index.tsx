@@ -3,6 +3,7 @@ import modalStyles from "./Modal.module.scss";
 
 interface ModalProps {
   title: string;
+  size?: string;
   children?: React.ReactNode;
   visible: boolean;
   toggleVisible: () => void;
@@ -10,6 +11,7 @@ interface ModalProps {
 
 export const Modal: React.FC<ModalProps> = ({
   title,
+  size,
   children,
   visible,
   toggleVisible,
@@ -37,12 +39,17 @@ export const Modal: React.FC<ModalProps> = ({
         }
       >
         <button
-          className={[modalStyles.modalCloseButton].join(" ")}
+          className={modalStyles.modalCloseButton}
           onClick={toggleVisible}
         >
           x
         </button>
-        <div className={modalStyles.modalContent}>
+        <div
+          className={[
+            modalStyles.modalContent,
+            size === "medium" ? modalStyles.modalContentMedium : "",
+          ].join(" ")}
+        >
           <div className={modalStyles.modalHeader}>
             <h2 className={modalStyles.modalTitle}>{title}</h2>
           </div>

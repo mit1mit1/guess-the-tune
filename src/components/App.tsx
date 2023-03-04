@@ -169,13 +169,13 @@ const App = ({
           </> : <>
             <div>
               <button
-                className={styles.button + " " + styles.buttonPrimary}
+                className={styles.button + " " + styles.buttonPrimary + " " + styles.buttonLarge}
                 onClick={handleCheckGuess}
               >
                 Check Guesses
               </button>
               <button
-                className={styles.button}
+                className={styles.button + " " + styles.buttonLarge}
                 onClick={() => toggleInstructions()}
               >
                 Show Instructions
@@ -183,10 +183,10 @@ const App = ({
 
             </div>
             <div>
-              <button className={styles.button} onClick={() => { window.open(`${path}?composeMode=1`, "_blank") }}>
+              <button className={styles.button + " " + styles.buttonLarge} onClick={() => { window.open(`${path}?composeMode=1`, "_blank") }}>
                 Compose Mode
               </button>
-              <button className={styles.button} onClick={() => toggleSupportUs()}>
+              <button className={styles.button + " " + styles.buttonLarge} onClick={() => toggleSupportUs()}>
                 Support Us
               </button>
             </div>
