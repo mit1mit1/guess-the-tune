@@ -34,9 +34,9 @@ export const SupportUsModal = () => {
         <a
           target="_blank"
           rel="noreferrer"
-          href="https://mit1mit1.github.io/index/"
+          href="https://mit1mit1.github.io/"
         >
-          mit1mit1.github.io/index/
+          mit1mit1.github.io/
         </a> ;)
       </p>
     </Modal>
