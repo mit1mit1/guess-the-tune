@@ -1,6 +1,5 @@
 import { GameSong, TimeSignature } from "src/types";
 
-
 export const midlyOpusOne: GameSong = {
   bpm: 120,
   notes: [
@@ -11,13 +10,12 @@ export const midlyOpusOne: GameSong = {
     { pitch: "F5", durations: ["8n"] },
     { pitch: "G5", durations: ["4n"] },
     { pitch: "F5", durations: ["8n"] },
-    { pitch: "F#5", durations: ["4n"] }
+    { pitch: "F#5", durations: ["4n"] },
   ],
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
   name: "Midly Opus 1",
 };
-
 
 const simpsonsTheme: GameSong = {
   bpm: 172,
@@ -1092,7 +1090,7 @@ const canYouFeelTheLoveTonight: GameSong = {
     { pitch: "C5", durations: ["8n"] },
     { pitch: "A4", durations: ["4n."] },
   ],
-  name: "Can You Feel the Love Tonight"
+  name: "Can You Feel the Love Tonight",
 };
 
 const theOffice: GameSong = {
@@ -1109,7 +1107,7 @@ const theOffice: GameSong = {
     { pitch: "C5", durations: ["8n"] },
     { pitch: "D5", durations: ["2n"] },
   ],
-  name: "The Office Theme"
+  name: "The Office Theme",
 };
 
 const gavityFallsTheme: GameSong = {
@@ -1125,7 +1123,7 @@ const gavityFallsTheme: GameSong = {
     { pitch: "E5", durations: ["4n"] },
     { pitch: "G4", durations: ["1n"] },
   ],
-  name: "Gravity Falls Theme"
+  name: "Gravity Falls Theme",
 };
 
 const gravityFallsIntro: GameSong = {
@@ -1133,24 +1131,23 @@ const gravityFallsIntro: GameSong = {
   timeSignature: TimeSignature.FOURFOUR,
   readyForProduction: true,
   notes: [
-    { "pitch": "F4", durations: ["4n"] },
-    { "pitch": "F4", durations: ["4n"] },
-    { "pitch": "F4", durations: ["4n"] },
-    { "pitch": "A4", durations: ["4n"] },
-    { "pitch": "A4", durations: ["4n"] },
-    { "pitch": "G4", durations: ["4n"] },
-    { "pitch": "F4", durations: ["2n"], staccato: true },
-    { "pitch": "A4", durations: ["4n"] },
-    { "pitch": "A4", durations: ["4n"] },
-    { "pitch": "A4", durations: ["4n"] },
-    { "pitch": "G4", durations: ["4n"] },
-    { "pitch": "A4", durations: ["4n"] },
-    { "pitch": "G4", durations: ["4n"] },
-    { "pitch": "F4", durations: ["2n"], staccato: true }
+    { pitch: "F4", durations: ["4n"] },
+    { pitch: "F4", durations: ["4n"] },
+    { pitch: "F4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "G4", durations: ["4n"] },
+    { pitch: "F4", durations: ["2n"], staccato: true },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "G4", durations: ["4n"] },
+    { pitch: "A4", durations: ["4n"] },
+    { pitch: "G4", durations: ["4n"] },
+    { pitch: "F4", durations: ["2n"], staccato: true },
   ],
-  name: "Gravity Falls Intro"
-}
-
+  name: "Gravity Falls Intro",
+};
 
 export const gameSongs: Array<GameSong> = [
   gravityFallsIntro,

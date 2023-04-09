@@ -20,7 +20,7 @@ test("renders app, title displays, clicking buttons doesn't explode the app", as
   expect(await axe(view.baseElement)).toHaveNoViolations();
 
   const user = userEvent.setup();
-  await user.click(screen.getByRole('button', { name: /Check Guesses/i }))
-  await user.click(screen.getByRole('button', { name: /Support Us/i }))
-  await user.click(screen.getByRole('button', { name: /Show Instructions/i }))
+  await user.click(screen.getByRole("button", { name: /Check Guesses/i }));
+  await user.click(screen.getByRole("button", { name: /Support Us/i }));
+  await user.click(screen.getByRole("button", { name: /Show Instructions/i }));
 });

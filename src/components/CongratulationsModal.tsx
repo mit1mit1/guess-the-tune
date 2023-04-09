@@ -1,6 +1,4 @@
-import {
-  maxAvailableArchiveSongs,
-} from "src/constants/game";
+import { maxAvailableArchiveSongs } from "src/constants/game";
 import { useStore } from "src/store/gameStore";
 import { Modal } from "./Modal";
 import appStyles from "./App.module.scss";
@@ -27,15 +25,23 @@ export const CongratulationsModal = () => {
 
   const timeTaken = getTimePlayed();
   const guessCount = getTodaysTurns();
-  const score = getScore(timeTaken, guessCount, chosenSong.notes.length).toFixed(0);
-  const maxScore = getScore("1", "1", chosenSong.notes.length).toFixed(0)
-  const location = window.location.href
+  const score = getScore(
+    timeTaken,
+    guessCount,
+    chosenSong.notes.length
+  ).toFixed(0);
+  const maxScore = getScore("1", "1", chosenSong.notes.length).toFixed(0);
+  const location = window.location.href;
 
   const copyBrag = () => {
-    navigator.clipboard.writeText(`I guessed Musicle number ${chosenSongIndex} in ${getTodaysTurns() || turn} turns, ${getTimePlayed()} seconds.\nScore: ${score} / ${maxScore}.\n\n${location}`);
+    navigator.clipboard.writeText(
+      `I guessed Musicle number ${chosenSongIndex} in ${
+        getTodaysTurns() || turn
+      } turns, ${getTimePlayed()} seconds.\nScore: ${score} / ${maxScore}.\n\n${location}`
+    );
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500)
-  }
+    setTimeout(() => setCopied(false), 1500);
+  };
 
   return (
     <Modal
@@ -44,8 +50,9 @@ export const CongratulationsModal = () => {
       // closeText="Another!"
       toggleVisible={toggleCongrats}
     >
-      <p>Congratulations!! Guessed <i>{chosenSong.name}</i> in {getTodaysTurns() || turn} turns,{" "}
-        {getTimePlayed()} seconds.
+      <p>
+        Congratulations!! Guessed <i>{chosenSong.name}</i> in{" "}
+        {getTodaysTurns() || turn} turns, {getTimePlayed()} seconds.
       </p>
       <p>
         Score: {score} / {maxScore}
@@ -60,12 +67,10 @@ export const CongratulationsModal = () => {
       >
         Another!
       </button>
-      <button
-        className={appStyles.button}
-        onClick={copyBrag}
-      >
+      <button className={appStyles.button} onClick={copyBrag}>
         Copy Result
-      </button>{copied && "Copied!"}
+      </button>
+      {copied && "Copied!"}
     </Modal>
   );
 };

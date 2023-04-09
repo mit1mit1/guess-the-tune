@@ -7,14 +7,14 @@ export interface Note {
   rest?: boolean;
 }
 
-export type Pitch = typeof pitchNames[number];
+export type Pitch = (typeof pitchNames)[number];
 
-export type BaseDuration = typeof durationNames[number];
+export type BaseDuration = (typeof durationNames)[number];
 
 export type Duration = Array<BaseDuration>;
 
 export type ToneJSDuration = {
-  [key in typeof durationNames[number]]?: number;
+  [key in (typeof durationNames)[number]]?: number;
 };
 
 export const isPitch = (item: any): item is Pitch => {

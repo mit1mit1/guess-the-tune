@@ -5,12 +5,7 @@ import {
   INCORRECT_COLOR,
   INCORRECT_PITCH_COLOR,
 } from "src/constants";
-import {
-  AnswerStatus,
-  BaseSVGPathProps,
-  Note,
-  Pitch,
-} from "src/types";
+import { AnswerStatus, BaseSVGPathProps, Note, Pitch } from "src/types";
 import { useStore } from "src/store/gameStore";
 import svgStyles from "./SVGScore.module.scss";
 import { TrebleStave } from "./TrebleStave";
@@ -30,10 +25,14 @@ import { isGuessable } from "src/utils/note";
 import { arraysIdentical } from "src/utils/arrayCompare";
 import { chosenSong } from "src/constants/chosenSong";
 import { ExtraStaveLines } from "./ExtraStaveLines";
-import { getBaseXPosition, getBaseYPosition, noteSharpOffset, shouldAddSharp } from "src/utils/score";
+import {
+  getBaseXPosition,
+  getBaseYPosition,
+  noteSharpOffset,
+  shouldAddSharp,
+} from "src/utils/score";
 import { TimeSignaturePath } from "./TimeSignaturePath";
 import { SelectedNoteHighlight } from "./SelectedNoteHighlight";
-
 
 interface NotePathProps extends BaseSVGPathProps {
   note: Note;
@@ -152,11 +151,11 @@ const CurrentGuessPaths = ({
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-          AnswerStatus.GUESSEDCORRECT) {
-          if (arraysIdentical(
-            note.durations,
-            correctNotes[trueIndex].durations
-          )) {
+          AnswerStatus.GUESSEDCORRECT
+        ) {
+          if (
+            arraysIdentical(note.durations, correctNotes[trueIndex].durations)
+          ) {
             opacity = 0.8;
             color = CORRECT_COLOR;
           } else {
@@ -165,7 +164,7 @@ const CurrentGuessPaths = ({
         }
         if (
           answerStatuses[trueIndex].durationStatus ===
-          AnswerStatus.UNGUESSABLE &&
+            AnswerStatus.UNGUESSABLE &&
           answerStatuses[trueIndex].pitchStatus === AnswerStatus.UNGUESSABLE
         ) {
           opacity = 1;
@@ -363,7 +362,9 @@ export const SVGScore = ({ correctNotes }: { correctNotes: Array<Note> }) => {
         key={`score-svg-index-${i}`}
       >
         <TrebleStave SVGWidth={SVGWidth} />
-        {i === 0 && <TimeSignaturePath timeSignature={chosenSong.timeSignature} />}
+        {i === 0 && (
+          <TimeSignaturePath timeSignature={chosenSong.timeSignature} />
+        )}
         <SelectedNoteHighlight
           startIndex={startIndex}
           endIndex={endIndex}

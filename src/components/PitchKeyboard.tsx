@@ -56,7 +56,8 @@ const PitchKey = ({ pitch, status = "unknown" }: PitchKeyProps) => {
         xStart={300 + offset}
         color={color}
         handleClick={clickHandler}
-      /></>
+      />
+    </>
   );
 };
 

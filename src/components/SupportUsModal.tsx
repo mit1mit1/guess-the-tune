@@ -31,13 +31,10 @@ export const SupportUsModal = () => {
       </p>
       <p>
         If you want to see more of my work, check it out at{" "}
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href="https://mit1mit1.github.io/"
-        >
+        <a target="_blank" rel="noreferrer" href="https://mit1mit1.github.io/">
           mit1mit1.github.io/
-        </a> ;)
+        </a>{" "}
+        ;)
       </p>
     </Modal>
   );
