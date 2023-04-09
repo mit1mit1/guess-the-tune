@@ -1,12 +1,12 @@
-# Getting Started with Musicle
+# Guess the Tune
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a Wordle inspired clone designed to help introduce music theory in an intuitive way, using fun film and pop music many people will be familiar with.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a Wordle inspired game designed to help introduce music theory in an intuitive way, using fun film and pop music many people will be familiar with.
 
 Thanks to GitHub Pages, you can try it out at https://mit1mit1.github.io/guess-the-tune/index.html.
 
-## Available Scripts
+## Contributing
 
-In the project directory, you can run:
+After cloning the project and running `yarn` to install dependencies, you can run several scripts defined in `package.json`. The most important are:
 
 ### `yarn start`
 
@@ -18,5 +18,4 @@ You will also see any lint errors in the console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the test suite on the project. This project uses [Testing Library](https://testing-library.com) on the [Jest](https://jestjs.io/) framework.
